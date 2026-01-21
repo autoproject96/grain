@@ -5587,7 +5587,10 @@
             =/  =bone  bone.shut-packet
             ::  if the peer is responding, and our default core is %mesa,
             ::  enqueue %ahoy $plea
+            ::
             =?  peer-core  ?=(%mesa core.ames-state)
+              %-  %+  pe-trace  sun.veb
+                  |.("is online; send %ahoy $plea on bone={<bone>}")
               (pe-emit (poke-send-ahoy duct our her force=%.n))
             ::
             ?:  (is-halted bone)

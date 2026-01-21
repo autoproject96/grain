@@ -29,9 +29,9 @@
 ;<  ~  bind:m  (dojo ~bud "|mount %base")
 ;<  ~  bind:m  (dojo ~dev "|mount %base")
 ::
-;<  ~  bind:m  (dojo ~bud "|ames/verb %fin %for %ges %kay %msg %odd %rcv %rot %snd %sun")
+:: ;<  ~  bind:m  (dojo ~bud "|ames/verb %fin %for %ges %kay %msg %odd %rcv %rot %snd %sun")
 ;<  ~  bind:m  (dojo ~dev "|ames/verb %fin %for %ges %kay %msg %odd %rcv %rot %snd %sun")
-;<  ~  bind:m  (dojo ~bud "|pass [%g %spew %odd ~]")
+:: ;<  ~  bind:m  (dojo ~bud "|pass [%g %spew %odd ~]")
 ;<  ~  bind:m  (dojo ~dev "|pass [%g %spew %odd ~]")
 ::
 ;<  ~  bind:m  (send-hi ~bud ~dev)  ::  creates flow 4
@@ -64,9 +64,6 @@
 ;<  ~  bind:m  (dojo ~bud "|pass [%a %prod [~dev]~]")
 ::
 ;<  ~  bind:m  (copy-file ~dev /app/pub/hoon pub-agent)
-::  initial fact (1) that will go into the blocked queue
-::
-;<  ~  bind:m  (dojo ~dev ":pub send+`(list [path @])`[/hola 1]~")
 ::  start %goading the flow; sends remote %spur
 ::
 ;<  ~  bind:m  (dojo ~dev "|start %pub")
@@ -76,19 +73,22 @@
 ::   check that the %spur is sent
 ::
 ;<  ~  bind:m  (wait-for-spur ~bud ~dev %pub)
-:: XX we should scry into ~bud for no entries in the .pit
+:: XX we should scry into ~bud for no entries in the .pit (i.e. we have subscribed)
 ::
-:: ;<  ~  bind:m  (sleep ~s1)
+;<  ~  bind:m  (sleep ~s1)
+::  check that ~bud receives the gift
+::
+::  initial fact (1) that will go into the blocked queue
+::
+;<  ~  bind:m  (dojo ~dev ":pub send+`(list [path @])`[/hola 1]~")
+;<  *  bind:m
+  (wait-for-fact rcv=~bud %noun /aqua/watch/sub (gate ,(list [path @]) [/hola 1]~))
 ::  subscribe of ~dev for %pub gifts
 ::
 =/  =aqua-event:aquarium
   :+  %event  ~dev
   [/g/aqua/watch/pub %deal [~dev ~dev /] %pub %watch /subs]
 ;<  ~      bind:m  (send-events aqua-event ~)
-::  check that ~bud receives the gift
-::
-;<  *  bind:m
-  (wait-for-fact rcv=~bud %noun /aqua/watch/sub (gate ,(list [path @]) [/hola 1]~))
 ::
 ::  now we are going to give the second (2) fact and wait for it
 ::

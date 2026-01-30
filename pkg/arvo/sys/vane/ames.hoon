@@ -614,10 +614,10 @@
     ::
     +$  dead-timer        [=duct =wire date=@da]
     ::
-    +$  azimuth-state-25  [=symmetric-key =life =rift =pass sponsor=ship]
+    +$  azimuth-state-29  [=symmetric-key =life =rift =pass sponsor=ship]
     ::
-    ++  azimuth-state-25-to-28
-      |=  azimuth-state-25
+    ++  azimuth-state-29-to-30
+      |=  azimuth-state-29
       ^-  azimuth-state
       :*  symmetric-key
           life
@@ -682,7 +682,7 @@
     ::
     +$  peer-state-6
       $+  peer-state-6
-      $:  azimuth-state-25
+      $:  azimuth-state-29
           route=(unit [direct=? =lane])
           =qos
           =ossuary
@@ -741,7 +741,7 @@
     ::
     +$  peer-state-7
       $+  peer-state-7
-      $:  azimuth-state-25
+      $:  azimuth-state-29
           route=(unit [direct=? =lane])
           =qos
           =ossuary
@@ -792,7 +792,7 @@
     ::
     +$  peer-state-12
       $+  peer-state-12
-      $:  azimuth-state-25
+      $:  azimuth-state-29
           route=(unit [direct=? =lane])
           =qos
           =ossuary
@@ -1253,7 +1253,7 @@
     ::
     +$  peer-state-16
       $+  peer-state-16
-      $:  azimuth-state-25
+      $:  azimuth-state-29
           route=(unit [direct=? =lane])
           =qos
           =ossuary
@@ -1493,7 +1493,7 @@
       ==
     ::
     +$  peer-state-21
-      $:  azimuth-state-25
+      $:  azimuth-state-29
           route=(unit [direct=? =lane])
           =qos
           =ossuary
@@ -1546,7 +1546,7 @@
     ::
     +$  peer-state-26-27
       $+  peer-state-26-27
-      $:  azimuth-state-25
+      $:  azimuth-state-29
           route=(unit [direct=? =lane])
           =qos
           =ossuary
@@ -1833,6 +1833,74 @@
     ::
     +|  %state-migrations
     ::
+    +$  axle-28-29
+      $:  peers=(map ship ship-state-28-29)
+          =unix=duct  ::  [//ames/0v0 ~]
+          =life
+          =rift
+          =bug
+          snub=[form=?(%allow %deny) ships=(set ship)]
+          cong=[msg=_5 mem=_100.000]
+          $=  dead
+          $:  flow=[%flow (unit dead-timer)]
+              chum=[%chum (unit dead-timer)]
+              cork=[%cork (unit dead-timer)]
+              rots=[%rots (unit dead-timer)]
+          ==
+          ::
+          =server=chain
+          priv=ring
+          chums=(map ship chum-state-28-29)
+          core=_`?(%ames %mesa)`%ames
+      ==
+    ::
+    +$  ship-state-28-29
+      $+  ship-state
+      $%  [%alien alien-agenda]
+          [%known peer-state-28-29]
+      ==
+    ::
+    +$  peer-state-28-29
+      $+  peer-state
+      $:  $:  =symmetric-key
+              =life
+              =rift
+              =pass
+              sponsor=ship
+          ==
+          route=(unit [direct=? =lane])  ::  XX (list)
+          =qos
+          =ossuary
+          snd=(map bone message-pump-state)
+          rcv=(map bone message-sink-state)
+          nax=(set [=bone =message-num])
+          closing=(set bone)
+          corked=(set bone)
+          keens=(map path keen-state)
+          =chain
+          tip=(jug =user=path [duct =ames=path])
+          halt=(set bone)
+      ==
+    ::
+    +$  chum-state-28-29
+      $+  chum-state
+      $%  [%known fren-state-28-29]
+          [%alien ovni-state]
+      ==
+    ::
+    +$  fren-state-28-29
+      $:  azimuth-state-29
+          lane=(unit [hop=@ =lane:pact])
+          =qos
+          corked=(set side)
+          =ossuary
+          flows=(map side flow-state)
+          pit=(map path request-state)
+          =client=chain
+          tip=(jug =user=path [duct =ames=path])
+          weir=(jug side [tag=term data=*])
+      ==
+    ::
     +$  axle-26-27
       $:  peers=(map ship ship-state-26-27)
           =unix=duct  ::  [//ames/0v0 ~]
@@ -1861,7 +1929,7 @@
       ==
     ::
     +$  fren-state-26-27
-      $:  azimuth-state-25
+      $:  azimuth-state-29
           lane=(unit [hop=@ =lane:pact])
           =qos
           corked=(set side)
@@ -1913,7 +1981,7 @@
       ==
     ::
     +$  fren-state-25
-      $:  azimuth-state-25
+      $:  azimuth-state-29
           lane=(unit [hop=@ =lane:pact])
           =qos
           corked=(set side)
@@ -1959,7 +2027,7 @@
       ==
     ::
     +$  fren-state-24
-      $:  azimuth-state-25
+      $:  azimuth-state-29
           lane=(unit lane:pact)
           =qos
           corked=(set side)
@@ -2005,7 +2073,7 @@
       ==
     ::
     +$  fren-state-23
-      $:  azimuth-state-25
+      $:  azimuth-state-29
           lane=(unit lane:pact)
           =qos
           corked=(set side)
@@ -2403,8 +2471,9 @@
             [%25 axle-25]
             [%26 axle-26-27]
             [%27 axle-26-27]
-            [%28 axle]
-            [%29 axle]
+            [%28 axle-28-29]
+            [%29 axle-28-29]
+            [%30 axle]
         ==
     ::
     ::
@@ -2638,9 +2707,13 @@
               ==
               $:  %28                            :: add halted flows
                   ?(%adult %larva)               ::
-                  state=axle
+                  state=axle-28-29
               ==
               $:  %29                            :: clean up corked flows
+                  ?(%adult %larva)               ::
+                  state=axle-28-29
+              ==
+              $:  %30                            :: change key format
                   ?(%adult %larva)               ::
                   state=axle
           ==  ==
@@ -2933,6 +3006,11 @@
         larval-gate
       ::
           [%29 *]
+        =.  cached-state  `[%29 state.old]
+        ~>  %slog.1^leaf/"ames: larva %29 reload"
+        larval-gate
+      ::
+          [%30 *]
         ?-  +<.old
           %larva  larval-gate
           %adult  (load:adult-core state.old)
@@ -3011,7 +3089,7 @@
       |^  ^+  [moz larval-core]
       ?~  cached-state  [~ larval-core]
       =*  old  u.cached-state
-      ?:  ?=(%29 -.old)
+      ?:  ?=(%30 -.old)
         ::  no state migrations left; update state, clear cache, and exit
         ::
         [(flop moz) larval-core(ames-state.adult-gate +.old, cached-state ~)]
@@ -3105,50 +3183,53 @@
         ==
       ?:  ?=(%27 -.old)
         $(cached-state `28+(state-27-to-28 +.old))
-      ~>  %slog.0^leaf/"ames: clean up corked flows"
-      %_    $
-          -.u.cached-state  %29
-      ::
-          moz
-        ^-  (list move)
-        %-  ~(rep by chums.+.old)
-        |=  [[=ship per-sat=chum-state] moz=_moz]
-        ?.  ?=([%known *] per-sat)
-          moz
-        =/  ev-core
-          %.  [~[//cork-peek] ship +.per-sat]
-          %*(ev-abed ev:mesa:adult-core ames-state +.old)
-        %-  ~(rep by pit.per-sat)
-        |=  [[=path req=request-state] m=_moz]
-        ?.  ?=(^ pay.req)  m
-        %-  ~(rep by for.req)
-        |=  [[hen=duct *] m=_m]
-        ::  inspect the duct to find %mesa wires for %pokes
+      ?:  ?=(%28 -.old)
+        ~>  %slog.0^leaf/"ames: clean up corked flows"
+        %_    $
+            -.u.cached-state  %29
         ::
-        ?.  ?=([[%ames %mesa %flow *] *] hen)
-          m
-        =>  .(i.hen `(pole knot)`i.hen)
-        ?.  ?=([@ @ @ %ack %for h=@ r=@ bone=@ ~] i.hen)
-          m
-        ?~  bone=(slaw %ud bone.i.hen)
-          m
-        =+  fo-core=(fo-abed:fo:ev-core u.bone %for)
-        ::  if the flow is in closing, we are the forward side, and we are
-        ::  resending the %cork $plea, the other side could have corked the
-        ::  flow so we try to peek for the %corked flow. as soon as either the
-        ::  %ack for the %cork $plea, or the %gone $page for the peek arrive,
-        ::  fo-abel will delete the flow and clean up any outstanding peeks
-        ::
-        ?.  ?&  closing.state.fo-core
-                !pending-ack.rcv.fo-core
-                =(1 (wyt:fo-mop:fo-core loads.snd.fo-core))
-                ?~  first=(pry:fo-mop:fo-core loads.snd.fo-core)
-                  |
-                ?=([%plea %$ [%flow ~] %cork ~] val.u.first)
-            ==
-          m
-        (weld m moves:fo-peek-cork:fo-core)
-      ==
+            moz
+          ^-  (list move)
+          =/  old-30  (state-29-to-30 +.old)
+          %-  ~(rep by chums.old-30)
+          |=  [[=ship per-sat=chum-state] moz=_moz]
+          ?.  ?=([%known *] per-sat)
+            moz
+          =/  ev-core
+            %.  [~[//cork-peek] ship +.per-sat]
+            %*(ev-abed ev:mesa:adult-core ames-state old-30)
+          %-  ~(rep by pit.per-sat)
+          |=  [[=path req=request-state] m=_moz]
+          ?.  ?=(^ pay.req)  m
+          %-  ~(rep by for.req)
+          |=  [[hen=duct *] m=_m]
+          ::  inspect the duct to find %mesa wires for %pokes
+          ::
+          ?.  ?=([[%ames %mesa %flow *] *] hen)
+            m
+          =>  .(i.hen `(pole knot)`i.hen)
+          ?.  ?=([@ @ @ %ack %for h=@ r=@ bone=@ ~] i.hen)
+            m
+          ?~  bone=(slaw %ud bone.i.hen)
+            m
+          =+  fo-core=(fo-abed:fo:ev-core u.bone %for)
+          ::  if the flow is in closing, we are the forward side, and we are
+          ::  resending the %cork $plea, the other side could have corked the
+          ::  flow so we try to peek for the %corked flow. as soon as either the
+          ::  %ack for the %cork $plea, or the %gone $page for the peek arrive,
+          ::  fo-abel will delete the flow and clean up any outstanding peeks
+          ::
+          ?.  ?&  closing.state.fo-core
+                  !pending-ack.rcv.fo-core
+                  =(1 (wyt:fo-mop:fo-core loads.snd.fo-core))
+                  ?~  first=(pry:fo-mop:fo-core loads.snd.fo-core)
+                    |
+                  ?=([%plea %$ [%flow ~] %cork ~] val.u.first)
+              ==
+            m
+          (weld m moves:fo-peek-cork:fo-core)
+        ==
+      $(cached-state `30+(state-29-to-30 +.old))
       ::
       ++  our-beam  `beam`[[our %rift %da now] /(scot %p our)]
       ++  state-4-to-5
@@ -3641,32 +3722,24 @@
       ::
       ++  state-27-to-28
         |=  old=axle-26-27
-        ^-  axle
+        ^-  axle-28-29
         ~>  %slog.0^leaf/"ames: migrating from state %27 to %28"
         %=    old
-            priv
-          =/  cic  (nol:nu:cric:crypto priv.old)
-          [saf:ex:cic priv.old pub:ex:cic]
-        ::
             peers
           %-  ~(run by peers.old)
           |=  s=ship-state-26-27
-          ^-  ship-state
+          ^-  ship-state-28-29
           ?:  ?=(%alien -.s)  s
           %=  s
-            +<    (azimuth-state-25-to-28 +<.s)
-            tip   [tip.s halt=~]
+            tip  [tip.s halt=~]
           ==
         ::
             chums
           %-  ~(run by chums.old)
           |=  c=chum-state-26-27
-          ^-  chum-state
+          ^-  chum-state-28-29
           ?:  ?=(%alien -.c)  c
           %=  c
-              +<
-            (azimuth-state-25-to-28 +<.c)
-          ::
               flows
             %-  ~(run by flows.c)
             |=  flow=flow-state-26-27
@@ -3680,6 +3753,33 @@
           ==
         ==
       ::
+      ++  state-29-to-30
+        |=  old=axle-28-29
+        ^-  axle
+        ~>  %slog.0^leaf/"ames: migrating from state %29 to %30"
+        %=    old
+            priv
+          =/  cic  (nol:nu:cric:crypto priv.old)
+          [saf:ex:cic priv.old pub:ex:cic]
+        ::
+            peers
+          %-  ~(run by peers.old)
+          |=  s=ship-state-28-29
+          ^-  ship-state
+          ?:  ?=(%alien -.s)  s
+          %=  s
+            +<  (azimuth-state-29-to-30 +<.s)
+          ==
+        ::
+            chums
+          %-  ~(run by chums.old)
+          |=  c=chum-state-28-29
+          ^-  chum-state
+          ?:  ?=(%alien -.c)  c
+          %=  c
+            +<  (azimuth-state-29-to-30 +<.c)
+          ==
+        ==
       --
     ::
     --

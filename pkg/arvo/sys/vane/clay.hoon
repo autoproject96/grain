@@ -446,14 +446,6 @@
   ::
   [deletes changes]
 ::
-++  pour-to-mist
-  |=  =pour
-  ^-  mist
-  ?+    -.pour  pour
-      %vale  [%vale path.pour]
-      %arch  [%arch path.pour]
-  ==
-::
 ++  fell-to-page
   |=  =fell
   ^-  (unit page)
@@ -5057,6 +5049,22 @@
         $~  [*pour ~]
         $:  =pour
             deps=(set leak)
+        ==
+      +$  pour
+        $%  [%file =path]
+            [%nave =mark]
+            [%dais =mark]
+            [%cast =mars]
+            [%tube =mars]
+            [%vale =path =lobe]
+            [%arch =path =(map path lobe)]
+        ==
+      +$  soak
+        $%  [%cage =cage]
+            [%vase =vase]
+            [%arch dir=(map @ta vase)]
+            [%dais =dais]
+            [%tube =tube]
         ==
       ::
       +$  raft-15

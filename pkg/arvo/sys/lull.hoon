@@ -2575,17 +2575,6 @@
   +$  norm  (axal ?)                                    ::  tombstone policy
   +$  open  $-(path vase)                               ::  get prelude
   +$  page  ^page                                       ::  export for compat
-  +$  pour                                              ::  ford build w/content
-    $%  [%file =path]
-        [%nave =mark]
-        [%dais =mark]
-        [%cast =mars]
-        [%tube =mars]
-        ::  leafs
-        ::
-        [%vale =path =lobe]
-        [%arch =path =(map path lobe)]
-    ==
   +$  rang                                              ::  repository
     $+  rang
     $:  hut=(map tako yaki)                             ::  changes
@@ -2621,13 +2610,6 @@
   +$  rule  [mod=?(%black %white) who=(set whom)]       ::  node permission
   +$  rump  [p=care q=case r=@tas s=path]               ::  relative path
   +$  saba  [p=ship q=@tas r=moar s=dome]               ::  patch+merge
-  +$  soak                                              ::  ford result
-    $%  [%cage =cage]
-        [%vase =vase]
-        [%arch dir=(map @ta vase)]
-        [%dais =dais]
-        [%tube =tube]
-    ==
   +$  soba  (list [p=path q=miso])                      ::  delta
   +$  suba  (list [p=path q=misu])                      ::  delta
   +$  tako  @uvI                                        ::  yaki ref
@@ -2767,18 +2749,6 @@
         %^  cat  7  (sham [%yaki (roll p add) q t])
         (sham [%tako (roll p add) q t])
     [p q has t]
-  ::
-  ::  Ford build without content.
-  ::
-  +$  mist
-    $%  [%file =path]
-        [%nave =mark]
-        [%dais =mark]
-        [%cast =mars]
-        [%tube =mars]
-        [%vale =path]
-        [%arch =path]
-    ==
   ::
   ::  $pile: preprocessed hoon source file
   ::

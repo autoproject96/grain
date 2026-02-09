@@ -238,7 +238,7 @@
     ?>  ?=([her=@ ~] way)
     (slav %p i.way)
   ?^  error
-    ~&  >   %local-migration-failed
+    ~&  >>>   %local-migration-failed
     abet
   ~&  >   %local-migration-worked
   abet:(emit %pass [%helm %ahoy way] %arvo %a %plea her %$ path %ahoy ~)

@@ -4001,10 +4001,11 @@
               ::
                 %mate  ?.  dry.task  (on-mate:event-core +.task)
                        ?^  +<.task
-                         ~|  %dry-migration-failed^u.+<.task
-                         ?>  (on-mate-test:event-core u.+<.task)
-                         ~&  >  %dry-migration-worked^u.+<.task
-                         event-core
+                         %-  emit:event-core
+                         :^  duct  %give  %done
+                         ?:  (on-mate-test:event-core u.+<.task)
+                           ~
+                         [~ %dry-migration-failed ~]
                        ~&  >>
                         "test migration of {<~(wyt by peers.ames-state)>} peers"
                        =/  [failed=@ test=?]

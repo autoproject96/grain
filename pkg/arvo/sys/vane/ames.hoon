@@ -4821,9 +4821,8 @@
             ::  namespace that they have migrated us?
             ::  XX  requires a namespace for migrated peers?
             ::
-            :: %-  %^  ev-trace  sun.veb  ship.deep
-            ::     |.("migrating to |mesa")
-            ~&  >>  "migrating to |mesa"
+            %-  %^  ev-trace  sun.veb  ship.deep
+                |.("migrating to |mesa")
             ::  before migrating check that we can migrate this peer without
             ::  crashing. if so, we will nack the %ahoy $plea.
             ::
@@ -5176,11 +5175,7 @@
           |=  [ship=(unit ship) dry=?]
           |^  ^+  event-core
           =;  updated-core=_event-core
-            ?:  dry
-              ~&  >  test-local-migration-worked/ship
-              event-core
-            ~&  >  local-migration-worked/ship
-            updated-core
+            ?:(dry event-core updated-core)
           ::
           ?~  ship
             (~(rep by peers.ames-state) migrate-peer)
@@ -5812,7 +5807,6 @@
               ==
             =^  poke-moves  fren        (make-flows fren)
             =^  peek-moves  ames-state  (make-peeks fren)
-            ~&  >  %migration-done^her
             ::  XX  needed?  peek/poke-moves will have %send moves already
             ::
             ::  enqueue a %prod to start sending unsent messages, after
@@ -5861,8 +5855,7 @@
                 ::
                 ?:  =(%2 (mod bone 4))
                   ::  XX this shouldn't exist
-                  ~?  >>>  odd.veb.bug.ames-state
-                    weird-naxp-ack-bone/bone=bone
+                  ~&  >>>  weird-naxp-ack-bone/bone=bone
                   moves^fren
                 =/  naxp-bone=?    =(%3 (mod bone 4))
                 =/  original-bone  bone
@@ -6048,7 +6041,7 @@
                   ::  naxplanation of this message to increase current,
                   ::
                   ::  XX this assertion exists to catch any possible flow in a
-                  ::  weird state that we have not found a explanation and will
+                  ::  weird state that we have not found an explanation and will
                   ::  requiere further inspecting
                   ::
                   ?>  ?&  (~(has by queued-message-acks.pump) +(current.pump))
@@ -6083,7 +6076,7 @@
                 ::
                 ::  live packets in packet-pump-state are reconstructed; the
                 ::  receiver will droppped any partially received fragments
-                ::  so the full message will need to be resent.
+                ::  so the full message will need to be resend.
                 ::
                 =/  live=(list [=message-num message])
                   =+  queue=((on ,@ud message-blob) lte)
@@ -7452,9 +7445,8 @@
                     ::
                     ?>  (on-mate-test her)
                     ::
-                    :: %-  %^  ev-trace  sun.veb  her
-                    ::     |.("migrating {<her>} test succeded")
-                    ~&  >  "testing dry migration {<her>} succeded"
+                    %-  %^  ev-trace  sun.veb  her
+                        |.("migrating {<her>} test succeded")
                     ::
                     (done ok=%.y)
                 =.  peer-core
@@ -12647,6 +12639,7 @@
       =/  ship-state  (find-peer ship.spar)
       ::
       ?:  ?=(%ames -.ship-state)
+        ~&  %ames
         (call:am-core hen ~ %soft ?:(all %wham %yawn) spar)
       =^  moves  ames-state
         =<  ev-abet
@@ -13234,6 +13227,10 @@
 ++  load
   |=  state=axle
   ~>  %spin.['load/ames']
+  :: =.  peers.state
+  ::   (~(del by peers.state) ~nec)
+  :: =.  chums.state
+  ::   (~(del by chums.state) ~nec)
   vane-gate(ames-state state)
 ::  +scry: dereference namespace
 ::

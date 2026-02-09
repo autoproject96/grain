@@ -243,6 +243,14 @@
   ~&  >   %local-migration-worked
   abet:(emit %pass [%helm %ahoy way] %arvo %a %plea her %$ path %ahoy ~)
 ::
+++  take-migrate
+  |=  [way=wire error=(unit error:ames)]
+  ?^  error
+    ~&  >>>   %local-migration-failed
+    abet
+  ~&  >   %local-migration-worked
+  abet
+::
 ++  take-ahoy
   |=  [way=wire error=(unit error:ames)]
   ?:  ?=([%test @ *] way)
@@ -740,6 +748,8 @@
     [%ahoy *]         %+  take-ahoy  t.wire
                       ?>(?=(%done +<.sign-arvo) +>.sign-arvo)
     [%mate *]         %+  take-test-mate  t.wire
+                      ?>(?=(%done +<.sign-arvo) +>.sign-arvo)
+    [%migrate *]      %+  take-migrate  t.wire
                       ?>(?=(%done +<.sign-arvo) +>.sign-arvo)
     [%rege *]         %+  take-rege  t.wire
                       ?>(?=(%done +<.sign-arvo) +>.sign-arvo)

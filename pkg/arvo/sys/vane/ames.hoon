@@ -11136,11 +11136,7 @@
           |=  [ship=(unit ship) dry=?]
           |^  ^+  sy-core
           =;  updated-core=_sy-core
-              ?:  dry
-                ~&  >  test-local-regression-worked/ship
-                sy-core
-              ~&  >  local-regression-worked/ship
-              updated-core
+              ?:(dry sy-core updated-core)
           ::
           ?~  ship
             (~(rep by chums.ames-state) regress-chum)

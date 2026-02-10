@@ -3979,8 +3979,8 @@
                 ?+  -.task
                     (on-crud:event-core -.task tang.u.dud)
                   %hear  (on-hear:event-core lane.task blob.task dud)
-                  %mate  %-  emit:event-core duct
-                         [%give %done ~ %migration-failed tang.u.dud]
+                  %mate  %-  emit:event-core
+                         [duct %give %done [~ %migration-failed tang.u.dud]]
                 ==
               ::
               ?+  -.task  !!  ::  XX mesa tasks; no-op?

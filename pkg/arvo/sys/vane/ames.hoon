@@ -3979,6 +3979,8 @@
                 ?+  -.task
                     (on-crud:event-core -.task tang.u.dud)
                   %hear  (on-hear:event-core lane.task blob.task dud)
+                  %mate  %-  emit:event-core
+                         [duct %give %done [~ %migration-failed tang.u.dud]]
                 ==
               ::
               ?+  -.task  !!  ::  XX mesa tasks; no-op?
@@ -3999,7 +4001,8 @@
                 %wham  (on-cancel-scry:event-core & +.task)
                 %whey  !!  :: XX TODO
               ::
-                %mate  ?.  dry.task  (on-mate:event-core +.task)
+                %mate  ?.  dry.task
+                         (emit:(on-mate:event-core +.task) duct %give %done ~)
                        ?^  +<.task
                          %-  emit:event-core
                          :^  duct  %give  %done
@@ -12635,7 +12638,6 @@
       =/  ship-state  (find-peer ship.spar)
       ::
       ?:  ?=(%ames -.ship-state)
-        ~&  %ames
         (call:am-core hen ~ %soft ?:(all %wham %yawn) spar)
       =^  moves  ames-state
         =<  ev-abet

@@ -12638,7 +12638,6 @@
       =/  ship-state  (find-peer ship.spar)
       ::
       ?:  ?=(%ames -.ship-state)
-        ~&  %ames
         (call:am-core hen ~ %soft ?:(all %wham %yawn) spar)
       =^  moves  ames-state
         =<  ev-abet

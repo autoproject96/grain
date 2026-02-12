@@ -9896,15 +9896,17 @@
                 ::
                 ~
               ?:  ?&  (lth seq last-acked.rcv)
-                      (gth (sub last-acked.rcv seq) 10)
+                      (gte (sub last-acked.rcv seq) 10)
                   ==
-                :: if seq > gth 10, refuse to answer
+                :: if seq >= 10 behind, refuse to answer
                 ::
                 ~
-              ?.  =(seq last-acked.rcv)
-                ::  refuse to answer to future acks
+              ?.  (lte seq last-acked.rcv)
+                ::  future: not yet acked
                 ::
                 ~
+              ::  acked: within window, past line.state, not in nax.rcv
+              ::
               `ack/error=%.n
             ::
             ==
@@ -10047,7 +10049,7 @@
                 pending-ack.rcv  %.n
               ==
             =?  nax.rcv  ?=(^ error)
-              =?  nax.rcv  (gth seq 10)
+              =?  nax.rcv  (gth seq 10)  ::  seq starts at 1
                 ::  only keep the last 10 nacks
                 ::
                 (~(del by nax.rcv) (sub seq 10))

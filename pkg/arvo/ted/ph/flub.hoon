@@ -15,7 +15,7 @@
 ^-  thread:spider
 |=  vase
 =/  m  (strand ,vase)
-=/  cores=(list ?(%mesa %ames))  ~[%ames]
+=/  cores=(list ?(%mesa %ames))  ~[%mesa]
 |-  ^-  form:m
 ?~  cores  (pure:m *vase)
 ;<  ~  bind:m  start-simple
@@ -73,9 +73,10 @@
 ::   check that the %spur is sent
 ::
 ;<  ~  bind:m  (wait-for-spur ~bud ~dev %pub)
-:: XX we should scry into ~bud for no entries in the .pit (i.e. we have subscribed)
+::  XX  we should scry into ~bud for no entries in the .pit (i.e. we have subscribed)
+::  XX  check for a packet from ~dev to ~bud (i.e. %watch-ack)
 ::
-;<  ~  bind:m  (sleep ~s1)
+;<  ~  bind:m  (wait-for-pac from=~dev to=~bud)
 ::  check that ~bud receives the gift
 ::
 ::  initial fact (1) that will go into the blocked queue
@@ -119,6 +120,8 @@
 ::
 ::  leave the subscription and resubscribe (will make a new subscription flow)
 ::
+~&  >>  "leave the subscription and resubscribe"
+::
 ;<  ~  bind:m  (dojo ~bud ":sub [%bye ~dev %pub]")
 ;<  ~  bind:m  (dojo ~bud ":sub [%sub ~dev %pub]")
 ::  suspend the agent before the %leave %watch are acknowledged
@@ -128,6 +131,7 @@
 ::    (the publisher will reuse flow number 8 so the facts should
 ::     trigger the stale %fact case, since we have increased the nonce)
 ::
+~&  >>  "sending 3 facts"
 ;<  ~  bind:m  (dojo ~dev ":pub send+`(list [path @])`[/new 1]~")
 ;<  ~  bind:m  (dojo ~dev ":pub send+`(list [path @])`[/new 2]~")
 ;<  ~  bind:m  (dojo ~dev ":pub send+`(list [path @])`[/new 3]~")
@@ -135,12 +139,18 @@
 ::  revive subscriber agent
 ::
 ;<  ~  bind:m  (dojo ~bud "|rein %base [%.y %sub]")
-::  check that flow 8 is corked on both (first on the publisher)
+::  check that flow 8 is corked on both
+::  (first on the publisher if %ames)
 ::
-;<  ~  bind:m  (wait-for-cork ~dev ~bud flow=9)  :: XX for |mesa this would be [8 %bak]
+~&  >>  "check that flow 8 is corked"
+;<  ~  bind:m
+  %^  wait-for-cork  ~dev  ~bud
+  ?:  ?=(%ames i.cores)  &+9
+  |+[8 %bak]
 ;<  ~  bind:m  (dojo ~bud "|rein %base [%.n %sub]")
 ::  send facts again
 ::
+~&  >>  "sending 3 more facts"
 ;<  ~  bind:m  (dojo ~dev ":pub send+`(list [path @])`[/new 1]~")
 ;<  ~  bind:m  (dojo ~dev ":pub send+`(list [path @])`[/new 2]~")
 ;<  ~  bind:m  (dojo ~dev ":pub send+`(list [path @])`[/new 3]~")

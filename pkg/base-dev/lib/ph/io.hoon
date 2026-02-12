@@ -317,6 +317,25 @@
   ?:  (~(has by u.halts) dap) ::  XX check .her as well
     loop
   (pure:m ~)
+::
+++  wait-for-pac
+  |=  [our=ship to=ship]
+  =/  m  (strand ,~)
+  ^-  form:m
+  ~&  >  "waiting for ack: {<[from=our to=to]>}"
+  |-  ^-  form:m
+  =*  loop  $
+  ;<  [from=ship =unix-effect]  bind:m  take-unix-effect
+  ?.  =(our from)
+    loop
+  ::  only %send or %push effects
+  ::
+  ?.  ?=(?(%send %push) -.q.unix-effect)
+    loop
+  ::  XX  check that this is an %ack?
+  ::  XX  check that this is for .to?
+  ::
+  (pure:m ~)
 ::  Send "|hi" from one ship to another
 ::
 ++  send-hi
@@ -352,7 +371,7 @@
   (pure:m noun.unto.q.unix-effect)
 ::
 ++  wait-for-cork
-  |=  [our=ship her=ship flow=bone:ames]
+  |=  [our=ship her=ship flow=(each bone:ames side:ames)]
   =/  m  (strand ,~)
   ^-  form:m
   ;<  =bowl:spider  bind:m  get-bowl
@@ -372,7 +391,10 @@
     loop
   =/  aqua-pax
     %+  weld  /i/(scot %p our)/ax/(scot %p our)//(scot %da now)
-    /corked/(scot %p her)/(scot %ud flow)/noun
+    ?:  ?=(%& -.flow)
+      /corked/(scot %p her)/(scot %ud +.flow)/noun
+    =/  [=bone:ames =dire:ames]  +.flow
+    /corked/(scot %p her)/[dire]/(scot %ud bone)/noun
   =+  ;;  corked=(unit ?)  (scry-aqua:util noun our.bowl now aqua-pax)
   ?~  corked  loop
   ?.  u.corked  ::  XX check .her as well

@@ -8936,7 +8936,11 @@
               ?:  (fo-message-is-acked:fo-core mess.pok)
                 ::  don't peek if the message havs been already acked
                 ::
-                %-  %+  ev-tace  odd.veb.bug.ames-state
+                ?:  (gte (sub last-acked.rcv:fo-core mess.pok) 10)
+                  %-  %+  ev-tace  odd.veb.bug.ames-state
+                      |.("poke [bon, seq]={<[bone mess]:pok>} outside of window")
+                  ev-core
+                %-  %+  ev-tace  rcv.veb.bug.ames-state
                     |.("poke [bon, seq]={<[bone mess]:pok>} already acked")
                 ::
                 fo-abet:(fo-send-ack:fo-core mess.pok)
@@ -9636,16 +9640,9 @@
             |=  poke=mesa-message
             ?&(closing.state !=(poke [%plea %$ /flow %cork ~]))
           ::
-          ++  fo-corked     (~(has in corked.per) side)
-          ++  fo-flip-dire  ?:(=(dire %for) %bak %for):
+          ++  fo-corked            (~(has in corked.per) side)
+          ++  fo-flip-dire         ?:(=(dire %for) %bak %for)
           ++  fo-message-is-acked  |=(seq=@ud (lte seq last-acked.rcv))
-          ++  fo-message-not-in-range
-            |=  seq=@ud
-            ^-  ?
-            ?&  (gth seq +(last-acked.rcv))           ::  future ack
-                ?|  (lte seq last-acked.rcv)
-                    (gth (sub last-acked.rcv seq) 10) ::  too far ack
-            ==  ==
           ::
           +|  %builders
           ::

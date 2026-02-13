@@ -9763,7 +9763,7 @@
                 ::
                 (fo-send-ack seq)
               ?:  (gth seq +(last-acked.rcv))
-                ::  no-op if future message
+                ::  we only take one message at a time; no-op if future message
                 ::
                 %-  %+  ev-tace  odd.veb.bug.ames-state
                     |.("skip sink; future ack {<flow-state>}")
@@ -9773,10 +9773,15 @@
                 ::  a %boon sinks on the forward receiver (from a backward flow)
                 ::
                 %.([+.gage ok] ?-(dire %bak fo-sink-plea, %for fo-sink-boon))
-              ?:  (gth (sub last-acked.rcv seq) 10)
+              ::  if this is a resend; check ack window
+              ::
+              ?:  (gte (sub last-acked.rcv seq) 10)
                 %-  %+  ev-tace  odd.veb.bug.ames-state
                     |.("skip sink; {<flow-state>}")
                 fo-core
+              ::  we scry into our own namespace to produce the %ack by using
+              ::  +fo-peek that also checks for the 10-message ack window.
+              ::
               %-  %+  ev-tace  snd.veb.bug.ames-state
                   |.
                   %+  weld  "send dupe ack {<flow-state>} for "

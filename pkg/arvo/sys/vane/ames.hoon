@@ -8231,25 +8231,41 @@
               ~  ::  %alien or missing
             ?+    qery.tyl  ~
                 ~          ~ :: XX implement full meta
-                  [%clos ~]
-                ?.  (~(has in closing.u.per) u.bone)  ~
-                ``message/!>(clos/&)
               ::
                   [%cork ~]
                 ?.  (~(has in corked.u.per) u.bone)  ~
                 ``message/!>(cork/&)
               ::
-                  [%next ~]
+                  [%sent seq=@ ~]       ::  has seq been sent?
+                ?~  seq=(slaw %ud seq.qery.tyl)
+                  [~ ~]
                 ?~  pump=(~(get by snd.u.per) u.bone)  ~
-                ``message/!>(next/next.u.pump)
+                ?.  (lth u.seq next.u.pump)
+                  ~
+                ::
+                ``message/!>(sent/&)
               ::
-                  [%curr ~]
-                ?~  pump=(~(get by snd.u.per) u.bone)  ~
-                ``message/!>(curr/current.u.pump)
+                  [%acked %for seq=@ ~]  ::  has seq been acknowledged?
+                                         ::  XX distinguish ack vs nack?
+                ?~  seq=(slaw %ud seq.qery.tyl)
+                  [~ ~]
+                ?~  pump=(~(get by snd.u.per) u.bone)
+                  ~
+                ?.  (lte u.seq current.u.pump)
+                  ~
+                ``message/!>(acked-for/&)
               ::
-                  [%last ~]
-                ?~  sink=(~(get by rcv.u.per) u.bone)  ~
-                ``message/!>(last/last-acked.u.sink)
+                  [%acked %bak seq=@ ~]  ::  has seq been acknowledged?
+                                         ::  XX distinguish ack vs nack?
+                ?~  seq=(slaw %ud seq.qery.tyl)
+                  [~ ~]
+                ?~  sink=(~(get by rcv.u.per) u.bone)
+                  ~
+                ?:  (gth u.seq last-acked.u.sink)
+                  ::  block from future acks
+                  ::
+                  ~
+                ``message/!>(acked-bak/&)
               ::
             ==
           ==
@@ -12329,29 +12345,24 @@
               [%cork ~]  ?~(r=(fo-peek:fo-core %cork 0) ~ ``[%message !>(u.r)])
             ==
           =,  state:fo-core
-          ?+    qery.pat.tyl  ~
-              ~          ``message/!>(sate/state:fo-core)
-              [%clos ~]  ``message/!>(clos/closing)
+          ?+    qery.pat.tyl  ~  :: XX
               [%cork ~]  ?~(r=(fo-peek:fo-core %cork 0) ~ ``[%message !>(u.r)])
-              [%line ~]  ``message/!>(line/line)
-              [%lods ~]  ``message/!>(lods/(wyt:fo-mop:fo-core loads.snd))
-              [%next ~]  ``message/!>(next/next.snd)
-              [%last ~]  ``message/!>(last/last-acked.rcv)
             ::
-              [%whey boq=@ ~]  :: XX rewrite in terms of %whey namespace
-            ?~  boq=(slaw %ud boq.qery.pat.tyl)
-              ~
-            :^  ~  ~  %message  !>
-            whey/[u.boq (met u.boq (jam state:fo-core))]
-            ::
-              [%mess mess=@ m-qery=*]
-            =/  mess=(unit @ud)  (slaw %ud mess.qery.pat.tyl)
-            ?:  ?=(~ mess)
+              [%sent seq=@ ~]  :: has seq message been sent?
+            ?~  seq=(slaw %ud seq.qery.pat.tyl)
               [~ ~]
-            ?+  m-qery.qery.pat.tyl  ~
-                [%naxp ~]
-              ``message/!>(naxp/(~(has by nax.rcv) u.mess))
-            ==
+            ?.  (lth u.seq next.snd)  ~
+            ``message/!>(sent/&)
+            ::
+              [%loads seq=@ ~]  :: payload for seq message
+            ?~  seq=(slaw %ud seq.qery.pat.tyl)
+              [~ ~]
+            ?~(r=(fo-peek:fo-core %poke u.seq) ~ ``[%message !>(u.r)])
+            ::
+              [%naxp seq=@ ~]  :: naxplanation for seq message
+            ?~  seq=(slaw %ud seq.qery.pat.tyl)
+              [~ ~]
+            ?~(r=(fo-peek:fo-core %naxp u.seq) ~ ``[%message !>(u.r)])
           ==
         ::
         ++  peek

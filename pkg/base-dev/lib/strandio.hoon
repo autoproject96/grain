@@ -424,9 +424,8 @@
   ?+    path.spar  !!
       $%  [%ames bone=@ %cork ~]
           [%ames bone=@ %sent seq=@ ~]
-          [%ames bone=@ %acked ?(%for %bak) seq=@ ~]
           [%flow bone=@ =dire:ames %cork ~]
-          [%flow bone=@ =dire:ames ?(%sent %loads %naxp) seq=@ ~]
+          [?(%ames %flow) bone=@ =dire:ames ?(%sent %loads %naxp %acked) seq=@ ~]
       ==
     ::  encrypted using %chum namespace
     ::

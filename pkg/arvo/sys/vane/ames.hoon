@@ -8245,17 +8245,19 @@
                 ::
                 ``message/!>(sent/&)
               ::
-                  [%acked %for seq=@ ~]  ::  has seq been acknowledged?
+                  [%for %acked seq=@ ~]  ::  has seq been acknowledged?
                                          ::  XX distinguish ack vs nack?
                 ?~  seq=(slaw %ud seq.qery.tyl)
                   [~ ~]
                 ?~  pump=(~(get by snd.u.per) u.bone)
                   ~
-                ?.  (lte u.seq current.u.pump)
+                ?:  =(0 u.seq)
                   ~
-                ``message/!>(acked-for/&)
+                ?.  (lte u.seq (dec current.u.pump))
+                  ~
+                ``message/!>(ack/&)
               ::
-                  [%acked %bak seq=@ ~]  ::  has seq been acknowledged?
+                  [%bak %acked seq=@ ~]  ::  has seq been acknowledged?
                                          ::  XX distinguish ack vs nack?
                 ?~  seq=(slaw %ud seq.qery.tyl)
                   [~ ~]
@@ -8265,7 +8267,7 @@
                   ::  block from future acks
                   ::
                   ~
-                ``message/!>(acked-bak/&)
+                ``message/!>(ack/&)
               ::
             ==
           ==
@@ -12293,7 +12295,10 @@
             ==
           =,  state:fo-core
           ?+    qery.pat.tyl  ~  :: XX
-              [%cork ~]  ?~(r=(fo-peek:fo-core %cork 0) ~ ``[%message !>(u.r)])
+              [%acked seq=@ ~]
+            ?~  seq=(slaw %ud seq.qery.pat.tyl)
+              [~ ~]
+            ?~(r=(fo-peek:fo-core %ack u.seq) ~ ``[%message !>(u.r)])
             ::
               [%sent seq=@ ~]  :: has seq message been sent?
             ?~  seq=(slaw %ud seq.qery.pat.tyl)

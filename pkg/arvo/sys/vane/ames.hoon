@@ -3642,8 +3642,10 @@
       ::
       ++  state-29-to-30
         |=  old=axle
-        ^+  old
+        ^+  [moz old]
         ~>  %slog.0^leaf/"mesa: enabling Directed Messaging"
+        :_  old(core %mesa)
+        ^+  moz
         ::
         =+  ev-core=%*(ev mesa:adult-core ames-state old)
         %-  ~(rep by chums.old)

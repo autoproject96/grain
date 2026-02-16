@@ -3119,7 +3119,8 @@
           (weld m moves:fo-peek-cork:fo-core)
         ==
       ?>  ?=(%29 -.old)
-      $(cached-state `30+(state-29-to-30 +.old))
+      =^   moz-29  +.old  (state-29-to-30 +.old)
+      $(moz (weld moz moz-29), cached-state `30/+.old)
       ::
       ++  our-beam  `beam`[[our %rift %da now] /(scot %p our)]
       ++  state-4-to-5
@@ -3640,7 +3641,36 @@
         |=  old=axle
         ^+  old
         ~>  %slog.0^leaf/"mesa: enabling Directed Messaging"
-        old(core %mesa)
+        ::
+        =+  ev-core=%*(ev mesa:adult-core ames-state old)
+        %-  ~(rep by chums.old)
+        |=  [[who=@p c=chum-state] moves=(list move)]
+        ^+  moves
+        ?:  ?=(%alien -.c)  moves
+        ::
+        =.  ev-core  (ev-abed:ev-core ~[//weir-flow] who +.c)
+        ::
+        %-  ~(rep by weir.c)
+        |=  [[=side err=(set [tag=term data=*])] moz=_moves]
+        ::
+        =+  fo-core=(fo-abed:fo:ev-core side)
+        ::
+        %-  ~(rep in err)
+        |=  [[tag=term data=*] mo=_moz]
+        ::  for tag=%missing-current-closing no-op; we are already
+        ::  peeking for a corked flow and sending a %cork $plea since
+        ::  the flow is in closing
+        ::
+        ?:  =(%missing-current-closing tag)
+          ::  XX need to check that we are still peeking, if not;
+          ::  remove from weir
+          ::
+          mo
+        ?>  =(%missing-current tag)
+        ::  for tag=%missing-current no-op; issue peek for naxplanation
+        ::
+        %+  weld  mo
+        moves:(fo-peek-naxplanation:fo-core ;;(missing-current=@ud data))
       ::
       --
     ::

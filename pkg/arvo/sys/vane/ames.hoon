@@ -13149,31 +13149,33 @@
       ::  so any crash there will be a crash while handling a %heer
       ::
       =^  moves  ames-state
-        =<  ev-abet
         ?-    -.mess
             %poke
           ?.  =(our ship.p.mess)
-            ev-core
+            `ames-state
           ?~  chum=(~(get by chums.ames-state) ship.p.q.mess)
-            ev-core
+            `ames-state
           ::  XX  this assumes that %aliens are checked in the packet layer
           ?>  ?=([~ %known *] chum)  ::  XX alien agenda?
+          =<  ev-abet
           %.  [dud +.mess]
           hear-poke:ev-mess:(ev-abed:ev-core hen ship.p.q.mess +.u.chum)
         ::
             %peek
           ?~  chum=(~(get by chums.ames-state) ship.mess)
-            ev-core
+            `ames-state
           ::  XX  this assumes that %aliens are checked in the packet layer
           ?>  ?=([~ %known *] chum)  ::  XX alien agenda?
+          =<  ev-abet
           %.  +.mess
           hear-peek:ev-mess:(ev-abed:ev-core hen ship.mess +.u.chum)
         ::
             %page
           ?~  chum=(~(get by chums.ames-state) ship.p.mess)
-            ev-core
+            `ames-state
           ::  XX  this assumes that %aliens are checked in the packet layer
           ?>  ?=([~ %known *] chum)  ::  XX alien agenda?
+          =<  ev-abet
           %.  +.mess
           hear-page:ev-mess:(ev-abed:ev-core hen ship.p.mess +.u.chum)
         ::

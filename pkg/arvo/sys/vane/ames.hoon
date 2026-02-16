@@ -12889,26 +12889,28 @@
       =/  =pact:pact  (parse-packet blob)  :: XX handle crash here?
       =^  moves  ames-state
         ?-    +<.pact
-            %page
-          =*  her  her.name.pact
+            ?(%peek %page)
+          =/  her
+            ?-  +<.pact
+              %page  her.name.pact
+              %peek  her.name.pact
+            ==
           =/  chum-state  (find-peer her)
           ?.  ?=([%mesa *] chum-state)
             %-  %+  %*(ev-tace ev-core her her)  odd.veb.bug.ames-state
-                |.("hear page for regressed chum")
+                |.("hear {<+<.pact>} for regressed chum")
             `ames-state
           ?.  ?=([~ %known *] +.chum-state)
+            ?:  ?=(%peek +<.pact)  `ames-state
             ::  if alien this can only be a comet attestation proof
             ::
             al-abet:(al-take-proof:al-core lane hop.pact +>.pact)
-          =/  =fren-state  +.u.+.chum-state
-          =<  ev-abet
-          %.  [dud lane hop.pact %page +>.pact]
-          hear-page:ev-pact:(ev-abed:ev-core hen her.name.pact fren-state)
-        ::
-            %peek
-          ?~  dud
-            ev-abet:(hear-peek:ev-pact:ev-core lane +>.pact)
-          sy-abet:(~(sy-crud sy:me-core hen) %peek tang.u.dud)
+          =+  ev-core=(ev-abed:ev-core hen her fren=+.u.+.chum-state)
+          ?:  ?=(%page +<.pact)
+            ev-abet:(hear-page:ev-pact:ev-core dud lane hop.pact %page +>.pact)
+          ?^  dud
+            sy-abet:(~(sy-crud sy:me-core hen) %peek tang.u.dud)
+          ev-abet:(hear-peek:ev-pact:ev-core lane +>.pact)
         ::
             %poke
           =*  data     data.pact

@@ -3554,8 +3554,11 @@
             |=  [[=ames=path req=request-state-23] tip=(jug path [duct path])]
             =|  tmp-per=fren-state
             =.  tmp-per  tmp-per(- +<.c, client-chain client-chain.c)
+            ::  decrypt-path is going to use got-per to find the specific peer in
+            ::  chums, so we just update in place
+            ::
             =/  mesa-core
-              %*  .  (mesa:adult-core now eny rof)
+              %*  mesa  adult-core
                 chums.ames-state  (~(put by chums.ames-state) her known/tmp-per)
               ==
             =/  [=space cyf=(unit @) =user=path]

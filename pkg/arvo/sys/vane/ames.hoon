@@ -9815,13 +9815,13 @@
               ::
                 %van
               ?+    -.sign  !!  :: %sage doesn't come from vanes
-                :: ack from client vane
-                ::
+              :: ack from client vane
+              ::
                   %done
                 ?>  =(%.y pending-ack.rcv)
                 (fo-take-done +.sign)
-                ::  halt the flow
-                ::
+              ::  halt the flow
+              ::
                   %flub
                 =?  halt.state   ?=([? ^] +.sign)  %.y
                 =?     fo-core   ?=([? ^] +.sign)
@@ -9829,8 +9829,8 @@
                 =?  pending-ack.rcv  &(?=([? *] +.sign) !blocked.sign)
                   %.n  :: XX  tack.pending-ack.rcv
                 fo-core
-                ::  un-halt the flow
-                ::
+              ::  un-halt the flow
+              ::
                   %spur
                 =.  halt.state  %.n
                 fo-core
@@ -9951,15 +9951,21 @@
               ::
               (fo-take-done:fo-core `*error)
             ::
+            =+  ;;([%plea =plea] page)
             ?:  pending-ack.rcv
               ::  if the previous plea is pending, no-op
               ::
               %-  %+  ev-tace  rcv.veb.bug.ames-state
                   |.("pending %plea {<[bone=bone last-acked=last-acked.rcv]>}")
-              fo-core
+              ?.  ?=([%g [%ge @ *] *] plea)
+                fo-core
+              =/  agent  i.t.path.plea
+              %-  %+  ev-tace  rcv.veb.bug.ames-state
+                  |.("hear pending %plea; try %flub {<[agent]>}")
+              %-  fo-emit
+              [hen %pass (fo-wire %van) %g %plea her plea(path /gp/[agent])]
             =.  pending-ack.rcv  %.y
             ::
-            =+  ;;([%plea =plea] page)
             %-  %+  ev-tace  msg.veb.bug.ames-state
                 |.("hear complete %plea {<[bone=bone seq=+(last-acked.rcv)]>}")
             ::

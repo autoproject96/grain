@@ -7285,6 +7285,11 @@
                   ?.  ?=(%plea (received bone.shut-packet))
                     peer-core
                   ?:  ?&  ?=(~ (~(get by live-messages.state) seq))
+                          ::  if no live-messages this should have been processed
+                          ::
+                          ?:  (~(has in ~(key by pending-vane-ack.state)) seq)
+                            %.n
+                          ::
                           !=(0 fragment-num)
                       ==
                     %.  peer-core

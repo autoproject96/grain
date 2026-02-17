@@ -10284,6 +10284,9 @@
             (fo-emit [/ames]~ %pass /make-page %a mage/[chum-to-her her^path])
           ::
           ++  fo-peek-cork
+            %-  %+  ev-tace  fin.veb.bug.ames-state
+                |.("peek for %cork {<bone=bone>}")
+            ::
             %^  fo-emit  hen  %pass
             ::  for-cor-path will produce a path for the %cork on the other side
             ::

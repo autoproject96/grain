@@ -6190,6 +6190,9 @@
                 ::
                 =?  closing.flow  !naxp-bone
                   (~(has in closing.peer-state) bone)
+                ::
+                =?  halt.flow     !naxp-bone
+                  (~(has in halt.peer-state) ori-bone)
                 ::  add tag if the flow is in a weird state
                 ::
                 =?  weir.fren  &(!naxp-bone !=(current.pump next.pump))
@@ -6257,7 +6260,8 @@
                 =:         closing.flow  (~(has in closing.peer-state) ori-bone)
                               line.flow  last-acked.sink
                     last-acked.rcv.flow  last-acked.sink
-                    ::  don't drop pending acks given to the vane. if a retry
+                =:            halt.flow  (~(has in halt.peer-state) ori-bone)
+                           closing.flow  (~(has in closing.peer-state) ori-bone)
                     ::  we will no-op on fo-sink:fo -- these situations happened
                     ::  prior to the introduction of %flubs. the message should
                     ::  have been enqueued in the gall queue, but dropped if

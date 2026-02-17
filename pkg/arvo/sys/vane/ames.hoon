@@ -6223,7 +6223,7 @@
                   (~(has in closing.peer-state) bone)
                 ::
                 =?  halt.flow     !naxp-bone
-                  (~(has in halt.peer-state) ori-bone)
+                  (~(has in halt.peer-state) original-bone)
                 ::  add tag if the flow is in a weird state
                 ::
                 =?  weir.fren  &(!naxp-bone !=(current.pump next.pump))

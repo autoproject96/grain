@@ -1668,9 +1668,6 @@
         pit=(map path request-state)           :: active +peek namespace paths
         =client=chain                          :: stores keys for %shut requests
         tip=(jug =user=path [duct =ames=path]) :: reverse .pit lookup map
-        ::  a migrated flow in a weird state is tagged with a $term, and data
-        ::
-        weir=(jug side [tag=term data=*])
     ==
   ::
   ::  interest gifts per path in the pith

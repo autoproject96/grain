@@ -6190,6 +6190,9 @@
                 ::
                 =?  closing.flow  !naxp-bone
                   (~(has in closing.peer-state) bone)
+                ::
+                =?  halt.flow     !naxp-bone
+                  (~(has in halt.peer-state) original-bone)
                 ::  add tag if the flow is in a weird state
                 ::
                 =?  weir.fren  &(!naxp-bone !=(current.pump next.pump))
@@ -6254,7 +6257,8 @@
                   ::  or produce the bunt if we were only receiving
                   ::
                   (~(gut by flows) bone^dire *flow-state)
-                =:         closing.flow  (~(has in closing.peer-state) ori-bone)
+                =:            halt.flow  (~(has in halt.peer-state) ori-bone)
+                           closing.flow  (~(has in closing.peer-state) ori-bone)
                               line.flow  last-acked.sink
                     last-acked.rcv.flow  last-acked.sink
                     ::  don't drop pending acks given to the vane. if a retry
@@ -7285,6 +7289,11 @@
                   ?.  ?=(%plea (received bone.shut-packet))
                     peer-core
                   ?:  ?&  ?=(~ (~(get by live-messages.state) seq))
+                          ::  if no live-messages this should have been processed
+                          ::
+                          ?:  (~(has in ~(key by pending-vane-ack.state)) seq)
+                            %.n
+                          ::
                           !=(0 fragment-num)
                       ==
                     %.  peer-core
@@ -9806,13 +9815,13 @@
               ::
                 %van
               ?+    -.sign  !!  :: %sage doesn't come from vanes
-                :: ack from client vane
-                ::
+              :: ack from client vane
+              ::
                   %done
                 ?>  =(%.y pending-ack.rcv)
                 (fo-take-done +.sign)
-                ::  halt the flow
-                ::
+              ::  halt the flow
+              ::
                   %flub
                 =?  halt.state   ?=([? ^] +.sign)  %.y
                 =?     fo-core   ?=([? ^] +.sign)
@@ -9820,8 +9829,8 @@
                 =?  pending-ack.rcv  &(?=([? *] +.sign) !blocked.sign)
                   %.n  :: XX  tack.pending-ack.rcv
                 fo-core
-                ::  un-halt the flow
-                ::
+              ::  un-halt the flow
+              ::
                   %spur
                 =.  halt.state  %.n
                 fo-core
@@ -9942,15 +9951,21 @@
               ::
               (fo-take-done:fo-core `*error)
             ::
+            =+  ;;([%plea =plea] page)
             ?:  pending-ack.rcv
               ::  if the previous plea is pending, no-op
               ::
               %-  %+  ev-tace  rcv.veb.bug.ames-state
                   |.("pending %plea {<[bone=bone last-acked=last-acked.rcv]>}")
-              fo-core
+              ?.  ?=([%g [%ge @ *] *] plea)
+                fo-core
+              =/  agent  i.t.path.plea
+              %-  %+  ev-tace  rcv.veb.bug.ames-state
+                  |.("hear pending %plea; try %flub {<[agent]>}")
+              %-  fo-emit
+              [hen %pass (fo-wire %van) %g %plea her plea(path /gp/[agent])]
             =.  pending-ack.rcv  %.y
             ::
-            =+  ;;([%plea =plea] page)
             %-  %+  ev-tace  msg.veb.bug.ames-state
                 |.("hear complete %plea {<[bone=bone seq=+(last-acked.rcv)]>}")
             ::

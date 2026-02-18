@@ -5262,8 +5262,11 @@
             ::
             event-core
           =/  blob=*  (cue (rep packet-size [fragment]~))
-          ?.  ?|  ?=(^ ;;((soft [%$ [%mesa ~] %ahoy ~]) blob))
-                  ?=(^ ;;((soft [%$ [%mesa-1 ~] %ahoy ~]) blob))
+          ?.  ?|  ::  XX ignore previous %ahoy versions
+                  ::
+                  ::  ?=(^ ;;((soft [%$ [%mesa ~] %ahoy ~]) blob))
+                  ::  ?=(^ ;;((soft [%$ [%mesa-1 ~] %ahoy ~]) blob))
+                  ?=(^ ;;((soft [%$ [%mesa-2 ~] %ahoy ~]) blob))
               ==
             %-  (ev-trace odd.veb sndr.shot |.("ignore non ahoy pleas"))
             ::  ignore single-fragment non %ahoy pleas
@@ -7482,7 +7485,7 @@
                   ::
                   ?+    -.payload.plea  ~|(weird-migration-plea/plea !!)
                       %ahoy
-                    ?>  ?=(%mesa-1 -.path.plea)
+                    ?>  ?=(%mesa-2 -.path.plea)
                     (pe-emit duct %pass wire %a %deep %ahoy her bone)
                   ::
                       %cork

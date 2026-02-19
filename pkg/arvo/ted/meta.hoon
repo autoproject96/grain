@@ -24,7 +24,6 @@
     ?(%gone %cork)
   ["flow is corked? " "%.y"]
 ::
-  %gone  ["flow is corked? " "%.y"]
   %sent  ["message sent? " "%.y"]
   %ack   ["message acked? " "%.y"]
 ::

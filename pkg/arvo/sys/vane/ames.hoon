@@ -9108,10 +9108,6 @@
             |=  [=lane:pact =name:pact]
             ?.  =(our her.name)
               ev-core
-            ::
-            %-  %+  ev-tace  [|(rcv fin)]:veb.bug.ames-state
-                |.("hear peek packet")
-            ::
             =/  res=(unit (unit cage))
               (peek:na ~ /ames %x (name-to-beam name))
             ?.  ?=([~ ~ ^] res)
@@ -12996,28 +12992,27 @@
       =/  =pact:pact  (parse-packet blob)  :: XX handle crash here?
       =^  moves  ames-state
         ?-    +<.pact
-            ?(%peek %page)
-          =/  her
-            ?-  +<.pact
-              %page  her.name.pact
-              %peek  her.name.pact
-            ==
+            %peek
+          ?^  dud
+            sy-abet:(~(sy-crud sy:me-core hen) %peek tang.u.dud)
+          :_  ames-state
+          ::  peek are read-only and don't change state
+          ::
+          moves:(hear-peek:ev-pact:ev-core lane +>.pact)
+        ::
+            %page
+          =*  her  her.name.pact
           =/  chum-state  (find-peer her)
           ?.  ?=([%mesa *] chum-state)
             %-  %+  %*(ev-tace ev-core her her)  odd.veb.bug.ames-state
-                |.("hear {<+<.pact>} for regressed chum")
+                |.("hear %page for regressed chum")
             `ames-state
           ?.  ?=([~ %known *] +.chum-state)
-            ?:  ?=(%peek +<.pact)  `ames-state
             ::  if alien this can only be a comet attestation proof
             ::
             al-abet:(al-take-proof:al-core lane hop.pact +>.pact)
           =+  ev-core=(ev-abed:ev-core hen her fren=+.u.+.chum-state)
-          ?:  ?=(%page +<.pact)
-            ev-abet:(hear-page:ev-pact:ev-core dud lane hop.pact %page +>.pact)
-          ?^  dud
-            sy-abet:(~(sy-crud sy:me-core hen) %peek tang.u.dud)
-          ev-abet:(hear-peek:ev-pact:ev-core lane +>.pact)
+          ev-abet:(hear-page:ev-pact:ev-core dud lane hop.pact %page +>.pact)
         ::
             %poke
           =*  data     data.pact

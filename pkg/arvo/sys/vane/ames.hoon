@@ -2099,7 +2099,16 @@
             ?&  =-  ~?  !-  [bone=bone ames=current.pump back=current.back-pump]
                     -
                 %+  print-check  %forward-flows-current
-                ?|  ?&  !=(~ queued-message-acks.pump)
+                ?|
+                  ::  if this flow is sending %boons and current and next
+                  ::  don't match, the flow is broken
+                  ::
+                    ?&  =(0 (end 0 (rsh 0 bone)))
+                        !=(current.pump current.back-pump)
+                    ==
+                  ::  if there are no queued acks, look for +peek for naxplanation
+                  ::
+                    ?&  !=(~ queued-message-acks.pump)
                         ::  ahoy moves will have a +peek for the %naxplanation
                         ::  at current
                         ::
@@ -2138,7 +2147,68 @@
                           (~(got by rcv.ames) (mix 0b10 bone))
                         0 :: XX
                     ==
-                ::  if no queued-message-acks, current should still match
+                  ::  if current and next don't match, but the flow is in
+                  ::  closing, we should have a cork and peek in the ahoy moves
+                  ::
+                    ?&  !=(current.pump current.back-pump)
+                        (~(has in closing.ames) bone)
+                    :: =-  ~?  >>  !-
+                    ::       here-moke/ship^bone
+                    ::     -
+                    ::  %moke; look for %cork
+                    ::
+                      %+  lien  ahoy-moves
+                      |=  [=duct card=(wind note gift)]
+                      ?.  ?=(%pass -.card)
+                        %.n
+                      ?.  ?=([%a %moke [%chum *] *] q.card)
+                        %.n
+                      =/  move-path=(pole iota)
+                        ::  this is the path for the $ack
+                        ::
+                        (validate-path path.spar.q.card)
+                      ?.  ?=(flow-pith move-path)
+                        %.n
+                      ?&  =(client.space.q.card rcvr.move-path)
+                          =(bone bone.move-path)
+                          =(%ack load.move-path)
+                          =(%bak dire.move-path)
+                          ::  XX check payload
+                      ==
+                    ::  %meek; look for +peek for %cork
+                    ::
+                      %+  lien  ahoy-moves
+                      |=  [=duct card=(wind note gift)]
+                      ?.  ?=(%pass -.card)         %.n
+                      ?.  ?=([%a %meek [%chum *] *] q.card)  %.n
+                      =/  move-path=(pole iota)
+                        (validate-path path.spar.q.card)
+                      ?.  ?=(cork-pith move-path)
+                        %.n
+                      ?&  =(client.space.q.card rcvr.move-path)
+                          =(bone bone.move-path)
+                          =(%cork load.move-path)
+                          =(%bak dire.move-path)
+                      ==
+                    ==
+                  ::  if no queued-message-acks, current should still match, unless
+                  ::  we are peaking for a naxplanation
+                  ::
+                  ?&  !=(current.pump current.back-pump)
+                      %+  lien  ahoy-moves
+                      |=  [=duct card=(wind note gift)]
+                      ?.  ?=(%pass -.card)         %.n
+                      ?.  ?=([%a %meek [%chum *] *] q.card)  %.n
+                      =/  move-path=(pole iota)
+                        (validate-path path.spar.q.card)
+                      ?.  ?=(flow-pith move-path)
+                        %.n
+                      ?&  =(client.space.q.card rcvr.move-path)
+                          =(bone bone.move-path)
+                          =(%naxp load.move-path)
+                          =(%bak dire.move-path)
+                      ==
+                  ==
                 ::
                   =(current.pump current.back-pump)
                 ==
@@ -2194,8 +2264,8 @@
                 :: ==
               ::  XX TODO: check live message sequence number
               ::
-                :: =-  ~?  !-  [pump back-pump]
-                ::     -
+                =-  ~?  !-  [bone pump back-pump]
+                    -
                 %+  print-check  %forward-flows-unsent-messages
                 ?|  ::  we can end up with more unsent-messages in the back-pump
                     ::  if we had more than one live message before migration
@@ -2231,7 +2301,13 @@
                         =^  head-back  unsent-messages.back-pump
                           ~(get to unsent-messages.back-pump)
                         $(done &(done =(head-pump head-back)))
-                ==  ==
+                    ==
+                  ::  if current doesn't match we have looked check those
+                  ::  already in current both for flow is in closing with
+                  ::  queued message-acks, and missed naxplanations
+                  ::
+                    !=(current.pump current.back-pump)
+                ==
             ==
           &(ok test)
         ::  backwards flows
@@ -6074,13 +6150,14 @@
                     recork-one/her^bone
                   =^  cork-moves  flow  [moves state]:fo-core
                   ::  queued-message-acks
-                  ::  XX ignore, the flow is is closing so we are going to cork
-                  ::  it anyway
+                  ::  we could ignore, since the flow is is closing so we are
+                  ::  going to cork it anyway, but this keeps the same
+                  ::  consistent state if we regress the peer back to %ames
                   ::
-                  :: =+  ack-mop=((on ,@ud ack) lte)
-                  :: =.  acks.snd.flow
-                  ::   %+  gas:ack-mop  acks.snd.flow
-                  ::   ~(tap by queued-message-acks.pump)
+                  =+  ack-mop=((on ,@ud ack) lte)
+                  =.  acks.snd.flow
+                    %+  gas:ack-mop  acks.snd.flow
+                    ~(tap by queued-message-acks.pump)
                   =?  closing.flow  !naxp-bone
                     (~(has in closing.peer-state) bone)
                   :-  (weld moves cork-moves)

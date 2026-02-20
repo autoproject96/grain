@@ -95,14 +95,13 @@
 ++  abet  [(flop moz) sat]
 ++  flog  |=(=flog:dill (emit %pass /di %arvo %d %flog flog))
 ++  emit  |=(card this(moz [+< moz]))
-::  +emil: emit multiple cards
-::
 ++  emil
   |=  caz=(list card)
   ^+  this
   ?~(caz this $(caz t.caz, this (emit i.caz)))
 ::
 ++  on-init  =<  abet
+  =.  this  (emit %pass /ahoy/chums %arvo %b %wait now.bowl)
   %_    this
       last-hash.sat
     0vq.kuk4m.cqifa.8eq29.9dp1q.utcd7.bakuk.h9es3.cpbcf.nkf4r.pjehb

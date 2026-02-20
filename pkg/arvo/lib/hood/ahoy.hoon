@@ -69,20 +69,15 @@
       last-hash=@uvi
   ==
 +$  action
-  $%  [%kick nuke=? ~]        ::  start checking all peers
-                              ::  XX  will start too many %fine timers
-      [%comb nuke=? dry=? ~]  ::  start checking one peer at at time
+  $%  [%comb dry=?]           ::  start checking one peer at at time
                               ::  as soon as we get a response, or
                               ::  we timeout, we try the next peer
+                              ::  (always nuke al previous state)
                               ::
       [%cancel ~]             ::  cancel all pending checks
       [%set-timeout dur=@dr]  ::  change timeout duration
-      [%refresh dry=?]        ::  peek only no-response peers
-      [%update dry=?]         ::  peek only non-409 peers
-      [%ahoy dry=? slow=? ~]  ::  migrate all (%409) live peers
-      [%rege dry=? ~]         ::  regress all (%409) live peers
-      [%subs num=@ud]
-      [%mate who=@p]
+      [%refresh dry=?]        ::  only no-response peers
+      [%update dry=?]         ::  only peers not on latest hash
   ==
 ::
 --
@@ -129,16 +124,33 @@
   ==
 ::
 ++  take-arvo
-  |=  [=wire =sign-arvo]
-  ?+  wire  ~|([%ahoy-bad-take-wire wire +<.sign-arvo] !!)
-    [%ahoy *]         abet  ::  %+  take-ahoy  t.wire
-                            ::  ?>(?=(%done +<.sign-arvo) +>.sign-arvo)
-    [%mate *]         abet  ::  %+  take-test-mate  t.wire
-                            ::  ?>(?=(%done +<.sign-arvo) +>.sign-arvo)
-    [%migrate *]      abet  ::  %+  take-migrate  t.wire
-                            ::  ?>(?=(%done +<.sign-arvo) +>.sign-arvo)
-    [%rege *]         abet  ::  %+  take-rege  t.wire
-                            ::  ?>(?=(%done +<.sign-arvo) +>.sign-arvo)
-  ==
+  |=  [=wire =sign-arvo]  =<  abet
+  |^  ?+  wire  ~|([%ahoy-bad-take-wire wire +<.sign-arvo] !!)
+        [%chums *]    (take-timer ?>(?=(%wake +<.sign-arvo) +>.sign-arvo))
+        [%ahoy *]     this  ::  %+  take-ahoy  t.wire
+                                ::  ?>(?=(%done +<.sign-arvo) +>.sign-arvo)
+        [%mate *]     this  ::  %+  take-test-mate  t.wire
+                                ::  ?>(?=(%done +<.sign-arvo) +>.sign-arvo)
+        [%migrate *]  this  ::  %+  take-migrate  t.wire
+                                ::  ?>(?=(%done +<.sign-arvo) +>.sign-arvo)
+        [%rege *]     this  ::  %+  take-rege  t.wire
+                                ::  ?>(?=(%done +<.sign-arvo) +>.sign-arvo)
+      ==
+  ::
+  ++  take-timer
+    |=  error=(unit tang)
+    ::  scry for chums and fill out migrated peers
+    ::
+    =+  .^  chums=(map ship ?(%known %alien))  %ax
+          /(scot %p our.bowl)/rift/(scot %da now.bowl)/chums
+        ==
+    %_    this
+        migrants.sat
+      %-  ~(rep by chums)
+      |=  [[=ship s=?(%known %alien)] migs=_migrants.sat]
+      (~(put by migs) ship %mesa)
+    ==
+  ::
+  --
 ::
 --

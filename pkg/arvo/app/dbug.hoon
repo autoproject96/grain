@@ -1082,7 +1082,7 @@
           %-  tape
           "{<[bone=bone dire=dire]>}"
         ::
-          'scries'^(scries ~(tap by pit))
+          'tip'^(tip-to-json ~(tap by tip))
       ==
     ::
     ++  flow-with-side
@@ -1191,6 +1191,25 @@
     ++  from-duct
       |=  =duct
       a+(turn duct path)
+    ::
+    ++  tip-to-json
+      |=  tips=(list [user-path=^path listeners=(set [=duct ames-path=^path])])
+      ^-  json
+      :-  %a
+      %+  turn  tips
+      |=  [user-path=^path listeners=(set [=duct ames-path=^path])]
+      %-  pairs
+      :~  'user-path'^(path:enjs:format user-path)
+        ::
+          :-  'listeners'
+          :-  %a
+          %+  turn  ~(tap in listeners)
+          |=  [=duct ames-path=^path]
+          %-  pairs
+          :~  'duct'^(from-duct duct)
+              'ames-path'^(path:enjs:format ames-path)
+          ==
+      ==
     ::
     ++  scries
       |=  keens=(list [^path request-state])

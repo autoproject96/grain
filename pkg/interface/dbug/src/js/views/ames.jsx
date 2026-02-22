@@ -221,22 +221,29 @@ export class Ames extends Component {
       <table><tbody>
         <tr class="inter">
           <td>bone</td>
-          <td>line</td>
           <td>next</td>
           <td>window (max)</td>
           <td>total unsent</td>
-          <td>acks</td>
+          {(flow.acks || []).length > 0 && <td>queued-acks</td>}
         </tr>
         <tr>
           <td>{flow.bone}</td>
-          <td>{flow.line}</td>
           <td>{flow.next}</td>
           <td>{`${flow['send-window']}-${flow['send-window-max']}`}</td>
           <td>
             {flow['unsent-messages'].reduce((a,b) => a+b.size, 0)} bytes
             ({flow['unsent-messages'].length} messages)
           </td>
-          <td>{(flow.acks || []).length}</td>
+          {(flow.acks || []).length > 0 && <td>
+            <details>
+              <summary>{(flow.acks || []).length}</summary>
+              {(flow.acks || []).map((ack, i) => (
+                <div key={i} style={{fontSize: '0.85em', marginTop: '2px'}}>
+                  {JSON.stringify(ack)}
+                </div>
+              ))}
+            </details>
+          </td>}
         </tr>
       </tbody></table>
     </>);

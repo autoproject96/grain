@@ -291,7 +291,8 @@ export class Ames extends Component {
         const action = detail && detail.action ? detail.action : '';
         const mark = detail && detail.mark ? ` (%${detail.mark})` : '';
         const path = detail && detail.path ? ` ${detail.path}` : '';
-        return `%${info.vane} ${action}${mark}${path}`;
+        const vane = info.vane == '' ? '' : `%${info.vane}`;
+        return `${vane} ${action}${mark}${path}`;
       }
       if (info.type === 'fact') return `fact (%${info.mark})`;
       return info.type || JSON.stringify(info);

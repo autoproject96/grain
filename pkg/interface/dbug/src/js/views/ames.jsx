@@ -225,6 +225,7 @@ export class Ames extends Component {
           <td>next</td>
           <td>window (max)</td>
           <td>total unsent</td>
+          <td>acks</td>
         </tr>
         <tr>
           <td>{flow.bone}</td>
@@ -235,6 +236,7 @@ export class Ames extends Component {
             {flow['unsent-messages'].reduce((a,b) => a+b, 0)} bytes
             ({flow['unsent-messages'].length} messages)
           </td>
+          <td>{(flow.acks || []).length}</td>
         </tr>
       </tbody></table>
     </>);

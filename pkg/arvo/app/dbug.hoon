@@ -1198,8 +1198,7 @@
           ::
           =/  pay  payload.msg
           ?.  ?=(ames-response:gall-vane pay)  ~
-          =/  tag  -.pay
-          ?-  tag
+          ?-  -.pay
             %d
               %-  pairs
               :~  'type'^s+'fact'
@@ -1218,6 +1217,8 @@
                 ::  XX TODO %c %j %e
                 ::
                 ~
+              ?:  =([%flow *] path.plea)
+                (pairs ~['action'^s+'cork'])
               ?.  ?=([%ge *] path.plea)
                  ::  XX TODO: /gf /gk
                  ::

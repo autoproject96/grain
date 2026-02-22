@@ -239,6 +239,18 @@ export class Ames extends Component {
       </tbody></table>
     </>);
 
+    const naxList = flow.nax || [];
+    const naxDetails = naxList.length === 0 ? null : (<>
+      {naxList.map((nax, i) => (
+        <div key={i} style={{marginTop: '4px', padding: '4px', border: '1px solid #c66'}}>
+          <b>nack seq {nax.seq}</b> — {nax.error.tag}
+          <pre className="nax-trace">
+            {nax.error.trace}
+          </pre>
+        </div>
+      ))}
+    </>);
+
     const summaryBack = (<>
       <b>{(flow.side === "for") ? "sink boon" : "sink plea"}</b><br/>
       <table><tbody>
@@ -246,13 +258,14 @@ export class Ames extends Component {
           <td>bone</td>
           <td>last acked</td>
           <td>pending?</td>
-          <td>naxplanations</td>
+          {naxList.length > 0 && <td>naxplanations</td>}
         </tr>
         <tr>
           <td>{flow.bone}</td>
+
           <td>{flow['last-acked']}</td>
           <td>{(flow['pending-acked'] ? 'yes' : 'no')}</td>
-          <td>XX</td>
+          {naxList.length > 0 && <td>{naxList.length}</td>}
         </tr>
       </tbody></table>
     </>);

@@ -482,10 +482,57 @@ export class Ames extends Component {
           </tbody></table>
         </>);
 
-        const scryItems = p.scries.map(this.renderPeek);
-        const scry = (<>
-          <h4 style={{marginTop: '1em'}}>scries</h4>
-          <SearchableList placeholder="path" items={scryItems} />
+        const renderAmesPath = (amesPath) => {
+          const parts = amesPath.replace(/^\//, '').split('/');
+          const kind = parts[0];
+          if (kind === 'chum' && parts.length >= 4) {
+            // [%chum our-life her her-life encrypted-path ~]
+            const [, ourLife, her, herLife] = parts;
+            const full = amesPath;
+            return (<span>
+              <b>chum</b> our-life={ourLife} {her} her-life={herLife}{' '}
+              <Summary summary="[path]" details={full} />
+            </span>);
+          } else if (kind === 'shut' && parts.length >= 2) {
+            // [%shut key-id encrypted-path ~]
+            const keyId = parts[1];
+            const full = amesPath;
+            return (<span>
+              <b>shut</b> key={keyId}{' '}
+              <Summary summary="[path]" details={full} />
+            </span>);
+          } else if (kind === 'publ' && parts.length >= 2) {
+            // [%publ our-life =path]
+            const ourLife = parts[1];
+            const path = '/' + parts.slice(2).join('/');
+            return (<span>
+              <b>publ</b> life={ourLife}
+            </span>);
+          }
+          return amesPath;
+        };
+
+        const tipItems = (p.tip || []).map(t => {
+          return {key: t['user-path'], jsx: (<>
+            <b>{t['user-path']}</b>
+            {t.listeners.map((l, i) => (
+              <div key={i} style={{marginLeft: '1em', marginTop: '4px', borderLeft: '2px solid #888', paddingLeft: '6px'}}>
+                <div style={{fontSize: '0.85em'}}>{renderAmesPath(l['ames-path'])}</div>
+                <div style={{marginTop: '2px', fontSize: '0.85em'}}>
+                  {l.duct.map((wire, j) => (
+                    <div key={j} style={{paddingLeft: `${j * 12}px`}}>
+                      {j > 0 && <span style={{color: '#888'}}>{'← '}</span>}
+                      {wire}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </>)};
+        });
+        const tip = (<>
+          <h4 style={{marginTop: '1em'}}>tip</h4>
+          <SearchableList placeholder="path" items={tipItems} />
         </>);
 
         const forwardItems = p.flows.forward.map(this.renderMesaFlow);
@@ -510,7 +557,7 @@ export class Ames extends Component {
           {status}
           {forward}
           {backward}
-          {scry}
+          {tip}
         </>);
       } else {
         console.log('weird peer', peer);

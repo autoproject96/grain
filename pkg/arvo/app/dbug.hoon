@@ -1092,6 +1092,7 @@
       %-  pairs
       :*  'closing'^b+closing
           'corked'^b+corked
+          'halt'^b+halt
           'line'^(numb line)
         ::  %outgoing
         ::

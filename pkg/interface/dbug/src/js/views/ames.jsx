@@ -147,10 +147,10 @@ export class Ames extends Component {
                      snd['packet-pump-state'].live.length > 0 )
       ? 'active, '
       : '';
-    const color = snd['closing'] ? 'lightyellow': snd['corked'] ? 'lightred' : 'transparent';
+    const cls = snd['closing'] ? 'flow-closing' : snd['corked'] ? 'flow-corked' : '';
 
     return {key: 'snd ' + active + snd.bone + ', ' + renderDuct(snd.duct), jsx: (
-      <div style={{backgroundColor: color}}>
+      <div className={cls}>
         <Summary summary={summary} details={details} />
        </div>
     )};
@@ -196,10 +196,10 @@ export class Ames extends Component {
       {nax}<br/>
       {liveMessages}
     </>);
-    const color =  rcv['closing'] ? 'ligthyellow': rcv['corked'] ? 'lightred' : 'transparent';
+    const cls = rcv['closing'] ? 'flow-closing' : rcv['corked'] ? 'flow-corked' : '';
 
     return {key: 'rcv ' + rcv.bone + ', ' + renderDuct(rcv.duct), jsx: (
-      <div style={{backgroundColor: color}}>
+      <div className={cls}>
         <Summary summary={summary} details={details} />
       </div>
     )};
@@ -260,7 +260,7 @@ export class Ames extends Component {
     const active = ( flow['unsent-messages'].length > 0 )
       ? 'active, '
       : '';
-    const color = flow['closing'] ? 'lightyellow': flow['corked'] ? 'lightred' : 'transparent';
+    const cls = flow['closing'] ? 'flow-closing' : flow['corked'] ? 'flow-corked' : flow.halt ? 'flow-halt' : '';
 
     const key = (flow.side === "for") ? "plea" : "boon" +
                 + active + flow.bone + ', ' + '';

@@ -233,7 +233,7 @@ export class Ames extends Component {
           <td>{flow.next}</td>
           <td>{`${flow['send-window']}-${flow['send-window-max']}`}</td>
           <td>
-            {flow['unsent-messages'].reduce((a,b) => a+b, 0)} bytes
+            {flow['unsent-messages'].reduce((a,b) => a+b.size, 0)} bytes
             ({flow['unsent-messages'].length} messages)
           </td>
           <td>{(flow.acks || []).length}</td>
@@ -253,8 +253,9 @@ export class Ames extends Component {
       ))}
     </>);
 
+    const isSinkBoon = flow.side === "for";
     const summaryBack = (<>
-      <b>{(flow.side === "for") ? "sink boon" : "sink plea"}</b><br/>
+      <b>{isSinkBoon ? "sink boon" : "sink plea"}</b><br/>
       <table><tbody>
         <tr class="inter">
           <td>bone</td>
@@ -282,18 +283,40 @@ export class Ames extends Component {
                 + active + flow.bone + ', ' + '';
                //(flow.duct !== null) ? renderDuct(flow.duct) : '';
 
+    const renderMsgInfo = (info) => {
+      if (!info) return '';
+      if (typeof info === 'string') return info;
+      if (info.type === 'plea') {
+        const detail = info.detail;
+        const action = detail && detail.action ? detail.action : '';
+        const mark = detail && detail.mark ? ` (%${detail.mark})` : '';
+        const path = detail && detail.path ? ` ${detail.path}` : '';
+        return `%${info.vane} ${action}${mark}${path}`;
+      }
+      if (info.type === 'fact') return `fact (%${info.mark})`;
+      return info.type || JSON.stringify(info);
+    };
+
+    const unsentDetails = flow['unsent-messages'].length === 0 ? null : (<>
+      {flow['unsent-messages'].map((m, i) => (
+        <div key={i} style={{fontSize: '0.85em'}}>
+          {m.seq}: {renderMsgInfo(m.info)} - {m.size} bytes
+        </div>
+      ))}
+    </>);
+
     const incoming = (flow['last-acked'] > 0) ?
-          <Summary summary={summaryBack} /> :
+          <Summary summary={summaryBack} details={naxDetails} /> :
           <></>;
     const  outgoing= (flow.next > 1) ?
-          <Summary summary={summary} /> :
+          <Summary summary={summary} details={unsentDetails} /> :
           <></>;
 
     const sides = (flow.side === 'for') ?
                   <>{outgoing}{incoming}</> :
                   <>{incoming}{outgoing}</>
     return {key: key, jsx: (
-      <div style={{backgroundColor: color}}>
+      <div className={cls}>
         {sides}
        </div>
     )};

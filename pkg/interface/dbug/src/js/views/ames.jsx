@@ -256,13 +256,14 @@ export class Ames extends Component {
       <table><tbody>
         <tr class="inter">
           <td>bone</td>
+          <td>line</td>
           <td>last acked</td>
           <td>pending?</td>
           {naxList.length > 0 && <td>naxplanations</td>}
         </tr>
         <tr>
           <td>{flow.bone}</td>
-
+          <td>{flow.line}</td>
           <td>{flow['last-acked']}</td>
           <td>{(flow['pending-acked'] ? 'yes' : 'no')}</td>
           {naxList.length > 0 && <td>{naxList.length}</td>}

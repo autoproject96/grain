@@ -1213,12 +1213,12 @@
               'vane'^s+vane.plea
               'path'^(path:enjs:format path.plea)
               :-  'detail'
+              ?:  ?=([%$ [%flow *] *] plea)
+                (pairs ~['action'^s+'cork'])
               ?.  =(%g vane.plea)
                 ::  XX TODO %c %j %e
                 ::
                 ~
-              ?:  =([%flow *] path.plea)
-                (pairs ~['action'^s+'cork'])
               ?.  ?=([%ge *] path.plea)
                  ::  XX TODO: /gf /gk
                  ::

@@ -286,9 +286,9 @@ export class Ames extends Component {
       : '';
     const cls = flow['closing'] ? 'flow-closing' : flow['corked'] ? 'flow-corked' : flow.halt ? 'flow-halt' : '';
 
-    const key = (flow.side === "for") ? "plea" : "boon" +
-                + active + flow.bone + ', ' + '';
-               //(flow.duct !== null) ? renderDuct(flow.duct) : '';
+    const side = (flow.side === "for") ? "plea" : "boon";
+    const duct = flow.duct !== null ? renderDuct(flow.duct) : '';
+    const key = side + ' ' + active + flow.bone + ', ' + duct;
 
     const renderMsgInfo = (info) => {
       if (!info) return '';

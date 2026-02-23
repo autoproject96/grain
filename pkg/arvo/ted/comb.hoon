@@ -1,0 +1,142 @@
+::  ahoy/comb: sequential peer kelvin scanner
+::
+::  scans peers one at a time via remote scry
+::  for each peer, tries successive cases until it receives the hash or timeout.
+::
+::
+/-  spider
+/+  strandio
+=,  strand=strand:spider
+^-  thread:spider
+::
+|=  arg=vase
+=/  m  (strand ,vase)
+^-  form:m
+::
+~&  arg
+=+  !<  $:  ~
+            timeout=@dr
+            old-cases=(map ship [num=@ud kel=@ud has=@uvi when=@da])
+            peers=(list ship)
+            last-hash=@uvi
+            veb=?
+        ==
+    arg
+;<  =bowl:spider  bind:m  get-bowl:strandio
+::
+::  resolve peer list
+::
+=/  peer-list=(list ship)
+  ?^  peers  peers
+  =/  all=(map ship ?(%alien %known))
+    .^  (map ship ?(%alien %known))  %ax
+      /(scot %p our.bowl)//(scot %da now.bowl)/peers
+    ==
+  %+  murn  ~(tap by all)
+  |=  [who=ship sta=?(%alien %known)]
+  ?:  =(our.bowl who)  ~
+  ?.  ?=(%known sta)   ~
+  ?:  ?=(%pawn (clan:title who))  ~
+  `who
+::
+=/  start=@da  now.bowl
+::
+=|  cases=(map ship [num=@ud kel=@ud has=@uvi when=@da])
+=|  hashes=(jug ship @uvi)
+=|  no-response=(set ship)
+=|  cas=(unit @ud)
+::
+|-
+?~  peer-list
+  ~?  >  veb  end/(sub now.bowl start)
+  (pure:m !>([cases hashes no-response]))
+::
+=/  who=@p  i.peer-list
+=/  case=@ud
+  ?^  cas  u.cas
+  ?~  c=(~(get by old-cases) who)  1
+  +(num.u.c)
+::  refresh bowl for accurate now.bowl
+::
+;<  =bowl:spider  bind:m  get-bowl:strandio
+::
+=/  scry-path=path  /c/z/(scot %ud case)/kids
+=/  =spar:ames      [who scry-path]
+=/  wire-keen       /keen
+=/  timeout-time    (add now.bowl timeout)
+=/  wire-timer      /wait/(scot %da timeout-time)
+::
+::  send %keen and set timer
+::
+;<  ~  bind:m  (keen:strandio wire-keen spar sec=~)
+;<  ~  bind:m
+  (send-raw-card:strandio %pass wire-timer %arvo %b %wait timeout-time)
+::
+::  race sage vs timer
+::
+=/  m-race  (strand ,[which=? result=vase])
+;<  [which=? result=vase]  bind:m
+:: XX
+::   ^-  form:m-race
+::   %+  (map-err ,~)  |=(* [%offline *tang])
+::   %+  (set-timeout ,~)  timeout-time
+  ^-  form:m-race
+  |=  tin=strand-input:strand
+  ^-  output:m-race
+  ?+    in.tin  `[%skip ~]
+      ~  `[%wait ~]
+  ::
+  ::  sage response: give kids hash
+  ::
+      [~ %sign * %ames %sage *]
+    ?.  =(wire-keen wire.u.in.tin)
+      `[%skip ~]
+    =/  =sage:mess:ames  sage.sign-arvo.u.in.tin
+    =/  cancel=(list card:agent:gall)
+      [%pass wire-timer %arvo %b %rest timeout-time]~
+    ?~  q.sage
+      [cancel %done [%.y !>(*(unit @uvi))]]
+    ?.  =(%uvi p.q.sage)
+      [cancel %done [%.y !>(*(unit @uvi))]]
+    [cancel %done [%.y !>([~ ;;(hash=@uvi q.q.sage)])]]
+  ::
+  ::  timer: peer timed out
+  ::
+      [~ %sign * %behn %wake *]
+    ?.  =(wire-timer wire.u.in.tin)
+      `[%skip ~]
+    ?^  error.sign-arvo.u.in.tin
+      `[%fail %timer-error u.error.sign-arvo.u.in.tin]
+    =/  yawn=card:agent:gall  [%pass wire-keen %arvo %a %yawn spar]
+    [[yawn ~] %done [%.n !>(*(unit @uvi))]]
+  ==
+::
+::  process result
+::
+?.  which
+  ::  timed out; mark no-response and try next peer
+  ::
+  ~?  >  veb  "ahoy-comb: {<who>} timed out"
+  $(peer-list t.peer-list, cas ~, no-response (~(put in no-response) who))
+::
+::  sage responded; check kelvin
+::
+=.  no-response  (~(del in no-response) who)
+=+  !<(kids-hash=(unit @uvi) result)
+?~  kids-hash
+  ::  empty, decode error, or no zuse kelvin; try next case
+  ::
+  $(cas `+(case))
+::
+~?  >>  &(veb !=(last-hash u.kids-hash))
+  "ahoy-comb: {<who>} kids hash is {<u.kids-hash>}"
+=.  cases    (~(put by cases) who [case *@ud u.kids-hash now.bowl])
+:: =.  kelvins  (~(put ju kelvins) who u.kids-hash)
+::
+?.  =(last-hash u.kids-hash)
+  ::  not last-hash; try next case
+  ::
+  $(cas `+(case))
+::  found last-hash; done with this peer
+::
+$(peer-list t.peer-list, cas ~)

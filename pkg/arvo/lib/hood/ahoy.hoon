@@ -113,15 +113,90 @@
 ++  poke
   |=  [=mark =vase]
   ?>  =(our src):bowl
-  ?+  mark  ~|([%poke-ahoy-bad-mark mark] !!)
-    %ahoy-mass-mate  abet
+  |^  ?+  mark  ~|([%poke-ahoy-bad-mark mark] !!)
+    %ahoy-comb         abet
+    %ahoy-cancel       abet
+    %ahoy-set-timeout  abet
+    %ahoy-refresh      abet
+    %ahoy-update       abet
   ==
+  ::
+  ++  comb
+    =:  pending.sat      ~
+        no-response.sat  ~
+        hashes.sat       ~
+        cases.sat        ~
+      ==
+    ::  get all peers from ames
+    ::
+    =/  peers=(map ship ?(%alien %known))
+      .^  (map ship ?(%alien %known))  %ax
+        /(scot %p our.bowl)//(scot %da now.bowl)/peers
+      ==
+    ::  filter to just known peers (not aliens, those are offline)
+    ::
+    =/  timeout-time  (add now.bowl timeout.sat)
+    =/  pend=(list ship)
+      %-  flop  ^-  (list ship=@p)
+      %-   ~(rep by peers)
+      |=  [[who=ship sta=?(%alien %known)] p=(list ship)]
+      ?:  =(our.bowl who)  p
+      ?.  ?=(%known sta)   p
+      ::  ignore comets
+      ::
+      ?:  ?=(%pawn (clan:title who))
+        p
+      who^p
+    ::
+    =/  tid=@ta  ::  generate unique thread ID
+      (cat 3 'ahoy-comb-' (scot %uv eny.bowl))
+    =/  data=^vase  !>([timeout cases pending last-hash veb=%.n]:sat)
+    :_  this
+    :~  :*  %pass  /thread/[tid]  %agent  [our.bowl %spider]
+            %watch  /thread-result/[tid]
+        ==
+        :*  %pass  /thread/[tid]  %agent  [our.bowl %spider]
+            %poke  %spider-start
+            !>([~ `tid %comb data])
+    ==  ==
+  ::
+  --
+  ::
 ::
 ++  take-agent
-  |=  [=wire =sign:agent:gall]
-  ?+    wire  ~|([%ahoy-bad-take-agent wire -.sign] !!)
-      [%hi *]  abet
+  |=  [=wire =sign:agent:gall]  =<  abet
+  |^  ?+  wire  ~|([%ahoy-bad-take-agent wire -.sign] !!)
+    [%thread @ *]  (take-thread i.t.wire)
   ==
+  ::
+  ++  take-thread
+    |=  tid=@ta
+    ?-    -.sign
+        %poke-ack
+      ?~  p.sign  `this
+      %-  (slog leaf+"thermo-thread: poke failed for {<tid>}" u.p.sign)
+      `this
+    ::
+        %watch-ack
+      ?~  p.sign  `this
+      %-  (slog leaf+"thermo-thread: watch failed for {<tid>}" u.p.sign)
+      `this
+    ::
+        %kick
+      `this
+    ::
+        %fact
+      ?>  ?=(%thread-done p.cage.sign)
+      =/  result=vase  q.cage.sign
+      =+  !<([=_cases.sat =_hashes.sat =_no-response.sat] result)
+      =:        cases.sat  cases
+               hashes.sat  hashes
+          no-response.sat  no-response
+        ==
+      `this
+    ==
+  ::
+  --
 ::
 ++  take-arvo
   |=  [=wire =sign-arvo]  =<  abet
@@ -142,7 +217,7 @@
     ::  scry for chums and fill out migrated peers
     ::
     =+  .^  chums=(map ship ?(%known %alien))  %ax
-          /(scot %p our.bowl)/rift/(scot %da now.bowl)/chums
+          /(scot %p our.bowl)//(scot %da now.bowl)/chums
         ==
     %_    this
         migrants.sat

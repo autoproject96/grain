@@ -67,12 +67,12 @@
       last-hash=@uvi
   ==
 +$  action
-  $%  [%comb dry=?]           ::  start checking one peer at at time
+  $%  [%comb dry=? veb=?]     ::  start checking one peer at at time
                               ::  as soon as we get a response, or
                               ::  we timeout, we try the next peer
                               ::  (always nuke al previous state)
                               ::
-      [%ahoy who=@p]          ::  start %ahoy flow only for this peer
+      [%prob who=@p dry=?]    ::  start %ahoy flow only for .who
       [%cancel ~]             ::  cancel all pending checks
       [%set-timeout dur=@dr]  ::  change timeout duration
       [%set-hash dur=@uvi]    ::  change kids hash to trigget migration
@@ -114,8 +114,8 @@
   ?>  =(our src):bowl
   =+  !<(=action vase)
   |^  ?+  mark  ~|([%poke-ahoy-bad-mark mark] !!)
-    %ahoy-comb         ?>(?=(%comb -.action) (comb dry.action))
-    %ahoy-prob         ?>(?=(%ahoy -.action) (ahoy +.action))
+    %ahoy-comb         ?>(?=(%comb -.action) (comb [dry veb]:action))
+    %ahoy-prob         ?>(?=(%prob -.action) (ahoy +.action))
     %ahoy-cancel       this
     %ahoy-set-timeout  ?>(?=(%set-timeout -.action) (time +.action))
     %ahoy-set-hash     ?>(?=(%set-hash -.action) (hash +.action))
@@ -124,7 +124,7 @@
   ==
   ::
   ++  comb
-    |=  dry=?
+    |=  [dry=? veb=?]
     =:  broken.sat       ~
         no-response.sat  ~
         hashes.sat       ~
@@ -150,22 +150,14 @@
         p
       who^p
     ::
-    =/  tid=@ta  ::  generate unique thread ID
-      (cat 3 'ahoy-comb-' (scot %uv eny.bowl))
-    =/  data=^vase  !>([timeout.sat hashes.sat pend last-hash.sat veb=%.n])
+    =/  data=^vase  !>([~ timeout.sat hashes.sat pend last-hash.sat veb])
     =/  =wire
-      :+  %thread  tid
+      :+  %ahoy  %thread
       ?.  dry
         ~
       /test
-    %-  emil
-    :~  :*  %pass  wire  %agent  [our.bowl %spider]
-            %watch  /thread-result/[tid]
-        ==
-        :*  %pass  wire  %agent  [our.bowl %spider]
-            %poke  %spider-start
-            !>([~ `tid %comb data])
-    ==  ==
+    %-  emit
+    [%pass wire %arvo %k %fard q.byk.bowl %comb %noun data]
   ::
   ++  time  |=(tim=@dr this(timeout.sat tim))
   ++  hash  |=(has=@uvi this(last-hash.sat has))
@@ -175,57 +167,6 @@
   --
   ::
 ::
-++  take-agent
-  |=  [=wire =sign:agent:gall]  =<  abet
-  |^
-  ?+    wire  ~|([%ahoy-bad-take-agent wire -.sign] !!)
-      [%thread *]
-    =/  [test=? tid=@ta]
-      ?+  t.wire  ~|(wire !!)
-        [tid=@ ~]        [%.n i.t.wire]
-        [%test tid=@ ~]  [%.y i.t.t.wire]
-      ==
-    (take-thread test tid)
-  ==
-  ::
-  ++  take-thread
-    |=  [test=? tid=@ta]
-    ?-    -.sign
-        %poke-ack
-      ?~  p.sign  this
-      %-  (slog leaf+"ahoy-thread: poke failed for {<tid>}" u.p.sign)
-      this
-    ::
-        %watch-ack
-      ?~  p.sign  this
-      %-  (slog leaf+"ahoy-thread: watch failed for {<tid>}" u.p.sign)
-      this
-    ::
-        %kick
-      this
-    ::
-        %fact
-      ?>  ?=(%thread-done p.cage.sign)
-      =+  !<([=_hashes.sat =_no-response.sat] q.cage.sign)
-      =:        hashes.sat  hashes
-           no-response.sat  no-response
-        ==
-      %-  emil
-      %-  ~(rep by hashes.sat)
-      |=  [[=ship [num=@ud has=@uvi when=@da]] moz=_moz]
-      ?.  =(last-hash.sat has)  moz
-      ::  XX do last check to see if online?
-      ::
-      ::  filter by last case and start %ahoying
-      ::
-      =/  =^wire
-        [%mate ?:(test /test/(scot %p ship) /(scot %p ship))]
-      :_  moz
-      [%pass wire %arvo %a %mate `ship dry=%.y]
-    ==
-  ::
-  --
-::
 ++  take-arvo
   |=  [=wire =sign-arvo]  =<  abet
   =>  .(wire `(pole knot)`wire)
@@ -234,6 +175,9 @@
       ::
           [%chums *]
         (take-timer ?>(?=(%wake +<.sign-arvo) +>.sign-arvo))
+      ::
+          [%thread *]
+        (take-thread test=?=([%test ~] wire))
       ::
           [?(%mate %ahoy %migrate) rest=*]
       ::  %ahoy flow:
@@ -270,6 +214,28 @@
       |=  [[=ship s=?(%known %alien)] migs=_migrants.sat]
       (~(put by migs) ship %mesa)
     ==
+  ::
+  ++  take-thread
+    |=  test=?
+    ?>  ?=([%khan %arow *] sign-arvo)
+    ?:  ?=(%.n -.p.sign-arvo)
+      (flog %crud [mote tang]:p.p.sign-arvo)
+    =+  !<([=_hashes.sat =_no-response.sat] q.p.p.sign-arvo)
+    =:        hashes.sat  hashes
+          no-response.sat  no-response
+      ==
+    %-  emil
+    %-  ~(rep by hashes.sat)
+    |=  [[=ship [num=@ud has=@uvi when=@da]] moz=_moz]
+    ?.  =(last-hash.sat has)  moz
+    ::  XX do last check to see if online?
+    ::
+    ::  filter by last case and start %ahoying
+    ::
+    =/  =^wire
+      [%mate ?:(test /test/(scot %p ship) /(scot %p ship))]
+    :_  moz
+    [%pass wire %arvo %a %mate `ship dry=%.y]
   ::
   ++  take-mate
     |=  [who=@p error=(unit tang) test=?]

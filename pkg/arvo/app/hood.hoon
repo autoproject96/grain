@@ -86,8 +86,6 @@
   |-  ^-  step:agent:gall
   ?:  ?=(%27 -.old)
     $(old old(- %28), cards (eyre-clean:load [our now]:bowl))
-
-
   =/  tup=any-state-tuple
     ?:  ?=(%29 -.old)
       +.old

@@ -13,10 +13,9 @@
 =/  m  (strand ,vase)
 ^-  form:m
 ::
-~&  arg
 =+  !<  $:  ~
             timeout=@dr
-            old-cases=(map ship [num=@ud kel=@ud has=@uvi when=@da])
+            old-hashes=(map ship [num=@ud has=@uvi when=@da])
             peers=(list ship)
             last-hash=@uvi
             veb=?
@@ -41,21 +40,20 @@
 ::
 =/  start=@da  now.bowl
 ::
-=|  cases=(map ship [num=@ud kel=@ud has=@uvi when=@da])
-=|  hashes=(jug ship @uvi)
+=|  hashes=(map ship [num=@ud has=@uvi when=@da])
 =|  no-response=(set ship)
 =|  cas=(unit @ud)
 ::
 |-
 ?~  peer-list
   ~?  >  veb  end/(sub now.bowl start)
-  (pure:m !>([cases hashes no-response]))
+  (pure:m !>([hashes no-response]))
 ::
 =/  who=@p  i.peer-list
 =/  case=@ud
   ?^  cas  u.cas
-  ?~  c=(~(get by old-cases) who)  1
-  +(num.u.c)
+  ?~  c=(~(get by old-hashes) who)  1
+  +(num.u.c)  :: XX check num again, since we now that works
 ::  refresh bowl for accurate now.bowl
 ::
 ;<  =bowl:spider  bind:m  get-bowl:strandio
@@ -130,8 +128,7 @@
 ::
 ~?  >>  &(veb !=(last-hash u.kids-hash))
   "ahoy-comb: {<who>} kids hash is {<u.kids-hash>}"
-=.  cases    (~(put by cases) who [case *@ud u.kids-hash now.bowl])
-:: =.  kelvins  (~(put ju kelvins) who u.kids-hash)
+=.  hashes    (~(put by hashes) who [case u.kids-hash now.bowl])
 ::
 ?.  =(last-hash u.kids-hash)
   ::  not last-hash; try next case

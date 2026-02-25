@@ -46,7 +46,7 @@
  ==
 +$  state-0
   $:  %0
-      ::  peers not responding
+      ::  peers not responding, as of last attempt (XX record when=@da ?)
       ::
       no-response=(set ship)
       ::  last known kids hash and case per peer, timestamped
@@ -67,17 +67,17 @@
       last-hash=@uvi
   ==
 +$  action
-  $%  [%comb dry=? veb=?]     ::  start checking one peer at at time
-                              ::  as soon as we get a response, or
-                              ::  we timeout, we try the next peer
-                              ::  (always nuke al previous state)
-                              ::
-      [%prob who=@p dry=?]    ::  start %ahoy flow only for .who
-      [%cancel ~]             ::  cancel all pending checks
-      [%set-timeout dur=@dr]  ::  change timeout duration
-      [%set-hash dur=@uvi]    ::  change kids hash to trigget migration
-      [%refresh dry=?]        ::  only no-response peers
-      [%update dry=?]         ::  only peers not on latest hash
+  $%  [%comb dry=? veb=? nuke=?]  ::  start checking one peer at at time
+                                  ::  as soon as we get a response, or
+                                  ::  we timeout, we try the next peer
+                                  ::  (always nuke al previous state)
+                                  ::
+      [%prob who=@p dry=?]        ::  start %ahoy flow only for .who
+      [%cancel ~]                 ::  cancel all pending checks
+      [%set-timeout dur=@dr]      ::  change timeout duration
+      [%set-hash dur=@uvi]        ::  change kids hash to trigger migration
+      [%refresh dry=?]            ::  only no-response peers
+      [%update dry=?]             ::  only peers not on latest hash
   ==
 ::
 --
@@ -114,7 +114,7 @@
   ?>  =(our src):bowl
   =+  !<(=action vase)
   |^  ?+  mark  ~|([%poke-ahoy-bad-mark mark] !!)
-    %ahoy-comb         ?>(?=(%comb -.action) (comb [dry veb]:action))
+    %ahoy-comb         ?>(?=(%comb -.action) (comb [dry veb nuke]:action))
     %ahoy-prob         ?>(?=(%prob -.action) (ahoy +.action))
     %ahoy-cancel       this
     %ahoy-set-timeout  ?>(?=(%set-timeout -.action) (time +.action))
@@ -124,11 +124,13 @@
   ==
   ::
   ++  comb
-    |=  [dry=? veb=?]
-    =:  broken.sat       ~
-        no-response.sat  ~
-        hashes.sat       ~
-      ==
+    |=  [dry=? veb=? nuke=?]
+    =?  broken.sat       nuke  ~
+    =?  no-response.sat  nuke  ~
+    =?  hashes.sat       nuke  ~
+    =?  migrants.sat     nuke  ~
+    =?  this  nuke
+      (emit %pass /ahoy/chums %arvo %b %wait now.bowl)
     ::  get all peers from ames
     ::
     =/  peers=(map ship ?(%alien %known))
@@ -162,7 +164,7 @@
   ++  time  |=(tim=@dr this(timeout.sat tim))
   ++  hash  |=(has=@uvi this(last-hash.sat has))
   ::
-  ++  ahoy  |=  *  this
+  ++  ahoy  |=(* this)
   ::
   --
   ::
@@ -177,16 +179,16 @@
         (take-timer ?>(?=(%wake +<.sign-arvo) +>.sign-arvo))
       ::
           [%thread *]
-        (take-thread test=?=([%test ~] wire))
+        (take-thread test=?=([@ %test *] wire))
       ::
-          [?(%mate %ahoy %migrate) rest=*]
-      ::  %ahoy flow:
+          [?(%mate %send %migr) rest=*]
+      ::  %ahoy flow:  XX move to a thread?
       ::
       ::   1. get %done for test migration locally; if no error send ahoy
       ::
-      ::    2. get %ack for ahoy, if no error, migrate
+      ::   2. get %ack for ahoy, if no error, migrate
       ::
-      ::    3. get %done for local migration; it should not have errored
+      ::   3. get %done for local migration; it should not have errored
       ::
         =/  [test=? who=@p]
           ?+  rest.wire  ~|(wire !!)
@@ -195,9 +197,9 @@
           ==
         %.  [who ?>(?=(%done +<.sign-arvo) +>.sign-arvo) test]
         ?+  wire  !!
-          [%mate *]     take-mate
-          [%ahoy *]     take-ahoy
-          [%migrate *]  take-migrate
+          [%mate *]  take-mate
+          [%send *]  take-ahoy
+          [%migr *]  take-migrate
         ==
       ==
   ::
@@ -221,19 +223,19 @@
     ?:  ?=(%.n -.p.sign-arvo)
       (flog %crud [mote tang]:p.p.sign-arvo)
     =+  !<([=_hashes.sat =_no-response.sat] q.p.p.sign-arvo)
-    =:        hashes.sat  hashes
-          no-response.sat  no-response
+    =:       hashes.sat  hashes
+        no-response.sat  no-response
       ==
     %-  emil
     %-  ~(rep by hashes.sat)
     |=  [[=ship [num=@ud has=@uvi when=@da]] moz=_moz]
     ?.  =(last-hash.sat has)  moz
-    ::  XX do last check to see if online?
+    ::  XX do last +peek check to see if online?
     ::
-    ::  filter by last case and start %ahoying
+    ::  filter by last hash and start %ahoying
     ::
     =/  =^wire
-      [%mate ?:(test /test/(scot %p ship) /(scot %p ship))]
+      [%ahoy %mate ?:(test /test/(scot %p ship) /(scot %p ship))]
     :_  moz
     [%pass wire %arvo %a %mate `ship dry=%.y]
   ::
@@ -247,7 +249,7 @@
     ::
     %-  emit
     =/  =^wire
-      :-  %ahoy
+      :+  %ahoy  %send
       ?.(test /(scot %p who) /test/(scot %p who))
     =/  =path  ?:(test /test/mesa-2 /mesa-2)
     [%pass wire %arvo %a %plea who %$ path %ahoy ~]
@@ -258,10 +260,8 @@
     ?^  error
       ~&  >>  "ahoy: broken %ahoy for {<who>}"
       this(broken.sat (~(put in broken.sat) who))  ::  migrate failed
-    ~?  >  test  "ahoy: remote test migration worked for {<who>}"
-    ~?  >>  !test  "ahoy: remote migration failed for {<who>}"
     =/  =^wire
-      :-  %migrate
+      :+  %ahoy  %migr
       ?.(test /(scot %p who) /test/(scot %p who))
     (emit %pass wire %arvo %a %mate `who test)
   ::
@@ -275,12 +275,15 @@
       ::
       ~&  >>>  "ahoy: broken migration for {<who>}"
       this(broken.sat (~(put in broken.sat) who))  ::  migrate failed
-    ~&  >  "ahoy: migration completed for {<who>}"
+    ~?  >   test  "ahoy: test migration completed for {<who>}"
+    ~?  >  !test  "ahoy: migration completed for {<who>}"
     ::  migration succeded
     ::
     %_  this
-      broken.sat    (~(del in broken.sat) who)  :: if we previously encountered a broken flow
-                                        :: XX  while doing a test migration?
+      ::  if we previously encountered a broken flow
+      ::  XX  while doing a test migration?
+      ::
+      broken.sat    (~(del in broken.sat) who)
       migrants.sat  ?:(test migrants.sat (~(put by migrants.sat) who %mesa))
     ==
   ::

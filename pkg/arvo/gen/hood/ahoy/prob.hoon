@@ -6,4 +6,4 @@
   ::
 /?    310
 :-  %say
-|=([^ [who=@p ~] dry=_& ~] ahoy-prod/who^dry)
+|=([^ [who=@p ~] force-test=_& ~] ahoy-prob/who^force-test)

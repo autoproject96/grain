@@ -547,7 +547,7 @@
       |=  [=duct our=ship who=ship force-test=?]
       ^-  move
       :^  duct  %pass  /ahoy
-      [%g %deal [our our /ames] %hood %poke ahoy-prob+!>(who^force-test)]
+      [%g %deal [our our /ames] %hood %poke ahoy-prob+!>([%prob who^force-test])]
     ::
     +|  %atomics
     ::

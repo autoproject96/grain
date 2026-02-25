@@ -6,4 +6,4 @@
   ::
 /?    310
 :-  %say
-|=([^ ~ dry=_& ~] ahoy-comb/[%comb dry])
+|=([^ ~ dry=_& veb=_& nuke=_& ~] ahoy-comb/[%comb dry veb nuke])

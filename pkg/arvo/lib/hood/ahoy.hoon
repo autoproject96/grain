@@ -81,6 +81,37 @@
   ==
 ::
 --
+=>  |%  ++  dispatch-thread
+          |=  [=term test=?]
+          ^-  wire
+          :+  %ahoy  %thread
+          ?+  term  ~|(term !!)
+            %comb  ?:(test /test /)
+            %prob  ?:(test /force /)
+          ==
+        ::
+        ++  dispatch-flow
+          |=  [=term =ship test=?]
+          ^-  wire
+          :+  %ahoy  term
+          ?:(test /test/(scot %p ship) /(scot %p ship))
+        ::
+        ::
+        ++  migrate
+          |=  [=term =ship test=?]
+          ^-  card
+          :+  %pass
+            (dispatch-flow term ship test)
+          [%arvo %a %mate `ship dry=?:(=(%mate term) %.y %.n)]
+        ::
+        ++  send-ahoy
+          |=  [=ship test=?]
+          ^-  card
+          =/  =path  ?:(test /test/mesa-2 /mesa-2)
+          [%pass (dispatch-flow %send ship test) %arvo %a %plea ship %$ path %ahoy ~]
+    ::
+    --
+::
 |=  [=bowl:gall sat=state]
 =|  moz=(list card)
 |%
@@ -115,7 +146,7 @@
   =+  !<(=action vase)
   |^  ?+  mark  ~|([%poke-ahoy-bad-mark mark] !!)
     %ahoy-comb         ?>(?=(%comb -.action) (comb [dry veb nuke]:action))
-    %ahoy-prob         ?>(?=(%prob -.action) (ahoy +.action))
+    %ahoy-prob         ?>(?=(%prob -.action) (prob +.action))
     %ahoy-cancel       this
     %ahoy-set-timeout  ?>(?=(%set-timeout -.action) (time +.action))
     %ahoy-set-hash     ?>(?=(%set-hash -.action) (hash +.action))
@@ -153,18 +184,20 @@
       who^p
     ::
     =/  data=^vase  !>([~ timeout.sat hashes.sat pend last-hash.sat veb])
-    =/  =wire
-      :+  %ahoy  %thread
-      ?.  dry
-        ~
-      /test
-    %-  emit
-    [%pass wire %arvo %k %fard q.byk.bowl %comb %noun data]
+    %+  emit  %pass
+    [(dispatch-thread %comb dry) %arvo %k %fard q.byk.bowl %comb %noun data]
   ::
   ++  time  |=(tim=@dr this(timeout.sat tim))
   ++  hash  |=(has=@uvi this(last-hash.sat has))
   ::
-  ++  ahoy  |=(* this)
+  ++  prob
+    |=  [=ship force=?]
+    ::  XX check that the peer is not in .chums.ames-state
+    ::
+    ~&  >  hashes.sat
+    =/  data=^vase  !>([~ timeout.sat hashes.sat [ship]~ last-hash.sat veb=|])
+    %+  emit  %pass
+    [(dispatch-thread %prob force) %arvo %k %fard q.byk.bowl %comb %noun data]
   ::
   --
   ::
@@ -178,8 +211,20 @@
           [%chums *]
         (take-timer ?>(?=(%wake +<.sign-arvo) +>.sign-arvo))
       ::
-          [%thread *]
-        (take-thread test=?=([@ %test *] wire))
+          [%thread rest=*]
+        :: - /thread       : migrate with no test migration
+        :: - /thread/force : force a local test migration first
+        ::                   (a local test migration would crash if there
+        ::                    is no flow information)
+        :: - /thread/test  : test migration; ship will remain in .peers)
+        ::                   (we force a local migration first)
+        ::
+        =/  [force-test=? dry=?]
+          ?+  rest.wire  |^|
+            [%force *]   &^|
+            [%test *]    &^&
+          ==
+        (take-thread force-test dry)
       ::
           [?(%mate %send %migr) rest=*]
       ::  %ahoy flow:  XX move to a thread?
@@ -218,26 +263,30 @@
     ==
   ::
   ++  take-thread
-    |=  test=?
+    |=  [force-test=? dry=?]
     ?>  ?=([%khan %arow *] sign-arvo)
     ?:  ?=(%.n -.p.sign-arvo)
       (flog %crud [mote tang]:p.p.sign-arvo)
     =+  !<([=_hashes.sat =_no-response.sat] q.p.p.sign-arvo)
-    =:       hashes.sat  hashes
+    ~&  >>  hashes
+    =:       hashes.sat  (~(uni by hashes.sat) hashes)
         no-response.sat  no-response
       ==
     %-  emil
-    %-  ~(rep by hashes.sat)
-    |=  [[=ship [num=@ud has=@uvi when=@da]] moz=_moz]
+    ::  only look at this last set of hashes
+    ::
+    %-  ~(rep by hashes)
+    |=  [[who=@p [num=@ud has=@uvi when=@da]] moz=_moz]
     ?.  =(last-hash.sat has)  moz
     ::  XX do last +peek check to see if online?
     ::
-    ::  filter by last hash and start %ahoying
+    ::  filter by last hash and start %ahoying with a test
+    ::  migration first
     ::
-    =/  =^wire
-      [%ahoy %mate ?:(test /test/(scot %p ship) /(scot %p ship))]
     :_  moz
-    [%pass wire %arvo %a %mate `ship dry=%.y]
+    ?:  force-test
+      (migrate %mate who dry)
+    (send-ahoy who dry)
   ::
   ++  take-mate
     |=  [who=@p error=(unit tang) test=?]
@@ -247,12 +296,7 @@
       this(broken.sat (~(put in broken.sat) who))
     ::  mate succeded; ahoy
     ::
-    %-  emit
-    =/  =^wire
-      :+  %ahoy  %send
-      ?.(test /(scot %p who) /test/(scot %p who))
-    =/  =path  ?:(test /test/mesa-2 /mesa-2)
-    [%pass wire %arvo %a %plea who %$ path %ahoy ~]
+    (emit (send-ahoy who test))
   ::
   ++  take-ahoy
     |=  [who=@p error=(unit tang) test=?]
@@ -260,10 +304,7 @@
     ?^  error
       ~&  >>  "ahoy: broken %ahoy for {<who>}"
       this(broken.sat (~(put in broken.sat) who))  ::  migrate failed
-    =/  =^wire
-      :+  %ahoy  %migr
-      ?.(test /(scot %p who) /test/(scot %p who))
-    (emit %pass wire %arvo %a %mate `who test)
+    (emit (migrate %migr who test))
   ::
   ++  take-migrate
     |=  [who=@p error=(unit tang) test=?]

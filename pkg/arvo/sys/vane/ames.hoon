@@ -544,10 +544,10 @@
       [duct %pass /ping %g %deal [our our /ames] %ping %poke noun+!>(poke)]
     ::
     ++  poke-send-ahoy
-      |=  [=duct our=ship who=ship force=?]
+      |=  [=duct our=ship who=ship force-test=?]
       ^-  move
       :^  duct  %pass  /ahoy
-      [%g %deal [our our /ames] %hood %poke helm-send-ahoy+!>(who^|^force)]
+      [%g %deal [our our /ames] %hood %poke ahoy-prob+!>(who^force-test)]
     ::
     +|  %atomics
     ::

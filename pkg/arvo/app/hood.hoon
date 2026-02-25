@@ -141,7 +141,6 @@
     [%drum *]  =^(c drum.state (take-agent:drum-core t.wire syn) [c this])
     [%helm *]  =^(c helm.state (take-agent:helm-core t.wire syn) [c this])
     [%kiln *]  =^(c kiln.state (take-agent:kiln-core t.wire syn) [c this])
-    [%ahoy *]  =^(c ahoy.state (take-agent:ahoy-core t.wire syn) [c this])
   ==
 ::
 ++  on-arvo

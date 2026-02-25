@@ -12807,7 +12807,14 @@
             |.("hear ames packet; %mesa default core")
         ::  handle %ames packet; keys will be asked and packet dropped
         ::
+        ::  XX  just for this peer, we switch our default core to %ames to
+        ::      store the ship in .peers
+        ::
+        =.  core.ames-state.am-core  %ames
         =^  moves  vane-gate  (call:am-core hen dud %soft %hear lane blob)
+        ::  restore
+        ::
+        =.  core.ames-state.vane-gate  %mesa
         (snoc moves (poke-send-ahoy hen our sndr.shot force=%.n))^vane-gate
           ::  [%mesa ~ %alien *]
           ::    %mesa is our default network core. we might have outstanding
@@ -13394,10 +13401,6 @@
 ++  load
   |=  state=axle
   ~>  %spin.['load/ames']
-  :: =.  peers.state
-  ::   (~(del by peers.state) ~nec)
-  :: =.  chums.state
-  ::   (~(del by chums.state) ~nec)
   vane-gate(ames-state state)
 ::  +scry: dereference namespace
 ::

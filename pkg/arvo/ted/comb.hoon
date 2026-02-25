@@ -46,15 +46,16 @@
 ::
 |-
 ?~  peer-list
-  ~?  >  veb  end/(sub now.bowl start)
+  ;<  =bowl:spider  bind:m  get-bowl:strandio
+  ~?  >  veb  end/`@dr`(sub now.bowl start)
   (pure:m !>([hashes no-response]))
 ::
 =/  who=@p  i.peer-list
 =/  case=@ud
   ?^  cas  u.cas
   ?~  c=(~(get by old-hashes) who)  1
-  +(num.u.c)  :: XX check num again, since we now that works
-::  refresh bowl for accurate now.bowl
+  num.u.c  ::  check num again, since we now that worked
+::  refresh bowl
 ::
 ;<  =bowl:spider  bind:m  get-bowl:strandio
 ::
@@ -112,17 +113,26 @@
 ::  process result
 ::
 ?.  which
-  ::  timed out; mark no-response and try next peer
+  ::  timed out; mark no-response if no previous attempt worked and try next peer
   ::
   ~?  >  veb  "ahoy-comb: {<who>} timed out"
-  $(peer-list t.peer-list, cas ~, no-response (~(put in no-response) who))
+  =?  no-response  !(~(has by hashes) who)
+    (~(put in no-response) who)
+  ::  keep old hashes, even if on this attempt a ship was offline
+  ::  and we couldn't get any hash
+  ::
+  =?  hashes  !(~(has by hashes) who)
+    ?~  last-hash=(~(get by old-hashes) who)
+      hashes
+    (~(put by hashes) who u.last-hash)
+  $(peer-list t.peer-list, cas ~)
 ::
 ::  sage responded; check kelvin
 ::
 =.  no-response  (~(del in no-response) who)
 =+  !<(kids-hash=(unit @uvi) result)
 ?~  kids-hash
-  ::  empty, decode error, or no zuse kelvin; try next case
+  ::  %kids desk doesn't exist?; try next case
   ::
   $(cas `+(case))
 ::

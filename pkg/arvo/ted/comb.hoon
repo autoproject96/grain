@@ -41,7 +41,7 @@
 =/  start=@da  now.bowl
 ::
 =|  hashes=(map ship [num=@ud has=@uvi when=@da])
-=|  no-response=(set [ship @da])
+=|  no-response=(map ship @da)
 =|  cas=(unit @ud)
 ::
 |-
@@ -118,7 +118,7 @@
   ::
   ~?  >  veb  "ahoy-comb: {<who>} timed out"
   =?  no-response  !(~(has by hashes) who)
-    (~(put in no-response) who^now.bowl)
+    (~(put by no-response) who now.bowl)
   $(peer-list t.peer-list, cas ~)
 ::
 ::  sage responded; check kelvin

@@ -71,10 +71,10 @@
                                   ::  we timeout, we try the next peer
                                   ::  (always nuke al previous state)
                                   ::
-      [%prob who=@p dry=?]        ::  start %ahoy flow only for .who
+      [%prob who=@p force=?]      ::  start %ahoy flow only for .who
       [%cancel ~]                 ::  cancel all pending checks
       [%set-timeout dur=@dr]      ::  change timeout duration
-      [%set-hash dur=@uvi]        ::  change kids hash to trigger migration
+      [%set-hash has=@uvi]        ::  change kids hash to trigger migration
       [%refresh dry=?]            ::  only no-response peers
       [%update dry=?]             ::  only peers not on latest hash
       [%wipe ship=(unit @p)]
@@ -198,7 +198,6 @@
     |=  [=ship force=?]
     ::  XX check that the peer is not in .chums.ames-state
     ::
-    ~&  >  prob/ship
     ::  if we know that %ahoy is not supported skip %ahoy, if last attempt
     ::  was less than a day ago
     ::  XX  (we could also add a check in ames avoid ahoy attemps for naxplanations
@@ -282,8 +281,7 @@
     ?:  ?=(%.n -.p.sign-arvo)
       (flog %crud [mote tang]:p.p.sign-arvo)
     =+  !<([=_hashes.sat =_no-response.sat] q.p.p.sign-arvo)
-    =:
-             hashes.sat  (~(uni by hashes.sat) hashes)
+    =:       hashes.sat  (~(uni by hashes.sat) hashes)
         no-response.sat  (~(uni by no-response.sat) no-response)
       ==
     %-  emil

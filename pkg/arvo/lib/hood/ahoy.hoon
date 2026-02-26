@@ -102,7 +102,7 @@
           ^-  card
           :+  %pass
             (dispatch-flow term ship test)
-          [%arvo %a %mate `ship dry=?:(=(%mate term) %.y %.n)]
+          [%arvo %a %mate `ship dry=test]
         ::
         ++  send-ahoy
           |=  [=ship test=?]

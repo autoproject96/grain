@@ -5438,8 +5438,9 @@
             ::
             event-core
           =/  blob=*  (cue (rep packet-size [fragment]~))
-          ?.  ?|  ?=(^ ;;((soft [%$ [%mesa ~] %ahoy ~]) blob))
-                  ?=(^ ;;((soft [%$ [%mesa-1 ~] %ahoy ~]) blob))
+          ?.  ?|  ::?=(^ ;;((soft [%$ [%mesa ~] %ahoy ~]) blob))
+                  ::?=(^ ;;((soft [%$ [%mesa-1 ~] %ahoy ~]) blob))
+                  ?=(^ ;;((soft [%$ [%mesa-2 ~] %ahoy ~]) blob))
               ==
             %-  (ev-trace odd.veb sndr.shot |.("ignore non ahoy pleas"))
             ::  ignore single-fragment non %ahoy pleas
@@ -5743,12 +5744,27 @@
             ::
             =/  =bone  bone.shut-packet
             ::  if the peer is responding, and our default core is %mesa,
-            ::  enqueue %ahoy $plea
+            ::  enqueue %ahoy $plea via app/hood %ahoy-prob
             ::
-            :: =?  peer-core  ?=(%mesa core.ames-state)
-            ::   %-  %+  pe-trace  sun.veb
-            ::       |.("is online; send %ahoy $plea on bone={<bone>}")
-            ::   (pe-emit (poke-send-ahoy duct our her force=%.n))
+            =?  peer-core  ?&  ?=(%mesa core.ames-state)
+                               ?=(%& -.meat.shut-packet)
+                           ==
+              =/  [num-fragments=@ud =fragment-num =fragment]
+                +.meat.shut-packet
+              ::  ignore acks; we will hear the %ahoy plea separatedly
+              ::  ignore %ahoy $pleas to avoid sending %ahoy after migration
+              ::  XX skip naxplanations?
+              ::
+                ?:  ?&  =(num-fragments 1)
+                        =(fragment-num 0)
+                        ~!  fragment
+                        =/  blob=*  (cue (rep packet-size [fragment]~))
+                        ?=(^ ;;((soft [%$ [%mesa-2 *] %ahoy ~]) blob))
+                    ==
+                peer-core
+              %-  %+  pe-trace  sun.veb
+                  |.("is online; enqueue %ahoy $plea on bone={<bone>}")
+              (pe-emit (poke-send-ahoy duct our her force-test=%.y))
             ::
             ?:  (is-halted bone)
               %-  %+  pe-trace  msg.veb
@@ -7643,7 +7659,7 @@
                   ::
                   ?+    -.payload.plea  ~|(weird-migration-plea/plea !!)
                       %ahoy
-                    ?>  ?=(%mesa-1 -.path.plea)
+                    ?>  ?=(%mesa-2 -.path.plea)
                     (pe-emit duct %pass wire %a %deep %ahoy her bone)
                   ::
                       %cork

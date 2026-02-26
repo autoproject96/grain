@@ -41,7 +41,7 @@
 =/  start=@da  now.bowl
 ::
 =|  hashes=(map ship [num=@ud has=@uvi when=@da])
-=|  no-response=(set ship)
+=|  no-response=(set [ship @da])
 =|  cas=(unit @ud)
 ::
 |-
@@ -113,23 +113,17 @@
 ::  process result
 ::
 ?.  which
+  ;<  =bowl:spider  bind:m  get-bowl:strandio
   ::  timed out; mark no-response if no previous attempt worked and try next peer
   ::
   ~?  >  veb  "ahoy-comb: {<who>} timed out"
   =?  no-response  !(~(has by hashes) who)
-    (~(put in no-response) who)
-  ::  keep old hashes, even if on this attempt a ship was offline
-  ::  and we couldn't get any hash
-  ::
-  =?  hashes  !(~(has by hashes) who)
-    ?~  last-hash=(~(get by old-hashes) who)
-      hashes
-    (~(put by hashes) who u.last-hash)
+    (~(put in no-response) who^now.bowl)
   $(peer-list t.peer-list, cas ~)
 ::
 ::  sage responded; check kelvin
 ::
-=.  no-response  (~(del in no-response) who)
+:: =.  no-response  (~(del in no-response) who)
 =+  !<(kids-hash=(unit @uvi) result)
 ?~  kids-hash
   ::  %kids desk doesn't exist?; try next case

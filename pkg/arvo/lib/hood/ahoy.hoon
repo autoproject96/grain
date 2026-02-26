@@ -46,9 +46,8 @@
  ==
 +$  state-0
   $:  %0
-      ::  peers not responding, as of last attempt (XX record when=@da ?)
-      ::
-      no-response=(set ship)
+      ::  peers not responding, as of last attempt      ::
+      no-response=(map ship attempt=@da)
       ::  last known kids hash and case per peer, timestamped
       ::
       ::
@@ -61,7 +60,7 @@
       migrants=(map ship ?(%mesa %ames))
       ::  peers we can't migrate
       ::
-      broken=(set ship)  :: XX add offending flows?
+      broken=(map ship attempt=@da)  :: XX add offending flows?
       ::  hash to trigger migration
       ::
       last-hash=@uvi
@@ -78,6 +77,7 @@
       [%set-hash dur=@uvi]        ::  change kids hash to trigger migration
       [%refresh dry=?]            ::  only no-response peers
       [%update dry=?]             ::  only peers not on latest hash
+      [%wipe ship=(unit @p)]
   ==
 ::
 --
@@ -152,6 +152,7 @@
     %ahoy-set-hash     ?>(?=(%set-hash -.action) (hash +.action))
     %ahoy-refresh      this
     %ahoy-update       this
+    %ahoy-wipe         ?>(?=(%wipe -.action) (wipe +.action))
   ==
   ::
   ++  comb
@@ -187,14 +188,27 @@
     %+  emit  %pass
     [(dispatch-thread %comb dry) %arvo %k %fard q.byk.bowl %comb %noun data]
   ::
-  ++  time  |=(tim=@dr this(timeout.sat tim))
-  ++  hash  |=(has=@uvi this(last-hash.sat has))
+  ++  time       |=(tim=@dr this(timeout.sat tim))
+  ++  hash       |=(has=@uvi this(last-hash.sat has))
+  ++  wipe       |=  who=(unit @p)  ^+  this
+                 ?^(who (wipe-ship u.who^** this) (~(rep by broken.sat) wipe-ship))
+  ++  wipe-ship  |=([[who=@p *] =_this] this(broken.sat (~(del by broken.sat) who)))
   ::
   ++  prob
     |=  [=ship force=?]
     ::  XX check that the peer is not in .chums.ames-state
     ::
-    ~&  >  hashes.sat
+    ~&  >  prob/ship
+    ::  if we know that %ahoy is not supported skip %ahoy, if last attempt
+    ::  was less than a day ago
+    ::  XX  (we could also add a check in ames avoid ahoy attemps for naxplanations
+    ::       to avoid trigger a new %ahoy that will probably crash as well)
+    ::
+    ?:  ?&  ?~  bro=(~(get by broken.sat) ship)
+              %.n
+            (lth (sub now.bowl attempt=u.bro) ~d1)
+        ==
+      this
     =/  data=^vase  !>([~ timeout.sat hashes.sat [ship]~ last-hash.sat veb=|])
     %+  emit  %pass
     [(dispatch-thread %prob force) %arvo %k %fard q.byk.bowl %comb %noun data]
@@ -268,9 +282,9 @@
     ?:  ?=(%.n -.p.sign-arvo)
       (flog %crud [mote tang]:p.p.sign-arvo)
     =+  !<([=_hashes.sat =_no-response.sat] q.p.p.sign-arvo)
-    ~&  >>  hashes
-    =:       hashes.sat  (~(uni by hashes.sat) hashes)
-        no-response.sat  no-response
+    =:
+             hashes.sat  (~(uni by hashes.sat) hashes)
+        no-response.sat  (~(uni by no-response.sat) no-response)
       ==
     %-  emil
     ::  only look at this last set of hashes
@@ -293,7 +307,7 @@
     ^+  this
     ?^  error
       ~&  >>  "ahoy: test mate failed for {<who>}"
-      this(broken.sat (~(put in broken.sat) who))
+      this(broken.sat (~(put by broken.sat) who now.bowl))
     ::  mate succeded; ahoy
     ::
     (emit (send-ahoy who test))
@@ -303,7 +317,7 @@
     ^+  this
     ?^  error
       ~&  >>  "ahoy: broken %ahoy for {<who>}"
-      this(broken.sat (~(put in broken.sat) who))  ::  migrate failed
+      this(broken.sat (~(put by broken.sat) who now.bowl))  ::  migrate failed
     (emit (migrate %migr who test))
   ::
   ++  take-migrate
@@ -315,7 +329,7 @@
       ::     sides of the protocol
       ::
       ~&  >>>  "ahoy: broken migration for {<who>}"
-      this(broken.sat (~(put in broken.sat) who))  ::  migrate failed
+      this(broken.sat (~(put by broken.sat) who now.bowl))  ::  migrate failed
     ~?  >   test  "ahoy: test migration completed for {<who>}"
     ~?  >  !test  "ahoy: migration completed for {<who>}"
     ::  migration succeded
@@ -324,7 +338,7 @@
       ::  if we previously encountered a broken flow
       ::  XX  while doing a test migration?
       ::
-      broken.sat    (~(del in broken.sat) who)
+      broken.sat    (~(del by broken.sat) who)
       migrants.sat  ?:(test migrants.sat (~(put by migrants.sat) who %mesa))
     ==
   ::

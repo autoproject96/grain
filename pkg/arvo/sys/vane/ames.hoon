@@ -5752,15 +5752,20 @@
               =/  [num-fragments=@ud =fragment-num =fragment]
                 +.meat.shut-packet
               ::  ignore acks; we will hear the %ahoy plea separatedly
-              ::  ignore %ahoy $pleas to avoid sending %ahoy after migration
-              ::  XX skip naxplanations?
+              ::  ignore %ahoy $pleas; the other side will lead the migration
+              ::  ignore naxplanations;
+              ::  ignore multifragments; only handle first one
               ::
-                ?:  ?&  =(num-fragments 1)
-                        =(fragment-num 0)
-                        ~!  fragment
-                        =/  blob=*  (cue (rep packet-size [fragment]~))
-                        ?=(^ ;;((soft [%$ [%mesa-2 *] %ahoy ~]) blob))
-                    ==
+                ?:  ?|  =(%nack (received:mi bone))
+                        ?&  (gth num-fragments 1)
+                            !=(fragment-num 0)
+                        ==  :: subsequent multifragment packets
+                        ?&  =(num-fragments 1)
+                            =(fragment-num 0)
+                            ~!  fragment
+                            =/  blob=*  (cue (rep packet-size [fragment]~))
+                            ?=(^ ;;((soft [%$ [%mesa-2 *] %ahoy ~]) blob))
+                    ==  ==  :: %ahoy $pleas
                 peer-core
               %-  %+  pe-trace  sun.veb
                   |.("is online; enqueue %ahoy $plea on bone={<bone>}")

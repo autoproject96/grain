@@ -29,8 +29,8 @@
 ::
 :: on-arvo %ahoy ack (take-ahoy):
 ::   -> if error: mark broken
-::   -> if success: send real %mate [%pass /migrate/[who] %arvo %a %mate `who test]
-::   -> test=%.y means dry (only $plea sent, dry migration on both sides)
+::   -> if success: do migration in %ames
+::   -> if dry=%.y this is redundant with the first %mate
 ::
 :: on-arvo %migrate done (take-migrate):
 ::   -> if error: mark broken (bad state - different protocols)
@@ -46,7 +46,7 @@
  ==
 +$  state-0
   $:  %0
-      ::  peers not responding, as of last attempt      ::
+      ::  peers not responding, as of last attempt
       no-response=(map ship attempt=@da)
       ::  last known kids hash and case per peer, timestamped
       ::

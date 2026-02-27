@@ -88,7 +88,11 @@
           ^-  card
           :+  %pass
             (dispatch-flow term ship test)
-          [%arvo %a %mate `ship dry=test]
+          =/  dry=?
+            ?:  =(%mate term)  %.y
+            ?>  =(%migr term)
+            test
+          [%arvo %a %mate `ship dry]
         ::
         ++  send-ahoy
           |=  [=ship test=?]
@@ -301,44 +305,44 @@
     (send-ahoy who dry)
   ::
   ++  take-mate
-    |=  [who=@p error=(unit tang) test=?]
+    |=  [who=@p error=(unit tang) dry=?]
     ^+  this
     ?^  error
-      ~&  >>  "ahoy: test mate failed for {<who>}"
+      ~&  >>  "ahoy: dry mate failed for {<who>}"
       this(broken.sat (~(put by broken.sat) who now.bowl))
     ::  mate succeded; ahoy
     ::
-    (emit (send-ahoy who test))
+    (emit (send-ahoy who dry))
   ::
   ++  take-ahoy
-    |=  [who=@p error=(unit tang) test=?]
+    |=  [who=@p error=(unit tang) dry=?]
     ^+  this
     ?^  error
       ~&  >>  "ahoy: broken %ahoy for {<who>}"
       this(broken.sat (~(put by broken.sat) who now.bowl))  ::  migrate failed
-    (emit (migrate %migr who test))
+    (emit (migrate %migr who dry))
   ::
   ++  take-migrate
-    |=  [who=@p error=(unit tang) test=?]
+    |=  [who=@p error=(unit tang) dry=?]
     ^+  this
     ?^  error
-      ::  XX if not a test, this is bad;
+      ::  XX if not a dry, this is bad;
       ::     they won't be able to communicate since they are on different
       ::     sides of the protocol and we will have to manually do:
       ::     `|pass [%a %rege `ship dry=%.n]` on the other ship to restore coms
       ::
       ~&  >>>  "ahoy: broken migration for {<who>}"
       this(broken.sat (~(put by broken.sat) who now.bowl))  ::  migrate failed
-    ~?  >   test  "ahoy: test migration completed for {<who>}"
-    ~?  >  !test  "ahoy: migration completed for {<who>}"
+    ~?  >   dry  "ahoy: dry migration completed for {<who>}"
+    ~?  >  !dry  "ahoy: migration completed for {<who>}"
     ::  migration succeded
     ::
     %_  this
       ::  if we previously encountered a broken flow
-      ::  XX  while doing a test migration?
+      ::  XX  while doing a dry migration?
       ::
       broken.sat    (~(del by broken.sat) who)
-      migrants.sat  ?:(test migrants.sat (~(put by migrants.sat) who %mesa))
+      migrants.sat  ?:(dry migrants.sat (~(put by migrants.sat) who %mesa))
     ==
   ::
   --

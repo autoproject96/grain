@@ -324,7 +324,8 @@
     ?^  error
       ::  XX if not a test, this is bad;
       ::     they won't be able to communicate since they are on different
-      ::     sides of the protocol
+      ::     sides of the protocol and we will have to manually do:
+      ::     `|pass [%a %rege `ship dry=%.n]` on the other ship to restore coms
       ::
       ~&  >>>  "ahoy: broken migration for {<who>}"
       this(broken.sat (~(put by broken.sat) who now.bowl))  ::  migrate failed

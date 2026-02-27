@@ -65,20 +65,6 @@
       ::
       last-hash=@uvi
   ==
-+$  action
-  $%  [%comb dry=? veb=? nuke=?]  ::  start checking one peer at at time
-                                  ::  as soon as we get a response, or
-                                  ::  we timeout, we try the next peer
-                                  ::  (always nuke al previous state)
-                                  ::
-      [%prob who=@p force=?]      ::  start %ahoy flow only for .who
-      [%cancel ~]                 ::  cancel all pending checks
-      [%set-timeout dur=@dr]      ::  change timeout duration
-      [%set-hash has=@uvi]        ::  change kids hash to trigger migration
-      [%refresh dry=?]            ::  only no-response peers
-      [%update dry=?]             ::  only peers not on latest hash
-      [%wipe ship=(unit @p)]
-  ==
 ::
 --
 =>  |%  ++  dispatch-thread
@@ -139,20 +125,33 @@
   |=  [hood-version=@ud old=any-state]  =<  abet
   ?>  ?=(%0 -.old)
   this(sat old)
+::  handle ahoy actions:
+::
+::  [%comb dry=? veb=? nuke=?]     ::  start checking one peer at at time
+::                                 ::  as soon as we get a response, or
+::                                 ::  we timeout, we try the next peer
+::                                 ::
+::  [%prob who=@p force=? dry=?]   ::  start %ahoy flow only for .who
+::  [%cancel ~]                    ::  cancel all pending checks
+::  [%set-timeout dur=@dr]         ::  change timeout duration
+::  [%set-hash has=@uvi]           ::  change kids hash to trigger migration
+::  [%refresh dry=?]               ::  only no-response peers
+::  [%update dry=?]                ::  only peers not on latest hash
+::  [%wipe ship=(unit @p)]         ::  remove .ship from broken
+::
 ::
 ++  poke
   |=  [=mark =vase]  =<  abet
   ?>  =(our src):bowl
-  =+  !<(=action vase)
   |^  ?+  mark  ~|([%poke-ahoy-bad-mark mark] !!)
-    %ahoy-comb         ?>(?=(%comb -.action) (comb [dry veb nuke]:action))
-    %ahoy-prob         ?>(?=(%prob -.action) (prob +.action))
+    %ahoy-comb         =;(f (f !<(_+<.f vase)) comb)
+    %ahoy-prob         =;(f (f !<(_+<.f vase)) prob)
     %ahoy-cancel       this
-    %ahoy-set-timeout  ?>(?=(%set-timeout -.action) (time +.action))
-    %ahoy-set-hash     ?>(?=(%set-hash -.action) (hash +.action))
+    %ahoy-set-timeout  =;(f (f !<(_+<.f vase)) time)
+    %ahoy-set-hash     =;(f (f !<(_+<.f vase)) hash)
     %ahoy-refresh      this
     %ahoy-update       this
-    %ahoy-wipe         ?>(?=(%wipe -.action) (wipe +.action))
+    %ahoy-wipe         =;(f (f !<(_+<.f vase)) wipe)
   ==
   ::
   ++  comb
@@ -195,7 +194,7 @@
   ++  wipe-ship  |=([[who=@p *] =_this] this(broken.sat (~(del by broken.sat) who)))
   ::
   ++  prob
-    |=  [=ship force=?]
+    |=  [=ship force=? dry=?]
     ::  XX check that the peer is not in .chums.ames-state
     ::
     ::  if we know that %ahoy is not supported skip %ahoy, if last attempt
@@ -209,8 +208,9 @@
         ==
       this
     =/  data=^vase  !>([~ timeout.sat hashes.sat [ship]~ last-hash.sat veb=|])
-    %+  emit  %pass
-    [(dispatch-thread %prob force) %arvo %k %fard q.byk.bowl %comb %noun data]
+    %^  emit  %pass
+      (dispatch-thread ?:(dry comb/dry=& prob/force))
+    [%arvo %k %fard q.byk.bowl %comb %noun data]
   ::
   --
   ::

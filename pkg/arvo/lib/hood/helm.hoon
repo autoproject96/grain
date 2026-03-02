@@ -198,7 +198,7 @@
   =/  =wire
     :+  %helm  %ahoy
     ?.(test /(scot %p her) /test/(scot %p her))
-  =/  =path  ?:(test /test/mesa-1 /mesa-1)
+  =/  =path  ?:(test /test/mesa-2 /mesa-2)
   ::  before migrating, test if we can migrate, regress, and check that there
   ::  are not flows in a weird state. if we get a [%done ~], send the %ahoy $plea
   ::
@@ -231,7 +231,7 @@
 ++  take-test-mate
   |=  [way=wire error=(unit error:ames)]
   =/  =path
-    ?:(?=([%test her=@ ~] way) /test/mesa-1 /mesa-1)
+    ?:(?=([%test her=@ ~] way) /test/mesa-2 /mesa-2)
   =/  her=@p
     ?:  ?=([%test her=@ ~] way)
       (slav %p i.t.way)

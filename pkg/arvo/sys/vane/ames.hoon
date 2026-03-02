@@ -5524,8 +5524,10 @@
             ::
             event-core
           =/  blob=*  (cue (rep packet-size [fragment]~))
-          ?.  ?|  ::?=(^ ;;((soft [%$ [%mesa ~] %ahoy ~]) blob))
-                  ::?=(^ ;;((soft [%$ [%mesa-1 ~] %ahoy ~]) blob))
+          ?.  ?|  ::  XX ignore previous %ahoy versions
+                  ::
+                  ::  ?=(^ ;;((soft [%$ [%mesa ~] %ahoy ~]) blob))
+                  ::  ?=(^ ;;((soft [%$ [%mesa-1 ~] %ahoy ~]) blob))
                   ?=(^ ;;((soft [%$ [%mesa-2 ~] %ahoy ~]) blob))
               ==
             %-  (ev-trace odd.veb sndr.shot |.("ignore non ahoy pleas"))
@@ -6476,6 +6478,10 @@
                 ::
                 =?  closing.flow  !naxp-bone
                   (~(has in closing.peer-state) bone)
+                ::
+                =?  halt.flow     !naxp-bone
+                  (~(has in halt.peer-state) original-bone)
+                ::  add tag if the flow is in a weird state
                 ::
                 =?  halt.flow     !naxp-bone
                   (~(has in halt.peer-state) original-bone)

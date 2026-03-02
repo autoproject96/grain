@@ -4752,6 +4752,9 @@
           ::
           =?  peers.ames-state  ?=(~ ship-state)
             (~(put by peers.ames-state) sndr.shot %alien *alien-agenda)
+          =/  old-alien=alien-agenda
+            =-  ?>(?=(%alien -<) ->)
+            (~(got by peers.ames-state) sndr.shot)
           ::  upgrade comet to %known via on-publ-full
           ::
           =.  event-core
@@ -4771,10 +4774,10 @@
             =+  sy-core=~(. sy:mesa duct)
             =.  sy-core
               +:(sy-put-ship:sy-core %ames sndr.shot point)
-            =^  publ-moves  ames-state
+            =^  comet-moves  ames-state
               =<  sy-abet
-              (sy-publ:sy-core / [%full (my [sndr.shot point]~)])
-            (emil publ-moves)
+              (sy-meet-alien-ship:sy-core sndr.shot point old-alien)
+            (emil comet-moves)
           ::  manually add the lane to the peer state
           ::
           =/  =peer-state  (gut-peer-state sndr.shot)
@@ -10952,104 +10955,11 @@
                 ::
                 =?  sy-core  ?=([?(%ames %mesa) ~ %alien *] old-peer-state)
                   ?:  ?=(%ames -.old-peer-state)
-                    (meet-alien-ship ship point +.u.old-peer-state)
+                    (sy-meet-alien-ship ship point +.u.old-peer-state)
                   ?>  ?=(%mesa -.new-state)
-                  (meet-alien-chum ship point +.u.old-peer-state +.new-state)
+                  (sy-meet-alien-chum ship point +.u.old-peer-state +.new-state)
                 ::
                 $(points t.points)
-            ::
-            ++  meet-alien-ship
-              |=  [=ship =point todos=alien-agenda]
-              ^+  sy-core
-              ::  init event-core:ames
-              ::
-              =/  ames-core  (ev:ames now^eny^rof hen ames-state)
-              ::  if we're a comet, send self-attestation packet first
-              ::
-              =?  ames-core  =(%pawn (clan:title our))
-                =/  =blob  (attestation-packet:ames-core ship life.point)
-                %-  send-blob:ames-core
-                [for=| ship blob (~(get by peers.ames-state) ship)]
-              ::  save current duct
-              ::
-              =/  original-duct  hen
-              ::  apply outgoing messages, reversing for FIFO order
-              ::
-              =.  ames-core
-                %+  reel  messages.todos
-                |=  [[=duct =plea] core=_ames-core]
-                ?:  =(plea [%$ /flow %cork ~])
-                  (on-cork:core(duct duct) ship)
-                (on-plea:core(duct duct) ship plea)
-              ::  apply outgoing packet blobs
-              ::
-              =.  ames-core
-                %+  roll  ~(tap in packets.todos)
-                |=  [b=blob c=_ames-core]
-                (send-blob:c for=| ship b (~(get by peers.ames-state) ship))
-              ::  apply remote scry requests
-              ::
-              =^  scry-moves  ames-state
-                =+  peer-core=(abed:pe:ames-core ship)
-                =<  abet  ^+  ames-core
-                =.  ames-core
-                  =<  abet  ^+  peer-core
-                  %-  ~(rep by keens.todos)
-                  |=  [[[=path =ints] ducts=(set duct)] cor=_peer-core]
-                  ::  XX some of these ints can be %tune(s) but they are
-                  ::  treated as %sage(s)
-                  (~(rep in ducts) |=([=duct c=_cor] (on-keen:c path duct)))
-                ::
-                %-  ~(rep by chums.todos)
-                |=  [[[=path =ints] ducts=(set duct)] cor=_ames-core]
-                ::  XX some of these ints can be %tune(s) but they are
-                ::  treated as %sage(s)
-                (~(rep in ducts) |=([=duct c=_cor] (on-chum:c ship^path)))
-              ::
-              (sy-emil scry-moves)
-            ::
-            ++  meet-alien-chum
-              |=  [=ship =point:jael todos=ovni-state =chum-state]
-              ^+  sy-core
-              ?.  ?=([%known *] chum-state)
-                ::  +insert-peer should have made this peer %known
-                ::
-                sy-core
-              ::  init ev-core with provided chum-state
-              ::
-              =+  per=ship^+.chum-state
-              =+  ev-core=(ev-abed:ev ~[//meet-chum] per)
-              ::
-              =.  ev-core
-                ::  apply outgoing messages
-                ::
-                %+  reel  pokes.todos  ::  reversing for FIFO order
-                |=  [[=duct mess=mesa-message] c=_ev-core]
-                ?+    -.mess  !!  :: XX log alien peer %boon?
-                    %plea
-                  (ev-req-plea:c(hen duct) +.mess)
-                ==
-              ::
-              =.  ev-core
-                ::  apply (public) remote scry requests
-                ::
-                %-  ~(rep by peeks.todos)
-                |=  [[[=path =ints] ducts=(set duct)] core=_ev-core]
-                %-  ~(rep in ducts)
-                |=  [=duct c=_core]
-                (ev-req-peek:c(hen duct) publ/life.+.per path)
-              ::
-              =.  ev-core
-                ::  apply (two-party) remote scry requests
-                ::
-                %-  ~(rep by chums.todos)
-                |=  [[[=path =ints] ducts=(set duct)] core=_ev-core]
-                %-  ~(rep in ducts)
-                |=  [=duct c=_core]
-                (ev-req-peek:c(hen duct) space=chum-to-our:c path)
-              =^  ev-moves  ames-state  ev-abet:ev-core
-              (sy-emil ev-moves)
-            ::
             --
           ::  on-publ-rift: XX
           ::
@@ -11828,6 +11738,99 @@
             (~(put by peers.ames-state) ship known/+.peer)
           ::
           [%ames known/+.peer]^sy-core
+        ::  XX move both to |al core?
+        ::
+        ++  sy-meet-alien-ship
+          |=  [=ship =point todos=alien-agenda]
+          ^+  sy-core
+          ::  init event-core:ames
+          ::
+          =/  ames-core  (ev:ames now^eny^rof hen ames-state)
+          ::  if we're a comet, send self-attestation packet first
+          ::
+          =?  ames-core  =(%pawn (clan:title our))
+            =/  =blob  (attestation-packet:ames-core ship life.point)
+            %-  send-blob:ames-core
+            [for=| ship blob (~(get by peers.ames-state) ship)]
+          ::  save current duct
+          ::
+          =/  original-duct  hen
+          ::  apply outgoing messages, reversing for FIFO order
+          ::
+          =.  ames-core
+            %+  reel  messages.todos
+            |=  [[=duct =plea] core=_ames-core]
+            ?:  =(plea [%$ /flow %cork ~])
+              (on-cork:core(duct duct) ship)
+            (on-plea:core(duct duct) ship plea)
+          ::  apply outgoing packet blobs
+          ::
+          =.  ames-core
+            %+  roll  ~(tap in packets.todos)
+            |=  [b=blob c=_ames-core]
+            (send-blob:c for=| ship b (~(get by peers.ames-state) ship))
+          ::  apply remote scry requests
+          ::
+          =^  scry-moves  ames-state
+            =+  peer-core=(abed:pe:ames-core ship)
+            =<  abet  ^+  ames-core
+            =.  ames-core
+              =<  abet  ^+  peer-core
+              %-  ~(rep by keens.todos)
+              |=  [[[=path =ints] ducts=(set duct)] cor=_peer-core]
+              ::  XX some of these ints can be %tune(s) but they are
+              ::  treated as %sage(s)
+              (~(rep in ducts) |=([=duct c=_cor] (on-keen:c path duct)))
+            ::
+            %-  ~(rep by chums.todos)
+            |=  [[[=path =ints] ducts=(set duct)] cor=_ames-core]
+            ::  XX some of these ints can be %tune(s) but they are
+            ::  treated as %sage(s)
+            (~(rep in ducts) |=([=duct c=_cor] (on-chum:c ship^path)))
+          ::
+          (sy-emil scry-moves)
+        ::
+        ++  sy-meet-alien-chum
+          |=  [=ship =point:jael todos=ovni-state =chum-state]
+          ^+  sy-core
+          ?.  ?=([%known *] chum-state)
+            ::  +insert-peer should have made this peer %known
+            ::
+            sy-core
+          ::  init ev-core with provided chum-state
+          ::
+          =+  per=ship^+.chum-state
+          =+  ev-core=(ev-abed:ev ~[//meet-chum] per)
+          ::
+          =.  ev-core
+            ::  apply outgoing messages
+            ::
+            %+  reel  pokes.todos  ::  reversing for FIFO order
+            |=  [[=duct mess=mesa-message] c=_ev-core]
+            ?+    -.mess  !!  :: XX log alien peer %boon?
+                %plea
+              (ev-req-plea:c(hen duct) +.mess)
+            ==
+          ::
+          =.  ev-core
+            ::  apply (public) remote scry requests
+            ::
+            %-  ~(rep by peeks.todos)
+            |=  [[[=path =ints] ducts=(set duct)] core=_ev-core]
+            %-  ~(rep in ducts)
+            |=  [=duct c=_core]
+            (ev-req-peek:c(hen duct) publ/life.+.per path)
+          ::
+          =.  ev-core
+            ::  apply (two-party) remote scry requests
+            ::
+            %-  ~(rep by chums.todos)
+            |=  [[[=path =ints] ducts=(set duct)] core=_ev-core]
+            %-  ~(rep in ducts)
+            |=  [=duct c=_core]
+            (ev-req-peek:c(hen duct) space=chum-to-our:c path)
+          =^  ev-moves  ames-state  ev-abet:ev-core
+          (sy-emil ev-moves)
         ::
         --
       ::

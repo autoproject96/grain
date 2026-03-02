@@ -7366,7 +7366,7 @@
               =?  peer-core  !is-last-fragment
                 %-  %+  pe-trace  rcv.veb  |.
                     =/  data
-                      [seq=seq fragment-num=fragment-num frags=num-fragments]
+                      [seq=seq fragment-num num-fragments]
                     "send ack-2 {<data>}"
                 (send-shut-packet bone seq %| %& fragment-num)
               ::  enqueue all completed messages starting at +(last-heard.state)
@@ -7455,6 +7455,7 @@
                         ?=(%ahoy -.payload.plea)
                         ?=([%test *] path.plea)
                     ==
+                    ?>  ?=([%test %mesa-2 *] path.plea)  ::  only %mesa-2 supported
                     ::  check that we can migrate this peer, without
                     ::  modifying the state
                     ::

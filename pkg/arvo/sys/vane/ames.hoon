@@ -11897,15 +11897,12 @@
           (al-emit hen %pass /public-keys %j %public-keys [n=ship ~ ~])
         ::
         ++  al-register-comet
-          |=  [comet=@p open-packet signature=@ signed=@]  :: XX to %lull
+          |=  [comet=@p open-packet]
           ^+  al-core
           =/  cic  (com:nu:cric:crypto pass)
-          ::  XX  comet proofs use the /publ namespace, so the signature
+          ::  comet proofs use the /publ namespace, so the signature
           ::  verification has already happened in +al-take-proof
           ::
-          ::  verify signature
-          ::
-          ?>  (veri:ed:crypto signature signed sgn:ded:ex:cic)
           ::  assert the contents of the proof match those of a comet
           ::
           ?>  &(=(sndr comet) =(sndr-life 1))
@@ -11976,20 +11973,15 @@
           ::  this is an attestation for us, at our current life
           ::
           ?>  &(=(our rcvr.path) =(life.path life.ames-state))
-          ::  1-fragment attestation
-          ::
-          ?>  =(1 (div (add tob.data 1.023) 1.024))
-          ?>  ?=(%& -.aut.data)
+          ::  authenticate 1-fragment attestation
           ::
           ~|  [name=name data=data]
-          ::
+          ?>  ?&  =(1 (div (add tob.data 1.023) 1.024))
+                  ?=(%& -.aut.data)
+              ==
           =+  ;;(proof=gage:mess (cue dat.data))
           ?>  ?=([%message %proof *] proof)
-          ::  XX refactor with sift-open-packet?
-          ::
-          =+  ;;  [signature=@ signed=@]  (cue ;;(@ +>.proof))
-          =+  ;;  =open-packet            (cue signed)
-          ::
+          =+  ;;(=open-packet (cue ;;(@ +>.proof)))
           ?>  %-  verify-sig:crypt
               :^    (end 8 (rsh 3 pass.open-packet))
                   p.p.aut.data
@@ -11997,7 +11989,7 @@
               (root:lss tob.data^dat.data)
           ::
           =.  al-core
-            (al-register-comet her.name open-packet signature signed)
+            (al-register-comet her.name open-packet)
           =.  ames-state
             ::  discard moves; %nail gift is included in +sy-publ
             ::
@@ -12481,13 +12473,9 @@
           ?:  |(?=(~ life) ?=(~ rcvr))
             [~ ~]
           ::
-          =/  =open-packet
-            [pass.ames-state our life.ames-state u.rcvr u.life]
-          =/  sig
-            %+  sign-raw:ed:crypto  (jam open-packet)
-            [sgn.pub sgn.sek]:saf.ames-state
-          :+  ~  ~
-          [%message !>(proof/sig)]
+          =;  =open-packet
+            ``[%message !>(proof/(jam open-packet))]
+          [pass.ames-state our life.ames-state u.rcvr u.life]
         ::  publisher-side, weight of a noun at .pat, as measured by .boq
         ::
         ++  peek-whey

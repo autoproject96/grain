@@ -333,8 +333,9 @@
       ::
       ~&  >>>  "ahoy: broken migration for {<who>}"
       this(broken.sat (~(put by broken.sat) who now.bowl))  ::  migrate failed
-    ~?  >   dry  "ahoy: dry migration completed for {<who>}"
-    ~?  >  !dry  "ahoy: migration completed for {<who>}"
+    =.  this
+      %+  flog  %text
+      "ahoy: %mesa {?:(dry "dry " "")}migration completed for {<who>}"
     ::  migration succeded
     ::
     %_  this

@@ -17,53 +17,76 @@
   ^-  thread:spider
   |=  vase
   =/  m  (strand ,vase)
-  =/  comet=@p
-    ~londeg-tirlys-somlyd-poltus--pintyn-tarbyl-bicnux-marbud
+  ::  XX  still can't run all tests at the same time..
+  ::      XX aqua cleanup missing?
   ::
+  ;<  ~  bind:m  test-mesa-ames-1
+  ;<  ~  bind:m  test-ames-mesa-1
+  ;<  ~  bind:m  test-mesa-ames-2
+  ;<  ~  bind:m  test-ames-mesa-2
+  ;<  ~  bind:m  test-mesa-ames-3
+  ;<  ~  bind:m  boot-with-ames-and-breach  :: XX this waits for two ~m2 retries...
+  ::  TODO
+  ::
+  :: ;<  ~  bind:m  (boot-ames-mesa ~dev comet)
+  :: ;<  ~  bind:m  boot-moon
+  :: ;<  ~  bind:m  boot-planet
+  ;<  ~  bind:m  end
+  (pure:m *vase)
+::
+++  test-mesa-ames-1
+  =/  m  (strand ,~)
   ::  ~bud will send a %mesa packet to ~dev, that has %ames as
   ::  default network core, it will handle it and move ~bud to .chums
   ::
-  :: ;<  ~  bind:m  (boot-core ~bud ~dev %mesa %ames)
-  :: ;<  ~  bind:m  (sleep ~s5)
-  ::
+  ;<  ~  bind:m  (boot-core ~bud ~dev %mesa %ames)
+  ;<  ~  bind:m  end
+  (pure:m ~)
+::
+++  test-ames-mesa-1
+  =/  m  (strand ,~)
   ::  ~bud will send an %ames packet to ~dev, that has %mesa as
   ::  default network core, it will handle it and enqueue an %ahoy
   ::  $plea, and when acked, move ~bud to .chums
   ::
   ;<  ~  bind:m  (boot-core ~bud ~dev %ames %mesa)
-  ::
+  ;<  ~  bind:m  end
+  (pure:m ~)
+::
+++  test-mesa-ames-2
+  =/  m  (strand ,~)
   ::  comet will send a %mesa packet to ~bud, that has %ames as
   ::  default network core
   ::
-  :: ;<  ~  bind:m  (boot-core ~bud comet %mesa %ames)
-  ::
+  =/  comet=@p
+    ~londeg-tirlys-somlyd-poltus--pintyn-tarbyl-bicnux-marbud
+  ;<  ~  bind:m  (boot-core ~bud comet %mesa %ames)
+  ;<  ~  bind:m  end
+  (pure:m ~)
+::
+++  test-ames-mesa-2
+  =/  m  (strand ,~)
   ::  ~dev will have todos in it alien agenda when hearing the
   ::  attestation proof. .comet has %mesa as its network core so
   ::  it should handle the packet and enqueue the $ahoy %plea
   ::
-  :: :: ;<  ~  bind:m  (boot-core ~dev comet %ames %mesa)  :: XX bail:evil
-  ::
+  :: =/  comet=@p
+  ::   ~londeg-tirlys-somlyd-poltus--pintyn-tarbyl-bicnux-marbud
+  :: ;<  ~  bind:m  (boot-core ~dev comet %ames %mesa)  :: XX bail:evil
+  ;<  ~  bind:m  end
+  (pure:m ~)
+::
+++  test-mesa-ames-3
+  =/  m  (strand ,~)
   ::  ~dev will have todos in it alien agenda when hearing the
   ::  attestation proof. .comet has %ames as its network core so
   ::  it should handle the %mesa packet and make an entry in .chums
   ::
-  :: ;<  ~  bind:m  (boot-core ~dev comet %mesa %ames)
-  ::  comet will send an %ames packet to ~dev, that has %mesa as
-  ::  default network core
-  ::
-  :: ;<  ~  bind:m  (boot-ames-mesa comet ~dev)
-  ::  ~dev will have todos in it alien agenda when hearing the
-  ::  attestation proof. .comet has %mesa as its network core so
-  ::  it should handle the packet and enqueue the $ahoy %plea
-  ::  TODO
-  :: ;<  ~  bind:m  (boot-ames-mesa ~dev comet)
-  :: ;<  ~  bind:m  boot-mesa-ames
-  :: ;<  ~  bind:m  boot-with-ames-and-breach
-  :: ;<  ~  bind:m  boot-comet
-  :: ;<  ~  bind:m  boot-moon
-  :: ;<  ~  bind:m  boot-planet
-  (pure:m *vase)
-  ::
+  =/  comet=@p
+    ~londeg-tirlys-somlyd-poltus--pintyn-tarbyl-bicnux-marbud
+  ;<  ~  bind:m  (boot-core ~dev comet %mesa %ames)
+  ;<  ~  bind:m  end
+  (pure:m ~)
 ::
 ++  init
   =/  m  (strand ,~)

@@ -11,7 +11,7 @@
 :: on-arvo %keen response (handle-sage):
 ::   -> parse kelvin from response
 ::   -> if hash != last-hash: peek next case for same peer
-::   -> if hash == last-hash: send dry %mate (test-mate)
+::   -> if hash == last-hash: will send dry %mate (test-mate)
 ::   -> try next peer in pending queue
 ::
 :: on-arvo timer fire:
@@ -288,6 +288,9 @@
     =:       hashes.sat  (~(uni by hashes.sat) hashes)
         no-response.sat  (~(uni by no-response.sat) no-response)
       ==
+    =+  .^  chums=(map ship ?(%known %alien))  %ax
+          /(scot %p our.bowl)//(scot %da now.bowl)/chums
+        ==
     %-  emil
     ::  only look at this last set of hashes
     ::
@@ -299,6 +302,10 @@
     ::  filter by last hash and start %ahoying with a test
     ::  migration first
     ::
+    ?:  (~(has by chums) who)
+      ::  if .who has been migrated by a previous %ahoy; skip
+      ::
+      moz
     :_  moz
     ?:  force-test
       (migrate %mate who dry)

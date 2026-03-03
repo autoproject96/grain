@@ -13168,7 +13168,7 @@
             =^  delete  chum-state
               ?.  ?=([%ames *] chum-state)  [| chum-state]
               %-  %+  %*(ev-tace ev-core her her-pok)  odd.veb.bug.ames-state
-                  |.("hear mesa packet for regressed (alien/missing) peer")
+                  |.("hear mesa packet for (alien/missing) %ames peer")
               ?-    +.chum-state
                   ~
                 [delete=| chum-state(- %mesa)]

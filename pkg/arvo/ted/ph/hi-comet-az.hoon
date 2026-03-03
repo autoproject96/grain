@@ -11,7 +11,7 @@
 ;<  ~  bind:m  (init-ship ~bud |)
 ;<  ~  bind:m  (spawn ~marbud)
 ;<  ~  bind:m  (init-ship ~marbud |)
-;<  ~  bind:m  (init-comet comet feed)
+;<  ~  bind:m  (init-comet comet)
 :: ;<  ~  bind:m  (send-hi comet ~bud) ::  XX this crashes, sending the |hi before the attestation
                                        ::  and we endup blocking the queue
 ;<  ~  bind:m  (send-hi ~bud comet)

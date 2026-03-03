@@ -1,21 +1,10 @@
 /-  spider
-/+  *ph-io, vere
+/+  *ph-io
 =,  strand=strand:spider
 ^-  thread:spider
 |=  vase
 =/  m  (strand ,vase)
 =/  comet=ship  ~londeg-tirlys-somlyd-poltus--pintyn-tarbyl-bicnux-marbud
-=/  =feed:jael
-  :*  [%2 ~]
-      who=comet
-      ryf=0
-      :_  ~
-      :-  lyf=1
-      key=0wfm.lBEWM.08gfy.AxYjy.8-tBQ.uq-aa.LZt9c.CVQqd.XBJIs.
-          CoG90.BNNGV.1ZmVi.ZbAhY.LuhwC.idNnU.lCVkt.Z4qug.7iY92
-  ==
-::
-?>  ?=(^ (veri:dawn:vere comet feed *point:azimuth-types ~))
 ::
 ;<  ~  bind:m  start-azimuth
 ;<  ~  bind:m  (spawn ~bud)

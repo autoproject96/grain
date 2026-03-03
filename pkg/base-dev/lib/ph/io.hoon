@@ -1,5 +1,5 @@
 /-  *aquarium, spider
-/+  libstrand=strand, *strandio, util=ph-util, aqua-azimuth
+/+  libstrand=strand, *strandio, util=ph-util, aqua-azimuth, vere
 =,  strand=strand:libstrand
 |%
 ++  send-events
@@ -143,7 +143,6 @@
   ?>  ?=(%earl (clan:title moon))
   ?:  fake  (init-ship moon &)
   =/  m  (strand ,~)
-  ^-  form:m
   ;<  ~  bind:m
     %+  dojo  (^sein:title moon)
     =/  =pass  pub:ex:(get-keys:aqua-azimuth moon 1)
@@ -161,9 +160,23 @@
 ::
 ++  init-comet
   =|  core=?(%mesa %ames)  :: XX make %mesa the default core
-  |=  [comet=ship =feed:jael]
+  |=  comet=ship
   =/  m  (strand ,~)
   ^-  form:m
+  ::  hardcoded for:
+  ::    ~londeg-tirlys-somlyd-poltus--pintyn-tarbyl-bicnux-marbud
+  ::
+  =/  =feed:jael
+    :*  [%2 ~]
+        who=comet
+        ryf=0
+        :_  ~
+        :-  lyf=1
+        key=0wfm.lBEWM.08gfy.AxYjy.8-tBQ.uq-aa.LZt9c.CVQqd.XBJIs.
+            CoG90.BNNGV.1ZmVi.ZbAhY.LuhwC.idNnU.lCVkt.Z4qug.7iY92
+    ==
+  ::
+  ?>  ?=(^ (veri:dawn:vere comet feed *point:azimuth-types ~))
   ~&  >  "mining comet under {<(^sein:title comet)>}"
   ;<  ~  bind:m  (send-events (init:util comet fake=%.n `feed core))
   (check-ship-booted comet)

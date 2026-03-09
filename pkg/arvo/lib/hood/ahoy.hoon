@@ -47,6 +47,7 @@
 +$  state-0
   $:  %0
       ::  peers not responding, as of last attempt
+      ::
       no-response=(map ship attempt=@da)
       ::  last known kids hash and case per peer, timestamped
       ::
@@ -64,6 +65,9 @@
       ::  hash to trigger migration
       ::
       last-hash=@uvi
+      ::  ships with an outstanding %ahoy plea in flight
+      ::
+      pending-ahoy=(set ship)
   ==
 ::
 --
@@ -203,9 +207,9 @@
     ::
     ::  if we know that %ahoy is not supported skip %ahoy, if last attempt
     ::  was less than a day ago
-    ::  XX  (we could also add a check in ames avoid ahoy attemps for naxplanations
-    ::       to avoid trigger a new %ahoy that will probably crash as well)
     ::
+    ?:  (~(has in pending-ahoy.sat) ship)
+      this
     ?:  ?&  ?~  bro=(~(get by broken.sat) ship)
               %.n
             (lth (sub now.bowl attempt=u.bro) ~d1)
@@ -292,7 +296,7 @@
           /(scot %p our.bowl)//(scot %da now.bowl)/chums
         ==
     %-  emil
-    ::  only look at this last set of hashes
+    ::  ahoy peers on last-hash not yet migrated (skip if %ahoy is pending)
     ::
     %-  ~(rep by hashes)
     |=  [[who=@p [num=@ud has=@uvi when=@da]] moz=_moz]
@@ -306,9 +310,12 @@
       ::  if .who has been migrated by a previous %ahoy; skip
       ::
       moz
+    ?:  (~(has in pending-ahoy.sat) who)
+      moz
     :_  moz
     ?:  force-test
       (migrate %mate who dry)
+    =.  pending-ahoy.sat  (~(put in pending-ahoy.sat) who)
     (send-ahoy who dry)
   ::
   ++  take-mate
@@ -319,11 +326,14 @@
       this(broken.sat (~(put by broken.sat) who now.bowl))
     ::  mate succeded; ahoy
     ::
+    ?:  (~(has in pending-ahoy.sat) who)
+      this
     (emit (send-ahoy who dry))
   ::
   ++  take-ahoy
     |=  [who=@p error=(unit tang) dry=?]
     ^+  this
+    =.  pending-ahoy.sat  (~(del in pending-ahoy.sat) who)
     ?^  error
       ~&  >>  "ahoy: broken %ahoy for {<who>}"
       this(broken.sat (~(put by broken.sat) who now.bowl))  ::  migrate failed

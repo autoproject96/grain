@@ -653,15 +653,17 @@
           ::
               %hoon
             =.  sut  zuse.bud
+            =;  tus=vase
+              ?:  only-prelude  tus
+              ~>  %memo./clay/ford
+              (slub tus hoon:(parse-pile path.bush text.bush))
+            =.  only-prelude  |
             ~>  %memo./clay/ford
             |-  ^-  vase
-            ?^  deps.bush
-              =/  dep=vase  b2v-buc(bush q.i.deps.bush, only-prelude |)
-              =?  p.dep  ?=(^ p.i.deps.bush)  [%face u.p.i.deps.bush p.dep]
-              $(deps.bush t.deps.bush, sut (slop dep sut))
-            ?:  only-prelude  sut
-            =/  =pile  (parse-pile path.bush text.bush)
-            (slub sut hoon.pile)
+            ?~  deps.bush  sut
+            =/  dep=vase  b2v-buc(bush q.i.deps.bush, only-prelude |)
+            =?  p.dep  ?=(^ p.i.deps.bush)  [%face u.p.i.deps.bush p.dep]
+            $(deps.bush t.deps.bush, sut (slop dep sut))
           ::
               %arch
             ~>  %memo./clay/ford

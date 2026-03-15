@@ -643,8 +643,10 @@
     =>  |%
         ++  bush-to-vase
           =/  only-prelude=?  |
-          |=  [=bush sut=vase]
+          =|  sut=vase
+          |=  =bush
           ^-  vase
+          =*  b2v-buc  $
           ?-    -.bush
               %file
             q.cage.bush
@@ -654,7 +656,7 @@
             ~>  %memo./clay/ford
             |-  ^-  vase
             ?^  deps.bush
-              =/  dep=vase  (bush-to-vase q.i.deps.bush sut)
+              =/  dep=vase  b2v-buc(bush q.i.deps.bush, only-prelude |)
               =?  p.dep  ?=(^ p.i.deps.bush)  [%face u.p.i.deps.bush p.dep]
               $(deps.bush t.deps.bush, sut (slop dep sut))
             ?:  only-prelude  sut
@@ -673,7 +675,7 @@
             =.  sut  *vase
             ~>  %memo./clay/ford
             =/  res=(map @ta vase)
-              (~(run by files.bush) (curr bush-to-vase *vase))
+              (~(run by files.bush) bush-to-vase)
             ::
             :-  type-map
             |-
@@ -712,9 +714,9 @@
               ++  pact  |=([v=typ d=dif] (pact:~(grad cor v) d))
               ++  vale  noun:grab:cor
               --
-            =/  deg=vase  (bush-to-vase p.u.grad.bush *vase)
-            =/  tub=vase  (bush-to-vase q.u.grad.bush *vase)
-            =/  but=vase  (bush-to-vase r.u.grad.bush *vase)
+            =/  deg=vase  (bush-to-vase p.u.grad.bush)
+            =/  tub=vase  (bush-to-vase q.u.grad.bush)
+            =/  but=vase  (bush-to-vase r.u.grad.bush)
             %+  slub
               (with-faces deg+deg tub+tub but+but cor+cor nave+nave.bud ~)
             !,  *hoon
@@ -746,7 +748,7 @@
               ==
             =/  a  a.p.bush
             =/  b  b.p.bush
-            =/  old  (bush-to-vase bush.a *vase)
+            =/  old  (bush-to-vase bush.a)
             ?:  (has-arm %grow mark.b old)
               %+  slub  (with-faces cor+old ~)
               ^-  hoon
@@ -755,7 +757,7 @@
                 [%spin %cltr [%sand %t (crip "grow-{<mark.a>}->{<mark.b>}")] ~]
               :+  %tsgl  limb/mark.b
               !,(*hoon ~(grow cor v))
-            =/  new  (bush-to-vase bush.b *vase)
+            =/  new  (bush-to-vase bush.b)
             =/  arm=?  (has-arm %grab mark.a new)
             =/  rab
               %-  mule  |.
@@ -998,7 +1000,7 @@
       ^-  vase
       ~>  %memo./clay/ford
       ~|  %error-building-mark^mak
-      (bush-to-vase (build-bush %mark mak) *vase)
+      (bush-to-vase (build-bush %mark mak))
     ::  +build-dais: build a dynamically typed mark definition
     ::
     ++  build-dais
@@ -1050,7 +1052,7 @@
       ^-  vase
       ~>  %memo./clay/ford
       ~|  error-building-cast+[a b]
-      (bush-to-vase (build-bush %tube a b) *vase)
+      (bush-to-vase (build-bush %tube a b))
     ::  +build-tube: produce a $tube mark conversion gate from .a to .b
     ::
     ++  build-tube
@@ -1105,14 +1107,13 @@
     ++  prelude
       |=  =path
       ^-  vase
-      =/  b2v  bush-to-vase
-      (b2v(only-prelude &) (build-bush %hoon path) *vase)
+      %*($ bush-to-vase +< (build-bush %hoon path), only-prelude &)
     ::
     ++  build-file
       |=  =path
       ^-  vase
       ~>  %memo./clay/ford
-      (bush-to-vase (build-bush %hoon path) *vase)
+      (bush-to-vase (build-bush %hoon path))
     ::  +build-fit: build file at path, maybe converting '-'s to '/'s in path
     ::
     ++  build-fit

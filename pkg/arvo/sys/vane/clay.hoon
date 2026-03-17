@@ -513,9 +513,35 @@
       leaf+(runt [(dec col) '-'] "^")
   ==
 ::
+++  parsing-rules
+  |%
+  ++  pant
+    |*  fel=^rule
+    ;~(pose fel (easy ~))
+  ::
+  ++  mast
+    |*  [bus=^rule fel=^rule]
+    ;~(sfix (more bus fel) bus)
+  ::
+  ++  rune
+    |*  [bus=^rule fel=^rule]
+    %-  pant
+    %+  mast  gap
+    ;~(pfix fas bus gap fel)
+  ::
+  ++  taut-rule
+    %+  cook  |=(taut +<)
+    ;~  pose
+      (stag ~ ;~(pfix tar sym))
+      ;~(plug (stag ~ sym) ;~(pfix tis sym))
+      (cook |=(a=term [`a a]) sym)
+    ==
+  --
+::
 ++  pile-rule
-  =>  ..lull
+  =>  [..lull parsing-rules]
   =,  clay
+  =,  parsing-rules
   |=  pax=path
   %-  full
   %+  ifix
@@ -523,7 +549,6 @@
     ::  parse optional /? and ignore
     ::
     ;~(plug gay (punt ;~(plug fas wut gap dem gap)))
-  |^
   ;~  plug
     %+  cook  (bake zing (list (list taut)))
     %+  rune  hep
@@ -559,29 +584,6 @@
     %+  stag  %tssg
     (most gap tall:(vang & pax))
   ==
-  ::
-  ++  pant
-    |*  fel=^rule
-    ;~(pose fel (easy ~))
-  ::
-  ++  mast
-    |*  [bus=^rule fel=^rule]
-    ;~(sfix (more bus fel) bus)
-  ::
-  ++  rune
-    |*  [bus=^rule fel=^rule]
-    %-  pant
-    %+  mast  gap
-    ;~(pfix fas bus gap fel)
-  ::
-  ++  taut-rule
-    %+  cook  |=(taut +<)
-    ;~  pose
-      (stag ~ ;~(pfix tar sym))
-      ;~(plug (stag ~ sym) ;~(pfix tis sym))
-      (cook |=(a=term [`a a]) sym)
-    ==
-  --
 --  =>
 ~%  %clay  +  ~
 |%
@@ -801,6 +803,7 @@
     ::
     ++  header-rule
       |^
+      =,  parsing-rules
       %+  cook  pile-header-to-bush
       %+  ifix
         :_  gay
@@ -839,28 +842,6 @@
           ;~(pfix stap)
         ==
       ==
-      ::
-      ++  pant
-        |*  fel=^rule
-        ;~(pose fel (easy ~))
-      ::
-      ++  mast
-        |*  [bus=^rule fel=^rule]
-        ;~(sfix (more bus fel) bus)
-      ::
-      ++  rune
-        |*  [bus=^rule fel=^rule]
-        %-  pant
-        %+  mast  gap
-        ;~(pfix fas bus gap fel)
-      ::
-      ++  taut-rule
-        %+  cook  |=(taut +<)
-        ;~  pose
-          (stag ~ ;~(pfix tar sym))
-          ;~(plug (stag ~ sym) ;~(pfix tis sym))
-          (cook |=(a=term [`a a]) sym)
-        ==
       ::
       ++  pile-header-to-bush
         |=  $:  sur=(list taut)

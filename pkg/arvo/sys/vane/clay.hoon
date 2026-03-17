@@ -495,6 +495,10 @@
     ~>  %memo./clay/pile
     ((pile-rule pax) [1 1] (trip txt))
   ?^  res  pile.u.res
+  (report-error pax txt hair)
+::
+++  report-error
+  |=  [pax=path txt=@t =hair]
   %-  mean
   =/  lyn  p.hair
   =/  col  q.hair
@@ -786,26 +790,14 @@
     +|  %bush-construction
     ::
     ++  parse-header
-      |=  [pax=path src=@t]
+      |=  [pax=path txt=@t]
       ^-  (list (pair (unit term) bush-node))
       ~>  %memo./clay/ford
       =*  out  (list (pair (unit term) bush-node))
       =/  [=hair res=(unit [=out =nail])]
-        (header-rule [1 1] (trip src))
+        (header-rule [1 1] (trip txt))
       ?^  res  out.u.res
-      %-  mean
-      =/  lyn  p.hair
-      =/  col  q.hair
-      ^-  (list tank)
-      :~  leaf+"syntax error at [{<lyn>} {<col>}] in {<pax>}"
-        ::
-          =/  =wain  (to-wain:format src)
-          ?:  (gth lyn (lent wain))
-            '<<end of file>>'
-          (snag (dec lyn) wain)
-        ::
-          leaf+(runt [(dec col) '-'] "^")
-      ==
+      (report-error pax txt hair)
     ::
     ++  header-rule
       |^

@@ -903,6 +903,17 @@
     ++  build-bush
       |=  nod=bush-node
       ^-  bush
+      ::  the cycle set below catches dependency cycles in the bush,
+      ::  but it can't catch cycles which are reentrant through read-file
+      ::  or cast-path. for those cases, we use loop detection
+      ::  as implemented in the runtime.
+      ::  example:
+      ::  1. copy a mark (e.g. noun.hoon) as foo.hoon
+      ::  2. commit a %foo page directly to clay: *%/foo/foo &foo 42
+      ::  3. add a /* import to the mark definition: /*  foo  %foo  /foo/foo
+      ::  4. try scrying for that file: .^(* %cx %/foo/foo)
+      ::
+      ~>  %loop.'clay: loop detected'
       ~>  %memo./clay/ford
       =|  cycle=(set bush-node)
       |-  ^-  bush
@@ -911,13 +922,6 @@
       =.  cycle  (~(put in cycle) nod)
       ?-    -.nod
           %file
-        ::  XX here in cast-path and later in read-file we reenter the build
-        ::  process to build marks, and we can't detect the top-level cycle
-        ::  without a more global cycle stack, which would make us miss cache
-        ::  entries.  OTOH the cycle involves a circular dependency of a mark on
-        ::  its file with the same mark, which is an exotic situation.
-        ::  %loop hint to the rescue?
-        ::
         =/  file=cage  (cast-path path.nod mark.nod)
         [%file file]
       ::

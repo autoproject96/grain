@@ -3,13 +3,31 @@
 /*  pub-agent  %hoon  /tests/app/pub/hoon
 /*  sub-agent  %hoon  /tests/app/sub/hoon
 =,  strand=strand:spider
-=>  |%  ++  gate
-          |*  [typ=mold exp=noun]
-          |=  [=mark val=noun]
-          ~|  [exp val]
-          ?+  mark  %.n
-              %noun  =(exp ;;(typ val))
-          ==
+=/  comet=@p
+  ~londeg-tirlys-somlyd-poltus--pintyn-tarbyl-bicnux-marbud
+=>  |%
+    ++  gate
+      |*  [typ=mold exp=noun]
+      |=  [=mark val=noun]
+      ~|  [exp val]
+      ?+  mark  %.n
+          %noun  =(exp ;;(typ val))
+      ==
+    ::
+    ++  load-migration-hash
+      |=  [sndr=@p rcvr=@p]
+      =/  m  (strand ,~)
+      ;<  =bowl:spider  bind:m  get-bowl
+      =/  aqua-pax
+        :-  %i
+        /(scot %p sndr)/cz/(scot %p sndr)/kids/(scot %da now.bowl)/noun
+      =+  ;;  hash=@uvi
+          (need (scry-aqua:util (unit @uvi) our.bowl now.bowl aqua-pax))
+      ::  load hood/ahoy hash
+      ::
+      ^-  form:m
+      (dojo rcvr ":hood &ahoy-set-hash {<hash>}")
+    ::
     --
 =<  all
 |%
@@ -18,19 +36,27 @@
   |=  vase
   =/  m  (strand ,vase)
   ::  XX  still can't run all tests at the same time..
-  ::      XX aqua cleanup missing?
+  ::  XX aqua cleanup missing?
+  ::  XX looks like it's working now most of the times
+  ::  the ones that don't, comets seem to be involved somehow
   ::
+  ::  init: start all io threads and subscribe to /effect
+  ::
+  ;<  ~  bind:m  init
   ;<  ~  bind:m  test-mesa-ames-1
   ;<  ~  bind:m  test-ames-mesa-1
-  ;<  ~  bind:m  test-mesa-ames-2
-  ;<  ~  bind:m  test-ames-mesa-2
-  ;<  ~  bind:m  test-mesa-ames-3
-  ;<  ~  bind:m  boot-with-ames-and-breach  :: XX this waits for two ~m2 retries...
+  :: ;<  ~  bind:m  test-mesa-ames-2  :: comet
+  ;<  ~  bind:m  test-ames-mesa-2  :: XX bail:evil comets
+  :: ;<  ~  bind:m  test-mesa-ames-3  :: comet
+  ;<  ~  bind:m  (boot-with-core-and-breach %mesa)  :: XX this waits for two ~m2 retries...
+  ;<  ~  bind:m  (boot-with-core-and-breach %ames)
   ::  TODO
   ::
   :: ;<  ~  bind:m  (boot-ames-mesa ~dev comet)
   :: ;<  ~  bind:m  boot-moon
   :: ;<  ~  bind:m  boot-planet
+  ::  stop all io threads and leave subscriptions to /effect
+  ::
   ;<  ~  bind:m  end
   (pure:m *vase)
 ::
@@ -40,7 +66,8 @@
   ::  default network core, it will handle it and move ~bud to .chums
   ::
   ;<  ~  bind:m  (boot-core ~bud ~dev %mesa %ames)
-  ;<  ~  bind:m  end
+  ::  ;<  ~  bind:m  (breach ~bud)
+  ::  ;<  ~  bind:m  (breach ~dev)
   (pure:m ~)
 ::
 ++  test-ames-mesa-1
@@ -50,7 +77,8 @@
   ::  $plea, and when acked, move ~bud to .chums
   ::
   ;<  ~  bind:m  (boot-core ~bud ~dev %ames %mesa)
-  ;<  ~  bind:m  end
+  ::  ;<  ~  bind:m  (breach ~bud)
+  ::  ;<  ~  bind:m  (breach ~dev)
   (pure:m ~)
 ::
 ++  test-mesa-ames-2
@@ -61,7 +89,7 @@
   =/  comet=@p
     ~londeg-tirlys-somlyd-poltus--pintyn-tarbyl-bicnux-marbud
   ;<  ~  bind:m  (boot-core ~bud comet %mesa %ames)
-  ;<  ~  bind:m  end
+  ::  ;<  ~  bind:m  (breach ~bud)
   (pure:m ~)
 ::
 ++  test-ames-mesa-2
@@ -73,7 +101,7 @@
   :: =/  comet=@p
   ::   ~londeg-tirlys-somlyd-poltus--pintyn-tarbyl-bicnux-marbud
   :: ;<  ~  bind:m  (boot-core ~dev comet %ames %mesa)  :: XX bail:evil
-  ;<  ~  bind:m  end
+  ::  ;<  ~  bind:m  (breach ~bud)
   (pure:m ~)
 ::
 ++  test-mesa-ames-3
@@ -82,15 +110,16 @@
   ::  attestation proof. .comet has %ames as its network core so
   ::  it should handle the %mesa packet and make an entry in .chums
   ::
-  =/  comet=@p
-    ~londeg-tirlys-somlyd-poltus--pintyn-tarbyl-bicnux-marbud
+
   ;<  ~  bind:m  (boot-core ~dev comet %mesa %ames)
-  ;<  ~  bind:m  end
+  ::  ;<  ~  bind:m  (breach ~dev)
   (pure:m ~)
 ::
 ++  init
   =/  m  (strand ,~)
   ;<  ~  bind:m  start-azimuth
+  ::  only spawn once (i.e. set up keys once, and broadcast them as eth logs)
+  ::
   ;<  ~  bind:m  (spawn ~bud)
   ;<  ~  bind:m  (spawn ~dev)
   ;<  ~  bind:m  (spawn ~marbud)
@@ -99,9 +128,9 @@
 ++  setup
   |=  [who=@p proto=?(%mesa %ames)]
   =/  m  (strand ,~)
-  =/  =aqua-event:aquarium
-    :+  %event  who
-    [/g/aqua/watch/sub %deal [who who /] %sub %watch /aqua]
+  ::  for every test we initialize the ship
+  ::    - send %init-ship to aqua: boot from pill
+  ::    - load network protocol core in ames.hoon
   ::
   ;<  ~  bind:m
     ?.  ?=(%pawn (clan:title who))
@@ -114,20 +143,32 @@
   ;<  ~  bind:m  (copy-file who /app/pub/hoon pub-agent)
   ;<  ~  bind:m  (dojo who "|start %sub")
   ;<  ~  bind:m  (dojo who "|start %pub")
-  ::  subscribe to who for %pub gifts
+  ::  subscribe to the %sub test agent to capture %facts from %pub
   ::
+  =/  =aqua-event:aquarium
+    :+  %event  who
+    [/g/aqua/watch/sub %deal [who who /] %sub %watch /aqua]
   ;<  ~  bind:m  (send-events aqua-event ~)
   (pure:m ~)
 ::
-++  boot-with-ames-and-breach
+++  boot-with-core-and-breach
+  |=  core=?(%mesa %ames)
   =/  m  (strand ,~)
-  ;<  ~  bind:m  init
+  :: ;<  ~  bind:m  init
   ::  first both ships start communication using %ames
   ::
-  ;<  ~  bind:m  (setup ~bud %ames)
-  ;<  ~  bind:m  (setup ~dev %ames)
+  ::  XX  init the comet as well so it doesn't interfere with
+  ::  these ships' incarnations
+  ::
+  ;<  ~  bind:m  (init-comet comet)
+  ;<  ~  bind:m  (setup ~bud core)
+  ;<  ~  bind:m  (setup ~dev core)
   ;<  ~  bind:m  (send-hi ~bud ~dev)
   ;<  ~  bind:m  (sleep ~s2)
+  ::  load migration hash for both
+  ::
+  ;<  ~  bind:m  (load-migration-hash ~bud ~dev)
+  ;<  ~  bind:m  (load-migration-hash ~dev ~bud)
   ::  subscribe before breaching
   ::
   ;<  ~  bind:m  (dojo ~bud ":sub [%sub ~dev %pub]")
@@ -136,10 +177,10 @@
   ::  now we breach ~bud. since ~dev has %ames as the default core
   ::  it will remain as %known, with no flow state.
   ::
+   ;<  ~  bind:m  (breach ~bud)
   ::  ~bud will start again using %mesa as the default core
   ::
-  ;<  ~  bind:m  (breach ~bud)
-  ;<  ~  bind:m  (setup ~bud %mesa)
+  ;<  ~  bind:m  (setup ~bud ?:(?=(%mesa core) %ames %mesa))
   ;<  ~  bind:m  (send-hi ~bud ~dev)
   ::  subscribe again and send fact
   ::
@@ -156,7 +197,6 @@
 ++  boot-core
   |=  [sndr=@p rcvr=@p core-s=?(%ames %mesa) core-r=?(%ames %mesa)]
   =/  m  (strand ,~)
-  ;<  ~  bind:m  init
   ::  if sender has %ames as .core, the receiver will:
   ::    - drop the packet
   ::    - ask jael for the keys
@@ -174,16 +214,7 @@
     ?.  ?=(%ames core-s)
       ^-  form:m
       (pure:m ~)
-    ;<  =bowl:spider  bind:m  get-bowl
-    =/  aqua-pax
-      :-  %i
-      /(scot %p sndr)/cz/(scot %p sndr)/kids/(scot %da now.bowl)/noun
-    =+  ;;  hash=@uvi
-        (need (scry-aqua:util (unit @uvi) our.bowl now.bowl aqua-pax))
-    ::  load hood/ahoy hash
-    ::
-    ^-  form:m
-    (dojo rcvr ":hood &ahoy-set-hash {<hash>}")
+    (load-migration-hash sndr rcvr)
   ;<  ~  bind:m  (send-hi sndr rcvr)
   ::
   ;<  ~  bind:m  (dojo sndr ":sub [%sub {<rcvr>} %pub]")
@@ -203,7 +234,6 @@
       ^-  form:m
       (pure:m ~)
     (wait-for-output rcvr "ahoy: %mesa migration completed for {<sndr>}")
-  ;<  ~  bind:m  end
   (pure:m ~)
 ::
 --

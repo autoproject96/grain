@@ -45,9 +45,10 @@
   ;<  ~  bind:m  init
   ;<  ~  bind:m  test-mesa-ames-1
   ;<  ~  bind:m  test-ames-mesa-1
-  :: ;<  ~  bind:m  test-mesa-ames-2  :: comet
+  ;<  ~  bind:m  test-mesa-ames-2  :: comet
   ;<  ~  bind:m  test-ames-mesa-2  :: XX bail:evil comets
-  :: ;<  ~  bind:m  test-mesa-ames-3  :: comet
+  ;<  ~  bind:m  test-mesa-ames-3  :: comet
+  :: ;<  ~  bind:m  (init-comet comet)  :: XX init comet to nuke past interaction?
   ;<  ~  bind:m  (boot-with-core-and-breach %mesa)  :: XX this waits for two ~m2 retries...
   ;<  ~  bind:m  (boot-with-core-and-breach %ames)
   ::  TODO
@@ -157,10 +158,6 @@
   :: ;<  ~  bind:m  init
   ::  first both ships start communication using %ames
   ::
-  ::  XX  init the comet as well so it doesn't interfere with
-  ::  these ships' incarnations
-  ::
-  ;<  ~  bind:m  (init-comet comet)
   ;<  ~  bind:m  (setup ~bud core)
   ;<  ~  bind:m  (setup ~dev core)
   ;<  ~  bind:m  (send-hi ~bud ~dev)
@@ -191,7 +188,6 @@
   ::
   ;<  =noun  bind:m
     (wait-for-fact ~bud %noun /aqua/watch/sub (gate ,(list [path @]) [/hola 1]~))
-  ;<  ~  bind:m  end
   (pure:m ~)
 ::
 ++  boot-core

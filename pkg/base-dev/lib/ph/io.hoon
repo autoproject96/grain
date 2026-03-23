@@ -396,7 +396,8 @@
   ::
   ?.  ?=(?(%send %push) -.q.unix-effect)
     loop
-  ::  check that this is an %ack?
+  ::  XX  check that this is an %ack?
+  ::
   ?.  =(from our)
     ::  wait until the ack for the %cork $plea is sent, at this point
     ::  the publisher has already corked the flow

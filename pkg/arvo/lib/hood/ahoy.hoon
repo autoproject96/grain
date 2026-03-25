@@ -295,12 +295,13 @@
     =+  .^  chums=(map ship ?(%known %alien))  %ax
           /(scot %p our.bowl)//(scot %da now.bowl)/chums
         ==
-    %-  emil
+    =;  [moz=_moz sat=_sat]
+      (emil moz)
     ::  ahoy peers on last-hash not yet migrated (skip if %ahoy is pending)
     ::
     %-  ~(rep by hashes)
-    |=  [[who=@p [num=@ud has=@uvi when=@da]] moz=_moz]
-    ?.  =(last-hash.sat has)  moz
+    |=  [[who=@p [num=@ud has=@uvi when=@da]] moz=_moz sat=_sat]
+    ?.  =(last-hash.sat has)  moz^sat
     ::  XX do last +peek check to see if online?
     ::
     ::  filter by last hash and start %ahoying with a test
@@ -309,14 +310,14 @@
     ?:  (~(has by chums) who)
       ::  if .who has been migrated by a previous %ahoy; skip
       ::
-      moz
+      moz^sat
     ?:  (~(has in pending-ahoy.sat) who)
-      moz
-    :_  moz
-    ?:  force-test
-      (migrate %mate who dry)
-    =.  pending-ahoy.sat  (~(put in pending-ahoy.sat) who)
-    (send-ahoy who dry)
+      moz^sat
+    :-  :-  ?:(force-test (migrate %mate who dry) (send-ahoy who dry))
+        moz
+    =?  pending-ahoy.sat  !force-test
+      (~(put in pending-ahoy.sat) who)
+    sat
   ::
   ++  take-mate
     |=  [who=@p error=(unit tang) dry=?]
@@ -328,6 +329,7 @@
     ::
     ?:  (~(has in pending-ahoy.sat) who)
       this
+    =.  pending-ahoy.sat  (~(put in pending-ahoy.sat) who)
     (emit (send-ahoy who dry))
   ::
   ++  take-ahoy

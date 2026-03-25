@@ -1542,10 +1542,13 @@
     ++  session-id-from-request
       |=  =request:http
       ^-  (unit @uv)
-      ::  is there an authorization header?
+      ::  is there an authorization header with a valid session token?
       ::
-      ?^  auth=(get-header:http 'authorization' header-list.request)
+      =/  from-header=(unit @uv)
+        ?~  auth=(get-header:http 'authorization' header-list.request)
+          ~
         (rush u.auth ;~(pfix (jest 'Bearer 0v') viz:ag))
+      ?^  from-header  from-header
       ::  are there cookies passed with this request?
       ::
       =/  cookie-header=@t

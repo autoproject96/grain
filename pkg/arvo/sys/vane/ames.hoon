@@ -3850,8 +3850,10 @@
         |=  old=axle-28-29
         ^-  axle
         ~>  %slog.0^leaf/"ames: migrating from state %29 to %30"
-        ~>  %slog.0^leaf/"mesa: Directed Messaging is on"
+        ~>  %slog.1^leaf/"mesa: Directed Messaging is on"
         %=    old
+            core  %mesa
+          ::
             priv
           =/  cic  (nol:nu:cric:crypto priv.old)
           [saf:ex:cic priv.old pub:ex:cic]

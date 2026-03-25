@@ -56,9 +56,6 @@
       ::  timeout duration to cancel +peek
       ::
       timeout=_~s12
-      ::  migrated peers
-      ::
-      migrants=(map ship ?(%mesa %ames))
       ::  peers we can't migrate
       ::
       broken=(map ship attempt=@da)  :: XX add offending flows?
@@ -121,7 +118,6 @@
   ?~(caz this $(caz t.caz, this (emit i.caz)))
 ::
 ++  on-init  =<  abet
-  =.  this  (emit %pass /ahoy/chums %arvo %b %wait now.bowl)
   %_    this
       last-hash.sat
     0vq.kuk4m.cqifa.8eq29.9dp1q.utcd7.bakuk.h9es3.cpbcf.nkf4r.pjehb
@@ -167,7 +163,6 @@
     =?  broken.sat       nuke  ~
     =?  no-response.sat  nuke  ~
     =?  hashes.sat       nuke  ~
-    =?  migrants.sat     nuke  ~
     =?  this  nuke
       (emit %pass /ahoy/chums %arvo %b %wait now.bowl)
     ::  get all peers from ames
@@ -227,10 +222,6 @@
   |=  [=wire =sign-arvo]  =<  abet
   =>  .(wire `(pole knot)`wire)
   |^  ?+    wire  ~|([%ahoy-bad-take-wire wire +<.sign-arvo] !!)
-      ::  deferred on-init timer to fill out migrant %chums
-      ::
-          [%chums *]
-        (take-timer ?>(?=(%wake +<.sign-arvo) +>.sign-arvo))
       ::
           [%thread rest=*]
         :: - /thread       : migrate with no test migration
@@ -268,20 +259,6 @@
           [%migr *]  take-migrate
         ==
       ==
-  ::
-  ++  take-timer
-    |=  error=(unit tang)
-    ::  scry for chums and fill out migrated peers
-    ::
-    =+  .^  chums=(map ship ?(%known %alien))  %ax
-          /(scot %p our.bowl)//(scot %da now.bowl)/chums
-        ==
-    %_    this
-        migrants.sat
-      %-  ~(rep by chums)
-      |=  [[=ship s=?(%known %alien)] migs=_migrants.sat]
-      (~(put by migs) ship %mesa)
-    ==
   ::
   ++  take-thread
     |=  [force-test=? dry=?]
@@ -362,7 +339,6 @@
       ::  XX  while doing a dry migration?
       ::
       broken.sat    (~(del by broken.sat) who)
-      migrants.sat  ?:(dry migrants.sat (~(put by migrants.sat) who %mesa))
     ==
   ::
   --

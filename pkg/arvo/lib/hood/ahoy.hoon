@@ -69,13 +69,16 @@
 ::
 --
 =>  |%  ++  dispatch-thread
-          |=  [=term test=?]
+          |=  [=term test=? who=(unit ship)]
           ^-  wire
-          :+  %ahoy  %thread
-          ?+  term  ~|(term !!)
-            %comb  ?:(test /test /)
-            %prob  ?:(test /force /)
-          ==
+          =/  base=wire
+            :+  %ahoy  %thread
+            ?+  term  ~|(term !!)
+              %comb  ?:(test /test /)
+              %prob  ?:(test /force /)
+            ==
+          ?~  who  base
+          (snoc base (scot %p u.who))
         ::
         ++  dispatch-flow
           |=  [=term =ship test=?]
@@ -120,7 +123,7 @@
 ++  on-init  =<  abet
   %_    this
       last-hash.sat
-    0vq.kuk4m.cqifa.8eq29.9dp1q.utcd7.bakuk.h9es3.cpbcf.nkf4r.pjehb
+    0v1l.j5i77.ga13o.okjjk.tv6m9.c9pg4.7i10l.9mgpp.shtut.q530n.41il8  :: 409k-2
   ==
 ::
 ++  on-peek  abet
@@ -188,7 +191,7 @@
     ::
     =/  data=^vase  !>([~ timeout.sat hashes.sat pend last-hash.sat veb])
     %+  emit  %pass
-    [(dispatch-thread %comb dry) %arvo %k %fard q.byk.bowl %comb %noun data]
+    [(dispatch-thread %comb dry ~) %arvo %k %fard q.byk.bowl %comb %noun data]
   ::
   ++  time       |=(tim=@dr this(timeout.sat tim))
   ++  hash       |=(has=@uvi this(last-hash.sat has))
@@ -204,6 +207,7 @@
     ::  was less than a day ago
     ::
     ?:  (~(has in pending-ahoy.sat) ship)
+      ~&  >>  "already pending"^ship
       this
     ?:  ?&  ?~  bro=(~(get by broken.sat) ship)
               %.n
@@ -211,8 +215,13 @@
         ==
       this
     =/  data=^vase  !>([~ timeout.sat hashes.sat [ship]~ last-hash.sat veb=|])
+    =.  pending-ahoy.sat  (~(put in pending-ahoy.sat) ship)
     %^  emit  %pass
-      (dispatch-thread ?:(dry comb/dry=& prob/force))
+      ::  a %prob is never dry, but we can not force a test migration first
+      ::  a %comb can be dry, so we will test the migrations on both ends without
+      ::  moving the peer to .chums
+      ::
+      (dispatch-thread ?:(dry comb/dry=&^`ship prob/force^`ship))
     [%arvo %k %fard q.byk.bowl %comb %noun data]
   ::
   --
@@ -231,12 +240,14 @@
         :: - /thread/test  : test migration; ship will remain in .peers)
         ::                   (we force a local migration first)
         ::
-        =/  [force-test=? dry=?]
-          ?+  rest.wire  |^|
-            [%force *]   &^|
-            [%test *]    &^&
+        =/  [force-test=? dry=? who=(unit ship)]
+          ?+  rest.wire  [| | ~]
+            [%force ~]        [& | ~]
+            [%test ~]         [& & ~]
+            [%force who=@ ~]  [& | `(slav %p who.rest.wire)]
+            [who=@ ~]         [| | `(slav %p who.rest.wire)]
           ==
-        (take-thread force-test dry)
+        (take-thread force-test dry who)
       ::
           [?(%mate %send %migr) rest=*]
       ::  %ahoy flow:  XX move to a thread?
@@ -261,9 +272,13 @@
       ==
   ::
   ++  take-thread
-    |=  [force-test=? dry=?]
+    |=  [force-test=? dry=? who=(unit ship)]
     ?>  ?=([%khan %arow *] sign-arvo)
     ?:  ?=(%.n -.p.sign-arvo)
+      ::  if the thread crashed, remove from pending so we can prob again
+      ::
+      =?  pending-ahoy.sat  ?=(^ who)
+        (~(del in pending-ahoy.sat) u.who)
       (flog %crud [mote tang]:p.p.sign-arvo)
     =+  !<([=_hashes.sat =_no-response.sat] q.p.p.sign-arvo)
     =:       hashes.sat  (~(uni by hashes.sat) hashes)
@@ -272,13 +287,12 @@
     =+  .^  chums=(map ship ?(%known %alien))  %ax
           /(scot %p our.bowl)//(scot %da now.bowl)/chums
         ==
-    =;  [moz=_moz sat=_sat]
-      (emil moz)
+    %-  emil
     ::  ahoy peers on last-hash not yet migrated (skip if %ahoy is pending)
     ::
     %-  ~(rep by hashes)
-    |=  [[who=@p [num=@ud has=@uvi when=@da]] moz=_moz sat=_sat]
-    ?.  =(last-hash.sat has)  moz^sat
+    |=  [[who=@p [num=@ud has=@uvi when=@da]] moz=_moz]
+    ?.  =(last-hash.sat has)  moz
     ::  XX do last +peek check to see if online?
     ::
     ::  filter by last hash and start %ahoying with a test
@@ -287,42 +301,43 @@
     ?:  (~(has by chums) who)
       ::  if .who has been migrated by a previous %ahoy; skip
       ::
-      moz^sat
-    ?:  (~(has in pending-ahoy.sat) who)
-      moz^sat
-    :-  :-  ?:(force-test (migrate %mate who dry) (send-ahoy who dry))
-        moz
-    =?  pending-ahoy.sat  !force-test
-      (~(put in pending-ahoy.sat) who)
-    sat
+      moz
+    ?.  (~(has in pending-ahoy.sat) who)
+      ::  this shouldn't happen since we only should have one active thread
+      ::  and we have not deleted .who from pending
+      ::
+      moz
+    :_  moz
+    ?:(force-test (migrate %mate who dry) (send-ahoy who dry))
   ::
   ++  take-mate
     |=  [who=@p error=(unit tang) dry=?]
     ^+  this
-    ?^  error
-      ~&  >>  "ahoy: dry mate failed for {<who>}"
-      this(broken.sat (~(put by broken.sat) who now.bowl))
-    ::  mate succeded; ahoy
-    ::
-    ?:  (~(has in pending-ahoy.sat) who)
-      this
-    =.  pending-ahoy.sat  (~(put in pending-ahoy.sat) who)
-    (emit (send-ahoy who dry))
+    ?~  error
+      (emit (send-ahoy who dry))
+    =.  pending-ahoy.sat
+      (~(del in pending-ahoy.sat) who)
+    ~&  >>  "ahoy: dry mate failed for {<who>}"
+    this(broken.sat (~(put by broken.sat) who now.bowl))
   ::
   ++  take-ahoy
     |=  [who=@p error=(unit tang) dry=?]
     ^+  this
+    ::  as soon as the ahoy comes back, delete from pending
+    ::
     =.  pending-ahoy.sat  (~(del in pending-ahoy.sat) who)
-    ?^  error
-      ~&  >>  "ahoy: broken %ahoy for {<who>}"
-      this(broken.sat (~(put by broken.sat) who now.bowl))  ::  migrate failed
-    (emit (migrate %migr who dry))
+    ?~  error
+      (emit (migrate %migr who dry))
+    ::  migration failed
+    ::
+    ~&  >>  "ahoy: broken %ahoy for {<who>}"
+    this(broken.sat (~(put by broken.sat) who now.bowl))
   ::
   ++  take-migrate
     |=  [who=@p error=(unit tang) dry=?]
     ^+  this
     ?^  error
-      ::  XX if not a dry, this is bad;
+      ::  XX if not dry, this is bad;
       ::     they won't be able to communicate since they are on different
       ::     sides of the protocol and we will have to manually do:
       ::     `|pass [%a %rege `ship dry=%.n]` on the other ship to restore coms

@@ -72,10 +72,18 @@
           |=  [=term test=? who=(unit ship)]
           ^-  wire
           =/  base=wire
+            ::  test means different things for %prob and %comb:
+            ::
+            ::  (XX currently only %prob supported)
+            ::
+            ::    %prob is never dry, but a test migration can be skipped
+            ::    %comb can be dry, so we will test the migrations on both
+            ::      ends without moving the peer to .chums
+            ::
             :+  %ahoy  %thread
             ?+  term  ~|(term !!)
               %comb  ?:(test /test /)
-              %prob  ?:(test /force /)
+              %prob  ?:(test /prob/force /prob)
             ==
           ?~  who  base
           (snoc base (scot %p u.who))
@@ -163,6 +171,7 @@
   ::
   ++  comb
     |=  [dry=? veb=? nuke=?]
+    ?:  &  this  :: XX disabled
     =?  broken.sat       nuke  ~
     =?  no-response.sat  nuke  ~
     =?  hashes.sat       nuke  ~
@@ -200,7 +209,7 @@
   ++  wipe-ship  |=([[who=@p *] =_this] this(broken.sat (~(del by broken.sat) who)))
   ::
   ++  prob
-    |=  [=ship force=? dry=?]
+    |=  [=ship force=?]
     ::  XX check that the peer is not in .chums.ames-state
     ::
     ::  if we know that %ahoy is not supported skip %ahoy, if last attempt
@@ -214,40 +223,52 @@
             (lth (sub now.bowl attempt=u.bro) ~d1)
         ==
       this
-    =/  data=^vase  !>([~ timeout.sat hashes.sat [ship]~ last-hash.sat veb=|])
+    =/  data=^vase  !>
+    ::  we use hashes.sat to start peeking from the last known case
+    ::
+    =/  [num=@ud has=@uvi wen=@da]
+      ?~  case=(~(get by hashes.sat) ship)
+        [1 0v0 now.bowl]
+      u.case
+    ::
+      [~ timeout.sat num^has^wen ship last-hash.sat veb=|]
     =.  pending-ahoy.sat  (~(put in pending-ahoy.sat) ship)
     %^  emit  %pass
-      ::  a %prob is never dry, but we can not force a test migration first
-      ::  a %comb can be dry, so we will test the migrations on both ends without
-      ::  moving the peer to .chums
-      ::
-      (dispatch-thread ?:(dry comb/dry=&^`ship prob/force^`ship))
-    [%arvo %k %fard q.byk.bowl %comb %noun data]
+      (dispatch-thread %prob force `ship)
+    [%arvo %k %fard q.byk.bowl %prob %noun data]
   ::
   --
-  ::
 ::
 ++  take-arvo
   |=  [=wire =sign-arvo]  =<  abet
   =>  .(wire `(pole knot)`wire)
   |^  ?+    wire  ~|([%ahoy-bad-take-wire wire +<.sign-arvo] !!)
       ::
-          [%thread rest=*]
-        :: - /thread       : migrate with no test migration
-        :: - /thread/force : force a local test migration first
-        ::                   (a local test migration would crash if there
-        ::                    is no flow information)
+          [%thread %comb rest=*]
+        =/  dry=?
+          ?+  rest.wire  !!
+            ~            %.n
+            [%test ~]    %.y
+          ==
+        :: XX TODO %comb
+        ::
+        this
+      ::
+          [%thread %prob rest=*]
+        :: - /thread/prob       : migrate with no test migration
+        :: - /thread/prob/force : force a local test migration first
+        ::                         (a local test migration would crash
+        ::                          if there is no flow information)
+        ::  XX only for %comb; unused
         :: - /thread/test  : test migration; ship will remain in .peers)
         ::                   (we force a local migration first)
         ::
-        =/  [force-test=? dry=? who=(unit ship)]
-          ?+  rest.wire  [| | ~]
-            [%force ~]        [& | ~]
-            [%test ~]         [& & ~]
-            [%force who=@ ~]  [& | `(slav %p who.rest.wire)]
-            [who=@ ~]         [| | `(slav %p who.rest.wire)]
+        =/  [force-test=? who=ship]
+          ?+  rest.wire  !!
+            [%force who=@ ~]  [& (slav %p who.rest.wire)]
+            [who=@ ~]         [| (slav %p who.rest.wire)]
           ==
-        (take-thread force-test dry who)
+        (take-thread force-test who)
       ::
           [?(%mate %send %migr) rest=*]
       ::  %ahoy flow:  XX move to a thread?
@@ -272,49 +293,71 @@
       ==
   ::
   ++  take-thread
-    |=  [force-test=? dry=? who=(unit ship)]
+    |=  [force-test=? who=ship]
     ?>  ?=([%khan %arow *] sign-arvo)
     ?:  ?=(%.n -.p.sign-arvo)
-      ::  if the thread crashed, remove from pending so we can prob again
+      ::  if the thread crashed, remove from pending so we can %prob again
       ::
-      =?  pending-ahoy.sat  ?=(^ who)
-        (~(del in pending-ahoy.sat) u.who)
+      =.  pending-ahoy.sat  (~(del in pending-ahoy.sat) who)
       (flog %crud [mote tang]:p.p.sign-arvo)
-    =+  !<([=_hashes.sat =_no-response.sat] q.p.p.sign-arvo)
-    =:       hashes.sat  (~(uni by hashes.sat) hashes)
-        no-response.sat  (~(uni by no-response.sat) no-response)
-      ==
+    =+  !<  [[num=@ud has=@uvi wen=@da] no-response=?]
+            q.p.p.sign-arvo
+    ::
+    =.  hashes.sat
+      ?~  peer=(~(has by hashes.sat) who)
+        (~(put by hashes.sat) who num^has^wen)
+      ::  the ship exists; update only if this
+      ::  case is higher than previous
+      ::
+      %+  ~(jab by hashes.sat)  who
+      |=  old=[num=@ud has=@uvi wen=@da]
+      ?.  (gte num num.old)  old
+      [num has wen]
+    ::
+    =.  no-response.sat
+      ::  if none of these thread's attempts give a response
+      ::  mark as such.
+      ::
+      ::  if the ship could have been not responding before,
+      ::  but we got a response, preemptively delete from no-response
+      ::
+      ?:  no-response
+        (~(put by no-response.sat) who wen)
+      (~(del by no-response.sat) who)
+    ::
     =+  .^  chums=(map ship ?(%known %alien))  %ax
           /(scot %p our.bowl)//(scot %da now.bowl)/chums
         ==
-    %-  emil
-    ::  ahoy peers on last-hash not yet migrated (skip if %ahoy is pending)
+    ::  ahoy the peer if on last-hash, not yet migrated, and not pending
     ::
-    %-  ~(rep by hashes)
-    |=  [[who=@p [num=@ud has=@uvi when=@da]] moz=_moz]
-    ?.  =(last-hash.sat has)  moz
-    ::  XX do last +peek check to see if online?
-    ::
-    ::  filter by last hash and start %ahoying with a test
-    ::  migration first
-    ::
-    ?:  (~(has by chums) who)
-      ::  if .who has been migrated by a previous %ahoy; skip
+    ?:  ?|  !=(last-hash.sat has)
+            (~(has by chums) who)
+        ==
+      ::  delete the peer from pending and try again on next %prob
       ::
-      moz
+      ::  (if .who is in chums, it should have been migrated by a previous
+      ::   %ahoy -- possibly from the other ship; skip)
+      ::
+      this(pending-ahoy.sat (~(del in pending-ahoy.sat) who))
     ?.  (~(has in pending-ahoy.sat) who)
       ::  this shouldn't happen since we only should have one active thread
-      ::  and we have not deleted .who from pending
+      ::  and we have not deleted .who from pending yet
       ::
-      moz
-    :_  moz
-    ?:(force-test (migrate %mate who dry) (send-ahoy who dry))
+      this
+    %-  emit
+    ::  if .force-test == %.y, do test migration first
+    ::
+    ?:(force-test (migrate %mate who dry=%.n) (send-ahoy who dry=%.n))
   ::
   ++  take-mate
     |=  [who=@p error=(unit tang) dry=?]
     ^+  this
     ?~  error
+      ::  peer still in pending; wait for the real %ahoy
+      ::
       (emit (send-ahoy who dry))
+    ::  flow ends here and we got a response; remove pending
+    ::
     =.  pending-ahoy.sat
       (~(del in pending-ahoy.sat) who)
     ~&  >>  "ahoy: dry mate failed for {<who>}"

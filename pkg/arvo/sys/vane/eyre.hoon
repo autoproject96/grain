@@ -1542,7 +1542,7 @@
     ++  session-id-from-request
       |=  =request:http
       ^-  (unit @uv)
-      ::  is there an authorization header with a valid session token?
+      ::  is there an authorization header with a legible session token?
       ::
       =/  from-header=(unit @uv)
         ?~  auth=(get-header:http 'authorization' header-list.request)

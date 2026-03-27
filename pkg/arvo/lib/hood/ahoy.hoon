@@ -308,8 +308,8 @@
     =+  !<  [[num=@ud has=@uvi wen=@da] no-response=?]
             q.p.p.sign-arvo
     ::
-    =.  hashes.sat
-      ?~  peer=(~(has by hashes.sat) who)
+    =?  hashes.sat  !no-response  :: only update hashes if we did get a response
+      ?.  (~(has by hashes.sat) who)
         (~(put by hashes.sat) who num^has^wen)
       ::  the ship exists; update only if this
       ::  case is higher than previous

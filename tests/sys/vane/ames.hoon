@@ -469,7 +469,7 @@
       rcvr-life=3
     ==
   ::
-  =/  ahoy-plea  ahoy-prob/!>(~nec^test=|^dry=|)
+  =/  ahoy-plea  ahoy-prob/!>(~nec^force-test=|)
   =/  =blob:ames   (etch-shot:ames shot)
   =^  moves1  bud  (call bud ~[//unix] %hear lane-foo blob)
   =^  moves2  bud
@@ -966,7 +966,7 @@
   ::  drop packet, move .chum to .peer, and enqueue %ahoy $plea
   ::
   =^  moves2  bud  (call bud ~[//unix] %hear (snag-packet 0 moves1))
-  =/  ahoy-plea  ahoy-prob/!>(our-comet^test=|^force=|)
+  =/  ahoy-plea  ahoy-prob/!>(our-comet^force-test=|)
   %+  weld
     %+  expect-eq
       +:ahoy-plea
@@ -1019,7 +1019,7 @@
   ::  inject plea packet, move .chum to .peer, and enqueue %ahoy $plea
   ::
   =^  moves2  bud    (call bud ~[//unix] %hear (snag-packet 0 moves1))
-  =/  ahoy-plea  ahoy-prob/!>(our-comet^test=|^force=|)
+  =/  ahoy-plea  ahoy-prob/!>(our-comet^force-test=|)
   =/  gall-plea  [our-comet poke-plea]
   ;:  weld
     %+  expect-eq

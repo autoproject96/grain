@@ -65,6 +65,9 @@
       ::  ships with an outstanding %ahoy plea in flight
       ::
       pending-ahoy=(set ship)
+      ::  verbosity
+      ::
+      veb=_|
   ==
 ::
 --
@@ -167,6 +170,7 @@
     %ahoy-refresh      this
     %ahoy-update       this
     %ahoy-wipe         =;(f (f !<(_+<.f vase)) wipe)
+    %ahoy-verb         =+(!<(_~ vase) verb)
   ==
   ::
   ++  comb
@@ -204,6 +208,7 @@
   ::
   ++  time       |=(tim=@dr this(timeout.sat tim))
   ++  hash       |=(has=@uvi this(last-hash.sat has))
+  ++  verb       this(veb.sat !veb.sat)
   ++  wipe       |=  who=(unit @p)  ^+  this
                  ?^(who (wipe-ship u.who^** this) (~(rep by broken.sat) wipe-ship))
   ++  wipe-ship  |=([[who=@p *] =_this] this(broken.sat (~(del by broken.sat) who)))
@@ -224,14 +229,14 @@
         ==
       this
     =/  data=^vase  !>
-    ::  we use hashes.sat to start peeking from the last known case
-    ::
-    =/  [num=@ud has=@uvi wen=@da]
-      ?~  case=(~(get by hashes.sat) ship)
-        [1 0v0 now.bowl]
-      u.case
-    ::
-      [~ timeout.sat num^has^wen ship last-hash.sat veb=|]
+      ::  we use hashes.sat to start peeking from the last known case
+      ::
+      =/  [num=@ud has=@uvi wen=@da]
+        ?~  case=(~(get by hashes.sat) ship)
+          [1 0v0 now.bowl]
+        u.case
+      ::
+      [~ timeout.sat num^has^wen ship last-hash.sat veb.sat]
     =.  pending-ahoy.sat  (~(put in pending-ahoy.sat) ship)
     %^  emit  %pass
       (dispatch-thread %prob force `ship)

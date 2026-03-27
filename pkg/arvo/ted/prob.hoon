@@ -33,6 +33,7 @@
   !!  :: XX crash thread?
 ::
 =/  start=@da  now.bowl
+~?  >  veb  "ahoy-prob: start {<who>} {<now.bowl>}"
 =|  no-response=?
 ::
 |-
@@ -96,9 +97,9 @@
   ;<  =bowl:spider  bind:m  get-bowl:strandio
   ::  timed out; flag as no-responsive if no previous attempt worked
   ::
-  ~?  >  veb  "ahoy-prob: {<who>} timed out"
   ;<  =bowl:spider  bind:m  get-bowl:strandio
-  ~?  >  veb  end/`@dr`(sub now.bowl start)
+  ~?  >  veb
+    "ahoy-prob: {<who>} timed out (took {<`@dr`(sub now.bowl start)>})"
   %-  pure:m   !>
   ::  if no previous attempts worked return when to track it in
   ::  the no-response map

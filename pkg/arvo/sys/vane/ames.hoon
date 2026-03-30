@@ -5202,10 +5202,8 @@
             ?:(abort abort:core abet:core)
           %-  ~(rep by snd.peer-state)
           |=  [[=bone =message-pump-state] cor=_pe-core]
-          ?.  ?&  =.  retry-timer
-                      rto.metrics.packet-pump-state.message-pump-state
-                  ?=(^ next-wake.packet-pump-state.message-pump-state)
-              ==
+          ?.  =,  packet-pump-state.message-pump-state
+              &(=(retry-timer rto.metrics) ?=(^ next-wake))
             cor
           (on-wake:cor bone error)
         ::

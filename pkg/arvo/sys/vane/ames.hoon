@@ -5761,6 +5761,8 @@
             |=  =bone
             ^+  peer-core
             ?.  (~(has in halt.peer-state) bone)
+              ::  XX log
+              ::
               peer-core
             =.  halt.peer-state  (~(del in halt.peer-state) bone)
             abet:(call:(abed:mu bone) %wake ~)
@@ -7174,10 +7176,22 @@
                   %-  %+  pe-trace  odd.veb
                       |.("%plea enqueued in %gall; skip %flub")
                   sink
-                %-  (pe-trace odd.veb |.("%flubbing: {<bone=bone>}"))
+                %-  %-  pe-trace
+                    [odd.veb |.("%flubbing: {<bone=bone>} last={<last-heard.state>}")]
+                ::
+                =+  left=q:~(get to pending-vane-ack.state)
                 %_  sink
-                  last-heard.state        (dec last-heard.state)
-                  pending-vane-ack.state  ~(nap to pending-vane-ack.state)
+                  pending-vane-ack.state  left
+                ::
+                    last-heard.state
+                  ?~  left
+                    (dec last-heard.state)
+                  ::  XX should this be instead last-acked?
+                  ::
+                  ::  there are messages pending a %done from a vane;
+                  ::  restore last-heard get seq number of head of the queue
+                  ::
+                  message-num.p:~(get to left)
                 ==
               ::
                   %hear

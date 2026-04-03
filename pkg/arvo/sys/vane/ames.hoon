@@ -7176,22 +7176,12 @@
                   %-  %+  pe-trace  odd.veb
                       |.("%plea enqueued in %gall; skip %flub")
                   sink
-                %-  %-  pe-trace
-                    [odd.veb |.("%flubbing: {<bone=bone>} last={<last-heard.state>}")]
-                ::
+                %-  %+  pe-trace  odd.veb
+                        |.("%flubbing: {<bone=bone>} last={<last-heard.state>}")
                 =+  left=q:~(get to pending-vane-ack.state)
                 %_  sink
-                  pending-vane-ack.state  left
-                ::
-                    last-heard.state
-                  ?~  left
-                    (dec last-heard.state)
-                  ::  XX should this be instead last-acked?
-                  ::
-                  ::  there are messages pending a %done from a vane;
-                  ::  restore last-heard get seq number of head of the queue
-                  ::
-                  message-num.p:~(get to left)
+                  pending-vane-ack.state  ~                :: drop all pending
+                        last-heard.state  last-acked.state :: rewind last heard
                 ==
               ::
                   %hear

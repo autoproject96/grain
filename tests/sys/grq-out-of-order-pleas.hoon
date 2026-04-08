@@ -386,6 +386,8 @@
                0x51.201d.35c6.5c33.5fe4.af83.861f.bc5e.5c6c.7600.12f0.
                d0b9.c6ef.9f14.169d.b17e.3b3c.64b7.4600.0200.0132.ab71.5800
           ==
+          ::  %leave still outstanding
+          ::
           :: :-  ~[/ames]  [%pass /pump/~bud/0 %b %wait ~1111.1.5..00.02.00]  :: XX why not?
       ==
     ==
@@ -564,9 +566,6 @@
     ==
   ::  give %done, produce %ack for %leave, handle %deal %leave
   ::
-::   [ i=[duct=[i=/bone/~nec/0/1 t=[i=//unix t=~]] move=[%give p=[%done error=~]]]
-::   t=[i=[duct=[i=/bone/~nec/0/1 t=[i=//unix t=~]] move=[%pass p=/sys/req/~nec/pub q=[%g [%deal p=[p=~nec q=~bud r=/] q=%pub r=[%leave ~]]]]] t=~]
-:: ]
   =^  *  gall.bud
     %:  gall-call:v  gall.bud
         ~[/sys/req/~nec/pub /bone/~nec/0/1 //unix]
@@ -589,6 +588,15 @@
       ==
       *roof
     ==
+  =^  t-get-done  gall.nec
+    %+  gall-take:v  gall.nec
+    :*  /sys/way/~bud/pub   ~[/use/sub/0w1.d6Isf/out/~bud/pub/1/sub-foo/~bud /init]
+        [%ames %done ~]
+        *roof
+    ==
+  ::  this would enqueue a new %cork into %ames, but the flow is in closing
+  ::  and a cork is already outstanding
+  ::
   ::  publisher ames hears %cork, passes to itself
   ~?  >  dbug  'publisher ames hears again %cork,; handle'
   =^  t-recork  ames.bud
@@ -644,7 +652,9 @@
           [%pass /bone/~bud/0/0 %a %deep %kill ~bud 0]
         ::
           :-  ~[/ames]
-          [%pass /pump/~bud/0 %b %rest ~1111.1.5..00.02.00]
+          ::  this the timer for the %leave
+          ::
+          [%pass /pump/~bud/0 %b %rest ~1111.01.01..00.02.00]
       ==
     ==
   ::  subscriber ames hears $kill from self, deletes the flow

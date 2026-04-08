@@ -1834,6 +1834,72 @@
     ::
     +|  %state-migrations
     ::
+    +$  axle-30
+      $+  axle-30
+      $:  peers=(map ship ship-state-30)
+          =unix=duct  ::  [//ames/0v0 ~]
+          =life
+          =rift
+          =bug
+          snub=[form=?(%allow %deny) ships=(set ship)]
+          cong=[msg=_5 mem=_100.000]
+          $=  dead
+          $:  flow=[%flow (unit dead-timer)]
+              chum=[%chum (unit dead-timer)]
+              cork=[%cork (unit dead-timer)]
+              rots=[%rots (unit dead-timer)]
+          ==
+          ::
+          =server=chain
+          [saf=keypairs =ring =pass]
+          chums=(map ship chum-state-30)
+          core=_`?(%ames %mesa)`%ames
+      ==
+    ::
+    +$  ship-state-30
+      $+  ship-state-30
+      $%  [%alien alien-agenda]
+          [%known peer-state-30]
+      ==
+    ::
+    +$  peer-state-30
+      $+  peer-state-30
+      $:  azimuth-state
+          route=(unit [direct=? =lane])  ::  XX (list)
+          =qos
+          =ossuary
+          snd=(map bone message-pump-state)
+          rcv=(map bone message-sink-state)
+          nax=(set [=bone =message-num])
+          closing=(set bone)
+          corked=(set bone)
+          keens=(map path keen-state)
+          =chain
+          tip=(jug =user=path [duct =ames=path])
+          halt=(set bone)
+      ==
+    ::
+    +$  chum-state-30
+      $+  chum-state-30
+      $%  [%known fren-state-30]
+          [%alien ovni-state]
+      ==
+    ::
+    +$  fren-state-30
+      $+  fren-state-30
+      $:  =azimuth-state
+          lane=(unit [hop=@ =lane:pact])
+          =qos
+          corked=(set side)
+          =ossuary
+          flows=(map side flow-state)
+          pit=(map path request-state)
+          =client=chain
+          tip=(jug =user=path [duct =ames=path])
+          weir=(jug side [tag=term data=*])
+      ==
+    ::
+    ::
     +$  axle-28-29
       $:  peers=(map ship ship-state-28-29)
           =unix=duct  ::  [//ames/0v0 ~]
@@ -1856,20 +1922,15 @@
       ==
     ::
     +$  ship-state-28-29
-      $+  ship-state
+      $+  ship-state-28-29
       $%  [%alien alien-agenda]
           [%known peer-state-28-29]
       ==
     ::
     +$  peer-state-28-29
-      $+  peer-state
-      $:  $:  =symmetric-key
-              =life
-              =rift
-              =pass
-              sponsor=ship
-          ==
-          route=(unit [direct=? =lane])  ::  XX (list)
+      $+  peer-state-28-29
+      $:  azimuth-state-29
+          route=(unit [direct=? =lane])
           =qos
           =ossuary
           snd=(map bone message-pump-state)
@@ -1884,12 +1945,13 @@
       ==
     ::
     +$  chum-state-28-29
-      $+  chum-state
+      $+  chum-state-28-29
       $%  [%known fren-state-28-29]
           [%alien ovni-state]
       ==
     ::
     +$  fren-state-28-29
+      $+  fren-state-28-29
       $:  azimuth-state-29
           lane=(unit [hop=@ =lane:pact])
           =qos
@@ -1903,6 +1965,7 @@
       ==
     ::
     +$  axle-26-27
+      $+  axle-26-27
       $:  peers=(map ship ship-state-26-27)
           =unix=duct  ::  [//ames/0v0 ~]
           =life
@@ -2550,7 +2613,8 @@
             [%27 axle-26-27]
             [%28 axle-28-29]
             [%29 axle-28-29]
-            [%30 axle]
+            [%30 axle-30]
+            [%31 axle]
         ==
     ::
     ::
@@ -2625,7 +2689,7 @@
       ~>  %slog.0^leaf/"ames: metamorphosis on %take"
       [:(weld molt-moves queu-moves take-moves) adult-gate]
     ::
-    ++  stay  [%30 larva/ames-state]
+    ++  stay  [%31 larva/ames-state]
     ++  scry  scry:adult-core
     ++  load
       |=  $=  old
@@ -2790,9 +2854,13 @@
                   ?(%adult %larva)               ::
                   state=axle-28-29
               ==
-              $:  %30                            :: enable Directed Messaging
-                  ?(%adult %larva)               :: change key format
-                  state=axle                     ::
+              $:  %30                            :: change key format
+                  ?(%adult %larva)               ::
+                  state=axle-30
+              ==
+              $:  %31                            :: enable Directed Messaging
+                  ?(%adult %larva)               ::   (remove .weir flows)
+                  state=axle
           ==  ==
       |^  ?-  old
           [%4 %adult *]
@@ -3088,6 +3156,11 @@
         larval-gate
       ::
           [%30 *]
+        =.  cached-state  `[%30 state.old]
+        ~>  %slog.1^leaf/"ames: larva %30 reload"
+        larval-gate
+      ::
+          [%31 *]
         ?-  +<.old
           %larva  larval-gate
           %adult  (load:adult-core state.old)
@@ -3166,7 +3239,7 @@
       |^  ^+  [moz larval-core]
       ?~  cached-state  [~ larval-core]
       =*  old  u.cached-state
-      ?:  ?=(%30 -.old)
+      ?:  ?=(%31 -.old)
         ::  no state migrations left; update state, clear cache, and exit
         ::
         [(flop moz) larval-core(ames-state.adult-gate +.old, cached-state ~)]
@@ -3263,8 +3336,10 @@
       ?:  ?=(%28 -.old)
         ~>  %slog.0^leaf/"ames: clean up corked flows"
         $(-.u.cached-state %29, moz (moves-28-to-29 moz chums.+.old +.old))
-      ?>  ?=(%29 -.old)
-      $(cached-state `30+(state-29-to-30 +.old))
+      ?:  ?=(%29 -.old)
+        $(cached-state `30+(state-29-to-30 +.old))
+      ?>  ?=(%30 -.old)
+      $(cached-state `31+(state-30-to-31 +.old))
       ::
       ++  our-beam  `beam`[[our %rift %da now] /(scot %p our)]
       ++  state-4-to-5
@@ -3848,12 +3923,9 @@
       ::
       ++  state-29-to-30
         |=  old=axle-28-29
-        ^-  axle
+        ^-  axle-30
         ~>  %slog.0^leaf/"ames: migrating from state %29 to %30"
-        ~>  %slog.1^leaf/"mesa: Directed Messaging is on"
         %=    old
-            core  %mesa
-          ::
             priv
           =/  cic  (nol:nu:cric:crypto priv.old)
           [saf:ex:cic priv.old pub:ex:cic]
@@ -3861,7 +3933,7 @@
             peers
           %-  ~(run by peers.old)
           |=  s=ship-state-28-29
-          ^-  ship-state
+          ^-  ship-state-30
           ?:  ?=(%alien -.s)  s
           %=  s
             +<  (azimuth-state-29-to-30 +<.s)
@@ -3870,14 +3942,34 @@
             chums
           %-  ~(run by chums.old)
           |=  c=chum-state-28-29
+          ^-  chum-state-30
+          ?:  ?=(%alien -.c)  c
+          %=  c
+            +<  (azimuth-state-29-to-30 +<.c)
+          ==
+        ==
+      ::
+      ++  state-30-to-31
+        |=  old=axle-30
+        ^-  axle
+        ~>  %slog.0^leaf/"ames: migrating from state %30 to %31"
+        ~>  %slog.1^leaf/"mesa: Directed Messaging is on"
+        %=    old
+            core  %mesa
+          ::
+            chums
+          ^-  (map ship chum-state)
+          %-  ~(run by chums.old)
+          |=  c=chum-state-30
           ^-  chum-state
           ?:  ?=(%alien -.c)  c
           =|  fren=fren-state
           ::  remove weir flows; all should be accounted for
           ::
+          ^-  chum-state
           :-  %known
           %_  fren
-              -             (azimuth-state-29-to-30 +<.c)
+              -             azimuth-state.c
               lane          lane.c
               qos           qos.c
               corked        corked.c
@@ -13506,7 +13598,7 @@
   take:am-core
 ::  +stay: extract state before reload
 ::
-++  stay  [%30 adult/ames-state]
+++  stay  [%31 adult/ames-state]
 ::  +load: load in old state after reload
 ::
 ++  load

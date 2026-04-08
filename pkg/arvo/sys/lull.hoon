@@ -1119,7 +1119,7 @@
   ::    %known: we know their life and public keys, so we have a channel
   ::
   +$  ship-state
-    $+  ship-state
+    $+  ship-state-31
     $%  [%alien alien-agenda]
         [%known peer-state]
     ==
@@ -1129,7 +1129,7 @@
   ::    packets: packets we've tried to send
   ::
   +$  alien-agenda
-    $+  alien-agenda
+    $+  alien-agenda-31
     $:  messages=(list [=duct =plea])
         packets=(set =blob)
         keens=(jug [path ints] duct)
@@ -1157,7 +1157,7 @@
   ::    corked:  bones closed on both sender and receiver
   ::
   +$  peer-state
-    $+  peer-state
+    $+  peer-state-31
     $:  azimuth-state
         route=(unit [direct=? =lane])  ::  XX (list)
         =qos
@@ -1598,6 +1598,7 @@
   ::    dead:        dead flow consolidation timer and recork timer, if set
   ::
   +$  axle
+    $+  axle-31
     $:  peers=(map ship ship-state)         ::  %ames protocol peers
         =unix=duct  ::  [//ames/0v0 ~]
         =life
@@ -1640,6 +1641,7 @@
   +$  dire           ?(%bak %for)
   +$  side           [=bone =dire]
   +$  azimuth-state
+    $+  azimuth-state-31
     $:  =symmetric-key
         =life
         =rift
@@ -1648,19 +1650,20 @@
     ==
   ::
   +$  chum-state
-    $+  chum-state
+    $+  chum-state-31
     $%  [%known fren-state]
         [%alien ovni-state]
     ==
   ::
   +$  ovni-state
-    $+  ovni-state
+    $+  ovni-state-31
     $:  pokes=(list [=duct message=mesa-message])
         peeks=(jug [path ints] duct)
         chums=(jug [path ints] duct)
     ==
   ::
   +$  fren-state
+    $+  fren-state-31
     $:  azimuth-state
         lane=(unit [hop=@ =lane:pact])  :: XX (list)
         =qos

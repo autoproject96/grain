@@ -5916,9 +5916,68 @@
             |=  =bone
             ^+  peer-core
             ?.  (~(has in halt.peer-state) bone)
+              ::  XX log
+              ::
               peer-core
             =.  halt.peer-state  (~(del in halt.peer-state) bone)
-            abet:(call:(abed:mu bone) %wake ~)
+            ::  if there were any multi-fragment pleas, we need to drop any acked
+            ::  fragments and start from fag=0
+            ::
+            =+  pump=(abed:mu bone)
+            =+  state=packet-pump-state.state.pump
+            =|  live=((mop live-packet-key live-packet-val) lte-packets)
+            =|  blobs=((mop ,@ud message-blob) lte)
+            =+  queue=((on ,@ud message-blob) lte)
+            ::  unsent-fragments
+            ::
+            =.  blobs
+              %+  roll  unsent-fragments.state.pump
+              |=  [static-fragment acc=_blobs]
+              (put:queue acc [message-num `@`fragment])
+            ::
+            =/  [b=_blobs p=_pump]
+              %+  roll
+                (tap:packet-queue:$:pu:mu live.state)
+              |=  $:  [key=live-packet-key val=live-packet-val]
+                      b=_blobs
+                      p=_pump
+                  ==
+              :-  (put:queue b [message-num.key `@`fragment.val])
+              ::  delete every live fragment
+              ::
+              =.  live.packet-pump-state.state.p
+                +:(del:packet-queue:$:pu:mu live.packet-pump-state.state.p key)
+              p
+              =.  unsent-fragments.state.p  ~  :: delete all and rewind to fag=0
+              ::  pump with no live or unsent fragment messages
+              ::
+              ::  for each of the blobs, feed packets to the message pump
+              ::
+            =;  live=(list [=message-num message])
+              ~&  live.packet-pump-state.state.p
+              ::  append live messages to the front of unsent
+              ::
+              =.  unsent-messages.state.p
+                %-  ~(gas to *(qeu message))
+                %+  weld
+                  (flop (turn live tail))
+                ~(tap to unsent-messages.state.p)
+              ::  since we dropped all live messages,
+              ::  we need to assign current (un-acked) to .next.state
+              ::
+              =.  p  feed-packets:p(next.state current.state.p)
+              =.  p  abet:(call:packet-pump:p %halt ~)
+              abet:p
+            %+  roll  (tap:queue b)
+            |=  $:  [=message-num =message-blob]
+                    live=(list [message-num message])
+                ==
+            :_  live
+            :-  message-num
+            ;;  message  :_  (cue message-blob)
+            ?:  =(%0 (mod bone 4))  %plea
+            ?:  =(%1 (mod bone 4))  %boon
+            ?>  =(%3 (mod bone 4))  %naxplanation
           ::  +on-kill-flow: delete flow on cork sender side
           ::
           ++  on-kill-flow
@@ -7329,10 +7388,12 @@
                   %-  %+  pe-trace  odd.veb
                       |.("%plea enqueued in %gall; skip %flub")
                   sink
-                %-  (pe-trace odd.veb |.("%flubbing: {<bone=bone>}"))
+                %-  %+  pe-trace  odd.veb
+                        |.("%flubbing: {<bone=bone>} last={<last-heard.state>}")
+                =+  left=q:~(get to pending-vane-ack.state)
                 %_  sink
-                  last-heard.state        (dec last-heard.state)
-                  pending-vane-ack.state  ~(nap to pending-vane-ack.state)
+                  pending-vane-ack.state  ~                :: drop all pending
+                        last-heard.state  last-acked.state :: rewind last heard
                 ==
               ::
                   %hear

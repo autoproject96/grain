@@ -222,7 +222,7 @@
     ::  was less than a day ago
     ::
     ?:  (~(has in pending-ahoy.sat) ship)
-      ~&  >>  "already pending"^ship
+      ~?  >>  veb.sat  "already pending"^ship
       this
     ?:  ?&  ?~  bro=(~(get by broken.sat) ship)
               %.n

@@ -84,6 +84,7 @@
 =*  public-keys-result  public-keys-result:jael
 =/  packet-size  13
 =/  retry-timer  ~m2    ::  only used in /mesa/retry and /dead-flow timers
+=/  ahoy-on=?    %.y
 ::
 =>  ::  common helpers
     ~%  %ames  ..part  ~
@@ -5929,7 +5930,9 @@
             ::  if the peer is responding:
             ::    enqueue %ahoy $plea via app/hood %ahoy-prob
             ::
-            =?  peer-core  ?=(%& -.meat.shut-packet)
+            =?  peer-core  ?&  ?=(%& -.meat.shut-packet)
+                               ahoy-on
+                           ==
               =/  [num-fragments=@ud =fragment-num =fragment]
                 +.meat.shut-packet
               ::  ignore acks; we will hear the %ahoy plea separatedly

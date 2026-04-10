@@ -15,7 +15,7 @@
       [%bye who=ship]
       [%flus data=@]
       [%flas who=ship]
-      [%null ~]
+      [%null *]
       [%hola who=ship]
       [%germ =coop:gall]
       [%tend =coop:gall =path =page]
@@ -43,15 +43,13 @@
     ?.  ?=(%noun mark)
       (on-poke:def mark vase)
     =+  action=;;(action !<(* vase))
-    ~&  >  %out
     :_  this
-    ~&  >>  -.action
     ?-  -.action
       %send  ~&(%sending [%give %fact [/subs]~ pub-fact+!>(data.action)]~)
       %bye   ~&(%kicking [%give %kick [/subs]~ `who.action]~)
       %flus  ~&(%flushing [%give %fact [/flus]~ atom+!>(data.action)]~)
       %flas  ~&(%flashing [%give %kick [/flus]~ `who.action]~)
-      %null  ~&(%null !!)
+      %null  ~&(%sending-to-aqua [%give %fact [/aqua]~ noun/!>(~)]~)
       %germ  [%pass /my-wire %germ coop.action]~
       %tend  [%pass /my-wire %tend coop.action path.action page.action]~
       ::
@@ -74,6 +72,7 @@
   ^-  (quip card _this)
   :_  this
   ?+  path  (on-watch:def path)
+    [%aqua ~]   ~&(aqua-sub+[our=our src=src]:bowl ~)
     :: XX allow users for crashes here to trigger naxplanations
     ::
       [%subs ~]  ~&  subs+[our=our src=src]:bowl  ~ :: (on-watch:def path)

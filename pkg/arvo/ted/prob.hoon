@@ -15,7 +15,7 @@
 ::
 =+  !<  $:  ~
             timeout=@dr
-            [num=@ud has=@uvi wen=@da]
+            [case=@ud has=@uvi wen=@da]
             who=ship
             wait-hash=@uvi
             veb=?
@@ -38,7 +38,7 @@
 ::
 |-
 ;<  =bowl:spider  bind:m  get-bowl:strandio  ::  refresh bowl
-=/  scry-path=path  /c/z/(scot %ud num)/kids
+=/  scry-path=path  /c/z/(scot %ud case)/kids
 =/  =spar:ames      [who scry-path]
 =/  wire-keen       /keen
 =/  timeout-time    (add now.bowl timeout)
@@ -104,8 +104,13 @@
   ::  if no previous attempts worked return when to track it in
   ::  the no-response map
   ::
+  =?  case  !=(0 case)
+    ::  if we time out, and the case is not 0,
+    ::  last succesful hash is the previous case
+    ::
+    (dec case)
   :_  no-response
-  [num has ?:(no-response now.bowl wen)]
+  [case has ?:(no-response now.bowl wen)]
 ::
 ::  sage responded; check kelvin
 ::
@@ -114,7 +119,7 @@
 ?~  kids-hash
   ::  %kids desk doesn't exist?; try next case
   ::
-  $(num +(num))
+  $(case +(case))
 ::
 ~?  >>  &(veb !=(wait-hash u.kids-hash))
   "ahoy-prob: {<who>} kids hash is {<u.kids-hash>}"
@@ -125,10 +130,10 @@
 ?.  =(wait-hash has)
   ::  not last-hash; try next case
   ::
-  $(num +(num))
+  $(case +(case))
 ::  found wait-hash; done with .who
 ::
 ~?  >  veb  "ahoy-prob: done with {<who>}"
 ;<  =bowl:spider  bind:m  get-bowl:strandio
 ~?  >  veb  end/`@dr`(sub now.bowl start)
-(pure:m !>([[num has wen] no-response]))
+(pure:m !>([[case has wen] no-response]))

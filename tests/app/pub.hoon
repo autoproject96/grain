@@ -42,10 +42,11 @@
     ^-  (quip card _this)
     ?.  ?=(%noun mark)
       (on-poke:def mark vase)
-    =+  action=;;(action !<(* vase))
+    =+  !<(=action vase)
+    ~&  >  %out
     :_  this
     ?-  -.action
-      %send  ~&(%sending [%give %fact [/subs]~ pub-fact+!>(data.action)]~)
+      %send  ~&(%sending [%give %fact [/subs]~ noun+!>(data.action)]~)
       %bye   ~&(%kicking [%give %kick [/subs]~ `who.action]~)
       %flus  ~&(%flushing [%give %fact [/flus]~ atom+!>(data.action)]~)
       %flas  ~&(%flashing [%give %kick [/flus]~ `who.action]~)

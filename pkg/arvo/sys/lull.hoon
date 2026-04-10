@@ -1616,7 +1616,9 @@
         =server=chain                       ::  for serving %shut requests
         [saf=keypairs =ring =pass]
         chums=(map ship chum-state)         ::  migrated peers
-        core=_`?(%ames %mesa)`%mesa         ::  %mesa protocol peers
+        core=_`?(%ames %mesa)`%ames         ::  default network core protocol
+                                            ::  (always %ames so we can guarantee
+                                            ::   communication with past peers)
         ::  TODOs
         :: XX tmp=(map @ux page)            :: temporary hash-addressed bindings
     ==

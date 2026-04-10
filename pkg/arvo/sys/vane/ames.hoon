@@ -5926,12 +5926,10 @@
             =.  peer-core  (update-qos %ames %live last-contact=now)
             ::
             =/  =bone  bone.shut-packet
-            ::  if the peer is responding, and our default core is %mesa,
-            ::  enqueue %ahoy $plea via app/hood %ahoy-prob
+            ::  if the peer is responding:
+            ::    enqueue %ahoy $plea via app/hood %ahoy-prob
             ::
-            =?  peer-core  ?&  ?=(%mesa core.ames-state)
-                               ?=(%& -.meat.shut-packet)
-                           ==
+            =?  peer-core  ?=(%& -.meat.shut-packet)
               =/  [num-fragments=@ud =fragment-num =fragment]
                 +.meat.shut-packet
               ::  ignore acks; we will hear the %ahoy plea separatedly

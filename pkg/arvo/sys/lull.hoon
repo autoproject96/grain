@@ -1067,6 +1067,7 @@
   +$  public-keys    [cry=@uxpoint sgn=@uxpoint]
   +$  private-keys   [cry=@uxscalar sgn=@uxscalar]
   +$  keypairs       [pub=public-keys sek=private-keys]
+  +$  keypair        [pub=@uxpoint sek=@uxscalar]
   +$  symmetric-key  @uwsymmetrickey
   ::
   ::  $hoot: request packet payload

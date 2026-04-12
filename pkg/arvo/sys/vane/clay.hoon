@@ -768,30 +768,26 @@
             =/  old=(unit vase)  (bind bush.a bush-to-vase)
             ?:  &(?=(^ old) (has-arm %grow mark.b u.old))
               :: %-  (trace 4 |.("+grow:{(trip mark.a)}"))
-              %+  slub  (with-faces cor+u.old ~)
-              ^-  hoon
+              %+  slap  (with-faces cor+u.old ~)
               :+  %brcl  !,(*hoon v=+<.cor)
               :+  %sggr
                 [%spin %cltr [%sand %t (crip "grow-{<mark.a>}->{<mark.b>}")] ~]
               :+  %tsgl  limb/mark.b
               !,(*hoon ~(grow cor v))
-            =/  new=vase  (bush-to-vase (need bush.b))
-            =/  arm=?  (has-arm %grab mark.a new)
-            =/  rab
-              %-  mule  |.
-              %+  slap  new
-              ^-  hoon
+            =/  new=(unit vase)  (bind bush.b bush-to-vase)
+            ?:  &(?=(^ new) (has-arm %grab mark.a u.new))
+              :: %-  (trace 4 |.("+grab:{(trip mark.b)}"))
+              =;  v=vase
+                ?^  q.v  v
+                ~_('clay: @ product of +grab not supported' !!)
+              %+  slap  u.new
               :+  %sggr
                 [%spin %cltr [%sand %t (crip "grab-{<mark.a>}->{<mark.b>}")] ~]
               tsgl/[limb/mark.a limb/%grab]
-            ::
-            ?:  &(arm ?=(%& -.rab) ?=(^ q.p.rab))
-              :: %-  (trace 4 |.("+grab:{(trip mark.b)}"))
-              p.rab
             ?:  ?=(%noun mark.b)
               :: %-  (trace 4 |.("default"))
               same.bud
-            ~|(no-cast-between+[mark.a mark.b] !!)  ::  XX +jump arm, +grab with @tas product
+            ~|(no-cast-between+[mark.a mark.b] !!)  ::  XX +jump arm
           ::
           ==
         --

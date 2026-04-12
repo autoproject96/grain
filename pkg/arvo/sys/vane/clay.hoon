@@ -459,11 +459,9 @@
 ++  has-arm
   |=  [arm=@tas =mark core=vase]
   ^-  ?
-  =/  rib  (mule |.((slub core [%wing ~[arm]])))
-  ?:  ?=(%| -.rib)  %.n
-  =/  lab  (mule |.((slob mark p.p.rib)))
-  ?:  ?=(%| -.lab)  %.n
-  p.lab
+  ?.  (slob arm p.core)  |
+  ?~  rib=(mole |.((slub core [%wing ~[arm]])))  |
+  (slob mark p.u.rib)
 ::
 ++  rave-to-rove
   |=  rav=rave
@@ -634,8 +632,11 @@
               [%hoon text=@t deps=(list (pair (unit term) bush)) =path]
               [%arch =spec files=(map @ta bush) =path]
               [%mark grad=(unit (trel bush bush bush)) cor=vase =mark]
-              [%tube p=$@(?(%same %mime) [a=[=mark =bush] b=[=mark =bush]])]  ::  identity/mime -> hoon
-          ==
+              $:  %tube
+                  $=  p
+                  $@  ?(%same %mime)  ::  identity / (mime -> hoon)
+                  [a=[=mark bush=(unit bush)] b=[=mark bush=(unit bush)]]
+          ==  ==
         ::
         +$  bush-node
           $%  [%hoon =path]
@@ -764,17 +765,17 @@
             =/  a  a.p.bush
             =/  b  b.p.bush
             :: %-  (trace 1 |.("make: tube: %{(trip mark.a)} -> %{(trip mark.b)}"))
-            =/  old  (bush-to-vase bush.a)
-            ?:  (has-arm %grow mark.b old)
+            =/  old=(unit vase)  (bind bush.a bush-to-vase)
+            ?:  &(?=(^ old) (has-arm %grow mark.b u.old))
               :: %-  (trace 4 |.("+grow:{(trip mark.a)}"))
-              %+  slub  (with-faces cor+old ~)
+              %+  slub  (with-faces cor+u.old ~)
               ^-  hoon
               :+  %brcl  !,(*hoon v=+<.cor)
               :+  %sggr
                 [%spin %cltr [%sand %t (crip "grow-{<mark.a>}->{<mark.b>}")] ~]
               :+  %tsgl  limb/mark.b
               !,(*hoon ~(grow cor v))
-            =/  new  (bush-to-vase bush.b)
+            =/  new=vase  (bush-to-vase (need bush.b))
             =/  arm=?  (has-arm %grab mark.a new)
             =/  rab
               %-  mule  |.
@@ -944,8 +945,10 @@
         ?:  =(a.mars.nod b.mars.nod)  tube+%same
         ?:  =([%mime %hoon] [a.mars.nod b.mars.nod])  tube+%mime
         :+  %tube
-          [a.mars.nod bush-loop(nod hoon+(fit-path %mar a.mars.nod))]
-        [b.mars.nod bush-loop(nod hoon+(fit-path %mar b.mars.nod))]
+          =/  pax=(unit path)  (try-fit-path %mar a.mars.nod)
+          [a.mars.nod ?~(pax ~ `bush-loop(nod hoon+u.pax))]
+        =/  pax=(unit path)  (try-fit-path %mar b.mars.nod)
+        [b.mars.nod ?~(pax ~ `bush-loop(nod hoon+u.pax))]
       ::
           %arch
         =/  fiz=(list @ta)
@@ -1130,13 +1133,19 @@
     ++  fit-path
       |=  [pre=@tas pax=@tas]
       ^-  path
+      ~_  leaf/"clay: no files match /{(trip pre)}/{(trip pax)}/hoon"
+      (need (try-fit-path pre pax))
+    ::
+    ::
+    ++  try-fit-path
+      |=  [pre=@tas pax=@tas]
+      ^-  (unit path)
       =/  paz  (segments pax)
-      |-  ^-  path
-      ?~  paz
-        ~_(leaf/"clay: no files match /{(trip pre)}/{(trip pax)}/hoon" !!)
+      |-  ^-  (unit path)
+      ?~  paz  ~
       =/  pux=path  pre^(snoc i.paz %hoon)
       ?:  (~(has by files) pux)
-        pux
+        `pux
       $(paz t.paz)
     ::
     ++  trace

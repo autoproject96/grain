@@ -11005,7 +11005,15 @@
             ::
             =/  peer  (find-peer ship)
             =/  cic  (com:nu:cric:crypto pass)
-            ?>  =(crypto-suite (sub suite:+<:cic 'a'))
+            ?.  =(crypto-suite (sub suite:+<:cic 'a'))
+              ::  if the crypto-suite is not what we expect, no-op
+              ::  (this can happen when a ship is deposited to L2)
+              ::
+              ::  here we mirror the behavior of lib/naive for deposits which
+              ::  is to retain all previous information about that point, keys
+              ::  included (naive.hoon just updates the dominion)
+              ::
+              sy-core
             ?.  ?=([?(%ames %mesa) ~ %known *] peer)
               =|  =point:jael
               =.  life.point     life

@@ -768,7 +768,7 @@
             =/  old=(unit vase)  (bind bush.a bush-to-vase)
             ?:  &(?=(^ old) (has-arm %grow mark.b u.old))
               :: %-  (trace 4 |.("+grow:{(trip mark.a)}"))
-              %+  slap  (with-faces cor+u.old ~)
+              %+  slub  (with-faces cor+u.old ~)
               :+  %brcl  !,(*hoon v=+<.cor)
               :+  %sggr
                 [%spin %cltr [%sand %t (crip "grow-{<mark.a>}->{<mark.b>}")] ~]
@@ -780,7 +780,7 @@
               =;  v=vase
                 ?^  q.v  v
                 ~_('clay: @ product of +grab not supported' !!)
-              %+  slap  u.new
+              %+  slub  u.new
               :+  %sggr
                 [%spin %cltr [%sand %t (crip "grab-{<mark.a>}->{<mark.b>}")] ~]
               tsgl/[limb/mark.a limb/%grab]

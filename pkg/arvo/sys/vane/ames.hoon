@@ -10043,15 +10043,33 @@
               (~(del by by-duct.ossuary.per) (ev-got-duct bone))
             ::
                 tip.per
-              =/  user-path  (fo-cor-path seq=0 our)
-              =+  ?.  (~(has by tip.per) user-path)  ~
+              =/  cork-path  (fo-cor-path seq=0 our)
+              =/  ames-cork  (make-space-path chum-to-our cork-path)
+              =+  ?.  (~(has by tip.per) cork-path)  ~
                   %.  ~
                   %+  ev-tace  fin.veb.bug.ames-state
-                  |.("remove {(spud user-path)} from .tip {<side=side>} {<[%ames (fo-wire %cor) duct=hen]>} ames-path={(spud (make-space-path chum-to-our (fo-cor-path seq=0 our)))}")
-              %^  ~(del ju tip.per)  user-path
-                `duct`[`wire`[%ames (fo-wire %cor)] duct=hen]
-              (make-space-path chum-to-our (fo-cor-path seq=0 our))
-            ::
+                  |.  """
+                      remove {(spud cork-path)} from .tip {<side=side>}
+                      {<[%ames (fo-wire %cor) duct=hen]>}
+                      ames-path={(spud ames-cork)}
+                      """
+              =;  [tip=_tip.per *]
+                ::  once all %acks are deleted we can delete the ack for the cork
+                ::
+                %^  ~(del ju tip.per)  cork-path
+                  `duct`[`wire`[%ames (fo-wire %cor)] duct=hen]
+                ames-cork
+              ::
+              %^  (dip:fo-mop _tip.per)  loads.snd
+                tip.per
+              |=  [=_tip.per seq=@ud req=mesa-message]
+              :+  ~  |
+              =/  ack=path  (fo-ack-path seq our)
+              ::
+               %^  ~(del ju tip)  ack
+                `duct`[`wire`[%ames (fo-wire %ack)] duct=hen]
+              (make-space-path chum-to-our ack)
+          ::
                 pit.per
                   =;  [pit=_pit.per *]
                     ::  a forward flow can be deleted when we hear an %ack for a

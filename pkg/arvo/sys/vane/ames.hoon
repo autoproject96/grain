@@ -2616,6 +2616,7 @@
             [%29 axle-28-29]
             [%30 axle-30]
             [%31 axle]
+            [%32 axle]
         ==
     ::
     ::
@@ -2690,7 +2691,7 @@
       ~>  %slog.0^leaf/"ames: metamorphosis on %take"
       [:(weld molt-moves queu-moves take-moves) adult-gate]
     ::
-    ++  stay  [%31 larva/ames-state]
+    ++  stay  [%32 larva/ames-state]
     ++  scry  scry:adult-core
     ++  load
       |=  $=  old
@@ -2860,8 +2861,12 @@
                   state=axle-30
               ==
               $:  %31                            :: enable Directed Messaging
-                  ?(%adult %larva)               ::   (remove .weir flows)
-                  state=axle
+                  ?(%adult %larva)               :: via %prob flow in lib/ahoy
+                  state=axle                     ::   (remove .weir flows)
+              ==
+              $:  %32                            :: use %ames as default core.
+                  ?(%adult %larva)               :: migrate attestation flows
+                  state=axle                     :: clean up corked peeks
           ==  ==
       |^  ?-  old
           [%4 %adult *]
@@ -3162,6 +3167,11 @@
         larval-gate
       ::
           [%31 *]
+        =.  cached-state  `[%31 state.old]
+        ~>  %slog.1^leaf/"ames: larva %31 reload"
+        larval-gate
+      ::
+          [%32 *]
         ?-  +<.old
           %larva  larval-gate
           %adult  (load:adult-core state.old)
@@ -3240,7 +3250,7 @@
       |^  ^+  [moz larval-core]
       ?~  cached-state  [~ larval-core]
       =*  old  u.cached-state
-      ?:  ?=(%31 -.old)
+      ?:  ?=(%32 -.old)
         ::  no state migrations left; update state, clear cache, and exit
         ::
         [(flop moz) larval-core(ames-state.adult-gate +.old, cached-state ~)]
@@ -3339,8 +3349,10 @@
         $(-.u.cached-state %29, moz (moves-28-to-29 moz chums.+.old +.old))
       ?:  ?=(%29 -.old)
         $(cached-state `30+(state-29-to-30 +.old))
-      ?>  ?=(%30 -.old)
-      $(cached-state `31+(state-30-to-31 +.old))
+      ?:  ?=(%30 -.old)
+        $(cached-state `31+(state-30-to-31 +.old))
+      ?>  ?=(%31 -.old)
+      $(cached-state `32+(state-31-to-32 +.old))
       ::
       ++  our-beam  `beam`[[our %rift %da now] /(scot %p our)]
       ++  state-4-to-5
@@ -3979,6 +3991,35 @@
               pit           pit.c
               client-chain  client-chain.c
               tip           tip.c
+          ==
+        ==
+      ::
+      ++  state-31-to-32
+        |=  old=axle
+        ^-  axle
+        ~>  %slog.0^leaf/"ames: migrating from state %31 to %32"
+        %=    old
+            chums
+          ^-  (map ship chum-state)
+          %-  ~(run by chums.old)
+          |=  c=chum-state
+          ^-  chum-state
+          ?:  ?=(%alien -.c)  c
+          ^-  chum-state
+          %_    c
+              tip
+            ::  remove entries for for corked flows
+            ::
+            %-  ~(rep by tip.c)
+            |=  [[=user=path *] tip=_tip.c]
+            =>  .(user-path `(pole knot)`user-path)
+            ~!  user-path
+            ?.  ?=([%a %x %'1' %$ %flow %ack %for @ @ bone=@ *] user-path)
+              tip
+            ~!  user-path
+            ?.  (~(has in corked.c) bone.user-path %for)
+              tip
+            (~(del by tip) user-path)
           ==
         ==
       ::
@@ -12762,7 +12803,7 @@
                 [%publ lyf=@ pat=*]                (peek-publ bem tyl)
                 [%chum lyf=@ her=@ hyf=@ cyf=@ ~]  (peek-chum bem tyl)
                 [%shut kid=@ cyf=@ ~]              (peek-shut bem tyl)
-                [%pawn %proof rcvr=@ life=@ ~]     (peek-pawn tyl)
+                [%pawn %proof *]                   (peek-pawn tyl)
               ::  message-level private namespaces
               ::
                 $%([%flow *] [%meta *] [%whey *])
@@ -13668,7 +13709,7 @@
   take:am-core
 ::  +stay: extract state before reload
 ::
-++  stay  [%31 adult/ames-state]
+++  stay  [%32 adult/ames-state]
 ::  +load: load in old state after reload
 ::
 ++  load

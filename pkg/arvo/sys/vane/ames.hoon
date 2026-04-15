@@ -3998,7 +3998,10 @@
         |=  old=axle
         ^-  axle
         ~>  %slog.0^leaf/"ames: migrating from state %31 to %32"
+        ~>  %slog.2^leaf/"mesa: turning on %ames for first contact"
         %=    old
+            core  %ames
+          ::
             chums
           ^-  (map ship chum-state)
           %-  ~(run by chums.old)

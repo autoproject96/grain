@@ -4011,13 +4011,12 @@
           ^-  chum-state
           %_    c
               tip
-            ::  remove entries for for corked flows
+            ::  remove entries for corked flows
             ::
             %-  ~(rep by tip.c)
             |=  [[=user=path *] tip=_tip.c]
             =>  .(user-path `(pole knot)`user-path)
-            ~!  user-path
-            ?.  ?=([%a %x %'1' %$ %flow %ack %for @ @ bone=@ *] user-path)
+            ?.  ?=([%a %x %'1' %$ %flow bone=@ *] user-path)
               tip
             ~!  user-path
             ?.  (~(has in corked.c) bone.user-path %for)

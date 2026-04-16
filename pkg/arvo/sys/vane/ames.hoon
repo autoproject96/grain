@@ -10474,9 +10474,6 @@
               ::  start %peek request to check if they have corked the flow
               ::  after reading the ack from our namespace
               ::
-              %-  %+  ev-tace  fin.veb.bug.ames-state
-                  |.("peek for %cork flow={<bone>}")
-              ::
               fo-peek-cork
             ::  XX just fo-core(closing.state %.y)?
             ::

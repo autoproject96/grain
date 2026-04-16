@@ -5989,10 +5989,9 @@
                         ==  :: subsequent multifragment packets
                         ?&  =(num-fragments 1)
                             =(fragment-num 0)
-                            ~!  fragment
                             =/  blob=*  (cue (rep packet-size [fragment]~))
-                            ?=(^ ;;((soft [%$ [%mesa-2 *] %ahoy ~]) blob))
-                    ==  ==  :: %ahoy $pleas
+                            ?=(^ ;;((soft [%$ * %ahoy ~]) blob))
+                    ==  ==  :: any %ahoy $pleas (past and test versions)
                 peer-core
               %-  %+  pe-trace  sun.veb
                   |.("is online; enqueue %ahoy $plea on bone={<bone>}")

@@ -10070,7 +10070,7 @@
                %^  ~(del ju tip)  ack
                 `duct`[`wire`[%ames (fo-wire %ack)] duct=hen]
               (make-space-path chum-to-our ack)
-          ::
+            ::
                 pit.per
                   =;  [pit=_pit.per *]
                     ::  a forward flow can be deleted when we hear an %ack for a

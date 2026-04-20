@@ -12197,9 +12197,12 @@
           ?>  ?&  =(1 (div (add tob.data 1.023) 1.024))
                   ?=(%& -.aut.data)
               ==
-          =+  ;;(proof=gage:mess (cue dat.data))
+          ::
+          =+  ;;  proof=gage:mess         (cue dat.data)
           ?>  ?=([%message %proof *] proof)
-          =+  ;;(=open-packet (cue ;;(@ +>.proof)))
+          =+  ;;  [signature=@ signed=@]  (cue ;;(@ +>.proof))
+          =+  ;;  =open-packet            (cue signed)
+          ::
           ?>  %-  verify-sig:crypt
               :^    (end 8 (rsh 3 pass.open-packet))
                   p.p.aut.data
@@ -12691,9 +12694,13 @@
           ?:  |(?=(~ life) ?=(~ rcvr))
             [~ ~]
           ::
-          =;  =open-packet
-            ``[%message !>(proof/(jam open-packet))]
-          [pass.ames-state our life.ames-state u.rcvr u.life]
+          =/  =open-packet
+            [pass.ames-state our life.ames-state u.rcvr u.life]
+          =/  sig
+            %+  sign-raw:ed:crypto  (jam open-packet)
+            [sgn.pub sgn.sek]:saf.ames-state
+          :+  ~  ~
+          [%message !>(proof/sig)]
         ::  publisher-side, weight of a noun at .pat, as measured by .boq
         ::
         ++  peek-whey

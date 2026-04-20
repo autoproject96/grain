@@ -6226,7 +6226,6 @@
               ::  for each of the blobs, feed packets to the message pump
               ::
             =;  live=(list [=message-num message])
-              ~&  live.packet-pump-state.state.p
               ::  append live messages to the front of unsent
               ::
               =.  unsent-messages.state.p

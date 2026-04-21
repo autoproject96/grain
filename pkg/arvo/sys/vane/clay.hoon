@@ -781,11 +781,9 @@
                 ?^  q.v  v
                 ~_('clay: @ product of +grab not supported' !!)
               %+  slub  u.new
-              :^  %tsfs  %tub  tsgl+[limb+mark.a limb+%grab]
-              :+  %brcl  tsgl+[$+6 limb+%tub]
               :+  %sggr
                 [%spin %cltr [%sand %t (crip "grab-{<mark.a>}->{<mark.b>}")] ~]
-              [%cnhp limb+%tub $+6]
+              tsgl/[limb/mark.a limb/%grab]
             ?:  ?=(%noun mark.b)
               :: %-  (trace 4 |.("default"))
               same.bud

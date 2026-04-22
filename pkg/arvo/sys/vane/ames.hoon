@@ -6723,8 +6723,10 @@
                   (~(gut by flows) bone^dire *flow-state)
                 =:            halt.flow  (~(has in halt.peer-state) ori-bone)
                            closing.flow  (~(has in closing.peer-state) ori-bone)
-                              line.flow  last-acked.sink
                     last-acked.rcv.flow  last-acked.sink
+                    :: XX left for historical purpose
+                    ::
+                      line.flow  last-acked.sink
                     ::  don't drop pending acks given to the vane. if a retry
                     ::  we will no-op on fo-sink:fo -- these situations happened
                     ::  prior to the introduction of %flubs. the message should
@@ -10308,24 +10310,6 @@
                 ::  the message was nacked
                 ::
                 `ack/error=%.y
-              ?:  (lth seq line.state)
-                ::  refuse to answer for pre-migration messages
-                ::
-                ::  XX can we guarantee that line.state was an ack?
-                ::
-                ::  In theory we can't guarantee it just by looking at the
-                ::  sate of the flow, but, if it was a %nack we would have
-                ::  state in nax.rcv for live naxplanations and if the
-                ::  naxplanation had suceeded then they are not going to
-                ::  resend the payload anymore.
-                ::
-                ::  if line.state was a %(n)ack but it got lost we can not
-                ::  know for sure, but, because we were not removing the
-                ::  correct message from nax.sink it's very likely that
-                ::  if line.state is in nax.rcv that's because it
-                ::  was indeed a %nack.
-                ::
-                ~
               ?:  ?&  (lth seq last-acked.rcv)
                       (gte (sub last-acked.rcv seq) 10)
                   ==
@@ -10336,7 +10320,7 @@
                 ::  future: not yet acked
                 ::
                 ~
-              ::  acked: within window, past line.state, not in nax.rcv
+              ::  acked: within window and not in nax.rcv
               ::
               `ack/error=%.n
             ::

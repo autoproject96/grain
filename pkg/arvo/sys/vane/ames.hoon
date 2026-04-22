@@ -6677,10 +6677,6 @@
                 ::
                 =?  halt.flow     !naxp-bone
                   (~(has in halt.peer-state) original-bone)
-                ::  add tag if the flow is in a weird state
-                ::
-                =?  halt.flow     !naxp-bone
-                  (~(has in halt.peer-state) original-bone)
                 ::  queued-message-acks
                 ::
                 =+  ack-mop=((on ,@ud ack) lte)

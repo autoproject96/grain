@@ -10379,7 +10379,8 @@
             ::
             =.  last-acked.rcv  +(last-acked.rcv)
             %-  %+  ev-tace  msg.veb.bug.ames-state
-                |.("hear complete %boon {<[bone=bone seq=last-acked.rcv]>}")
+                |.
+                "hear complete %boon {<[bone=bone seq=last-acked.rcv]>}; ack"
             (fo-send-ack last-acked.rcv)
           ::
           ++  fo-sink-plea
@@ -10476,6 +10477,9 @@
                 ::
                 (~(del by nax.rcv) (sub seq 10))
               (~(put by nax.rcv) seq u.error)
+            %-  %+  ev-tace  msg.veb.bug.ames-state
+                =+  ack=?~((~(get by nax.rcv) seq) "ack" "nack")
+                |.("{ack} message {<[bone=bone seq=seq]>}")
             (fo-send-ack seq)
           ::
           +|  %from-network
@@ -10697,9 +10701,6 @@
           ++  fo-send-ack
             |=  seq=@ud
             ^+  fo-core
-            %-  %+  ev-tace  msg.veb.bug.ames-state
-                =+  ack=?~((~(get by nax.rcv) seq) "ack" "nack")
-                |.("{ack} message {<[bone=bone seq=seq]>}")
             ::  emit (n)ack to unix; see +fo-peek where the (n)ack is produced
             ::
             =/  =path  (%*(fo-ack-path fo-core dire.side fo-flip-dire) seq her)

@@ -4018,8 +4018,7 @@
             =>  .(user-path `(pole knot)`user-path)
             ?.  ?=([%a %x %'1' %$ %flow bone=@ *] user-path)
               tip
-            ~!  user-path
-            ?.  (~(has in corked.c) bone.user-path %for)
+            ?.  (~(has in corked.c) (slav %ud bone.user-path) %for)
               tip
             (~(del by tip) user-path)
           ==

@@ -10304,6 +10304,11 @@
                 %poke  ?~(v=(get:fo-mop loads.snd seq) ~ `u.v)
             ::
                 %ack
+              ::  always ack messages on a forward flow
+              ::  (i.e. produce %ack for a %boon)
+              ::
+              ?:  ?=(%for dire)
+                `ack/error=%.n
               ?:  (~(has by nax.rcv) seq)
                 ::  if we have naxplanation state for this message—even
                 ::  for pre-migration messages—we can guarantee that

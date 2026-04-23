@@ -10051,7 +10051,7 @@
                       ames-path={(spud ames-cork)}
                       """
               =;  [tip=_tip.per *]
-                ::  once all %acks are deleted we can delete the ack for the cork
+                ::  once all %acks are deleted we can delete the peek for the cork
                 ::
                 %^  ~(del ju tip)  cork-path
                   `duct`[`wire`[%ames (fo-wire %cor)] duct=hen]

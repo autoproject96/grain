@@ -156,7 +156,7 @@
 ::
 ++  poke-meld
   |=  [memo=? ford=?]  =<  abet
-  (emit %pass /pack %arvo %d %flog %meld memo ford ~)
+  (emit %pass /pack %arvo %d %flog %meld memo ford)
 ::
 ++  poke-pack
   |=  ~  =<  abet

@@ -42,4 +42,17 @@
     !>  !.
     !>  =>  ~  |=  a=@  ~_  leaf+"decrement-underflow"  ?<  =(0 a)  =+  b=0  |-  ^-  @  ?:  =(a +(b))  b  $(b +(b))
   !>((next-vase:h136 old))
+::
+++  test-core-context-vase
+  =/  old  ;;  vase:h136  %-  cue
+    ::  ^-  @uw  %-  jam  !>  =>  ~
+    ::  =>  |%  ++  a  'a'  ++  b  'b'  ++  c  [a b]  --
+    ::  |%  ++  x  +(a)  ++  y  [a x]  --
+    0w5.5j3t4.kdYYt.VUWYs.6eR3m.el3od.kdYY5.oVkfC.Sez9Y.1Ys5C.mEC7G.2xKyr.8cA6o.nD4ds.adwh3.vf7uu.f3MWs.7mC6U.u2JoK.37qxH.ou3Dr.CBT-0.L9Qr6.fU3zU.bebxQ.UehKo.nfU3y.UbcK7.xzij3.C6i3A.Sgp8a.UK6br.6NRpL.wa-Qr.Ar6ZD.-1VsC.hU3bj.KUeRL.t67U2.PdsHA.TIvM5
+  %+  expect-eq
+    !>  !.
+    !>  =>  ~
+    =>  |%  ++  a  'a'  ++  b  'b'  ++  c  [a b]  --
+    |%  ++  x  +(a)  ++  y  [a x]  --
+  !>((next-vase:h136 old))
 --

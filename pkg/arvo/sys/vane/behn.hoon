@@ -251,7 +251,34 @@
   ++  state-2-to-3
     |=  s=state-2
     ^-  state-3
-    s(- %3, movs.drips (~(run by movs.drips.s) next-vase:h136))
+    %=    s
+       -  %3
+      ::
+        movs.drips
+      %-  ~(run by movs.drips.s)
+      |=  vax=vase:h136
+      ^-  vase:h135
+      =/  new-vase=vase  (next-vase:h136 vax)
+      ::  %clay is the only vane that passes %drips to %behn.
+      ::  of those, the only ones containing a vase (as a cage)
+      ::  is a [%writ ~ p q r=cage)].
+      ::
+      =+  !<  $=  type
+              $%  [%wris p=[%da p=@da] q=(set (pair care:clay path))]
+                  $:  %writ
+                      $=  riot
+                      %-  unit
+                      [p=[p=care:clay q=case r=desk] path r=(cask vase:h136)]
+              ==  ==
+            new-vase
+      ?:  ?=(%wris -.type)
+        new-vase
+      ?~  riot.type
+        new-vase
+      !>  ^-  $>(%writ gift:clay)
+      [%writ ~ u.riot.type(q.r (next-vase:h136 q.r.u.riot.type))]
+      ::
+    ==
   --
 ::  +scry: view timer state
 ::

@@ -366,6 +366,7 @@
           $>  $?  %deal
                   %jolt
                   %load
+                  %bump
               ==
           task:gall
       ==                                                ::
@@ -1501,9 +1502,10 @@
   ::  fully-consistent state (eg not in the middle of a kelvin upgrade).
   ::
   ++  goad
+    |=  syd=(unit desk)
     ^+  ..park
     =^  moves-1  ruf  abet
-    =^  moves-2  ruf  abet:goad:(lu now rof hen ruf)
+    =^  moves-2  ruf  abet:(goad:(lu now rof hen ruf) syd)
     =.  ..park  apex
     (emil (weld moves-1 moves-2))
   ::
@@ -1931,7 +1933,7 @@
       ?-  liv.dom
         %held  (emit hen %pass /park-held/[syd] %b %wait now)
         %dead  ..park
-        %live  ?:(goat goad ..park)
+        %live  ?:(goat (goad `syd) ..park)
       ==
     ::  notify unix and subscribers
     ::
@@ -2177,7 +2179,7 @@
     ?^  err
       ((slog leaf+"clay: desk {<syd>} failed to unsuspend" u.err) ..park)
     =.  liv.dom  %live
-    goad
+    (goad `syd)
   ::
   ::  We always say we're merging from 'ali' to 'bob'.  The basic steps,
   ::  not all of which are always needed, are:
@@ -4473,9 +4475,13 @@
   ::  [tare] >
   ::
   ++  goad
+    |=  syd=(unit desk)
     ^+  ..abet
     =^  sat=(list [=desk =bill])  ..abet
-      =/  desks=(list desk)  ~(tap in ~(key by dos.rom))
+      =/  desks=(list desk)
+        ?^  syd  ~[u.syd]
+        ~(tap in ~(key by dos.rom))
+      ::
       |-  ^-  [(list [desk bill]) _..abet]
       ?~  desks
         [~ ..abet]
@@ -4507,7 +4513,12 @@
     =+  (build-marks (turn (skip sat |=([desk =bill] =(bill ~))) head))
     ::
     =.  ..abet  tare                                    ::  [tare] >
-    (emit hen %pass /lu/load %g %load agents)
+    =/  task
+      ?~  syd  [%load agents]
+      =/  g  |=([=dude:gall * =agent:gall] [dude agent])
+      [%bump [our u.syd da+now] (turn agents g)]
+    ::
+    (emit hen %pass /lu/load %g task)
   ::  +override: apply rein to bill
   ::
   ++  override
@@ -4882,7 +4893,7 @@
     =^  m1  ruf
       =/  den  ((de now rof hen ruf) our des.req)
       abet:(set-rein:den ren.req)
-    =^  m2  ruf  abet:goad:(lu now rof hen ruf)         ::  [goad] >
+    =^  m2  ruf  abet:(goad:(lu now rof hen ruf) `des.req)  ::  [goad] >
     [(weld m1 m2) ..^$]
   ::
       %stir
@@ -4890,14 +4901,14 @@
         [%verb @]  [~ ..^$(veb.bug.ruf +.arg.req)]
         [%mass @]  [~ ..^$(mas.bug.ruf +.arg.req)]
         [%goad ~]
-      =^  mos  ruf  abet:goad:(lu now rof hen ruf)
+      =^  mos  ruf  abet:(goad):(lu now rof hen ruf)
       [mos ..^$]
     ::
         [%rise =desk =dude:gall on=(unit ?)]
       =^  m1  ruf
         =/  den  ((de now rof hen ruf) our desk.arg.req)
         abet:(rise:den dude.arg.req on.arg.req)
-      =^  m2  ruf  abet:goad:(lu now rof hen ruf)       ::  [goad] <
+      =^  m2  ruf  abet:(goad:(lu now rof hen ruf) `desk.arg.req)       ::  [goad] <
       [(weld m1 m2) ..^$]
     ::
         [%stay =desk ver=(unit weft)]
@@ -4984,7 +4995,7 @@
       $(mos (weld mos mos-new), lit.req t.lit.req)
     =^  m2  ruf
       abet:wick:((de now rof hen ruf) our %base)
-    =^  m3  ruf  abet:goad:(lu now rof hen ruf)
+    =^  m3  ruf  abet:(goad):(lu now rof hen ruf)
     [:(weld m1 m2 m3) ..^$]
   ::
       %zest
@@ -4993,7 +5004,7 @@
       ::  [wick] could be suspending the last blocking desk
       ::
       abet:wick:(set-zest:den liv.req)
-    =^  m2  ruf  abet:goad:(lu now rof hen ruf)
+    =^  m2  ruf  abet:(goad:(lu now rof hen ruf) `des.req)
     [(weld m1 m2) ..^$]
   ::
       %plea

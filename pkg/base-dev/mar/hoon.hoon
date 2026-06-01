@@ -5,7 +5,19 @@
   ++  mime  `^mime`[/text/x-hoon (as-octs:mimes:html own)] ::  convert to %mime
   ++  hymn
     ^-  manx
-    =/  count=@ud  (lent (to-wain:format own))
+    =/  to-wall
+      |=  =tape
+      ^-  wall
+      %+  roll  (flop tape)
+      |=  [char=@tD =wall]
+      ?~  wall
+        [[char ~] ~]
+      ?:  =('\0a' char)
+        [~ wall]
+      [[char i.wall] t.wall]
+    ::
+    =/  src=tape  (trip own)
+    =/  count=@ud  (lent (to-wall src))
     =;  [style=tape script=tape]
       ;html
         ;head
@@ -24,7 +36,7 @@
               ;pre.gutter(id "gutter");
               ;div.code-body
                 ;div(id "hl");
-                ;pre.code-pre(id "code"): {~[own]}
+                ;pre.code-pre(id "code"): {src}
               ==
             ==
           ==
@@ -33,9 +45,9 @@
       ==
     ::
     :-
-      ^=  style
+      ^~  ^=  style
       ^-  tape
-      :_  ~
+      %-  trip
       '''
       :root {
         --bg:        #fbfbf9;
@@ -47,7 +59,7 @@
         --sel:       #fff7d6;
         --sel-edge:  #f1e4a8;
         --accent:    #4a6da7;
-        --lh:        1.55;
+        --lh:        20px;
         --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
                 "Liberation Mono", "Courier New", monospace;
       }
@@ -156,9 +168,9 @@
       #code { position: relative; z-index: 1; }   /* text above the bar */
       :focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
       '''
-    ^=  code
+    ^~  ^=  code
     ^-  tape
-    :_  ~
+    %-  trip
     '''
     (function () {
       "use strict";

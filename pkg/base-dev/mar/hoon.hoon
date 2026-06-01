@@ -28,10 +28,10 @@
         ==
         ;body
           ;div.viewer
-            ;div.viewer-bar
-              ;span.viewer-name: {(scow %ud count)} lines
-              ;button.copy-link(id "copy-link", hidden ""): copy link
-            ==
+            :: ;div.viewer-bar
+            ::   ;span.viewer-name: {(scow %ud count)} lines
+            ::   ;button.copy-link(id "copy-link", hidden ""): copy link
+            :: ==
             ;div.code
               ;pre.gutter(id "gutter");
               ;div.code-body
@@ -178,7 +178,7 @@
       const code = document.getElementById("code");
       const gutter = document.getElementById("gutter");
       const hl = document.getElementById("hl");
-      const copyBtn = document.getElementById("copy-link");
+      // const copyBtn = document.getElementById("copy-link");
       if (!panel || !code || !gutter || !hl) return;
       const text = code.textContent;
       let lineCount = text.length ? text.split("\n").length : 1;

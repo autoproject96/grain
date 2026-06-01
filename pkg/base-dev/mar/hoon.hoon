@@ -178,7 +178,6 @@
       const code = document.getElementById("code");
       const gutter = document.getElementById("gutter");
       const hl = document.getElementById("hl");
-      // const copyBtn = document.getElementById("copy-link");
       if (!panel || !code || !gutter || !hl) return;
       const text = code.textContent;
       let lineCount = text.length ? text.split("\n").length : 1;
@@ -211,13 +210,11 @@
         selLo = lo;
         selHi = hi;
         positionHighlight();
-        if (copyBtn) copyBtn.hidden = false;
       }
       function deselect() {
         selLo = selHi = 0;
         anchor = null;
         positionHighlight();
-        if (copyBtn) copyBtn.hidden = true;
         history.replaceState(null, "", location.pathname + location.search);
       }
       function parseHash(hash) {
@@ -281,18 +278,6 @@
       document.addEventListener("keydown", function (e) {
         if (e.key === "Escape") deselect();
       });
-      if (copyBtn) {
-        copyBtn.addEventListener("click", async function () {
-          const label = copyBtn.textContent;
-          try {
-            await navigator.clipboard.writeText(location.href);
-            copyBtn.textContent = "copied ✓";
-          } catch (err) {
-            copyBtn.textContent = "copy failed";
-          }
-          setTimeout(function () { copyBtn.textContent = label; }, 1200);
-        });
-      }
       window.addEventListener("hashchange", function () {
         if (!selectFromHash(true)) deselect();
       });

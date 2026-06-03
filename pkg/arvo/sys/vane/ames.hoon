@@ -86,7 +86,6 @@
 =/  retry-timer      ~m2    ::  only used in /mesa/retry and /dead-flow timers
 =/  ahoy-on=?        %.y
 =/  comet-threshold  886
-=/  moon-threshold   978
 ::
 =>  ::  common helpers
     ~%  %ames  ..part  ~
@@ -12496,14 +12495,11 @@
             ?:  ?&  =(wid 1)
                     ::  XX nit ?
                     =+  dat-size=(met 3 dat.data.pact)
-                    ?|  ?&  ?=(%pawn (clan:title our))
-                            (gte dat-size comet-threshold)
-                        ==
-                        ?&  ?=(%earl (clan:title our))
-                            (gte dat-size moon-threshold)
-                ==  ==  ==
+                    ?&  ?=(%pawn (clan:title our))
+                        (gte dat-size comet-threshold)
+                ==  ==
               ::  if wid <= 1 but dat.data.page is bigger than the threshold
-              ::  for comets and moons, replace the %data packet with an %auth
+              ::  for comets, replace the %data packet with an %auth
               ::
               $(wan.pac.nex [%auth fag=0])
             =;  airs=(list @ux)

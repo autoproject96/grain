@@ -15,12 +15,17 @@
   0w3-.kl6Hg.mLISf.pDTQQ.LymxF.q4Isr.AGUAv.uJvkf.DOjeU.
   U8OPv.XO9T2.Hfhe~.zFwpO.Q1tn5.BeBSQ.o4MTS.lTWAh.TcOJ2
 ::
+++  moon-a  ~mister-dister-norsyr-torryn
+++  moon-b  ~mister-roller-norsyr-torryn
+::
 ++  crypto-core
   |%  ++  nec      (pit:nu:cric:crypto 512 (shaz 'nec') %b ~)
       ++  bud      (pit:nu:cric:crypto 512 (shaz 'bud') %b ~)
       ++  zod      (pit:nu:cric:crypto 512 (shaz 'zod') %b ~)
       ++  comet-a  (nol:nu:cric:crypto comet-a-ring)
       ++  comet-b  (nol:nu:cric:crypto comet-b-ring)
+      ++  moon-a   (pit:nu:cric:crypto 32 (can 5 [1 ^moon-a] [1 lyfe=1] ~) %b ~)
+      ++  moon-b   (pit:nu:cric:crypto 32 (can 5 [1 ^moon-b] [1 lyfe=1] ~) %b ~)
       ++  sign
         |=  [=ship data=@ux]
         ?:  =(ship ~nec)
@@ -28,6 +33,7 @@
         ?:  =(ship ~zod)
           (sign:ed:crypto data sgn:ven:ex:zod)
         (sign:ed:crypto data sgn:ven:ex:bud)
+  ::
   --
 ::
 ++  make-gall
@@ -103,6 +109,8 @@
   [nec=nec bud=bud]
 ::
 ++  ames-comets-moons
+  ::  comets
+  ::
   ::  create comet-a
   ::
   =/  comet-a  (ames-raw ~dacrum-tordyt-dassel-mogred--sabnyx-malbes-mogdef-litzod)
@@ -159,14 +167,121 @@
       ==
     =.  lane.fren-state  `[0 *lane:pact:ames]
     [%known fren-state]
+  ::  moons
+  ::
+  ::  create moon-a
+  ::
+  =/  moon-a  (ames-raw moon-a)
+  =.  now.moon-a  ~1111.1.1
+  =.  eny.moon-a  0v3f.arfnf
+  =.  life.ames-state.moon-a  1
+  =.  rift.ames-state.moon-a  0
+  =.  rof.moon-a  |=(* ``[%noun !>(*(list turf))])
+  =.  ring.ames-state.moon-a  sec:ex:moon-a:crypto-core
+  =.  pass.ames-state.moon-a  pub:ex:moon-a:crypto-core
+  =.  saf.ames-state.moon-a   saf:ex:moon-a:crypto-core
+  ::  create moon-b
+  ::
+  =/  moon-b  (ames-raw moon-b)
+  =.  now.moon-b  ~1111.1.1
+  =.  eny.moon-b  0v3f.arfnf
+  =.  life.ames-state.moon-b  1
+  =.  rift.ames-state.moon-b  0
+  =.  rof.moon-b  |=(* ``[%noun !>(*(list turf))])
+  =.  ring.ames-state.moon-b  sec:ex:moon-b:crypto-core
+  =.  pass.ames-state.moon-b  pub:ex:moon-b:crypto-core
+  =.  saf.ames-state.moon-b   saf:ex:moon-b:crypto-core
+  =/  moon-a-sym
+    (derive-symmetric-key:ames-raw pub.saf.ames-state.moon-a sek.saf.ames-state.moon-b)
+  =/  moon-b-sym
+    (derive-symmetric-key:ames-raw pub.saf.ames-state.moon-b sek.saf.ames-state.moon-a)
+  ::
+  ::  tell ~moon-b about ~moon-a
+  ::
+  =.  chums.ames-state.moon-b
+    %+  ~(put by chums.ames-state.moon-b)  our.moon-a
+    =|  =fren-state:ames
+    =.  -.fren-state
+      :*  symmetric-key=moon-b-sym
+          life=1
+          rift=0
+          [public-keys=pub.saf pass=pass]:ames-state.moon-a
+          sponsor=~bud
+      ==
+    =.  lane.fren-state  `[0 *lane:pact:ames]
+    [%known fren-state]
+  ::  tell ~moon-a about ~moon-b
+  ::
+  =.  chums.ames-state.moon-a
+    %+  ~(put by chums.ames-state.moon-a)  our.moon-b
+    =|  =fren-state:ames
+    =.  -.fren-state
+      :*  symmetric-key=moon-a-sym
+          life=1
+          rift=0
+          [public-keys=pub.saf pass=pass]:ames-state.moon-b
+          sponsor=~bud
+      ==
+    =.  lane.fren-state  `[0 *lane:pact:ames]
+    [%known fren-state]
+  ::
+  ::  comet to moon
+  ::
+  =/  moon-a-comet-a-sym
+    (derive-symmetric-key:ames-raw pub.saf.ames-state.moon-a sek.saf.ames-state.comet-a)
+  =/  moon-b-comet-b-sym
+    (derive-symmetric-key:ames-raw pub.saf.ames-state.moon-b sek.saf.ames-state.comet-b)
+  ::
+  ::  tell ~comet-a about ~moon-a
+  ::
+  =.  chums.ames-state.comet-a
+    %+  ~(put by chums.ames-state.comet-a)  our.moon-a
+    =|  =fren-state:ames
+    =.  -.fren-state
+      :*  symmetric-key=moon-a-comet-a-sym
+          life=1
+          rift=0
+          [public-keys=pub.saf pass=pass]:ames-state.moon-a
+          sponsor=~bud
+      ==
+    =.  lane.fren-state  `[0 *lane:pact:ames]
+    [%known fren-state]
+  ::  tell ~moon-a about ~comet-a
+  ::
+  =.  chums.ames-state.moon-a
+    %+  ~(put by chums.ames-state.moon-a)  our.comet-a
+    =|  =fren-state:ames
+    =.  -.fren-state
+      :*  symmetric-key=moon-a-comet-a-sym
+          life=1
+          rift=0
+          [public-keys=pub.saf pass=pass]:ames-state.moon-a
+          sponsor=~bud
+      ==
+    =.  lane.fren-state  `[0 *lane:pact:ames]
+    [%known fren-state]
+  ::  tell ~moon-b about ~comet-b
+  ::
+  =.  chums.ames-state.moon-b
+    %+  ~(put by chums.ames-state.moon-b)  our.comet-b
+    =|  =fren-state:ames
+    =.  -.fren-state
+      :*  symmetric-key=moon-b-comet-b-sym
+          life=1
+          rift=0
+          [public-keys=pub.saf pass=pass]:ames-state.comet-b
+          sponsor=~bud
+      ==
+    =.  lane.fren-state  `[0 *lane:pact:ames]
+    [%known fren-state]
   ::  metamorphose
   ::
   =>  .(comet-b +:(call:(comet-b) ~[//unix] ~ %born ~))
   =>  .(comet-a +:(call:(comet-a) ~[//unix] ~ %born ~))
+  =>  .(moon-b +:(call:(moon-b) ~[//unix] ~ %born ~))
+  =>  .(moon-a +:(call:(moon-a) ~[//unix] ~ %born ~))
   ::
-  ::  XX TODO moons
-  ::
-  [comet-b=comet-b comet-a=comet-a]
+  [comet-b=comet-b comet-a=comet-a moon-a=moon-a moon-b=moon-b]
 ::
 --
 ::  forward-declare to avoid repeated metamorphoses

@@ -82,9 +82,11 @@
 =,  ames
 =*  point               point:jael
 =*  public-keys-result  public-keys-result:jael
-=/  packet-size  13
-=/  retry-timer  ~m2    ::  only used in /mesa/retry and /dead-flow timers
-=/  ahoy-on=?    %.y
+=/  packet-size      13
+=/  retry-timer      ~m2    ::  only used in /mesa/retry and /dead-flow timers
+=/  ahoy-on=?        %.y
+=/  comet-threshold  886
+=/  moon-threshold   978
 ::
 =>  ::  common helpers
     ~%  %ames  ..part  ~
@@ -12488,6 +12490,22 @@
               [~ ~]
             ?.  ser.pac.nex
               ``[%packet !>([pact pairs])]
+            ::
+            ?.  ser.pac.nex
+              ``[%packet !>([pact pairs])]
+            ?:  ?&  =(wid 1)
+                    ::  XX nit ?
+                    =+  dat-size=(met 3 dat.data.pact)
+                    ?|  ?&  ?=(%pawn (clan:title our))
+                            (gte dat-size comet-threshold)
+                        ==
+                        ?&  ?=(%earl (clan:title our))
+                            (gte dat-size moon-threshold)
+                ==  ==  ==
+              ::  if wid <= 1 but dat.data.page is bigger than the threshold
+              ::  for comets and moons, replace the %data packet with an %auth
+              ::
+              $(wan.pac.nex [%auth fag=0])
             =;  airs=(list @ux)
               ``[%atom !>([p:(fax:plot (en:^pact pact)) airs pof])]
             %+  turn  pairs

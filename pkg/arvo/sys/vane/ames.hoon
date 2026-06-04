@@ -9485,9 +9485,10 @@
                 ev-core
               =/  proof=(list @ux)  (rip 8 dat.data)
               ?>  %-  authenticate
-                  [(recover-root:verifier:lss proof) aut.data name]
-              =/  state    (init:verifier:lss tof proof)
-              =.  pit.per  (~(put by pit.per) sealed-path u.res(ps `[state ~]))
+                  [?:(=(1 tof) dat.data (recover-root:verifier:lss proof)) aut.data name]
+              =?  pit.per  !=(1 tof)
+                =/  state    (init:verifier:lss tof proof)
+                (~(put by pit.per) sealed-path u.res(ps `[state ~]))
               ::
               %-  (ev-tace snd.veb.bug.ames-state |.("request frag={<fag>}"))
               ::  request next fragment
@@ -12504,8 +12505,8 @@
               =>  [ser=ser ..lss]
               :: ~>  %memo./ames/lss-auth
               (build:lss (met 3 ser)^ser)
-            =/  pof=@ux  (rep 8 proof.lss-proof)
-            =/  dat  [tob [%& mes] (rep 8 proof.lss-proof)]  :: XX types
+            =/  pof=@ux  ?:(=(1 wid) root.lss-proof (rep 8 proof.lss-proof))
+            =/  dat  [tob [%& mes] pof]  :: XX types
             [[hop=0 %page nam dat ~] ~ pof]
           ::
               %data

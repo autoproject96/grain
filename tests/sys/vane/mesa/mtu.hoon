@@ -126,7 +126,8 @@
   ?.  (lth dat-size 1.024)
     :: ~&  >  %done-2
     over-mtus
-  :: ~&  >>  ser/(met 3 ser)^dat/dat-size
+  ::  if we go over the MTU, scry again for the %auth fragment
+  ::
   =/  res
     %-  scry:(sender ~1111.1.10 `@`0xdead.beef bex-roof)
     =-  [~ / %x [[our:sender %$ ud+1] -]]
@@ -145,7 +146,7 @@
     :*  hop=0
         %poke
         ack=[[our:receiver sender-rift] [13 ~] ack-full]
-        pok=[[our:sender receiver-rift] [13 ~] pok-full]
+        pok=[[our:sender receiver-rift] [13 [%auth 0]] pok-full]
         data.page
     ==
   =/  ser  p:(fax:plot (en:pact:ames poke))

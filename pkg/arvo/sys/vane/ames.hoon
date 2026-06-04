@@ -12370,22 +12370,26 @@
           =/  nam  [[ship.p per-rift] [13 ~] path.p]
           ?~  q
             `[hop=0 %peek nam]
-          ::  XX assert that the serializes path fits in the MTU
-          ::  XX if path will be too long, put in [tmp] and use that path
-          ::  %-  mess:plot:d
-          ::  (en:name:d [[her=~nec rif=40] [boq=0 wan=~] pat=['c~_h' ~]]))
-          ::  [bloq=q=3 step=r=12]
-          ::  =/  has  (shax u.u.res)
-          ::  =.  tmp-chums.ames-state
-          ::    %+  ~(put by tmp-chums.ames-state)  has
-          ::    [%some-envelope original-path u.u.res])
-          ::  //ax/[$ship]//1/temp/[hash]
           ::
           =/  man=name:pact  [[our rift.ames-state] [13 ~] u.q]
           ::
           ?~  page=(co-get-page man)
             ::  XX
-            ~&  [%no-page man=man]  ~
+            ~&  [%no-page man=man]
+            ~
+          =/  poke=pact:pact  [hop=0 %poke nam man u.page]
+          =/  ser  p:(fax:plot (en:pact poke))
+          ?.  (gth (met 3 ser) 1.472)
+            `poke
+          ::
+          ::
+          ~&  >>  page-above-mtu/man(wan [%auth 0])
+          ?~  page=(co-get-page man(wan [%auth 0]))
+            ::  XX
+            ~&  [%no-auth-page man=man]
+            ~
+          ::  XX  man(wan [%auth 0])
+          ::
           `[hop=0 %poke nam man u.page]
         ::
         ++  co-get-page
@@ -12492,16 +12496,40 @@
             ::
             ?.  ser.pac.nex
               ``[%packet !>([pact pairs])]
-            ?:  ?&  =(wid 1)
-                    ::  XX nit ?
-                    =+  dat-size=(met 3 dat.data.pact)
-                    ?&  ?=(%pawn (clan:title our))
-                        (gte dat-size comet-threshold)
-                ==  ==
-              ::  if wid <= 1 but dat.data.page is bigger than the threshold
-              ::  for comets, replace the %data packet with an %auth
-              ::
-              $(wan.pac.nex [%auth fag=0])
+            ::  rewrite %data packet as %auth if bigget than MTU
+            ::
+            ::  option a) assume worst case (i.e. biggest path) and adjust basued on page size
+            ::
+            :: ?:  ?&  =(wid 1)
+            ::         ::  XX nit ?
+            ::         =+  dat-size=(met 3 dat.data.pact)
+            ::         ?&  ?=(%pawn (clan:title our))
+            ::             (gte dat-size comet-threshold)
+            ::     ==  ==
+            ::   ::  if wid <= 1 but dat.data.page is bigger than the threshold
+            ::   ::  for comets, replace the %data packet with an %auth
+            ::   ::
+            ::   $(wan.pac.nex [%auth fag=0])
+            ::
+            ::  make a synthetic %poke packet and measure it exactly
+            ::
+            :: ?:  ?&  =(wid 1)
+            ::         ::?=([%chum lyf=@ who=@ *] pat)  :: XX
+            ::         ::  construct synthetic pact
+            ::         ::
+            ::         =/  poke=pact:^pact
+            ::           :*  hop=0  %poke
+            ::               ack=name.pact  :: XX  assumes ack = pok
+            ::               pok=name.pact(wan ~)
+            ::               data.pact
+            ::           ==
+            ::         =/  ser  p:(fax:plot (en:^pact poke))
+            ::         (gte pac-size=(met 3 ser) 1.472)
+            ::     ==
+            ::   ::  if wid <= 1 but dat.data.page is bigger than the threshold
+            ::   ::  for comets and moons, replace the %data packet with an %auth
+            ::   ::
+            ::   $(wan.pac.nex [%auth fag=0])
             =;  airs=(list @ux)
               ``[%atom !>([p:(fax:plot (en:^pact pact)) airs pof])]
             %+  turn  pairs
@@ -12518,8 +12546,10 @@
               =>  [ser=ser ..lss]
               :: ~>  %memo./ames/lss-auth
               (build:lss (met 3 ser)^ser)
+            ::  if ser is less than two fragments, no proof and no pairs
+            ::
             =/  pof=@ux  (rep 8 proof.lss-proof)
-            =/  dat  [tob [%& mes] (rep 8 proof.lss-proof)]  :: XX types
+            =/  dat  [tob [%& mes] pof]  :: XX types
             [[hop=0 %page nam dat ~] ~ pof]
           ::
               %data

@@ -253,4 +253,79 @@
       comet-a.rifts  planet-b.rifts
   ==
 ::
+++  test-mesa-mtu-flow
+  ^-  tang
+  %.  :*  comet-a  comet-b
+          comet-a.lifes  comet-b.lifes
+          comet-a.rifts  comet-b.rifts
+      ==
+  |=  $:  sender=ames-gate:v
+          receiver=ames-gate:v
+          sender-life=@ud
+          receiver-life=@ud
+          sender-rift=@ud
+          receiver-rift=@ud
+      ==
+  =/  ack-space=space:ames
+    =/  key  =<  symmetric-key
+        ^-  fren-state:ames
+        %:  ames-scry-peer:v
+            sender
+            [~1111.1.10 0xdead.beef *roof]
+            [our:sender our:receiver]
+        ==
+    [%chum server-life=receiver-life client=our:sender client-life=sender-life key]
+  =/  pok-space=space:ames
+    =/  key  =<  symmetric-key
+        ^-  fren-state:ames
+        %:  ames-scry-peer:v
+            receiver
+            [~1111.1.10 0xdead.beef *roof]
+            [our:receiver our:sender]
+        ==
+    [%chum server-life=sender-life client=our:receiver client-life=receiver-life key]
+  =/  pok-path=path
+    /flow/(scot %ud bone)/poke/for/(scot %p our:receiver)/(scot %ud msg)
+  =/  ack-path=path
+    /flow/(scot %ud bone)/ack/bak/(scot %p our:sender)/(scot %ud msg)
+  =/  ack-wire
+    /mesa/flow/ack/for/(scot %p our:receiver)/(scot %ud receiver-rift)/(scot %ud bone)
+  =/  vane-wire
+    /bone/(scot %p our:sender)/(scot %ud bone)/(scot %ud msg)
+  =/  =noun
+    :*  vane=%g
+        path=/ge/hood
+        payload=[%0 %m %helm-hi `*`(crip "{(reap 900 'a')}")]
+    ==
+  =/  bex-roof  (make-roof pok-path atom/!>(noun))
+  :: =/  res
+  ::   %-  scry:(sender ~1111.1.10 `@`0xdead.beef bex-roof)
+  ::   =-  [~ / %x [[our:sender %$ ud+1] -]]
+  ::   (weld /mess/(scot %ud sender-rift)/pact/13/etch/init pok-full)
+  ::
+  =^  *  sender
+   (ames-call:v sender ~[/none] [%spew ~[%msg %snd %rcv %odd %rot %fin]] *roof)
+  =^  *  receiver
+   (ames-call:v receiver ~[/none] [%spew ~[%msg %snd %rcv %odd %rot %fin]] *roof)
+  =^  moves-1  sender
+    %-  ames-call:v
+    :*  sender
+        ~[/ames /test]
+      ::
+        :^    %moke
+            ack-space
+          `spar:ames`[our:receiver `path`[%a %x '1' %$ ack-path]]
+        `path`[%a %x '1' %$ pok-path]
+      ::
+        bex-roof
+    ==
+  =^  moves-2  receiver  (ames-reply:v receiver ~[//unix] moves-1 bex-roof) :: "ok, here is the %auth fragment"
+  =+  meek=(snag 1 moves-2)
+  ?>  ?=([duct=^ %pass wire=^ *] meek)
+  ?>  ?=([%meek *] |4.meek)
+  =^  moves-3  receiver  (ames-call:v receiver ~[/ames /test] |4.meek bex-roof)
+  =^  moves-4  sender    (ames-reply:v sender ~[//unix] moves-3 bex-roof)     :: "ok, give me the %data frag"
+  =^  moves-5  receiver  (ames-reply:v receiver ~[//unix] moves-4 bex-roof)   :: "ok, here is the %data frag"
+  (ames-expect-msg:v moves-5 noun)
+::
 --

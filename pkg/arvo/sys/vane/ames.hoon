@@ -85,7 +85,7 @@
 =/  packet-size      13
 =/  retry-timer      ~m2    ::  only used in /mesa/retry and /dead-flow timers
 =/  ahoy-on=?        %.y
-=/  comet-threshold  886
+=/  max-mtu=@ud      1.472  :: boq=3
 ::
 =>  ::  common helpers
     ~%  %ames  ..part  ~
@@ -9385,11 +9385,19 @@
             ::
             =?  ev-core  ?=(~ lane.per)  (ev-update-qos %dead last-contact=now)
             ::
-            ?.  =(1 (div (add tob.data.pact 1.023) 1.024))
+            =+  fo-core=(fo-abed:fo [bone dire]:ack)
+            ::  how many 1.024-byte fragments does tob require?
+            ::    e.g. boq=13 (frag=1.024); if tob=1.025 => 2 fragments
+            ::
+            =+  boq=13
+            =+  frag=(div (bex boq) 8) ::  fragment size in bytes (1.024 for boq=13)
+            ::  tob.data.pact is (met 3 dat.data.pact) in bytes
+            ::
+            ?:  (gth (div (add tob.data.pact (dec frag)) frag) 1)
               %-  %+  ev-tace  msg.veb.bug.ames-state
                   |.("hear incomplete message")
               :: XX assert load is plea/boon?
-              =+  fo-core=(fo-abed:fo [bone dire]:ack)
+              ::
               ?:  (fo-message-is-acked:fo-core mess.pok)
                 ::  don't peek if the message havs been already acked
                 ::
@@ -9408,6 +9416,20 @@
               %^  ev-emit  hen  %pass
               [(fo-wire:fo-core %pok) %a %meek [none/~ [her pat]:pok.pact]]
             ::  authenticate one-fragment message
+            ::
+            ::  if this is a one-fragment %data pact, tob would equal the size of
+            ::  dat but if it's an over-MTU %auth poke,
+            ::  (dat.data.pact = lss-root = 32B)
+            ::  and tob > 32B to create the over-MTU %auth packet
+            ::
+            ?:  !=(tob.data.pact (met 3 dat.data.pact))
+              ?>  %-  authenticate
+                  [dat.data aut.data pok.pact]
+              %-  %+  ev-tace  fin.veb.bug.ames-state
+                  |.("peek for n=1 over-mtu poke payload {<[flow=bone seq=mess]:pok>}")
+              %^  ev-emit  hen  %pass
+              [(fo-wire:fo-core %pok) %a %meek [none/~ [her pat]:pok.pact]]
+            ::  direct single-fragment: dat is full message; inject
             ::
             ?>  %-  authenticate
                 [(root:lss (met 3 dat.data)^dat.data) aut.data pok.pact]
@@ -12375,22 +12397,17 @@
           =/  man=name:pact  [[our rift.ames-state] [13 ~] u.q]
           ::
           ?~  page=(co-get-page man)
-            ::  XX
-            ~&  [%no-page man=man]
-            ~
+            ~&([%no-page man=man] ~)  :: XX
           =/  poke=pact:pact  [hop=0 %poke nam man u.page]
-          =/  [=bloq =step]  (met:plot (en:pact poke))
+          =/  [=bloq =step]   (met:plot (en:pact poke))
           ?>  =(3 bloq)
-          ?.  (gth step 1.472)
+          ?.  (gth step max-mtu)
             `poke
           ::
-          ~&  >>  page-above-mtu/man(wan [%auth 0])
+          %-  %^  co-tace  odd.veb.bug.ames-state  ship.p
+              |.("pact over-mtu page={<(met 3 dat.u.page)>}B; send %auth pact")
           ?~  page=(co-get-page man(wan [%auth 0]))
-            ::  XX
-            ~&  [%no-auth-page man=man]
-            ~
-          ::  XX  man(wan [%auth 0])
-          ::
+            ~&([%no-auth-page man=man] ~)  :: XX
           `[hop=0 %poke nam man u.page]
         ::
         ++  co-get-page
@@ -12497,40 +12514,6 @@
             ::
             ?.  ser.pac.nex
               ``[%packet !>([pact pairs])]
-            ::  rewrite %data packet as %auth if bigget than MTU
-            ::
-            ::  option a) assume worst case (i.e. biggest path) and adjust basued on page size
-            ::
-            :: ?:  ?&  =(wid 1)
-            ::         ::  XX nit ?
-            ::         =+  dat-size=(met 3 dat.data.pact)
-            ::         ?&  ?=(%pawn (clan:title our))
-            ::             (gte dat-size comet-threshold)
-            ::     ==  ==
-            ::   ::  if wid <= 1 but dat.data.page is bigger than the threshold
-            ::   ::  for comets, replace the %data packet with an %auth
-            ::   ::
-            ::   $(wan.pac.nex [%auth fag=0])
-            ::
-            ::  make a synthetic %poke packet and measure it exactly
-            ::
-            :: ?:  ?&  =(wid 1)
-            ::         ::?=([%chum lyf=@ who=@ *] pat)  :: XX
-            ::         ::  construct synthetic pact
-            ::         ::
-            ::         =/  poke=pact:^pact
-            ::           :*  hop=0  %poke
-            ::               ack=name.pact  :: XX  assumes ack = pok
-            ::               pok=name.pact(wan ~)
-            ::               data.pact
-            ::           ==
-            ::         =/  ser  p:(fax:plot (en:^pact poke))
-            ::         (gte pac-size=(met 3 ser) 1.472)
-            ::     ==
-            ::   ::  if wid <= 1 but dat.data.page is bigger than the threshold
-            ::   ::  for comets and moons, replace the %data packet with an %auth
-            ::   ::
-            ::   $(wan.pac.nex [%auth fag=0])
             =;  airs=(list @ux)
               ``[%atom !>([p:(fax:plot (en:^pact pact)) airs pof])]
             %+  turn  pairs

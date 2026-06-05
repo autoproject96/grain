@@ -12511,9 +12511,6 @@
               [~ ~]
             ?.  ser.pac.nex
               ``[%packet !>([pact pairs])]
-            ::
-            ?.  ser.pac.nex
-              ``[%packet !>([pact pairs])]
             =;  airs=(list @ux)
               ``[%atom !>([p:(fax:plot (en:^pact pact)) airs pof])]
             %+  turn  pairs

@@ -12379,10 +12379,10 @@
             ~&  [%no-page man=man]
             ~
           =/  poke=pact:pact  [hop=0 %poke nam man u.page]
-          =/  ser  p:(fax:plot (en:pact poke))
-          ?.  (gth (met 3 ser) 1.472)
+          =/  [=bloq =step]  (met:plot (en:pact poke))
+          ?>  =(3 bloq)
+          ?.  (gth step 1.472)
             `poke
-          ::
           ::
           ~&  >>  page-above-mtu/man(wan [%auth 0])
           ?~  page=(co-get-page man(wan [%auth 0]))

@@ -73,8 +73,6 @@
       ::     sender-life
       :: ==
     [%a %x '1' %$ pok-path]
-  ~&  ack-path^pok-path
-  ~&  ack-full^pok-full
   =|  over-mtus=(list [page=@ud pact=@ud i=@ud])
   =;  mts=_over-mtus
     %+  expect-eq
@@ -82,7 +80,6 @@
       !>  mts
   |-  ^+  over-mtus
   ?~  iters
-    ~&  >  %done-1
     over-mtus
   =/  bex-roof
     %-  make-roof
@@ -112,20 +109,11 @@
         pok=[[our:sender receiver-rift] [13 ~] pok-full]
         data.page
     ==
-  =/  ser  p:(fax:plot (en:pact:ames poke))
+  =/  [=bloq =step]  (met:plot (en:pact:ames poke))
+  ?>  =(3 bloq)
   =+  dat-size=(met 3 dat.data.page)
-  ?.  (gth (met 3 ser) 1.472)
-    :: ?>  ?=(%poke +<.poke)
-    :: ~&  :*  %+  met  3  p:(fax:plot (en:^name:pact:sender ack.poke))
-    ::         %+  met  3  p:(fax:plot (en:^name:pact:sender pok.poke))
-    ::         %+  met  3  p:(fax:plot (en:^data:pact:sender data.poke))
-    ::     ==
-    :: ~&  >  ser/(met 3 ser)^dat/dat-size
+  ?.  (gth step 1.472)
     $(iters t.iters)
-
-  ?.  (lth dat-size 1.024)
-    :: ~&  >  %done-2
-    over-mtus
   ::  if we go over the MTU, scry again for the %auth fragment
   ::
   =/  res
@@ -139,7 +127,6 @@
     ~&  >>>  %nope-2
     ~
   =+  !<([blob=@ pairs=(list @ux) proof=@ux] q.u.u.res)
-  ~&  >  proof/proof
   =/  page=pact:pact:sender  (parse-packet:sender blob)
   ?>  ?=(%page +<.page)
   =/  poke=pact:pact:sender
@@ -149,122 +136,121 @@
         pok=[[our:sender receiver-rift] [13 [%auth 0]] pok-full]
         data.page
     ==
-  =/  ser  p:(fax:plot (en:pact:ames poke))
-  =+  dat-size=(met 3 dat.data.page)
-  :: ~&  page^(met 3 ser)
-  ::$(iters t.iters, over-mtus [[dat-size (met 3 ser) i.iters] over-mtus])
+  =/  [=^bloq =^step]  (met:plot (en:pact:ames poke))
+  =?  over-mtus  (gth step 1.472)
+    [[dat-size step i.iters] over-mtus]
   $(iters t.iters)
 ::
-:: ++  test-mesa-ns-comet-moon
-::   %:  check-mesa-ns
-::       comet-a  moon-a
-::       comet-a.lifes  moon-a.lifes
-::       comet-a.rifts  moon-a.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-moon-comet
-::   %:  check-mesa-ns
-::       moon-a  comet-a
-::       moon-a.lifes  comet-a.lifes
-::       moon-a.rifts  comet-a.rifts
-::   ==
-:: ::
+++  test-mesa-ns-comet-moon
+  %:  check-mesa-ns
+      comet-a  moon-a
+      comet-a.lifes  moon-a.lifes
+      comet-a.rifts  moon-a.rifts
+  ==
+::
+++  test-mesa-ns-moon-comet
+  %:  check-mesa-ns
+      moon-a  comet-a
+      moon-a.lifes  comet-a.lifes
+      moon-a.rifts  comet-a.rifts
+  ==
+::
 ++  test-mesa-ns-comet-comet
   %:  check-mesa-ns
       comet-a  comet-b
       comet-a.lifes  comet-b.lifes
       comet-a.rifts  comet-b.rifts
   ==
-:: ::
-:: ++  test-mesa-ns-moon-moon
-::   %:  check-mesa-ns
-::       moon-a  moon-b
-::       moon-a.lifes  moon-b.lifes
-::       moon-a.rifts  moon-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-planet-comet
-::   %:  check-mesa-ns
-::       planet-a  comet-b
-::       planet-a.lifes  comet-b.lifes
-::       planet-a.rifts  comet-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-galaxy-comet
-::   %:  check-mesa-ns
-::       galaxy-a  comet-b
-::       galaxy-a.lifes  comet-b.lifes
-::       galaxy-a.rifts  comet-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-planet-planet
-::   %:  check-mesa-ns
-::       planet-a  planet-b
-::       planet-a.lifes  planet-b.lifes
-::       planet-a.rifts  planet-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-galaxy-galaxy
-::   %:  check-mesa-ns
-::       galaxy-a  galaxy-b
-::       galaxy-a.lifes  galaxy-b.lifes
-::       galaxy-a.rifts  galaxy-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-galaxy-planet
-::   %:  check-mesa-ns
-::       galaxy-a  planet-b
-::       galaxy-a.lifes  planet-b.lifes
-::       galaxy-a.rifts  planet-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-galaxy-moon
-::   %:  check-mesa-ns
-::       galaxy-a  moon-b
-::       galaxy-a.lifes  moon-b.lifes
-::       galaxy-a.rifts  moon-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-planet-galaxy
-::   %:  check-mesa-ns
-::       planet-a  galaxy-b
-::       planet-a.lifes  galaxy-b.lifes
-::       planet-a.rifts  galaxy-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-planet-moon
-::   %:  check-mesa-ns
-::       planet-a  moon-b
-::       planet-a.lifes  moon-b.lifes
-::       planet-a.rifts  moon-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-moon-galaxy
-::   %:  check-mesa-ns
-::       moon-a  galaxy-b
-::       moon-a.lifes  galaxy-b.lifes
-::       moon-a.rifts  galaxy-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-moon-planet
-::   %:  check-mesa-ns
-::       moon-a  planet-b
-::       moon-a.lifes  planet-b.lifes
-::       moon-a.rifts  planet-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-comet-galaxy
-::   %:  check-mesa-ns
-::       comet-a  galaxy-b
-::       comet-a.lifes  galaxy-b.lifes
-::       comet-a.rifts  galaxy-b.rifts
-::   ==
-:: ::
-:: ++  test-mesa-ns-comet-planet
-::   %:  check-mesa-ns
-::       comet-a  planet-b
-::       comet-a.lifes  planet-b.lifes
-::       comet-a.rifts  planet-b.rifts
-::   ==
-:: ::
+::
+++  test-mesa-ns-moon-moon
+  %:  check-mesa-ns
+      moon-a  moon-b
+      moon-a.lifes  moon-b.lifes
+      moon-a.rifts  moon-b.rifts
+  ==
+::
+++  test-mesa-ns-planet-comet
+  %:  check-mesa-ns
+      planet-a  comet-b
+      planet-a.lifes  comet-b.lifes
+      planet-a.rifts  comet-b.rifts
+  ==
+::
+++  test-mesa-ns-galaxy-comet
+  %:  check-mesa-ns
+      galaxy-a  comet-b
+      galaxy-a.lifes  comet-b.lifes
+      galaxy-a.rifts  comet-b.rifts
+  ==
+::
+++  test-mesa-ns-planet-planet
+  %:  check-mesa-ns
+      planet-a  planet-b
+      planet-a.lifes  planet-b.lifes
+      planet-a.rifts  planet-b.rifts
+  ==
+::
+++  test-mesa-ns-galaxy-galaxy
+  %:  check-mesa-ns
+      galaxy-a  galaxy-b
+      galaxy-a.lifes  galaxy-b.lifes
+      galaxy-a.rifts  galaxy-b.rifts
+  ==
+::
+++  test-mesa-ns-galaxy-planet
+  %:  check-mesa-ns
+      galaxy-a  planet-b
+      galaxy-a.lifes  planet-b.lifes
+      galaxy-a.rifts  planet-b.rifts
+  ==
+::
+++  test-mesa-ns-galaxy-moon
+  %:  check-mesa-ns
+      galaxy-a  moon-b
+      galaxy-a.lifes  moon-b.lifes
+      galaxy-a.rifts  moon-b.rifts
+  ==
+::
+++  test-mesa-ns-planet-galaxy
+  %:  check-mesa-ns
+      planet-a  galaxy-b
+      planet-a.lifes  galaxy-b.lifes
+      planet-a.rifts  galaxy-b.rifts
+  ==
+::
+++  test-mesa-ns-planet-moon
+  %:  check-mesa-ns
+      planet-a  moon-b
+      planet-a.lifes  moon-b.lifes
+      planet-a.rifts  moon-b.rifts
+  ==
+::
+++  test-mesa-ns-moon-galaxy
+  %:  check-mesa-ns
+      moon-a  galaxy-b
+      moon-a.lifes  galaxy-b.lifes
+      moon-a.rifts  galaxy-b.rifts
+  ==
+::
+++  test-mesa-ns-moon-planet
+  %:  check-mesa-ns
+      moon-a  planet-b
+      moon-a.lifes  planet-b.lifes
+      moon-a.rifts  planet-b.rifts
+  ==
+::
+++  test-mesa-ns-comet-galaxy
+  %:  check-mesa-ns
+      comet-a  galaxy-b
+      comet-a.lifes  galaxy-b.lifes
+      comet-a.rifts  galaxy-b.rifts
+  ==
+::
+++  test-mesa-ns-comet-planet
+  %:  check-mesa-ns
+      comet-a  planet-b
+      comet-a.lifes  planet-b.lifes
+      comet-a.rifts  planet-b.rifts
+  ==
+::
 --

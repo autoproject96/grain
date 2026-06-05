@@ -12541,7 +12541,7 @@
           ?-    typ.wan.pac.nex
               %auth
             =/  nam  [[our rif] [boq ?:(nit ~ [%auth fag])] pat]
-            ::  NB: root excluded as it can be recalculated by the client
+            ::  NB: root included for special one-fragment message %auth
             ::
             =/  lss-proof
               =>  [ser=ser ..lss]

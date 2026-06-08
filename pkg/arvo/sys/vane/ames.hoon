@@ -12392,7 +12392,17 @@
           ^-  (unit pact:pact)
           =/  nam  [[ship.p per-rift] [13 ~] path.p]
           ?~  q
-            `[hop=0 %peek nam]
+            =/  peek=pact:pact  [hop=0 %peek nam]
+            =/  [=bloq =step]   (met:plot (en:pact peek))
+            ?>  =(3 bloq)
+            ?:  (gth step max-mtu)
+              ~>  %slog.3^leaf/"mesa: {<ship.p>}: peek over-mtu; crash"
+              !!  :: XX  see https://github.com/urbit/urbit/pull/7358
+                  :: for a solution that turns over-mtu %peeks into %pokes
+                  ::
+                  ::  XX a peek that fires on a timer could block the queue
+                  ::
+            `peek
           ::
           =/  man=name:pact  [[our rift.ames-state] [13 ~] u.q]
           ::
@@ -12405,7 +12415,7 @@
             `poke
           ::
           %-  %^  co-tace  odd.veb.bug.ames-state  ship.p
-              |.("pact over-mtu page={<(met 3 dat.u.page)>}B; send %auth pact")
+              |.("poke over-mtu page={<(met 3 dat.u.page)>}B; send %auth pact")
           ?~  page=(co-get-page man(wan [%auth 0]))
             ~&([%no-auth-page man=man] ~)  :: XX
           `[hop=0 %poke nam man u.page]

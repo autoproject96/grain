@@ -12248,6 +12248,7 @@
         ++  co-abet  [(flop moves) ames-state]
         ++  co-abed  |=(=duct co-core(hen duct))
         ++  co-emit  |=(=move co-core(moves [move moves]))
+        ++  co-emil  |=(mos=(list move) co-core(moves (weld (flop mos) moves)))
         ++  co-tace
           |=  [verb=? her=ship print=(trap tape)]
           ^+  same
@@ -12368,6 +12369,15 @@
           ::
           ?~  pact=(co-make-pact remote payload rift.per)
             ~|  [remote=remote payload=payload rift=rift.per]
+            ?~  payload
+              ::  if this is about a %meek no-op and give ~
+              ::
+              =^  moves  ames-state
+                =<  ev-abet
+                =+  ev-core=(ev-abed:ev hen ship.remote per)
+                %-  (ev-give-sage:ev-core)
+                [(~(put ju *(jug duct ints)) hen %sage) path.remote ~]
+              (co-emil moves)
             !!
           =|  new=request-state
           =.  for.new  (~(put ju for.new) hen %sage)
@@ -12396,11 +12406,9 @@
             =/  [=bloq =step]   (met:plot (en:pact peek))
             ?>  =(3 bloq)
             ?:  (gth step max-mtu)
-              ~>  %slog.3^leaf/"mesa: {<ship.p>}: peek over-mtu; crash"
-              !!  :: XX  see https://github.com/urbit/urbit/pull/7358
+              ~>  %slog.2^leaf/"mesa: {<ship.p>}: peek over-mtu; no-op"
+              ~   :: XX  see https://github.com/urbit/urbit/pull/7358
                   :: for a solution that turns over-mtu %peeks into %pokes
-                  ::
-                  ::  XX a peek that fires on a timer could block the queue
                   ::
             `peek
           ::

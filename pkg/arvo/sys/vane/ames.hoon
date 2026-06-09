@@ -7924,7 +7924,7 @@
                     ==
                     ?>  ?=([%test %mesa-2 *] path.plea)  ::  only %mesa-2 supported
                     ::  check that we can migrate this peer, without
-                    ::  modifying the state
+                    ::  modifying the .pit state (flow cleanup still necessary)
                     ::
                     ?>  (on-mate-test her)
                     ::
@@ -9139,7 +9139,10 @@
                 =^  side  ev-core  (ev-peel:ev wire +.sign)
                 =+  side
                 ?~  side  `ames-state
-                ev-abet:(ev-take:ev-core(hen hen) bone.u.side +.sign)
+                =<  ev-abet
+                ?:  ?=([%ames %done *] sign)
+                  (ev-early-done:ev-core(hen hen) bone.u.side)
+                (ev-take:ev-core(hen hen) bone.u.side +.sign)
               ::
               ::  remote responses: acks/poke/cork/naxplanation payloads
               ::    reentrant from %ames (from either message or packet layer)
@@ -9801,6 +9804,13 @@
               |.("hear cork ack; delete {<bone=bone.side>}")
           ::
           fo-abel:fo-core
+        ::
+        ++  ev-early-done
+          |=  =bone
+          ^+  ev-core
+          ::  XX  call fo-abel to delete the flow?
+          ::
+          fo-abet:fo-clean:(fo-abed:fo bone dire=%for)
         ::
         +|  %peek-subscribers
         ::
@@ -10793,6 +10803,24 @@
             ::  produce ack or naxplanation
             ::
             [key.u.cack ?:(?=(%ok -.val.u.cack) ~ `+.val.u.cack)]
+          ::  +fo-clean: forget oldest outstanding payload
+          ::
+          ++  fo-clean
+            ^+  fo-core
+            ?~  first=(pry:fo-mop loads.snd)
+              %-  %+  ev-tace  odd.veb.bug.ames-state
+                  |.("no outstanding payload {<bone=bone>}")
+              fo-core
+            ::  remove oldest paylod
+            ::
+            =^  m  loads.snd  (del:fo-mop loads.snd key.u.first)
+            =.  send-window.snd  +(send-window.snd)
+            ::  send next messages
+            ::
+            =.  fo-core  fo-send
+            ::  XX give meaningful error here?
+            ::
+            (fo-emit (ev-got-duct bone) %give %done `*error)
           ::
           --
         ::
@@ -12368,6 +12396,11 @@
           ::
           ?~  pact=(co-make-pact remote payload rift.per)
             ~|  [remote=remote payload=payload rift=rift.per]
+            ?^  payload
+              ::  if we can't make this poke, give early [poke-ack error]
+              ::  without modifying the state
+              ::
+              (co-emit hen %give %done `*error)  :: XX real error
             !!
           =|  new=request-state
           =.  for.new  (~(put ju for.new) hen %sage)
@@ -12398,6 +12431,8 @@
           ::
           ?~  page=(co-get-page man)
             ~&([%no-page man=man] ~)  :: XX
+          ?:  (gte tob.u.page 268.435.457)  :: XX (wid > 1) boq=31
+            ~
           =/  poke=pact:pact  [hop=0 %poke nam man u.page]
           =/  [=bloq =step]   (met:plot (en:pact poke))
           ?>  =(3 bloq)

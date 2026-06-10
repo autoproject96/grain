@@ -360,7 +360,8 @@
   =/  ames-core  (ames-gate sample)
   ?~  pact=(ma-pact:ma:mesa:ames-core spar `path per-rift)
     !!
-  p:(fax:plot (en:pact:ames u.pact))
+  ?>  ?=([%| *] pact)
+  p:(fax:plot (en:pact:ames +.pact))
 ::
 ++  ames-scry-payload
   |=  [=ames-gate her=ship our=ship =path]

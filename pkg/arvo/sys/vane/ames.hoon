@@ -11388,11 +11388,14 @@
               ?~  pact=(co-make-pact:co [her.core path] pay.req rift.per.core)
                 ::  XX don't crash since we are going to block the queue
                 ev-core:core
+              ?:  ?=([%& *] pact)
+                ::  XX log
+                ev-core:core
               ?:  =(~ unix-duct)
                 %.  ev-core:core
                 (slog leaf+"ames: unix-duct pending; retry %push" ~)
               %-  ev-emit:core
-              (give-push ship u.pact (make-lanes [her [lane qos]:per]:core))
+              (give-push ship +.pact (make-lanes [her [lane qos]:per]:core))
             (sy-emil:core resend-moves)
           ::
           --
@@ -12217,9 +12220,12 @@
             %-  %^  al-tace  odd.veb.bug.ames-state  comet
                 |.("peek for comet attestation failed")
             al-core
+          ?:  ?=([%& *] pact)
+            ::  XX log
+            al-core
           %-  %^  al-tace  fin.veb.bug.ames-state  comet
               |.("peek for comet attestation proof")
-          (al-emit (give-push comet u.pact (make-lanes comet `[0 lane] *qos)))
+          (al-emit (give-push comet +.pact (make-lanes comet `[0 lane] *qos)))
         ::
         ++  al-take-proof
           |=  [=lane:pact hop=@ud =name:pact =data:pact =next:pact]
@@ -12404,10 +12410,10 @@
           ::
           ?~  pact=(co-make-pact remote payload rift.per)
             ~|  [remote=remote payload=payload rift=rift.per]
-            ?~  payload
-              !!
+            !!
+          ?:  ?=(%& -.pact)
             ::  if we can't make this poke, give early [poke-ack error]
-            ::  (if =(dire %for), for %boons acks are implicit so will no-op)
+            ::  (if =(dire %for); for %boons acks are implicit so it will no-op)
             ::
             %-  co-emit
             :*  hen  %give  %done
@@ -12428,34 +12434,34 @@
           ?:  =(~ unix-duct)
             %.  co-core
             (slog leaf+"ames: unix-duct pending; will retry %push" ~)
-          (co-emit (give-push who u.pact (make-lanes who [lane qos]:per)))
+          (co-emit (give-push who +.pact (make-lanes who [lane qos]:per)))
         ::
         +|  %internals
         ::
         ++  co-make-pact
           |=  [p=spar q=(unit path) =per=rift]
-          ^-  (unit pact:pact)  ::  XX  $@(~ each ...)
+          ^-  $@(~ (each term pact:pact))
           =/  nam  [[ship.p per-rift] [13 ~] path.p]
           ?~  q
-            `[hop=0 %peek nam]
+            |+[hop=0 %peek nam]
           ::
           =/  man=name:pact  [[our rift.ames-state] [13 ~] u.q]
           ::
           ?~  page=(co-get-page man)
             ~&([%no-page man=man] ~)   :: XX
           ?:  (gth tob.u.page max-jum) :: boq = 32
-            ~
+            &+%over-jumbo-frame
           =/  poke=pact:pact  [hop=0 %poke nam man u.page]
           =/  [=bloq =step]   (met:plot (en:pact poke))
           ?>  =(3 bloq)
           ?.  (gth step max-mtu)
-            `poke
+            |+poke
           ::
           %-  %^  co-tace  odd.veb.bug.ames-state  ship.p
               |.("pact over-mtu page={<(met 3 dat.u.page)>}B; send %auth pact")
           ?~  page=(co-get-page man(wan [%auth 0]))
             ~&([%no-auth-page man=man] ~)  :: XX
-          `[hop=0 %poke nam man u.page]
+          |+[hop=0 %poke nam man u.page]
         ::
         ++  co-get-page
           |=  =name:pact

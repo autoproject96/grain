@@ -85,7 +85,9 @@
 =/  packet-size      13
 =/  retry-timer      ~m2    ::  only used in /mesa/retry and /dead-flow timers
 =/  ahoy-on=?        %.y
-=/  max-mtu=@ud      1.472  :: boq=3
+=/  max-mtu=@ud      1.472  :: boq=3; bytes
+=/  jumbo=@ud        32     :: frame of (bex 32) = 2^32; bits
+=/  max-jum=@ud      (bex (sub jumbo boq=3))
 ::
 =>  ::  common helpers
     ~%  %ames  ..part  ~
@@ -12422,7 +12424,7 @@
         ::
         ++  co-make-pact
           |=  [p=spar q=(unit path) =per=rift]
-          ^-  (unit pact:pact)
+          ^-  (unit pact:pact)  ::  XX  $@(~ each ...)
           =/  nam  [[ship.p per-rift] [13 ~] path.p]
           ?~  q
             `[hop=0 %peek nam]
@@ -12430,8 +12432,8 @@
           =/  man=name:pact  [[our rift.ames-state] [13 ~] u.q]
           ::
           ?~  page=(co-get-page man)
-            ~&([%no-page man=man] ~)  :: XX
-          ?:  (gte tob.u.page 268.435.457)  :: XX (wid > 1) boq=31
+            ~&([%no-page man=man] ~)   :: XX
+          ?:  (gte tob.u.page max-jum) :: boq = 32
             ~
           =/  poke=pact:pact  [hop=0 %poke nam man u.page]
           =/  [=bloq =step]   (met:plot (en:pact poke))

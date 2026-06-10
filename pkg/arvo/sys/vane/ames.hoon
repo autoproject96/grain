@@ -10812,18 +10812,18 @@
             ^+  fo-core
             ?~  first=(pry:fo-mop loads.snd)
               %-  %+  ev-tace  odd.veb.bug.ames-state
-                  |.("no outstanding payload {<bone=bone>}")
+                  |.("no outstanding payload to clean {<bone=bone>}")
               fo-core
-            ::  remove oldest paylod
+            %-  %+  ev-tace  odd.veb.bug.ames-state
+                |.("cleaning over jumbo-frame %poke {<bone=bone>}")
+            ::  remove oldest payload
             ::
             =^  m  loads.snd  (del:fo-mop loads.snd key.u.first)
             =.  send-window.snd  +(send-window.snd)
-            ::  send next messages
             ::
-            =.  fo-core  fo-send
-            ::  XX give meaningful error here?
-            ::
-            (fo-emit (ev-got-duct bone) %give %done `error)
+            =~  (fo-emit (ev-got-duct bone) %give %done `error)
+                fo-send  ::  send next messages if any
+            ==
           ::
           --
         ::
@@ -12399,12 +12399,16 @@
           ::
           ?~  pact=(co-make-pact remote payload rift.per)
             ~|  [remote=remote payload=payload rift=rift.per]
-            ?^  payload
-              ::  if we can't make this poke, give early [poke-ack error]
-              ::  without modifying the state
-              ::
-              (co-emit hen %give %done `*error)  :: XX real error
-            !!
+            ?~  payload
+              !!
+            ::  if we can't make this poke, give early [poke-ack error]
+            ::  (if =(dire %for), for %boons acks are implicit so will no-op)
+            ::
+            %-  co-emit
+            :*  hen  %give  %done
+                :+  ~  %over-frame
+                [leaf/"ames: payload exceeds single jumbo frame"]~
+            ==
           =|  new=request-state
           =.  for.new  (~(put ju for.new) hen %sage)
           =.  pay.new  payload

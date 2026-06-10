@@ -12415,6 +12415,8 @@
             ::  if we can't make this poke, give early [poke-ack error]
             ::  (if =(dire %for); for %boons acks are implicit so it will no-op)
             ::
+            %-  %^  ma-tace  snd.veb.bug.ames-state  who
+                |.("payload exceeds single jumbo frame; skip")
             %-  ma-emit
             :*  hen  %give  %done
                 :+  ~  %over-frame
@@ -12449,7 +12451,9 @@
           ::
           ?~  page=(ma-get-page man)
             ~&([%no-page man=man] ~)   :: XX
-          ?:  (gth tob.u.page max-jum) :: boq = 32
+          ?:  (gth tob.u.page max-jum)
+            ::  XX should not happen for boq 32 in vere-32
+            ::
             &+%over-jumbo-frame
           =/  poke=pact:pact  [hop=0 %poke nam man u.page]
           =/  [=bloq =step]   (met:plot (en:pact poke))

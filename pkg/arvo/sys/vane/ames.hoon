@@ -9142,9 +9142,9 @@
                 =+  side
                 ?~  side  `ames-state
                 =<  ev-abet
-                ?:  ?=([%ames %done *] sign)
-                  (ev-early-done:ev-core(hen hen) bone.u.side)
-                (ev-take:ev-core(hen hen) bone.u.side +.sign)
+                ?.  ?=([%ames %done *] sign)
+                  (ev-take:ev-core(hen hen) bone.u.side +.sign)
+                (ev-early-done:ev-core(hen hen) bone.u.side +.sign)
               ::
               ::  remote responses: acks/poke/cork/naxplanation payloads
               ::    reentrant from %ames (from either message or packet layer)
@@ -9808,11 +9808,11 @@
           fo-abel:fo-core
         ::
         ++  ev-early-done
-          |=  =bone
+          |=  [=bone sign=$~(done/~ $>(%done gift:gall))]
           ^+  ev-core
           ::  XX  call fo-abel to delete the flow?
           ::
-          fo-abet:fo-clean:(fo-abed:fo bone dire=%for)
+          fo-abet:(fo-clean:(fo-abed:fo bone dire=%for) (need error.sign))
         ::
         +|  %peek-subscribers
         ::
@@ -10808,6 +10808,7 @@
           ::  +fo-clean: forget oldest outstanding payload
           ::
           ++  fo-clean
+            |=  =error
             ^+  fo-core
             ?~  first=(pry:fo-mop loads.snd)
               %-  %+  ev-tace  odd.veb.bug.ames-state
@@ -10822,7 +10823,7 @@
             =.  fo-core  fo-send
             ::  XX give meaningful error here?
             ::
-            (fo-emit (ev-got-duct bone) %give %done `*error)
+            (fo-emit (ev-got-duct bone) %give %done `error)
           ::
           --
         ::

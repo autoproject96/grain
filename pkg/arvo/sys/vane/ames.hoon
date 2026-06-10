@@ -9144,7 +9144,7 @@
                 =<  ev-abet
                 ?.  ?=([%ames %done *] sign)
                   (ev-take:ev-core(hen hen) bone.u.side +.sign)
-                (ev-early-done:ev-core(hen hen) bone.u.side +.sign)
+                (ev-early-done:ev-core(hen hen) u.side +.sign)
               ::
               ::  remote responses: acks/poke/cork/naxplanation payloads
               ::    reentrant from %ames (from either message or packet layer)
@@ -9808,10 +9808,15 @@
           fo-abel:fo-core
         ::
         ++  ev-early-done
-          |=  [=bone sign=$~(done/~ $>(%done gift:gall))]
+          |=  [side sign=$~(done/~ $>(%done gift:gall))]
           ^+  ev-core
           ::  XX  call fo-abel to delete the flow?
           ::
+          ?:  =(%bak dire)
+            ~>  %slog.3^leaf/"ames: $boon exceeds single jumbo frame"
+            ::  for %boons, don't give anything to the vane; implicit ack
+            ::
+            ev-core
           fo-abet:(fo-clean:(fo-abed:fo bone dire=%for) (need error.sign))
         ::
         +|  %peek-subscribers

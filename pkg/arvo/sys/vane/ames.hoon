@@ -12433,7 +12433,7 @@
           ::
           ?~  page=(co-get-page man)
             ~&([%no-page man=man] ~)   :: XX
-          ?:  (gte tob.u.page max-jum) :: boq = 32
+          ?:  (gth tob.u.page max-jum) :: boq = 32
             ~
           =/  poke=pact:pact  [hop=0 %poke nam man u.page]
           =/  [=bloq =step]   (met:plot (en:pact poke))

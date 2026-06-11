@@ -86,7 +86,7 @@
 =/  retry-timer      ~m2    ::  only used in /mesa/retry and /dead-flow timers
 =/  ahoy-on=?        %.y
 =/  max-mtu=@ud      1.472  :: boq=3; bytes
-=/  jumbo=@ud        32     :: frame of (bex 32) = 2^32; bits
+=/  jumbo=@ud        31     :: frame of (bex 31) = 2^31; bits
 =/  max-jum=@ud      (bex (sub jumbo boq=3))
 ::
 =>  ::  common helpers

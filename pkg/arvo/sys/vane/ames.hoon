@@ -9392,10 +9392,19 @@
             ::    e.g. boq=13 (frag=1.024); if tob=1.025 => 2 fragments
             ::
             =+  boq=13
-            =+  frag=(div (bex boq) 8) ::  fragment size in bytes (1.024 for boq=13)
-            ::  tob.data.pact is (met 3 dat.data.pact) in bytes
+            =*  tob  tob.data.pact
+            =+  frag=(bex (sub boq 3)) ::  fragment size in bytes (1.024 for boq=13)
             ::
-            ?:  (gth (div (add tob.data.pact (dec frag)) frag) 1)
+            ?:  (gth (div (add tob (dec frag)) frag) 1)
+                ::  if error, inject message and send %nack
+                ::
+                ?^  dud
+                  %:  hear-poke:ev-mess
+                    dud
+                    [her.ack.pact (pout ack)]
+                    [her.pok.pact (pout pok)]
+                    message/?-(dire.ack %bak plea/~, %for boon/~)
+                  ==
               %-  %+  ev-tace  msg.veb.bug.ames-state
                   |.("hear incomplete message")
               :: XX assert load is plea/boon?
@@ -9415,6 +9424,11 @@
               %-  %+  ev-tace  fin.veb.bug.ames-state
                   |.("peek for poke payload {<[flow=bone seq=mess]:pok>}")
               ::
+              ::  if the %page we need to +peek is bigger than max-jum, %nack
+              ::
+              ~|  "page exceeds jumbo-frame={<tob>}B; crash"
+              ?>  (lte tob max-jum)
+              ::
               %^  ev-emit  hen  %pass
               [(fo-wire:fo-core %pok) %a %meek [none/~ [her pat]:pok.pact]]
             ::  authenticate one-fragment message
@@ -9424,7 +9438,7 @@
             ::  (dat.data.pact = lss-root = 32B)
             ::  and tob > 32B to create the over-MTU %auth packet
             ::
-            ?:  !=(tob.data.pact (met 3 dat.data.pact))
+            ?:  !=(tob (met 3 dat.data.pact))
               ?>  %-  authenticate
                   [dat.data aut.data pok.pact]
               %-  %+  ev-tace  fin.veb.bug.ames-state
@@ -10406,7 +10420,9 @@
             =.  last-acked.rcv  +(last-acked.rcv)
             %-  %+  ev-tace  msg.veb.bug.ames-state
                 |.
-                "hear complete %boon {<[bone=bone seq=last-acked.rcv]>}; ack"
+                ?:  ok
+                  "sink %boon {<[bone=bone seq=last-acked.rcv]>}; ack"
+                "crashed on sink boon {<[bone=bone seq=last-acked.rcv]>}"
             (fo-send-ack last-acked.rcv)
           ::
           ++  fo-sink-plea
@@ -10436,7 +10452,7 @@
             =.  pending-ack.rcv  %.y
             ::
             %-  %+  ev-tace  msg.veb.bug.ames-state
-                |.("hear complete %plea {<[bone=bone seq=+(last-acked.rcv)]>}")
+                |.("sink %plea {<[bone=bone seq=+(last-acked.rcv)]>}")
             ::
             ?:  &(=(vane %$) ?=([%ahoy ~] payload)):plea
               ::  migrated %ahoy pleas are always acked

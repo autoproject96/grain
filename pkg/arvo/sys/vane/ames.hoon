@@ -12403,14 +12403,13 @@
           =/  nam  [[ship.p per-rift] [13 ~] path.p]
           ?~  q
             =/  peek=pact:pact  [hop=0 %peek nam]
-            =/  [=bloq =step]   (met:plot (en:pact peek))
-            ?>  =(3 bloq)
-            ?:  (gth step max-mtu)
-              ~>  %slog.2^leaf/"mesa: {<ship.p>}: peek over-mtu; no-op"
-              ~   :: XX  see https://github.com/urbit/urbit/pull/7358
-                  :: for a solution that turns over-mtu %peeks into %pokes
-                  ::
-            `peek
+            ?:  (gte 301 (rig (met:plot `plot`(en:name nam)) 3))
+              `peek
+            :: XX  see https://github.com/urbit/urbit/pull/7358
+            :: for a solution that turns over-mtu %peeks into %pokes
+            ::
+            ~>  %slog.2^leaf/"mesa: {<ship.p>}: peek over-mtu; no-op"
+            ~
           ::
           =/  man=name:pact  [[our rift.ames-state] [13 ~] u.q]
           ::

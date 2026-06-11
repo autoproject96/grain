@@ -9141,10 +9141,7 @@
                 =^  side  ev-core  (ev-peel:ev wire +.sign)
                 =+  side
                 ?~  side  `ames-state
-                =<  ev-abet
-                ?.  ?=([%ames %done *] sign)
-                  (ev-take:ev-core(hen hen) bone.u.side +.sign)
-                (ev-early-done:ev-core(hen hen) u.side +.sign)
+                ev-abet:(ev-take:ev-core(hen hen) bone.u.side +.sign)
               ::
               ::  remote responses: acks/poke/cork/naxplanation payloads
               ::    reentrant from %ames (from either message or packet layer)
@@ -9806,18 +9803,6 @@
               |.("hear cork ack; delete {<bone=bone.side>}")
           ::
           fo-abel:fo-core
-        ::
-        ++  ev-early-done
-          |=  [side sign=$~(done/~ $>(%done gift:gall))]
-          ^+  ev-core
-          ::  XX  call fo-abel to delete the flow?
-          ::
-          ?:  =(%bak dire)
-            ~>  %slog.3^leaf/"ames: $boon exceeds single jumbo frame"
-            ::  for %boons, don't give anything to the vane; implicit ack
-            ::
-            ev-core
-          fo-abet:(fo-clean:(fo-abed:fo bone dire=%for) (need error.sign))
         ::
         +|  %peek-subscribers
         ::
@@ -10810,25 +10795,6 @@
             ::  produce ack or naxplanation
             ::
             [key.u.cack ?:(?=(%ok -.val.u.cack) ~ `+.val.u.cack)]
-          ::  +fo-clean: forget oldest outstanding payload
-          ::
-          ++  fo-clean
-            |=  =error
-            ^+  fo-core
-            ?~  first=(pry:fo-mop loads.snd)
-              %-  %+  ev-tace  odd.veb.bug.ames-state
-                  |.("no outstanding payload to clean {<bone=bone>}")
-              fo-core
-            %-  %+  ev-tace  odd.veb.bug.ames-state
-                |.("cleaning over jumbo-frame %poke {<bone=bone>}")
-            ::  remove oldest payload
-            ::
-            =^  m  loads.snd  (del:fo-mop loads.snd key.u.first)
-            =.  send-window.snd  +(send-window.snd)
-            ::
-            =~  (fo-emit (ev-got-duct bone) %give %done `error)
-                fo-send  ::  send next messages if any
-            ==
           ::
           --
         ::
@@ -12412,16 +12378,7 @@
             ~|  [remote=remote payload=payload rift=rift.per]
             !!
           ?:  ?=(%& -.pact)
-            ::  if we can't make this poke, give early [poke-ack error]
-            ::  (if =(dire %for); for %boons acks are implicit so it will no-op)
-            ::
-            %-  %^  ma-tace  snd.veb.bug.ames-state  who
-                |.("payload exceeds single jumbo frame; skip")
-            %-  ma-emit
-            :*  hen  %give  %done
-                :+  ~  %over-frame
-                [leaf/"ames: payload exceeds single jumbo frame"]~
-            ==
+            !! :: XX not implemented
           =|  new=request-state
           =.  for.new  (~(put ju for.new) hen %sage)
           =.  pay.new  payload
@@ -12451,10 +12408,6 @@
           ::
           ?~  page=(ma-get-page man)
             ~&([%no-page man=man] ~)   :: XX
-          ?:  (gth tob.u.page max-jum)
-            ::  XX should not happen for boq 32 in vere-32
-            ::
-            &+%over-jumbo-frame
           =/  poke=pact:pact  [hop=0 %poke nam man u.page]
           =/  [=bloq =step]   (met:plot (en:pact poke))
           ?>  =(3 bloq)

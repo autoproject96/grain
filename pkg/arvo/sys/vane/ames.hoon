@@ -85,7 +85,9 @@
 =/  packet-size      13
 =/  retry-timer      ~m2    ::  only used in /mesa/retry and /dead-flow timers
 =/  ahoy-on=?        %.y
-=/  max-mtu=@ud      1.472  :: boq=3
+=/  max-mtu=@ud      1.472  :: boq=3; bytes
+=/  jumbo=@ud        31     :: frame of (bex 31) = 2^31; bits
+=/  max-jum=@ud      (bex (sub jumbo boq=3))
 ::
 =>  ::  common helpers
     ~%  %ames  ..part  ~
@@ -6790,12 +6792,12 @@
               =/  mesa-ev-core
                (%*(ev-abed ev:mesa-core ames-state ames-state) ~ her fren)
               =.  chums.ames-state  (~(put by chums.ames-state) her known/fren)
-              =+  mesa-co-core=%*(co-core co:mesa-core ames-state ames-state)
+              =+  mesa-ma-core=%*(ma-core ma:mesa-core ames-state ames-state)
               =*  per  peer-state
-              =<  co-abet
-              ^+  mesa-co-core
+              =<  ma-abet
+              ^+  mesa-ma-core
               %-  ~(rep by keens.per)
-              |=  [[=path keen=keen-state] core=_mesa-co-core]
+              |=  [[=path keen=keen-state] core=_mesa-ma-core]
               =>  .(path `(pole knot)`path)
               ~|  make-peeks-crashed/path
               ?.  ?=([van=@ car=@ cas=@ desk=@ pat=*] path)
@@ -6807,7 +6809,7 @@
                 ::
                 =?  core  ?=(^ next-wake.keen)
                   =/  =wire  (welp /fine/behn/wake/(scot %p her) (pout path))
-                  (co-emit:core unix-duct %pass wire %b %rest u.next-wake.keen)
+                  (ma-emit:core unix-duct %pass wire %b %rest u.next-wake.keen)
                 %-  ~(rep by listeners.keen)
                 |=  [[=^duct ints=(set ints)] core=_core]
                 ::  if the scry was created by the |fine core, %ames becomes the
@@ -6815,12 +6817,12 @@
                 ::  into a %near, and given to the original listener). %ames
                 ::  uses the /ames/[?(%chum %fine %shut ...)] wire to tell arvo
                 ::  to make it re-entrant into itself, so we neeed to remove
-                ::  that wire since co-make-peek is going to add a /mesa wire
+                ::  that wire since ma-peek is going to add a /mesa wire
                 ::
                 =?  duct  ?=([[%ames ?(%chum %fine) *] *] duct)  t.duct
                 ::  XX  call the rate task
                 ::
-                (co-make-peek:core(hen duct) space her pax)
+                (ma-peek:core(hen duct) space her pax)
               ::  XX unitize this and no-op if failure to convert
               ::
               ?+    pat.path  [path [%publ life.per]]
@@ -7924,7 +7926,7 @@
                     ==
                     ?>  ?=([%test %mesa-2 *] path.plea)  ::  only %mesa-2 supported
                     ::  check that we can migrate this peer, without
-                    ::  modifying the state
+                    ::  modifying the .pit state (flow cleanup still necessary)
                     ::
                     ?>  (on-mate-test her)
                     ::
@@ -9022,7 +9024,7 @@
             ^-  [(list move) _vane-gate]
             =/  =task  ((harden task) wrapped-task)
             =+  sy-core=~(sy-core sy hen)
-            =+  co-core=(co-abed:co hen)
+            =+  ma-core=(ma-abed:ma hen)
             ::
             =^  moves  ames-state
               ::  handle error notifications
@@ -9110,7 +9112,7 @@
                   ?(%meek %moke %mage)
                 ?.  ?=([[%ames *] *] hen)
                   `ames-state ::  XX log
-                co-abet:(co-call:co-core task)
+                ma-abet:(ma-call:ma-core task)
               ==
               ::
             [moves vane-gate]
@@ -9299,7 +9301,7 @@
           ::
           =.  chums.ames-state  (~(put by chums.ames-state) her %known per)
           =^  moves-peek  ames-state
-            co-abet:(co-make-peek:(co-abed:co hen) space her path)
+            ma-abet:(ma-peek:(ma-abed:ma hen) space her path)
           ::  update per in the door's sample with the updated value from
           ::  ames-state; removing this will discard the last change when doing
           ::  +ev-abet
@@ -9390,10 +9392,19 @@
             ::    e.g. boq=13 (frag=1.024); if tob=1.025 => 2 fragments
             ::
             =+  boq=13
-            =+  frag=(div (bex boq) 8) ::  fragment size in bytes (1.024 for boq=13)
-            ::  tob.data.pact is (met 3 dat.data.pact) in bytes
+            =*  tob  tob.data.pact
+            =+  frag=(bex (sub boq 3)) ::  fragment size in bytes (1.024 for boq=13)
             ::
-            ?:  (gth (div (add tob.data.pact (dec frag)) frag) 1)
+            ?:  (gth (div (add tob (dec frag)) frag) 1)
+                ::  if error, inject message and send %nack
+                ::
+                ?^  dud
+                  %:  hear-poke:ev-mess
+                    dud
+                    [her.ack.pact (pout ack)]
+                    [her.pok.pact (pout pok)]
+                    message/?-(dire.ack %bak plea/~, %for boon/~)
+                  ==
               %-  %+  ev-tace  msg.veb.bug.ames-state
                   |.("hear incomplete message")
               :: XX assert load is plea/boon?
@@ -9413,6 +9424,11 @@
               %-  %+  ev-tace  fin.veb.bug.ames-state
                   |.("peek for poke payload {<[flow=bone seq=mess]:pok>}")
               ::
+              ::  if the %page we need to +peek is bigger than max-jum, %nack
+              ::
+              ~|  "page exceeds jumbo-frame={<tob>}B; crash"
+              ?>  (lte tob max-jum)
+              ::
               %^  ev-emit  hen  %pass
               [(fo-wire:fo-core %pok) %a %meek [none/~ [her pat]:pok.pact]]
             ::  authenticate one-fragment message
@@ -9422,7 +9438,7 @@
             ::  (dat.data.pact = lss-root = 32B)
             ::  and tob > 32B to create the over-MTU %auth packet
             ::
-            ?:  !=(tob.data.pact (met 3 dat.data.pact))
+            ?:  !=(tob (met 3 dat.data.pact))
               ?>  %-  authenticate
                   [dat.data aut.data pok.pact]
               %-  %+  ev-tace  fin.veb.bug.ames-state
@@ -9979,7 +9995,7 @@
           =/  lane=tape
             ?@  i.next
               "from {<`@p`i.next>}"
-            "lane={(scow %if p.i.next)}:{((d-co:^co 1) q.i.next)}"
+            "lane={(scow %if p.i.next)}:{((d-co:co 1) q.i.next)}"
           %-  %+  ev-tace  rcv.veb.bug.ames-state
               |.("hear indirect packet hop={<hop>} {lane}")
           %_    per
@@ -10404,7 +10420,9 @@
             =.  last-acked.rcv  +(last-acked.rcv)
             %-  %+  ev-tace  msg.veb.bug.ames-state
                 |.
-                "hear complete %boon {<[bone=bone seq=last-acked.rcv]>}; ack"
+                ?:  ok
+                  "sink %boon {<[bone=bone seq=last-acked.rcv]>}; ack"
+                "crashed on sink boon {<[bone=bone seq=last-acked.rcv]>}"
             (fo-send-ack last-acked.rcv)
           ::
           ++  fo-sink-plea
@@ -10434,7 +10452,7 @@
             =.  pending-ack.rcv  %.y
             ::
             %-  %+  ev-tace  msg.veb.bug.ames-state
-                |.("hear complete %plea {<[bone=bone seq=+(last-acked.rcv)]>}")
+                |.("sink %plea {<[bone=bone seq=+(last-acked.rcv)]>}")
             ::
             ?:  &(=(vane %$) ?=([%ahoy ~] payload)):plea
               ::  migrated %ahoy pleas are always acked
@@ -11348,15 +11366,18 @@
               ::  if =(~ pay.req); %naxplanation, %cork or external (i.e. not
               ::  coming from %ames) $peek request
               ::
-              =/  co  co(ames-state ames-state.core)
-              ?~  pact=(co-make-pact:co [her.core path] pay.req rift.per.core)
+              =/  ma  ma(ames-state ames-state.core)
+              ?~  pact=(ma-pact:ma [her.core path] pay.req rift.per.core)
                 ::  XX don't crash since we are going to block the queue
+                ev-core:core
+              ?:  ?=([%& *] pact)
+                ::  XX log
                 ev-core:core
               ?:  =(~ unix-duct)
                 %.  ev-core:core
                 (slog leaf+"ames: unix-duct pending; retry %push" ~)
               %-  ev-emit:core
-              (give-push ship u.pact (make-lanes [her [lane qos]:per]:core))
+              (give-push ship +.pact (make-lanes [her [lane qos]:per]:core))
             (sy-emil:core resend-moves)
           ::
           --
@@ -11382,7 +11403,7 @@
                 =,  lane.stun
                 =/  ip=@if  (end [0 32] p)
                 =/  pt=@ud  (cut 0 [32 16] p)
-                "lane {(scow %if ip)}:{((d-co:^co 1) pt)} ({(scow %ux p)})"
+                "lane {(scow %if ip)}:{((d-co:co 1) pt)} ({(scow %ux p)})"
               |.("inject %stun {<-.stun>} {lane}")
           ::
           %-  sy-emit
@@ -12177,13 +12198,16 @@
           ::  we call the arm directly instead of sending a %meek task
           ::  so we can set up the comet lane which is not in state
           ::
-          ?~  pact=(co-make-pact:co `spar`comet^path ~ rift=0)
+          ?~  pact=(ma-pact:ma `spar`comet^path ~ rift=0)
             %-  %^  al-tace  odd.veb.bug.ames-state  comet
                 |.("peek for comet attestation failed")
             al-core
+          ?:  ?=([%& *] pact)
+            ::  XX log
+            al-core
           %-  %^  al-tace  fin.veb.bug.ames-state  comet
               |.("peek for comet attestation proof")
-          (al-emit (give-push comet u.pact (make-lanes comet `[0 lane] *qos)))
+          (al-emit (give-push comet +.pact (make-lanes comet `[0 lane] *qos)))
         ::
         ++  al-take-proof
           |=  [=lane:pact hop=@ud =name:pact =data:pact =next:pact]
@@ -12235,51 +12259,51 @@
         ::
         --
       ::
-      +|  %packet-constructors
+      +|  %packet-makers
       ::
-      ++  co
+      ++  ma
         =|  moves=(list move)
         ::
         |_  [hen=duct pax=path]  ::  .hen listens to +peek .pax
         ::
         +|  %helpers
         ::
-        ++  co-core  .
-        ++  co-abet  [(flop moves) ames-state]
-        ++  co-abed  |=(=duct co-core(hen duct))
-        ++  co-emit  |=(=move co-core(moves [move moves]))
-        ++  co-tace
+        ++  ma-core  .
+        ++  ma-abet  [(flop moves) ames-state]
+        ++  ma-abed  |=(=duct ma-core(hen duct))
+        ++  ma-emit  |=(=move ma-core(moves [move moves]))
+        ++  ma-tace
           |=  [verb=? her=ship print=(trap tape)]
           ^+  same
           (trace %mesa verb her ships.bug.ames-state print)
         ::
         +|  %entry-points
         ::
-        ++  co-call
+        ++  ma-call
           |=  =task
-          ^+  co-core
+          ^+  ma-core
           ?+  -.task  ~|(-.task !!)
-            %mage  (co-make-page +.task)
-            %meek  (co-make-peek +.task)
-            %moke  (co-make-poke +.task)
+            %mage  (ma-page +.task)
+            %meek  (ma-peek +.task)
+            %moke  (ma-poke +.task)
           ==
         ::
         +|  %packet-entry-points
         ::
         ::  XX remove all spaces from the task, and make the paths at callsite?
         ::
-        ++  co-make-peek
+        ++  ma-peek
           |=  [=space =spar]
           =.  pax
             ?+  -.space  path.spar  :: XX skip adding flow paths to the .tip?
               %none  inner:(decrypt-path [path ship]:spar)
             ==
-          %-  %^  co-tace  fin.veb.bug.ames-state  ship.spar
+          %-  %^  ma-tace  fin.veb.bug.ames-state  ship.spar
               |.("send %peek for page={(spud path.spar)}")
           ::
-          (co-push-pact spar(path (make-space-path space path.spar)) ~)
+          (ma-push-pact spar(path (make-space-path space path.spar)) ~)
         ::
-        ++  co-make-poke
+        ++  ma-poke
           |=  [=space =ack=spar =poke=path]
           ::  XX  make all paths when the %moke task is sent?
           ::
@@ -12302,54 +12326,54 @@
               ==
             (make-space-path space poke-path)
           ::
-          %-  %^  co-tace  snd.veb.bug.ames-state  ship.ack-spar
+          %-  %^  ma-tace  snd.veb.bug.ames-state  ship.ack-spar
               |.("send %poke for ack={(spud path.ack-spar)}")
           ::  ack and poke paths are already encrypted at this point
           ::
-          (co-push-pact ack-spar `poke-path)
+          (ma-push-pact ack-spar `poke-path)
         ::
-        ++  co-make-page
+        ++  ma-page
           |=  [=space spar]
-          ^+  co-core
+          ^+  ma-core
           =+  per=(get-per:ev ship)
           ?.  ?=([~ ~ %known *] per)
-            %-  %^  co-tace  odd.veb.bug.ames-state  ship
+            %-  %^  ma-tace  odd.veb.bug.ames-state  ship
                 |.("missing peer for page={(spud path)}")
-            co-core  ::  %alien or missing
+            ma-core  ::  %alien or missing
           =*  sat  +.u.u.per
           =/  space-path=^path  (make-space-path space path)
           =/  =name:pact
             [[our rift.ames-state] [13 ~] space-path]
-          ?~  page=(co-get-page name)
-            %-  %^  co-tace  odd.veb.bug.ames-state  ship
+          ?~  page=(ma-get-page name)
+            %-  %^  ma-tace  odd.veb.bug.ames-state  ship
                 |.("missing page={(spud space-path)}")
-            co-core
+            ma-core
           ::  XX the use case for sending pages are acks, that fit in one
           ::  (bloq=13) fragment. no-op if bigger than that?
           ::
           ::  XX only allow %ames to send %mage task? (inspecting the duct?)
           ::
           ?:  =(~ unix-duct)
-            %.  co-core
+            %.  ma-core
             (slog leaf+"ames: unix-duct pending; will retry %push" ~)
           ::  vere should ignores any lanes attach to a %page, and use the one
           ::  it has stored in the pit to avoid breaking symmetric routing
           ::    (we add the lane here as a hack to avoid having to deal with
           ::     %aqua's lane management)
           ::
-          %-  co-emit
+          %-  ma-emit
           %^  give-push  ship
             [hop=0 %page name u.page next=~]
           (make-lanes ship lane.sat qos.sat)
         ::
-        ++  co-push-pact
+        ++  ma-push-pact
           |=  [remote=spar payload=(unit path)]
-          ^+  co-core
+          ^+  ma-core
           =*  who  ship.remote
           ?~  her=(~(get by chums.ames-state) who)
-            %-  %^  co-tace  odd.veb.bug.ames-state  who
+            %-  %^  ma-tace  odd.veb.bug.ames-state  who
                 |.("missing chum on {<[ship path]:remote>}")
-            co-core
+            ma-core
           ?>  ?=([%known *] u.her)
           =/  per=fren-state  +.u.her
           ?^  res=(~(get by pit.per) path.remote)
@@ -12361,56 +12385,58 @@
             ?>  ?=(^ pax)
             =.  tip.per  (~(put ju tip.per) pax [hen path.remote])
             ~|  [user-pax=pax ames-pax=path.remote pit.per]
-            %_  co-core
+            %_  ma-core
                 chums.ames-state
               (~(put by chums.ames-state) ship.remote known/per)
             ==
           ::
-          ?~  pact=(co-make-pact remote payload rift.per)
+          ?~  pact=(ma-pact remote payload rift.per)
             ~|  [remote=remote payload=payload rift=rift.per]
             !!
+          ?:  ?=(%& -.pact)
+            !! :: XX not implemented
           =|  new=request-state
           =.  for.new  (~(put ju for.new) hen %sage)
           =.  pay.new  payload
           =.  pit.per  (~(put by pit.per) path.remote new)
           ?>  ?=(^ pax)
           =.  tip.per  (~(put ju tip.per) pax [hen path.remote])
-          %-  %^  co-tace  fin.veb.bug.ames-state  who
+          %-  %^  ma-tace  fin.veb.bug.ames-state  who
               |.("add {<(spud pax)>} to .pit")
           =.  chums.ames-state
             (~(put by chums.ames-state) who known/per)
           ::
           ?:  =(~ unix-duct)
-            %.  co-core
+            %.  ma-core
             (slog leaf+"ames: unix-duct pending; will retry %push" ~)
-          (co-emit (give-push who u.pact (make-lanes who [lane qos]:per)))
+          (ma-emit (give-push who +.pact (make-lanes who [lane qos]:per)))
         ::
         +|  %internals
         ::
-        ++  co-make-pact
+        ++  ma-pact
           |=  [p=spar q=(unit path) =per=rift]
-          ^-  (unit pact:pact)
+          ^-  $@(~ (each term pact:pact))
           =/  nam  [[ship.p per-rift] [13 ~] path.p]
           ?~  q
-            `[hop=0 %peek nam]
+            |+[hop=0 %peek nam]
           ::
           =/  man=name:pact  [[our rift.ames-state] [13 ~] u.q]
           ::
-          ?~  page=(co-get-page man)
-            ~&([%no-page man=man] ~)  :: XX
+          ?~  page=(ma-get-page man)
+            ~&([%no-page man=man] ~)   :: XX
           =/  poke=pact:pact  [hop=0 %poke nam man u.page]
           =/  [=bloq =step]   (met:plot (en:pact poke))
           ?>  =(3 bloq)
           ?.  (gth step max-mtu)
-            `poke
+            |+poke
           ::
-          %-  %^  co-tace  odd.veb.bug.ames-state  ship.p
+          %-  %^  ma-tace  odd.veb.bug.ames-state  ship.p
               |.("pact over-mtu page={<(met 3 dat.u.page)>}B; send %auth pact")
-          ?~  page=(co-get-page man(wan [%auth 0]))
+          ?~  page=(ma-get-page man(wan [%auth 0]))
             ~&([%no-auth-page man=man] ~)  :: XX
-          `[hop=0 %poke nam man u.page]
+          |+[hop=0 %poke nam man u.page]
         ::
-        ++  co-get-page
+        ++  ma-get-page
           |=  =name:pact
           ^-  (unit data:pact)
           =/  res=(unit (unit cage))
@@ -13585,7 +13611,7 @@
             ::
             =<  moves
             %.  [space=[%none ~] spar=[her-pok pat.ack.pact]]
-            co-make-page:co:me-core(rof flow-roof)
+            ma-page:ma:me-core(rof flow-roof)
           ::  produce mesa ack
           ::
           %-  %+  ev-tace:ev-core  &(?=(^ moves) snd.veb.bug.ames-state)

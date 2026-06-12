@@ -12272,6 +12272,7 @@
         ++  ma-abet  [(flop moves) ames-state]
         ++  ma-abed  |=(=duct ma-core(hen duct))
         ++  ma-emit  |=(=move ma-core(moves [move moves]))
+        ++  ma-emil  |=(mos=(list move) ma-core(moves (weld (flop mos) moves)))
         ++  ma-tace
           |=  [verb=? her=ship print=(trap tape)]
           ^+  same
@@ -12394,7 +12395,17 @@
             ~|  [remote=remote payload=payload rift=rift.per]
             !!
           ?:  ?=(%& -.pact)
-            !! :: XX not implemented
+            ?+    +.pact  !!
+                %meek-over-mtu
+              ::  if this is about a %meek no-op and give ~
+              ::
+              =^  moves  ames-state
+                =<  ev-abet
+                =+  ev-core=(ev-abed:ev hen ship.remote per)
+                %-  (ev-give-sage:ev-core)
+                [(~(put ju *(jug duct ints)) hen %sage) path.remote ~]
+              (ma-emil moves)
+            ==
           =|  new=request-state
           =.  for.new  (~(put ju for.new) hen %sage)
           =.  pay.new  payload
@@ -12418,7 +12429,15 @@
           ^-  $@(~ (each term pact:pact))
           =/  nam  [[ship.p per-rift] [13 ~] path.p]
           ?~  q
-            |+[hop=0 %peek nam]
+            ~&  >>>  nam
+            =+  bys=(rig (met:plot `plot`(en:name nam)) 3)
+            ?:  (gte 301 bys)
+              |+[hop=0 %peek nam]
+            :: XX  see https://github.com/urbit/urbit/pull/7358
+            :: for a solution that turns over-mtu %peeks into %pokes
+            ::
+            ~>  %slog.2^leaf/"mesa: {<ship.p>}: peek over-mtu ({<bys>}B); no-op"
+            &+%meek-over-mtu
           ::
           =/  man=name:pact  [[our rift.ames-state] [13 ~] u.q]
           ::

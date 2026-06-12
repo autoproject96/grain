@@ -365,7 +365,6 @@
       $:  %g                                            ::  to %gall
           $>  $?  %deal
                   %jolt
-                  %load
                   %bump
               ==
           task:gall
@@ -4467,7 +4466,7 @@
     ?:  (lth veb.bug pri)
       same
     (slog leaf+"goad: {(print)}" ~)
-  ::  +goad: emit %load move for all desks, applying $rein's
+  ::  +goad: emit %bump move for a desk or all desks, applying $rein's
   ::
   ::  [goad] Must be called any time the set of running agents changes.
   ::  This is whenever an agent is started, stopped, or updated.
@@ -4516,12 +4515,23 @@
     =+  (build-marks (turn (skip sat |=([desk =bill] =(bill ~))) head))
     ::
     =.  ..abet  tare                                    ::  [tare] >
-    =/  task
-      ?~  syd  [%load agents]
-      =/  g  |=([=dude:gall * =agent:gall] [dude agent])
-      [%bump [our u.syd da+now] (turn agents g)]
+    =/  moves=(list move)
+      =/  beaks=(set beak)
+        %+  roll  agents
+        |=  [[* =beak *] acc=(set beak)]
+        (~(put in acc) beak)
+      ::
+      %-  ~(rep in beaks)
+      |=  [keab=beak acc=(list move)]
+      :_  acc
+      =-  [hen %pass /lu/load %g %bump keab -]
+      %+  murn  agents
+      |=  [=dude:gall =beak =agent:gall]
+      ^-  (unit [dude:gall agent:gall])
+      ?.  =(keab beak)  ~
+      `[dude agent]
     ::
-    (emit hen %pass /lu/load %g task)
+    (emil moves)
   ::  +override: apply rein to bill
   ::
   ++  override

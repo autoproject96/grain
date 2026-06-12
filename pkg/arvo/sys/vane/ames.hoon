@@ -12429,7 +12429,6 @@
           ^-  $@(~ (each term pact:pact))
           =/  nam  [[ship.p per-rift] [13 ~] path.p]
           ?~  q
-            ~&  >>>  nam
             =+  bys=(rig (met:plot `plot`(en:name nam)) 3)
             ?:  (gte 301 bys)
               |+[hop=0 %peek nam]

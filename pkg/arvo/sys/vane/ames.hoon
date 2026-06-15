@@ -10060,6 +10060,14 @@
           ++  fo-abel
             ^+  ev-core
             ::
+            =/  cork-path  (fo-cor-path seq=0 our)
+            ::  this assumes that the sender has only one outstanding $boon
+            ::    (snd-window = 1)
+            ::
+            =/  boon-path  (fo-pok-path seq=+(last-acked.rcv) our)
+            =/  ames-cork  (make-space-path chum-to-our cork-path)
+            =/  ames-boon  (make-space-path chum-to-our boon-path)
+            ::
             =:   flows.per  (~(del by flows.per) bone^dire)
                 corked.per  (~(put in corked.per) bone^dire)
             ::
@@ -10072,8 +10080,6 @@
               (~(del by by-duct.ossuary.per) (ev-got-duct bone))
             ::
                 tip.per
-              =/  cork-path  (fo-cor-path seq=0 our)
-              =/  ames-cork  (make-space-path chum-to-our cork-path)
               =+  ?.  (~(has by tip.per) cork-path)  ~
                   %.  ~
                   %+  ev-tace  fin.veb.bug.ames-state
@@ -10084,7 +10090,12 @@
                       """
               =;  [tip=_tip.per *]
                 ::  once all %acks are deleted we can delete the peek for the cork
+                ::    (and any possible %peek for $boon)
                 ::
+                =?  tip  ?=(%for dire) :: XX necessary?
+                  %^  ~(del ju tip)  boon-path
+                    `duct`[`wire`[%ames (fo-wire %pok)] duct=hen]
+                  ames-boon
                 %^  ~(del ju tip)  cork-path
                   `duct`[`wire`[%ames (fo-wire %cor)] duct=hen]
                 ames-cork
@@ -10101,15 +10112,21 @@
             ::
                 pit.per
                   =;  [pit=_pit.per *]
-                    ::  a forward flow can be deleted when we hear an %ack for a
-                    ::  %cork $plea, or a %gone $page for a corked flow +peek.
+                    ::  a forward flow can be deleted when we hear an %ack for
+                    ::  a %cork $plea, or a %gone $page for a corked flow +peek
                     ::
                     ::  for the %ack, there could be a path in the .pit to read
                     ::  if the flow has been corked, so we can just derive it
                     ::  based on the flow-state, and attempt to delete it.
                     ::
-                    %-  ~(del by pit)
-                    (make-space-path chum-to-our (fo-cor-path seq=0 our))
+                    ::  if we are the %bak side, we could be peeking for a
+                    ::  multi-fragment $boon. If we leave the subscription
+                    ::  before the $boon completes, and then %cork the flow
+                    ::
+                    ::
+                    =?  pit  ?=(%bak dire) :: XX necessary?
+                      (~(del by pit) ames-boon)
+                    (~(del by pit) ames-cork)
                   ::
                   %^  (dip:fo-mop _pit.per)  loads.snd
                     pit.per

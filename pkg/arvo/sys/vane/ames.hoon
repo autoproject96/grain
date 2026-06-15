@@ -10747,14 +10747,6 @@
             =/  =space   chum-to-our
             (fo-emit hen [%pass wire %a meek/[space her (fo-nax-path seq our)]])
           ::
-          ++  fo-send-ack
-            |=  seq=@ud
-            ^+  fo-core
-            ::  emit (n)ack to unix; see +fo-peek where the (n)ack is produced
-            ::
-            =/  =path  (%*(fo-ack-path fo-core dire.side fo-flip-dire) seq her)
-            (fo-emit [/ames]~ %pass /make-page %a mage/[chum-to-her her^path])
-          ::
           ++  fo-peek-cork
             %-  %+  ev-tace  fin.veb.bug.ames-state
                 |.("peek for %cork {<bone=bone>}")
@@ -10774,6 +10766,14 @@
             ::  for-cor-path will produce a path for the %cork on the other side
             ::
             [(fo-wire %fub) %a meek/[chum-to-our her (fo-cor-path seq=0 our)]]
+          ::
+          ++  fo-send-ack
+            |=  seq=@ud
+            ^+  fo-core
+            ::  emit (n)ack to unix; see +fo-peek where the (n)ack is produced
+            ::
+            =/  =path  (%*(fo-ack-path fo-core dire.side fo-flip-dire) seq her)
+            (fo-emit [/ames]~ %pass /make-page %a mage/[chum-to-her her^path])
           ::
           ++  fo-handle-miss-ack
             |=  seq=message-num

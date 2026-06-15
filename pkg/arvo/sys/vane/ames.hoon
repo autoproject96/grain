@@ -10075,6 +10075,14 @@
                 ::    (and any possible %peek for $boon)
                 ::
                 =?  tip  ?=(%for dire) :: XX necessary?
+                  =+  ?.  (~(has by tip.per) boon-path)  ~
+                      %.  ~
+                      %+  ev-tace  fin.veb.bug.ames-state
+                      |.  """
+                          remove {(spud boon-path)} from .tip {<side=side>}
+                          {<[%ames (fo-wire %pok) duct=hen]>}
+                          ames-path={(spud ames-boon)}
+                          """
                   %^  ~(del ju tip)  boon-path
                     `duct`[`wire`[%ames (fo-wire %pok)] duct=hen]
                   ames-boon
@@ -10106,7 +10114,15 @@
                     ::  before the $boon completes, and then %cork the flow
                     ::
                     ::
-                    =?  pit  ?=(%bak dire) :: XX necessary?
+                    =?  pit  ?=(%for dire) :: XX necessary?
+                      =+  ?.  (~(has by tip.per) boon-path)  ~
+                          %.  ~
+                          %+  ev-tace  fin.veb.bug.ames-state
+                          |.  """
+                              remove {(spud boon-path)} from .pit {<side=side>}
+                              {<[%ames (fo-wire %pok) duct=hen]>}
+                              ames-path={(spud ames-boon)}
+                              """
                       (~(del by pit) ames-boon)
                     (~(del by pit) ames-cork)
                   ::

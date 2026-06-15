@@ -10767,6 +10767,17 @@
           ::
           ++  fo-peek-poke
             |=  [seq=@ud =poke=path]
+            ::  if flow is corked, no-op
+            ::
+            ?:  |(halt.state closing.state (~(has in corked.per) side))
+              %-  %+  ev-tace  odd.veb.bug.ames-state
+                  |.
+                  ?:  halt.state
+                    "flow {<[side]>} is halted; skip peek"
+                  ?:  closing.state
+                    "flow {<[side]>} in closing; skip peek"
+                  "flow {<[side]>} is corked; skip peek"
+              fo-core
             :: XX assert load is plea/boon?
             ::
             ?:  (fo-message-is-acked seq)

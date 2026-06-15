@@ -9396,6 +9396,14 @@
             ?:  (gth (div (add tob.data.pact (dec frag)) frag) 1)
               %-  %+  ev-tace  msg.veb.bug.ames-state
                   |.("hear incomplete message")
+              ::  authenticate the first (%auth) fragment before peeking for
+              ::  the rest of the payload: dat is the serialized lss proof, so
+              ::  recover the root and verify the sender's signature/mac over it
+              ::
+              ?>  %-  authenticate
+                  :+  (recover-root:verifier:lss (rip 8 dat.data))
+                    aut.data
+                  pok.pact
               :: XX assert load is plea/boon?
               ::
               ?:  (fo-message-is-acked:fo-core mess.pok)

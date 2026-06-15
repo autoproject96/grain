@@ -9467,6 +9467,14 @@
             ::
             =.  ev-core  (ev-update-qos %live last-contact=now)
             ::
+            =/  tof  (div (add tob.data 1.023) 1.024)
+            =/  [typ=?(%auth %data) fag=@ud]
+              ?~  wan.name
+                [?:((gth tof 1) %auth %data) 0]
+              [typ fag]:wan.name
+            %-  %+  ev-tace  rcv.veb.bug.ames-state
+                |.("hear page packet {<[tof=tof typ=typ fag=fag]>}")
+            ::
             ::  check for pending request (peek|poke)
             ::
             ?~  res=(~(get by pit.per) sealed-path)
@@ -9474,20 +9482,11 @@
               %+  ev-tace  odd.veb.bug.ames-state
               |.("missing page from pit {(spud inner-path)}")
             ::
-            %-  (ev-tace rcv.veb.bug.ames-state |.("hear page packet"))
-            ::
             ?.  =(rift.per rif.name)
               %-  %+  ev-tace  odd.veb.bug.ames-state
                   |.("wrong rift {<[rift.per rif.name]>}; skip")
               ev-core
             ::
-            ::
-            =/  tof  (div (add tob.data 1.023) 1.024)
-            ::
-            =/  [typ=?(%auth %data) fag=@ud]
-              ?~  wan.name
-                [?:((gth tof 1) %auth %data) 0]
-              [typ fag]:wan.name
             ::
             ?-    typ
                 %auth
@@ -10065,11 +10064,7 @@
               =+  ?.  (~(has by tip.per) cork-path)  ~
                   %.  ~
                   %+  ev-tace  fin.veb.bug.ames-state
-                  |.  """
-                      remove {(spud cork-path)} from .tip {<side=side>}
-                      {<[%ames (fo-wire %cor) duct=hen]>}
-                      ames-path={(spud ames-cork)}
-                      """
+                  |.("remove %peek for %cork from .tip {<side>}")
               =;  [tip=_tip.per *]
                 ::  once all %acks are deleted we can delete the peek for the cork
                 ::    (and any possible %peek for $boon)
@@ -10078,11 +10073,7 @@
                   =+  ?.  (~(has by tip.per) boon-path)  ~
                       %.  ~
                       %+  ev-tace  fin.veb.bug.ames-state
-                      |.  """
-                          remove {(spud boon-path)} from .tip {<side=side>}
-                          {<[%ames (fo-wire %pok) duct=hen]>}
-                          ames-path={(spud ames-boon)}
-                          """
+                      |.("remove %peek for %boon from .tip {<side>}")
                   %^  ~(del ju tip)  boon-path
                     `duct`[`wire`[%ames (fo-wire %pok)] duct=hen]
                   ames-boon
@@ -10118,11 +10109,7 @@
                       =+  ?.  (~(has by tip.per) boon-path)  ~
                           %.  ~
                           %+  ev-tace  fin.veb.bug.ames-state
-                          |.  """
-                              remove {(spud boon-path)} from .pit {<side=side>}
-                              {<[%ames (fo-wire %pok) duct=hen]>}
-                              ames-path={(spud ames-boon)}
-                              """
+                          |.("remove %peek for %boon from .pit {<side>}")
                       (~(del by pit) ames-boon)
                     (~(del by pit) ames-cork)
                   ::

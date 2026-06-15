@@ -9404,25 +9404,7 @@
                   :+  (recover-root:verifier:lss (rip 8 dat.data))
                     aut.data
                   pok.pact
-              :: XX assert load is plea/boon?
-              ::
-              ?:  (fo-message-is-acked:fo-core mess.pok)
-                ::  don't peek if the message havs been already acked
-                ::
-                ?:  (gte (sub last-acked.rcv:fo-core mess.pok) 10)
-                  %-  %+  ev-tace  odd.veb.bug.ames-state
-                      |.("poke [bon, seq]={<[bone mess]:pok>} outside of window")
-                  ev-core
-                %-  %+  ev-tace  rcv.veb.bug.ames-state
-                    |.("poke [bon, seq]={<[bone mess]:pok>} already acked")
-                ::
-                fo-abet:(fo-send-ack:fo-core mess.pok)
-              ::
-              %-  %+  ev-tace  fin.veb.bug.ames-state
-                  |.("peek for poke payload {<[flow=bone seq=mess]:pok>}")
-              ::
-              %^  ev-emit  hen  %pass
-              [(fo-wire:fo-core %pok) %a %meek [none/~ [her pat]:pok.pact]]
+              fo-abet:(fo-peek-poke:fo-core seq=mess.pok pat.pok.pact)
             ::  authenticate one-fragment message
             ::
             ::  if this is a one-fragment %data pact, tob would equal the size of
@@ -10735,7 +10717,7 @@
                 ==
             fo-core
           ::
-          +|  %internals
+          +|  %peeks
           ::
           ++  fo-peek-naxplanation
             |=  seq=@ud
@@ -10766,6 +10748,30 @@
             ::  for-cor-path will produce a path for the %cork on the other side
             ::
             [(fo-wire %fub) %a meek/[chum-to-our her (fo-cor-path seq=0 our)]]
+          ::
+          ++  fo-peek-poke
+            |=  [seq=@ud =poke=path]
+            :: XX assert load is plea/boon?
+            ::
+            ?:  (fo-message-is-acked seq)
+              ::  don't peek if the message havs been already acked
+              ::
+              ?:  (gte (sub last-acked.rcv seq) 10)
+                %-  %+  ev-tace  odd.veb.bug.ames-state
+                    |.("poke [bon, seq]={<[bone seq]>} outside of window")
+                fo-core
+              %-  %+  ev-tace  rcv.veb.bug.ames-state
+                  |.("poke [bon, seq]={<[bone seq]>} already acked")
+              ::
+              (fo-send-ack:fo-core seq)
+            ::
+            %-  %+  ev-tace  fin.veb.bug.ames-state
+                |.("peek for poke payload {<[flow=bone seq=seq]>}")
+            ::
+            %^  fo-emit  hen  %pass
+            [(fo-wire %pok) %a %meek [none/~ her poke-path]]
+          ::
+          +|  %internals
           ::
           ++  fo-send-ack
             |=  seq=@ud

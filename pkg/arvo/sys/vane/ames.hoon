@@ -9333,10 +9333,12 @@
               ~|  inner-path/[pat.ack^pat.pok]:pact
               (decrypt-path [pat her]:pok.pact)
             ::
-            ?:  ?=(?(%publ %none) -.space)
+            ?.  ?=(%chum -.space)
+              ::  XX
+              ::
               %-  %+  %*(ev-tace ev-core her her-pok)  odd.veb.bug.ames-state
                   |.  %+  weld  "weird poke lifes={<life.per^life.ames-state>}"
-                      " pok={<pat.pok.pact>}; skip"
+                      " pok={<pat.pok.pact>} using {<-.space>}; skip"
               ev-core
             ::
             =/  [pok=(pole iota) ack=(pole iota)]

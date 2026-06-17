@@ -10076,6 +10076,10 @@
                       %.  ~
                       %+  ev-tace  fin.veb.bug.ames-state
                       |.("remove %peek for %boon from .tip {<side>}")
+                  ~&  >>  :*  boon-path
+                              `duct`[`wire`[%ames (fo-wire %pok)] duct=hen]
+                              ames-boon
+                          ==
                   %^  ~(del ju tip)  boon-path
                     `duct`[`wire`[%ames (fo-wire %pok)] duct=hen]
                   ames-boon
@@ -10108,7 +10112,7 @@
                     ::
                     ::
                     =?  pit  ?=(%for dire) :: XX necessary?
-                      =+  ?.  (~(has by tip.per) boon-path)  ~
+                      =+  ?.  (~(has by pit.per) ames-boon)  ~
                           %.  ~
                           %+  ev-tace  fin.veb.bug.ames-state
                           |.("remove %peek for %boon from .pit {<side>}")
@@ -10781,10 +10785,18 @@
               ::
               (fo-send-ack:fo-core seq)
             ::
+
             %-  %+  ev-tace  fin.veb.bug.ames-state
-                |.("peek for poke payload {<[flow=bone seq=seq]>}")
+                |.  %+  weld  "peek for {<?:(?=(%for dire) %plea %boon)>} "
+                    "payload {<[flow=bone seq=seq]>}"
             ::
-            %^  fo-emit  hen  %pass
+
+            %^    fo-emit
+                ?.  ?=(%for dire)  hen
+                ::  if peeking for a %boon, use the right listener
+                ::
+                (~(got by by-bone.ossuary.per) bone)
+              %pass
             [(fo-wire %pok) %a %meek [none/~ her poke-path]]
           ::
           +|  %internals

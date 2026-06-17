@@ -4096,7 +4096,7 @@
               p
             ?.  (~(has in corked.c) u.bone %for)
               p
-            (~(del by pit) ames-path)
+            (~(del by p) ames-path)
           ==
         ==
       ::

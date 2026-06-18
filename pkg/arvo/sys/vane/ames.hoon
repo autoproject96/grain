@@ -11098,6 +11098,12 @@
               ::
               sy-core
             ?.  ?=([?(%ames %mesa) ~ %known *] peer)
+              ::  XX if this is the first time we contact this ship, the
+              ::  %keys diff should be the first to be given to %ames, then
+              ::  %rift, then %spon. a different order would end up with the
+              ::  .rift.peer beeing dropped by the bunt in the point we pass
+              ::  to on-publ-full
+              ::
               =|  =point:jael
               =.  life.point     life
               =.  keys.point     (my [life crypto-suite pass]~)

@@ -3,16 +3,21 @@
 ::    (miss = %.y) only prints missmatches
 ::
 :-  %say
-|=  [[now=time @ bec=beak] arg=$@(~ [=ship ~]) miss=_| ~]
+|=  [[now=time @ bec=beak] arg=$@(~ [=ship ~]) miss=_| core=?(%mesa %ames) ~]
 =/  peers=(list @p)
   ?^  arg
     [ship.arg ~]
   ::  XX also look at /chums
   ::
-  =+  .^  ships=(map ship ?(%alien %known))
-        %ax  /(scot %p p.bec)//(scot %da now)/peers
+  =+  ^=  peers
+      ?:  ?=(%ames core)
+        .^  (map ship ?(%alien %known))
+          %ax  /(scot %p p.bec)//(scot %da now)/peers
+        ==
+      .^  (map ship ?(%alien %known))
+        %ax  /(scot %p p.bec)//(scot %da now)/chums
       ==
-  %-  ~(rep by ships)
+  %-  ~(rep by peers)
   |=  [[=ship val=?(%alien %known)] out=(list @p)]
   ?:  =(ship p.bec)
     out  ::  this is weird, but we saw it
@@ -21,18 +26,25 @@
     %known  ship^out
   ==
 ~&  peers=(lent peers)
-
 =|  out=(list [who=@p (pair jael=[(unit life=@) rift=(unit @)] ames=[life=(unit @) rift=(unit @)])])
 :-  %noun
  =;  o=_out
-   o^total=(lent o)
+   :_  total=(lent o)
+   (turn o |*([=ship r=*] [core^ship r]))
 |-  ^+  out
 ?~  peers  out
 =*  ship  i.peers
-=+  .^  =ship-state:ames
+=/  [ames-life=(unit @ud) ames-rift=(unit @ud)]
+    =-  ?>  ?=([%known *] -)
+        [ames-life=`life ames-rift=`rift]:->
+    ?:  ?=(%ames core)
+      .^  =ship-state:ames
         %ax  /(scot %p p.bec)//(scot %da now)/peers/(scot %p ship)
+      ==
+    .^  =chum-state:ames
+      %ax  /(scot %p p.bec)//(scot %da now)/chums/(scot %p ship)
     ==
-?>  ?=([%known *] ship-state)
+
 ::  for each peer scry into %jael and %ames
 ::
 =/  our  (scot %p p.bec)
@@ -41,7 +53,7 @@
 =+  life=.^((unit @ud) %j /[our]/lyfe/[now]/[her])
 =+  rift=.^((unit @ud) %j /[our]/ryft/[now]/[her])
 =+  jael=[jael-life=life jael-rift=rift]
-=+  ames=[ames-life=`life ames-rift=`rift]:+.ship-state
+=+  ames=[ames-life=ames-life ames-rift=ames-rift]
 %_    $
     peers  t.peers
     out

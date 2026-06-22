@@ -488,7 +488,7 @@
   |=  [=ship =gall-gate =dude:gall =agent:gall]
   =^  *  gall-gate
     %+  gall-call  gall-gate
-    [~[/bump] bump+[[ship %base da+~1111.1.1] [dude agent]~] *roof]
+    [~[/load] load/[[dude [ship %base da+~1111.1.1] agent]~] *roof]
   =^  *  gall-gate
     =/  =sign-arvo
       :+  %clay  %writ
@@ -496,7 +496,7 @@
     %:  gall-take
       gall-gate
       /sys/cor/[dude]/(scot %p ship)/base/(scot %da ~1111.1.1)
-      ~[/bump]
+      ~[/load]
       sign-arvo
       *roof
     ==

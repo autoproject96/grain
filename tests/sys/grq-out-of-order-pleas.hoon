@@ -506,7 +506,7 @@
   ~?  >  dbug  '~bud revives %pub'
   =^  t-revive  gall.bud
     %+  gall-call:v  gall.bud
-    [~[/load] bump/[[~bud %base da+~1111.1.1] [%pub test-pub]~] *roof]
+    [~[/load] load/[[%pub [~bud %base da+~1111.1.1] test-pub]~] *roof]
   ::  ames gets a %spur to un-halt the backward flow, locally
   ::  and a %boon %spur to un-halt the forward flow, over the wire
   ::

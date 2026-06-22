@@ -940,7 +940,28 @@
       |=  plot
       (fall (clap bob (bind (ram:on-path fan) head) max) 0)
     ~(tap-hutch of-farm sky.yoke)
-  ::  +mo-bump: install agents in a desk
+  ::  +mo-load: install agents
+  ::
+  ++  mo-load
+    |=  [prov=path agents=(list [=dude =beak =agent])]
+    =.  mo-core
+      |-  ^+  mo-core
+      ?~  agents  mo-core
+      =/  [=dude =desk]  [dude q.beak]:i.agents
+      ::  ~>  %slog.0^leaf/"gall: starting {<dude>} on {<desk>}"
+      $(agents t.agents, mo-core (mo-receive-core prov i.agents))
+    ::
+    =/  kil
+      =/  lol
+        (skim ~(tap by yokes.state) |=([* y=yoke] &(?=(%live -.y) -.agent.y)))
+      =/  mol  (~(gas by *(map term yoke)) lol)
+      =/  sol  ~(key by mol)
+      =/  new  (silt (turn agents head))
+      ~(tap in (~(dif in sol) new))
+    |-  ^+  mo-core
+    ?~  kil  mo-core
+    ~>  %slog.0^leaf/"gall: stopping {<i.kil>}"
+    $(kil t.kil, mo-core (mo-idle prov i.kil))
   ::
   ++  mo-bump
     |=  [prov=path =beak agents=(list [=dude =agent])]
@@ -2446,6 +2467,7 @@
       %sear  mo-abet:(mo-filter-queue:mo-core ship.task)
       %jolt  mo-abet:(mo-jolt:mo-core dude.task our desk.task)
       %idle  mo-abet:(mo-idle:mo-core prov dude.task)
+      %load  mo-abet:(mo-load:mo-core prov +.task)
       %bump  mo-abet:(mo-bump:mo-core prov +.task)
       %nuke  mo-abet:(mo-nuke:mo-core prov dude.task)
       %doff  mo-abet:(mo-doff:mo-core prov +.task)

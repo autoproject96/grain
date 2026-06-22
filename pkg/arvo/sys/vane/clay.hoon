@@ -1500,9 +1500,6 @@
   ::  Must be called at the end of a commit, but only while Clay is in a
   ::  fully-consistent state (eg not in the middle of a kelvin upgrade).
   ::
-  ::  `syd` is a desk to which the file system changes are localized, if
-  ::  applicable.
-  ::
   ++  goad
     |=  syd=(unit desk)
     ^+  ..park

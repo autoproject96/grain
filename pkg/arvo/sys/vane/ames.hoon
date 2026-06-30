@@ -11411,10 +11411,19 @@
               =<  ev-abet  ^+  ev-core
               %-  ~(rep by pit.per.ev-core)
               |=  [[=path req=request-state] core=_ev-core]
+              =/  peer-dead=?  (is-peer-dead:core now [her qos.per]:core)
               ::  update and print connection status
               ::
-              =?  core  (is-peer-dead:core now [her qos.per]:core)
+              =?  core  peer-dead
                 (ev-update-qos:core qos.per.core(- %dead))
+              ::   expire dead routes
+              ::
+              =?  core  &(!=(~ unix-duct) peer-dead)
+                %-  ev-emit:core
+                :*  unix-duct  %give  %nail  her.core
+                    %-  mesa-to-ames-lanes
+                    (get-forward-lanes-mesa [her per]:core)
+                ==
               ::  XX find the bone for the flow inspecting the duct and checking
               ::  if the flow is halted; add state to .req to track halt?
               ::

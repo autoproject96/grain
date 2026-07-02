@@ -9697,6 +9697,8 @@
             |=  [=spar =auth:mess res=@]  ::  XX assumes res and path decrypted
             ^+  ev-core
             =*  ship  ship.spar
+            ::  XX check rifts/lifes
+            ::
             ?>  =(her ship.spar)
             ::
             =+  path=?~(sealed-path path.spar u.sealed-path)
@@ -11231,8 +11233,16 @@
             ::
             =/  peer  (find-peer ship)
             ?.  ?=([?(%ames %mesa) ~ %known *] peer)
-              %.  sy-core
-              (slog leaf+"ames: missing peer {<ship>} on new sponsor, skip" ~)
+              ?~  unix-duct
+                sy-core
+              %-  (slog leaf+"ames: missing peer {<ship>} on new sponsor; give %nail" ~)
+              %-  sy-emit
+              :*  unix-duct  %give  %nail  ship
+                  ?.  ?=(%mesa -.peer)
+                    (get-forward-lanes ship ~)
+                  %-  mesa-to-ames-lanes
+                  (get-forward-lanes-mesa ship ~)
+              ==
             =.  sponsor.+.u.peer   u.sponsor
             =?  chums.ames-state  ?=(%mesa -.peer)
               (~(put by chums.ames-state) ship u.peer)

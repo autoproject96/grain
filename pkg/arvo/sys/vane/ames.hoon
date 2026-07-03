@@ -4203,7 +4203,6 @@
           |=  [=ship c=chum-state]
           ^-  chum-state
           ?:  ?=(%alien -.c)  c
-                     =?  rift.c  =(~sen ship)  2
           ^-  chum-state
           %_    c
               pit

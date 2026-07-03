@@ -4149,13 +4149,20 @@
               moz
             %-  %:  trace   %mesa   odd.veb.bug.old   ship
                   ships.bug.old
-                  |.("fix missing pit entry for {<[bone=bone %for seq=seq]>}")
+                  |.("fix missing pit entry for {<[bone=bone dire seq=seq]>}")
                 ==
+            =/  hen=(unit duct)
+              ?-  dire
+                %for  (~(get by by-bone.ossuary.c) bone)
+                %bak  ``duct`[//ames]~
+              ==
+            ?~  hen
+              ~&  >>>  missing-ossuary-state-33-to-34/[ship bone dire]
+              moz
             %+  weld  moz
-            =/  hen=duct  (~(got by by-bone.ossuary.c) bone)
             =/  =space    chum-to-our:fo-core
             =/  =wire     (fo-wire:fo-core %ack)
-            moves:(fo-emit:fo-core hen %pass wire %a moke/[space ack poke])
+            moves:(fo-emit:fo-core u.hen %pass wire %a moke/[space ack poke])
         ::  second pass to fix .tip entries with wrong rift in duct
         ::
         =.  chums.old

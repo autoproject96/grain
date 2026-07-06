@@ -4272,8 +4272,8 @@
           ::
           =.  chums.old
             ^-  (map ship chum-state)
-            %-  ~(run by chums.old)
-            |=  c=chum-state
+            %-  ~(urn by chums.old)
+            |=  [=ship c=chum-state]
             ^-  chum-state
             ?:  ?=(%alien -.c)  c
             ^-  chum-state
@@ -4296,6 +4296,11 @@
               =/  =dire  ?:(?=(%for dir.user-path) %bak %for)
               ?.  (~(has in corked.c) u.bone dire)
                 tip
+              %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                    ships.bug.old
+                    |.  %+  weld  "corked flow {<[u.bone dire]>}; remove "
+                        "{(spud `path`user-path)} from .tip"
+                  ==
               (~(del by tip) user-path)
             ==
           ::  last pass; .pit clean-up
@@ -4303,8 +4308,8 @@
           %=    old
               chums
             ^-  (map ship chum-state)
-            %-  ~(run by chums.old)
-            |=  c=chum-state
+            %-  ~(urn by chums.old)
+            |=  [=ship c=chum-state]
             ^-  chum-state
             ?:  ?=(%alien -.c)  c
             ^-  chum-state
@@ -4327,13 +4332,18 @@
                 p
               ?~  bone=(slaw %ud bone.i.hen)
                 p
-              ~?  >>>  ?=(^ pay.req)
-                flow-corked-with-pit-entry/bone=u.bone^dire=dir.i.hen
               ::  flow wires carry our side's dire;
               ::  use it directly to find the flow in .corked
               ::
               ?.  (~(has in corked.c) u.bone dir.i.hen)
                 p
+              ~?  >>>  ?=(^ pay.req)
+                flow-corked-with-pit-entry/bone=u.bone^dire=dir.i.hen
+              %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                    ships.bug.old
+                    |.  %+  weld  "corked flow {<[u.bone dir.i.hen]>}; remove "
+                        "{(spud ames-path)} from .pit"
+                  ==
               (~(del by p) ames-path)
             ==
           ==

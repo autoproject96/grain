@@ -2697,7 +2697,7 @@
       ~>  %slog.0^leaf/"ames: metamorphosis on %take"
       [:(weld molt-moves queu-moves take-moves) adult-gate]
     ::
-    ++  stay  [%35 larva/ames-state]
+    ++  stay  [%35 %larva state=axle cache=_cached-state]
     ++  scry  scry:adult-core
     ++  load
       |=  $=  old
@@ -2883,9 +2883,12 @@
                   state=axle
               ==
               $:  %35                            :: clean up corked peeks
-                  ?(%adult %larva)               :: for $boons
-                  state=axle
-          ==  ==
+              $%  $:  %larva                     :: for $boons.
+                      state=axle                 ::
+                      cache=_cached-state        :: give cached-state in +stay
+                  ==                             ::
+                  [%adult state=axle]
+          ==  ==  ==
       |^  ?-  old
           [%4 %adult *]
         =.  cached-state  `[%4 state.old]
@@ -3204,11 +3207,13 @@
         ~>  %slog.1^leaf/"ames: larva %34 reload"
         larval-gate
       ::
-          [%35 *]
-        ?-  +<.old
-          %larva  larval-gate
-          %adult  (load:adult-core state.old)
-        ==
+          [%35 %adult *]
+        (load:adult-core state.old)
+      ::
+          [%35 %larva *]
+        ::  larva doesn't use or update ames-state
+        ::
+        larval-gate(cached-state cache.old)
       ::
       ==
       ::
@@ -3392,7 +3397,7 @@
       ?:  ?=(%33 -.old)
         =^  moz-34  +.old  (state-33-to-34 +.old)
         $(u.cached-state old(- %34), moz (weld moz moz-34))
-      ?>  ?=(%33 -.old)
+      ?>  ?=(%34 -.old)
       $(cached-state `35+(state-34-to-35 +.old))
       ::
       ++  our-beam  `beam`[[our %rift %da now] /(scot %p our)]
@@ -4172,8 +4177,8 @@
               ~&  >>>  missing-ossuary-state-33-to-34/[ship bone dire]
               moz
             %+  weld  moz
-            =/  =space    chum-to-our:fo-core
-            =/  =wire     (fo-wire:fo-core %ack)
+            =/  =space  chum-to-our:fo-core
+            =/  =wire   (fo-wire:fo-core %ack)
             moves:(fo-emit:fo-core u.hen %pass wire %a moke/[space ack poke])
         ::  second pass to fix .tip entries with wrong rift in duct
         ::
@@ -4301,9 +4306,10 @@
               ::
               %-  ~(rep by pit.c)
               |=  [[=ames=path req=request-state] pit=_pit.c]
-              ?:  ?=(^ pay.req)  pit
-              ::  skip poke acks
-              ::
+              ?:  ?=(^ pay.req)
+                ::  skip +peek for poke acks
+                ::
+                pit
               %-  ~(rep by for.req)
               |=  [[hen=duct *] p=_pit]
               ::  inspect the duct to find %mesa wires for %pokes
@@ -10396,10 +10402,6 @@
                       %.  ~
                       %+  ev-tace  fin.veb.bug.ames-state
                       |.("remove %peek for %boon from .tip {<side>}")
-                  ~&  >>  :*  boon-path
-                              `duct`[`wire`[%ames (fo-wire %pok)] duct=hen]
-                              ames-boon
-                          ==
                   %^  ~(del ju tip)  boon-path
                     `duct`[`wire`[%ames (fo-wire %pok)] duct=hen]
                   ames-boon

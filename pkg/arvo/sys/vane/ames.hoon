@@ -2697,7 +2697,7 @@
       ~>  %slog.0^leaf/"ames: metamorphosis on %take"
       [:(weld molt-moves queu-moves take-moves) adult-gate]
     ::
-    ++  stay  [%35 %larva state=axle cache=_cached-state]
+    ++  stay  [%35 %larva state=ames-state cache=cached-state]
     ++  scry  scry:adult-core
     ++  load
       |=  $=  old

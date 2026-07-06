@@ -11111,7 +11111,7 @@
             ::
 
             %-  %+  ev-tace  fin.veb.bug.ames-state
-                |.  %+  weld  "peek for {<?:(?=(%for dire) %plea %boon)>} "
+                |.  %+  weld  "peek for {<?:(?=(%for dire) %boon %plea)>} "
                     "payload {<[flow=bone seq=seq]>}"
             ::
             ::

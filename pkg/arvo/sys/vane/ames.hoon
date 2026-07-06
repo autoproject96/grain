@@ -4284,9 +4284,17 @@
               %-  ~(rep by tip.c)
               |=  [[=user=path *] tip=_tip.c]
               =>  .(user-path `(pole knot)`user-path)
-              ?.  ?=([%a %x %'1' %$ %flow bone=@ *] user-path)
+              ?.  ?=([%a %x %'1' %$ %flow bone=@ lod=@ dir=@ *] user-path)
                 tip
-              ?.  (~(has in corked.c) (slav %ud bone.user-path) %for)
+              ?.  ?=(?(%for %bak) dir.user-path)
+                tip
+              ?~  bone=(slaw %ud bone.user-path)
+                tip
+              ::  flow paths carry the dire of the other side; flip it
+              ::  to find our side of the flow in .corked
+              ::
+              =/  =dire  ?:(?=(%for dir.user-path) %bak %for)
+              ?.  (~(has in corked.c) u.bone dire)
                 tip
               (~(del by tip) user-path)
             ==
@@ -4306,22 +4314,25 @@
               ::
               %-  ~(rep by pit.c)
               |=  [[=ames=path req=request-state] pit=_pit.c]
-              ?:  ?=(^ pay.req)
-                ::  skip +peek for poke acks
-                ::
-                pit
               %-  ~(rep by for.req)
               |=  [[hen=duct *] p=_pit]
-              ::  inspect the duct to find %mesa wires for %pokes
+              ::  inspect the duct to find %mesa wires
               ::
               ?.  ?=([[%ames %mesa %flow *] *] hen)
                 p
               =>  .(i.hen `(pole knot)`i.hen)
-              ?.  ?=([@ @ @ %pok %for h=@ r=@ bone=@ ~] i.hen)
+              ?.  ?=([@ @ @ wer=@ dir=@ h=@ r=@ bone=@ ~] i.hen)
+                p
+              ?.  ?=(?(%for %bak) dir.i.hen)
                 p
               ?~  bone=(slaw %ud bone.i.hen)
                 p
-              ?.  (~(has in corked.c) u.bone %for)
+              ~?  >>>  ?=(^ pay.req)
+                flow-corked-with-pit-entry/bone=u.bone^dire=dir.i.hen
+              ::  flow wires carry our side's dire;
+              ::  use it directly to find the flow in .corked
+              ::
+              ?.  (~(has in corked.c) u.bone dir.i.hen)
                 p
               (~(del by p) ames-path)
             ==

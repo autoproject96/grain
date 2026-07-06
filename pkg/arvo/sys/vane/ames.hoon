@@ -2621,6 +2621,8 @@
             [%31 axle]
             [%32 axle]
             [%33 axle]
+            [%34 axle]
+            [%35 axle]
         ==
     ::
     ::
@@ -2695,7 +2697,7 @@
       ~>  %slog.0^leaf/"ames: metamorphosis on %take"
       [:(weld molt-moves queu-moves take-moves) adult-gate]
     ::
-    ++  stay  [%33 larva/ames-state]
+    ++  stay  [%35 larva/ames-state]
     ++  scry  scry:adult-core
     ++  load
       |=  $=  old
@@ -2872,8 +2874,16 @@
                   ?(%adult %larva)               :: migrate attestation flows
                   state=axle                     :: clean up corked peeks
               ==
-              $:  %33                            :: clean up multi-frag peeks
+              $:  %33                            :: fix broken rifts
                   ?(%adult %larva)               ::
+                  state=axle
+              ==
+              $:  %34                            :: fix outstanding loads
+                  ?(%adult %larva)               ::
+                  state=axle
+              ==
+              $:  %35                            :: clean up corked peeks
+                  ?(%adult %larva)               :: for $boons
                   state=axle
           ==  ==
       |^  ?-  old
@@ -3185,6 +3195,16 @@
         larval-gate
       ::
           [%33 *]
+        =.  cached-state  `[%33 state.old]
+        ~>  %slog.1^leaf/"ames: larva %33 reload"
+        larval-gate
+      ::
+          [%34 *]
+        =.  cached-state  `[%34 state.old]
+        ~>  %slog.1^leaf/"ames: larva %34 reload"
+        larval-gate
+      ::
+          [%35 *]
         ?-  +<.old
           %larva  larval-gate
           %adult  (load:adult-core state.old)
@@ -3264,7 +3284,7 @@
       |^  ^+  [moz larval-core]
       ?~  cached-state  [~ larval-core]
       =*  old  u.cached-state
-      ?:  ?=(%33 -.old)
+      ?:  ?=(%35 -.old)
         ::  no state migrations left; update state, clear cache, and exit
         ::
         [(flop moz) larval-core(ames-state.adult-gate +.old, cached-state ~)]
@@ -3367,8 +3387,13 @@
         $(cached-state `31+(state-30-to-31 +.old))
       ?:  ?=(%31 -.old)
         $(cached-state `32+(state-31-to-32 +.old))
-      ?>  ?=(%32 -.old)
-      $(cached-state `33+(state-32-to-33 +.old))
+      ?:  ?=(%32 -.old)
+        $(cached-state `33+(state-32-to-33 +.old))
+      ?:  ?=(%33 -.old)
+        =^  moz-34  +.old  (state-33-to-34 +.old)
+        $(u.cached-state old(- %34), moz (weld moz moz-34))
+      ?>  ?=(%33 -.old)
+      $(cached-state `35+(state-34-to-35 +.old))
       ::
       ++  our-beam  `beam`[[our %rift %da now] /(scot %p our)]
       ++  state-4-to-5
@@ -3920,7 +3945,6 @@
           m
         =/  flow=flow-state  (~(got by flows.per-sat) u.bone %for)
         =+  fo-core=%*(fo-core fo:ev:mesa:adult-core state flow)
-        :: =+  fo-core=(fo-abed:fo:ev-core u.bone %for)
         ::  if the flow is in closing, we are the forward side, and we are
         ::  resending the %cork $plea, the other side could have corked the
         ::  flow so we try to peek for the %corked flow. as soon as either the
@@ -4044,64 +4068,259 @@
         |=  old=axle
         ^-  axle
         ~>  %slog.0^leaf/"ames: migrating from state %32 to %33"
-        ::  first pass to clean the .tip
+        ::  first pass to fix rifts in .chums
         ::
         =.  chums.old
           ^-  (map ship chum-state)
-          %-  ~(run by chums.old)
-          |=  c=chum-state
+          %-  ~(urn by chums.old)
+          |=  [=ship c=chum-state]
+          ^-  chum-state
+          ?:  ?=(%alien -.c)  c
+          ^-  chum-state
+          %_    c
+              rift
+            =;  rift=@ud
+              =+  ?:  =(rift rift.c)  ~
+                  %.  ~
+                  %:  trace   %mesa   odd.veb.bug.old   ship
+                      ships.bug.old
+                      |.("fixing rift from {<rift.c>} to {<rift>}")
+                  ==
+              rift
+            ?:  ?=(%pawn (clan:title ship))  0
+            ;;  @ud
+            =<  q.q  %-  need  %-  need
+            (rof [~ ~] /ames %j `beam`[[our %rift %da now] /(scot %p ship)])
+          ==
+        ::  last pass to fix rifts in .peers
+        ::
+        %=    old
+            peers
+          ^-  (map ship ship-state)
+          %-  ~(urn by peers.old)
+          |=  [=ship s=ship-state]
+          ^-  ship-state
+          ?:  ?=(%alien -.s)  s
+          ^-  ship-state
+          %_    s
+              rift
+            =;  rift=@ud
+              =+  ?:  =(rift rift.s)  ~
+                  %.  ~
+                  %:  trace   %ames   odd.veb.bug.old   ship
+                      ships.bug.old
+                      |.("fixing rift from {<rift.s>} to {<rift>}")
+                  ==
+              rift
+            ?:  ?=(%pawn (clan:title ship))  0
+            ;;  @ud
+            =<  q.q  %-  need  %-  need
+            (rof [~ ~] /ames %j `beam`[[our %rift %da now] /(scot %p ship)])
+          ==
+        ==
+      ::
+      ++  state-33-to-34
+        |=  old=axle
+        ^-  (quip move axle)
+        ~>  %slog.0^leaf/"ames: migrating from state %33 to %34"
+        :-  ::  first pass to fix loads in .flows with no .pit entry
+            ::
+            ^-  (list move)
+            %-  ~(rep by chums.old)
+            |=  [[=ship c=chum-state] moves=(list move)]
+            ^+  moves
+            ?:  ?=(%alien -.c)  moves
+            ::
+            %-  ~(rep by flows.c)
+            |=  [[side flow=flow-state] moz=_moves]
+            ?.  &(=(0 send-window.snd.flow) ?=(^ loads.snd.flow))
+              moz
+            ::  loads outstanding and window is not 1;
+            ::  pop first off and check if it has an entry in the .tip
+            ::
+            =/  fo-core
+              %*  fo-core  fo:ev:mesa:adult-core
+                ames-state  old
+                       her  ship
+                       per  +.c
+                      side  bone^dire
+                     state  flow
+              ==
+            ?~  first=(pry:fo-mop:fo-core loads.snd.flow)
+              moz
+            =*  seq  key.u.first
+            =/  [ack=spar poke=path]
+              ::  fo-path builders refer to the other side, but %poke is on
+              ::  our side; flip direction
+              ::
+              :-  [ship (fo-ack-path:fo-core seq our)]
+              (%*(fo-pok-path fo-core dire.side fo-flip-dire:fo-core) seq ship)
+            ::  look at the .tip, if there is no entry, pass a %moke
+            ::
+            ?:  (~(has by tip.c) path.ack)
+              moz
+            %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                  ships.bug.old
+                  |.("fix missing pit entry for {<[bone=bone dire seq=seq]>}")
+                ==
+            =/  hen=(unit duct)
+              ?-  dire
+                %for  (~(get by by-bone.ossuary.c) bone)
+                %bak  ``duct`[//ames]~
+              ==
+            ?~  hen
+              ~&  >>>  missing-ossuary-state-33-to-34/[ship bone dire]
+              moz
+            %+  weld  moz
+            =/  =space    chum-to-our:fo-core
+            =/  =wire     (fo-wire:fo-core %ack)
+            moves:(fo-emit:fo-core u.hen %pass wire %a moke/[space ack poke])
+        ::  second pass to fix .tip entries with wrong rift in duct
+        ::
+        =.  chums.old
+          ^-  (map ship chum-state)
+          %-  ~(urn by chums.old)
+          |=  [=ship c=chum-state]
           ^-  chum-state
           ?:  ?=(%alien -.c)  c
           ^-  chum-state
           %_    c
               tip
-            ::  remove entries for corked flows
+            %-  ~(urn by tip.c)
+            |=  [=user=path listeners=(set [duct =ames=path])]
+            %-  ~(rep in listeners)
+            |=  [[hen=duct =ames=path] list=_listeners]
+            ::  inspect the duct to find %mesa wires for %pokes
             ::
-            %-  ~(rep by tip.c)
-            |=  [[=user=path *] tip=_tip.c]
-            =>  .(user-path `(pole knot)`user-path)
-            ?.  ?=([%a %x %'1' %$ %flow bone=@ *] user-path)
-              tip
-            ?.  (~(has in corked.c) (slav %ud bone.user-path) %for)
-              tip
-            (~(del by tip) user-path)
+            ?.  ?=([[%ames %mesa %flow *] *] hen)
+              list
+            =>  .(i.hen `(pole knot)`i.hen)
+            ?.  ?=([@ @ @ were=@ dire=@ who=@ rift=@t *] i.hen)
+              list
+            ?~  rift=(slaw %ud rift.i.hen)
+              list
+            ::  if the rift of the wire doesn't match the one we have
+            ::  for this peer, update in place
+            ::
+            ?:  =(rift.c u.rift)
+              list
+            %-  %:  trace   %mesa   fin.veb.bug.old   ship
+                  ships.bug.old
+                  |.("fix wrong rift in .pit duct {<u.rift>} -> {<rift.c>}")
+                ==
+            =.  list  (~(del in list) hen ames-path)
+            %+  ~(put in list)
+              [i.hen(rift (scot %ud rift.c)) t.hen]
+            ames-path
           ==
-        ::  last pass; .pit clean-up
+        :: last pass to fix .pit entries with wrong rift in duct
         ::
-        %=    old
+        %_    old
             chums
           ^-  (map ship chum-state)
-          %-  ~(run by chums.old)
-          |=  c=chum-state
+          %-  ~(urn by chums.old)
+          |=  [=ship c=chum-state]
           ^-  chum-state
           ?:  ?=(%alien -.c)  c
           ^-  chum-state
           %_    c
               pit
-            ::  remove entries for corked flows
-            ::
-            %-  ~(rep by pit.c)
-            |=  [[=ames=path req=request-state] pit=_pit.c]
-            ?:  ?=(^ pay.req)  pit
-            ::  skip poke acks
-            ::
-            %-  ~(rep by for.req)
-            |=  [[hen=duct *] p=_pit]
-            ::  inspect the duct to find %mesa wires for %pokes
-            ::
-            ?.  ?=([[%ames %mesa %flow *] *] hen)
-              p
-            =>  .(i.hen `(pole knot)`i.hen)
-            ?.  ?=([@ @ @ %pok %for h=@ r=@ bone=@ ~] i.hen)
-              p
-            ?~  bone=(slaw %ud bone.i.hen)
-              p
-            ?.  (~(has in corked.c) u.bone %for)
-              p
-            (~(del by p) ames-path)
+            %-  ~(urn by pit.c)
+            |=  [=path req=request-state]
+            ?.  ?=(^ pay.req)
+              req
+            %_    req
+                for
+              %-  ~(rep by for.req)
+              |=  [[hen=duct ints=(set ints)] for=_for.req]
+              ::  inspect the duct to find %mesa wires for %pokes
+              ::
+              ?.  ?=([[%ames %mesa %flow *] *] hen)
+                for
+              =>  .(i.hen `(pole knot)`i.hen)
+              ?.  ?=([@ @ @ were=@ dire=@ who=@ rift=@t *] i.hen)
+                for
+              ?~  rift=(slaw %ud rift.i.hen)
+                for
+              ::  if the rift of the wire doesn't match the one we have
+              ::  for this peer, update in place
+              ::
+              ?:  =(rift.c u.rift)
+                for
+              %-  %:  trace   %mesa   fin.veb.bug.old   ship
+                    ships.bug.old
+                    |.("fix wrong rift in .tip duct {<u.rift>} -> {<rift.c>}")
+                  ==
+              =.  for  (~(del by for) hen)
+              %+  ~(put by for)
+                [i.hen(rift (scot %ud rift.c)) t.hen]
+              ints
+            ==
           ==
         ==
       ::
+      ++  state-34-to-35
+          |=  old=axle
+          ^-  axle
+          ~>  %slog.0^leaf/"ames: migrating from state %34 to %35"
+          ::  first pass to clean the .tip
+          ::
+          =.  chums.old
+            ^-  (map ship chum-state)
+            %-  ~(run by chums.old)
+            |=  c=chum-state
+            ^-  chum-state
+            ?:  ?=(%alien -.c)  c
+            ^-  chum-state
+            %_    c
+                tip
+              ::  remove entries for corked flows
+              ::
+              %-  ~(rep by tip.c)
+              |=  [[=user=path *] tip=_tip.c]
+              =>  .(user-path `(pole knot)`user-path)
+              ?.  ?=([%a %x %'1' %$ %flow bone=@ *] user-path)
+                tip
+              ?.  (~(has in corked.c) (slav %ud bone.user-path) %for)
+                tip
+              (~(del by tip) user-path)
+            ==
+          ::  last pass; .pit clean-up
+          ::
+          %=    old
+              chums
+            ^-  (map ship chum-state)
+            %-  ~(run by chums.old)
+            |=  c=chum-state
+            ^-  chum-state
+            ?:  ?=(%alien -.c)  c
+            ^-  chum-state
+            %_    c
+                pit
+              ::  remove entries for corked flows
+              ::
+              %-  ~(rep by pit.c)
+              |=  [[=ames=path req=request-state] pit=_pit.c]
+              ?:  ?=(^ pay.req)  pit
+              ::  skip poke acks
+              ::
+              %-  ~(rep by for.req)
+              |=  [[hen=duct *] p=_pit]
+              ::  inspect the duct to find %mesa wires for %pokes
+              ::
+              ?.  ?=([[%ames %mesa %flow *] *] hen)
+                p
+              =>  .(i.hen `(pole knot)`i.hen)
+              ?.  ?=([@ @ @ %pok %for h=@ r=@ bone=@ ~] i.hen)
+                p
+              ?~  bone=(slaw %ud bone.i.hen)
+                p
+              ?.  (~(has in corked.c) u.bone %for)
+                p
+              (~(del by p) ames-path)
+            ==
+          ==
+        ::
       --
     ::
     --
@@ -5701,7 +5920,7 @@
           ==
         ::
         ++  on-ack-ahoy
-          |=  =shot
+          |=  [=lane =shot]
           ^+  event-core
           ?.  sam.shot
             %-  (ev-trace odd.veb sndr.shot |.("weird no ames"))
@@ -5775,7 +5994,7 @@
           =/  ack-packet=^shut-packet
             :-  (mix 0b1 bone.u.shut-packet)
             [message-num.u.shut-packet %| %| !error lag=*@dr]
-          %:  send-blob  for=|  sndr.shot
+          =/  b=^blob
             %-  etch-shot
             %:  etch-shut-packet:ames
               ack-packet
@@ -5783,9 +6002,16 @@
               our               sndr.shot
               our-life.channel  life.hers.channel
             ==
+          ::  ack on the lane it came from, also send to galaxy just in case
           ::
-            ship-state=~  :: send-blob finds the migrated peer in chums
-          ==
+          =?  event-core  ?=(^ unix-duct)
+            (emit unix-duct %give %send lane b)
+          ?:  ?=(%& -.lane)
+            event-core
+          =/  gal=(unit @ux)  (get-sponsor sndr.shot)
+          ?:  |(?=(~ gal) ?=(~ unix-duct))
+            event-core
+          (emit unix-duct %give %send [%& `@pC`u.gal] b)
         ::
         +|  %implementation
         ::  +enqueue-alien-todo: helper to enqueue a pending request
@@ -9696,6 +9922,8 @@
             |=  [=spar =auth:mess res=@]  ::  XX assumes res and path decrypted
             ^+  ev-core
             =*  ship  ship.spar
+            ::  XX check rifts/lifes
+            ::
             ?>  =(her ship.spar)
             ::
             =+  path=?~(sealed-path path.spar u.sealed-path)
@@ -11176,7 +11404,7 @@
               ames-state
             ::  cancel all timers related to .ship
             ::
-            =?  sy-core    ?=(%ames -.peer)
+            =?  sy-core  ?=(%ames -.peer)
               %+  roll  ~(tap by snd.u.peer)
               |=  [[=snd=bone =message-pump-state] core=_sy-core]
               ^+  core
@@ -11233,6 +11461,12 @@
               ::
               sy-core
             ?.  ?=([?(%ames %mesa) ~ %known *] peer)
+              ::  XX if this is the first time we contact this ship, the
+              ::  %keys diff should be the first to be given to %ames, then
+              ::  %rift, then %spon. a different order would end up with the
+              ::  .rift.peer beeing dropped by the bunt in the point we pass
+              ::  to on-publ-full
+              ::
               =|  =point:jael
               =.  life.point     life
               =.  keys.point     (my [life crypto-suite pass]~)
@@ -11281,18 +11515,27 @@
             %-  %+  %*(ev-tace ev her ship)  sun.veb.bug.ames-state
                 |.("hear new sponsor={<sponsor>}")
             ::
-            =?  sy-core  =(our ship)
+            =/  our-saxo=(list @p)  sy-get-sponsors
+            =?  sy-core  ?=(^ (find ~[ship] our-saxo))
               ?~  unix-duct
                 sy-core
-              (sy-emit unix-duct %give %saxo sy-get-sponsors)
+              (sy-emit unix-duct %give %saxo our-saxo)
             ?~  sponsor
               %-  (slog leaf+"ames: {(scow %p ship)} lost sponsor, ignoring" ~)
               sy-core
             ::
             =/  peer  (find-peer ship)
             ?.  ?=([?(%ames %mesa) ~ %known *] peer)
-              %.  sy-core
-              (slog leaf+"ames: missing peer {<ship>} on new sponsor, skip" ~)
+              ?~  unix-duct
+                sy-core
+              %-  (slog leaf+"ames: missing peer {<ship>} on new sponsor; give %nail" ~)
+              %-  sy-emit
+              :*  unix-duct  %give  %nail  ship
+                  ?.  ?=(%mesa -.peer)
+                    (get-forward-lanes ship ~)
+                  %-  mesa-to-ames-lanes
+                  (get-forward-lanes-mesa ship ~)
+              ==
             =.  sponsor.+.u.peer   u.sponsor
             =?  chums.ames-state  ?=(%mesa -.peer)
               (~(put by chums.ames-state) ship u.peer)
@@ -11471,10 +11714,19 @@
               =<  ev-abet  ^+  ev-core
               %-  ~(rep by pit.per.ev-core)
               |=  [[=path req=request-state] core=_ev-core]
+              =/  peer-dead=?  (is-peer-dead:core now [her qos.per]:core)
               ::  update and print connection status
               ::
-              =?  core  (is-peer-dead:core now [her qos.per]:core)
+              =?  core  peer-dead
                 (ev-update-qos:core qos.per.core(- %dead))
+              ::   expire dead routes
+              ::
+              =?  core  &(!=(~ unix-duct) peer-dead)
+                %-  ev-emit:core
+                :*  unix-duct  %give  %nail  her.core
+                    %-  mesa-to-ames-lanes
+                    (get-forward-lanes-mesa [her per]:core)
+                ==
               ::  XX find the bone for the flow inspecting the duct and checking
               ::  if the flow is halted; add state to .req to track halt?
               ::
@@ -13381,7 +13633,7 @@
           [~ %known *]
         =^  moves-ahoy  ames-state
           =<  abet
-          %.(shot on-ack-ahoy:(ev:am-core now^eny^rof hen ames-state))
+          %.([lane shot] on-ack-ahoy:(ev:am-core now^eny^rof hen ames-state))
         ?:  ?=(^ moves-ahoy)
           [moves-ahoy vane-gate]
         =^  moves-peer  vane-gate
@@ -13917,7 +14169,7 @@
   take:am-core
 ::  +stay: extract state before reload
 ::
-++  stay  [%33 adult/ames-state]
+++  stay  [%35 adult/ames-state]
 ::  +load: load in old state after reload
 ::
 ++  load

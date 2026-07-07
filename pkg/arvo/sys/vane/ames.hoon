@@ -11019,7 +11019,9 @@
             ?:  =(0 last-acked.rcv)
               %-  %+  ev-tace  odd.veb.bug.ames-state
                   |.("%cork $plea is first message {<side>}; drop")
-              fo-core
+              ::  drop pending-ack so we skip this bone in fo-abet
+              ::
+              fo-core(pending-ack.rcv %.n)
             ::  publisher receives %cork
             ::  mark flow as closing
             ::  publish %cork %ack (in +hear-poke:ev-mess) in corked.per

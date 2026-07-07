@@ -10857,6 +10857,13 @@
                 %poke  ?~(v=(get:fo-mop loads.snd seq) ~ `u.v)
             ::
                 %ack
+              ::  XX only for send-window=1:
+              ::  if the flow is corked this can only be the %cork $plea
+              ::  so we always ack it (if we are the publisher in a
+              ::  subscription flow)
+              ::
+              ?:  &(fo-corked ?=(%bak dire))
+                `ack/error=%.n
               ::  always ack messages on a forward flow
               ::  (i.e. %boons are always acked)
               ::
@@ -13299,12 +13306,7 @@
             ~  ::  %alien or missing
           =+  ev-core=(ev-abed:ev ~[//scry] u.rcvr +.u.u.per-sat)
           =+  fo-core=(fo-abed:fo:ev-core side=[u.bone dire.tyl])
-          ?:  &(?=(%ack load.tyl) fo-corked:fo-core)
-              :: ~&  >>>  corked-flow-dropping/load^corked.per  :: XX remove
-              ::  if the flow is corked, block
-              ::  XX when are corked bones evicted?
-              ::
-              ~  ::  XX  [~ ~]
+          ::  corked flows are handled in +fo-peek
           ::
           ?~(res=(fo-peek:fo-core load.tyl u.mess) ~ ``[%message !>(u.res)])
         ::  client/server %mesa %corks, flow-level

@@ -10821,9 +10821,13 @@
             ::
                 %ack
               ::  always ack messages on a forward flow
-              ::  (i.e. produce %ack for a %boon)
+              ::  (i.e. %boons are always acked)
               ::
               ?:  ?=(%for dire)
+                ?.  (lte seq last-acked.rcv)
+                  ::  skip future %boons
+                  ::
+                  ~
                 `ack/error=%.n
               ?:  (~(has by nax.rcv) seq)
                 ::  if we have naxplanation state for this message—even

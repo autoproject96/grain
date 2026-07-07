@@ -9808,6 +9808,15 @@
                   |.("ack {<rcvr.ack>} and poke {<her-pok>} missmatch; skip")
               ev-core
             ::
+            ?.  ?&  =(bone.ack bone.pok) :: do paths describes same flow?
+                    =(mess.ack mess.pok)
+                    !=(dire.ack dire.pok)
+                ==
+              %-  %+  ev-tace  odd.veb.bug.ames-state
+                  =+  [a=[bone dire mess]:ack p=[bone dire mess]:pok]
+                  |.("ack/poke flow mismatch {<[a=a p=p]>}; skip")
+              ev-core
+            ::
             %-  (ev-tace rcv.veb.bug.ames-state |.("hear poke packet"))
             ::
             =+  old-lane=lane.per

@@ -4371,6 +4371,7 @@
             ==
           ==
         ::
+      ::
       ++  state-35-to-36
         |=  old=axle
         ^-  axle
@@ -4494,6 +4495,7 @@
             (~(del by p) ames-path)
           ==
         ==
+      ::
       --
     ::
     --
@@ -11323,12 +11325,19 @@
                 |.  %+  weld  "peek for {<?:(?=(%for dire) %boon %plea)>} "
                     "payload {<[flow=bone seq=seq]>}"
             ::
-            ::
-            %^    fo-emit
-                ?.  ?=(%for dire)  hen
-                ::  if peeking for a %boon, use the right listener
-                ::
-                (~(got by by-bone.ossuary.per) bone)
+            =/  hun=(unit duct)
+              ?.  ?=(%for dire)  `hen
+              ::  if peeking for a %boon, use the right listener
+              ::
+              (~(get by by-bone.ossuary.per) bone)
+            ?~  hun
+              ::  a %for flow with no ossuary duct can't deliver the
+              ::  $boon (+fo-sink-boon would crash); don't peek for it
+              ::
+              %-  %+  ev-tace  odd.veb.bug.ames-state
+                  |.("flow {<side>} not in ossuary; skip peek")
+              fo-core
+            %^    fo-emit  u.hun
               %pass
             [(fo-wire %pok) %a %meek [none/~ her poke-path]]
           ::

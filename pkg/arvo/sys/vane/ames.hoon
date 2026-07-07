@@ -10212,6 +10212,8 @@
                         &(=(%bak dire.message-path) =(%for dire.side))
                 ==  ==
             ?:  =(%fub were)
+              ::  XX not used
+              ::
               %-  %+  ev-tace  msg.veb.bug.ames-state
                   |.("%cork %flub received; delete {<side>}")
               fo-abel:(fo-take-fub:fo-core sage)
@@ -10242,6 +10244,18 @@
                 ack-path=our^(pout message-path(load %ack, dire dire.side))
               her^(pout message-path)
             q.sage
+          ?.  =(%ack were)
+            %-  %+  ev-tace  odd.veb.bug.ames-state
+                |.("weird {<were>}; skip")
+            ev-core
+          ::  %acks should be given to existing non-corked flows
+          ::
+          ?.  ?|  (~(has by flows.per) side)
+                  (~(has in corked.per) side)
+              ==
+            %-  %+  ev-tace  odd.veb.bug.ames-state
+                |.("%ack for missing flow {<side>}; skip")
+            ev-core
           ::  wires are tagged ?(%ack %nax) so we can diferentiate if we are
           ::  proessing an ack or a naxplanation payload
           ::

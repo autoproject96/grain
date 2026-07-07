@@ -4383,6 +4383,23 @@
           ^-  chum-state
           ?:  ?=(%alien -.c)  c
           ^-  chum-state
+          ::  clear pending acks on flows in closing. this would prevent
+          ::  a flow that was either a product of the buggy +do-clos, or
+          ::  its counterpart to be corked properly since for both the
+          ::  %ack for the %cork $plea or the %gone $page would crash on
+          ::  the sanity of the corked flow check
+          ::
+          =.  flows.c
+            %-  ~(urn by flows.c)
+            |=  [=side state=flow-state]
+            ^-  flow-state
+            ?.  &(closing.state pending-ack.rcv.state)
+              state
+            %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                  ships.bug.old
+                  |.("clear pending ack on closing flow {<side>}")
+                ==
+            state(pending-ack.rcv %.n)
           ::  remove stale %for flows created by +do-clos:sy-stir, which
           ::  used %bak flows in closing and turn them into a %for flow
           ::  with a queued %cork $plea to be sent

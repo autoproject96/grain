@@ -4382,11 +4382,11 @@
           ^-  chum-state
           ?:  ?=(%alien -.c)  c
           ^-  chum-state
-          ::  remove stales %for flows created by +do-clos:sy-stir, which
-          ::  used %bak flows in closing and made them as %for and queued
-          ::  a %cork $plea to be sent
+          ::  remove stale %for flows created by +do-clos:sy-stir, which
+          ::  used %bak flows in closing and turn them into a %for flow
+          ::  with a queued %cork $plea to be sent
           ::
-          ::  a forward flow's bone always useds .next-bone.ossuary, so a
+          ::  a forward flow's bone always uses .next-bone.ossuary, so a
           ::  %for flow where ( bone >= next-bone ) is stale
           ::
           =/  bones=(set bone)
@@ -10244,7 +10244,10 @@
                 ack-path=our^(pout message-path(load %ack, dire dire.side))
               her^(pout message-path)
             q.sage
-          ?.  =(%ack were)
+          ::  wires are tagged ?(%ack %nax) so we can diferentiate if we are
+          ::  proessing an ack or a naxplanation payload
+          ::
+          ?.  ?=(?(%ack %nax) were)
             %-  %+  ev-tace  odd.veb.bug.ames-state
                 |.("weird {<were>}; skip")
             ev-core
@@ -10254,11 +10257,8 @@
                   (~(has in corked.per) side)
               ==
             %-  %+  ev-tace  odd.veb.bug.ames-state
-                |.("%ack for missing flow {<side>}; skip")
+                |.("{<were>} for missing flow {<side>}; skip")
             ev-core
-          ::  wires are tagged ?(%ack %nax) so we can diferentiate if we are
-          ::  proessing an ack or a naxplanation payload
-          ::
           =.  fo-core
             ::  XX parse $ack payload in here, and call task instead?
             (fo-take:fo-core were sage/[mess.message-path sage])

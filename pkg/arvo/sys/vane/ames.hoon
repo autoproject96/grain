@@ -10578,7 +10578,7 @@
                       %+  ev-tace  fin.veb.bug.ames-state
                       |.("remove %peek for %boon from .tip {<side>}")
                   %^  ~(del ju tip)  boon-path
-                    `duct`[`wire`[%ames (fo-wire %pok)] duct=hen]
+                    `duct`[`wire`[%ames (fo-wire %pok)] (ev-got-duct bone)]
                   ames-boon
                 %^  ~(del ju tip)  cork-path
                   `duct`[`wire`[%ames (fo-wire %cor)] duct=hen]
@@ -12353,7 +12353,11 @@
             ::
             ?:  ?=(%bak dire)  c
             ?.  closing.state  c
-            =+  fo-core=~(fo-core fo:c [bone dire] state)
+            ?~  hun=(~(get by by-bone.ossuary.per.c) bone)
+              ::  don't crash, we could queue-block
+              ::
+              c  ::  XX log; bone not in ossuary
+            =+  fo-core=~(fo-core fo:c(hen u.hun) [bone dire] state)
             ::  sanity check on the flow state
             ::
             ?^  first=(pry:fo-mop:fo-core loads.snd.fo-core)  c

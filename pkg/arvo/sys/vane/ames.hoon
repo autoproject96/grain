@@ -4393,7 +4393,10 @@
           =/  bones=(set bone)
             %-  ~(rep in ~(key by flows.c))
             |=  [=side bones=(set bone)]
-            ?.  &(?=(%for dire.side) (gte bone.side next-bone.ossuary.c))
+            ?.  ?&  ?=(%for dire.side)
+                    ?|  (gte bone.side next-bone.ossuary.c)
+                        !(~(has by by-bone.ossuary.c) bone.side)
+                ==  ==
               bones
             (~(put in bones) bone.side)
           ?:  =(~ bones)  c

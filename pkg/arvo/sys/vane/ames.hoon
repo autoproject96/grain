@@ -10514,7 +10514,9 @@
             ^+  ev-core
             ?:  delete-per
               ev-core(skip-abet delete-per)
-            =?  flows.per  !fo-corked
+            =?  flows.per  ?&  !fo-corked
+                               !=(*flow-state state)
+                           ==
               (~(put by flows.per) bone^dire state)
             %_    ev-core
                 ames-state
@@ -10972,6 +10974,10 @@
                 fo-core(delete-per %.y)
               ==
             ?>  &(?=([%cork ~] payload) ?=([%flow ~] path)):plea
+            ?:  =(0 last-acked.rcv)
+              %-  %+  ev-tace  odd.veb.bug.ames-state
+                  |.("%cork $plea is first message {<side>}; drop")
+              fo-core
             ::  publisher receives %cork
             ::  mark flow as closing
             ::  publish %cork %ack (in +hear-poke:ev-mess) in corked.per

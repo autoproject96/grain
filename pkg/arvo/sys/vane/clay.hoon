@@ -1853,7 +1853,7 @@
       (turn ~(tap in deletes) |=(=path [path |+*lobe]))
     =/  =args:ford:fusion  [files lat.ran veb.bug]
     ::
-    =^  change-cages  args  (checkout-changes args changes)
+    =/  change-cages  (checkout-changes args changes)
     =/  sane-continuation  (sane-changes changes change-cages)
     =/  new-pages=(map lobe page)
       %-  malt
@@ -1892,7 +1892,7 @@
     =/  mem  (want-mime 0)
     =/  res=[mum=(map path (unit mime)) mim=_mim.dom args=_args]
       ?.  mem  [~ ~ args]
-      =^  mum  args  (checkout-mime args deletes ~(key by changes))
+      =/  mum  (checkout-mime args deletes ~(key by changes))
       [mum (apply-changes-to-mim mim.dom mum) args]
     =.  mim.dom  mim.res
     =.  args     args.res
@@ -2011,12 +2011,12 @@
     ::
     ++  checkout-changes
       |=  [=ford=args:ford:fusion changes=(map path (each page lobe))]
-      ^-  [(map path [=lobe =cage]) args:ford:fusion]
+      ^-  (map path [=lobe =cage])
       %+  roll  `(list [path (each page lobe)])`~(tap by changes)
       |=  $:  [=path change=(each page lobe)]
-              [built=(map path [lobe cage]) cache=_ford-args]
+              built=(map path [lobe cage])
           ==
-      ^+  [built ford-args]
+      ^+  built
       =/  =cage
         ::  ~>  %slog.[0 leaf/"clay: validating {(spud path)}"]
         (read-file:(ford:fusion ford-args) path)
@@ -2028,7 +2028,7 @@
           ::
           %&  (page-to-lobe [p q.q]:cage)
         ==
-      [(~(put by built) path [lobe cage]) ford-args]
+      (~(put by built) path [lobe cage])
     ::
     ::  Print notification to console
     ::
@@ -2102,7 +2102,7 @@
           (~(run by q.yaki) |=(=lobe |+lobe))
         (~(uni by original) changes)
       =/  =args:ford:fusion  [all-changes lat.ran veb.bug]
-      =^  all-change-cages  args  (checkout-changes args all-changes)
+      =/  all-change-cages  (checkout-changes args all-changes)
       =/  ccs=(list [=path =lobe =cage])  ~(tap by change-cages)
       |-  ^+  *sane-changes
       ?^  ccs
@@ -2879,7 +2879,7 @@
             deletes=(set path)
             changes=(set path)
         ==
-    ^-  [(map path (unit mime)) args:ford:fusion]
+    ^-  (map path (unit mime))
     =/  mim=(map path (unit mime))
       =/  dels=(list path)  ~(tap by deletes)
       |-  ^-  (map path (unit mime))
@@ -2887,14 +2887,13 @@
         ~
       (~(put by $(dels t.dels)) i.dels ~)
     =/  cans=(list path)  ~(tap by changes)
-    |-  ^-  [(map path (unit mime)) args:ford:fusion]
-    ?~  cans
-      [mim ford-args]
+    |-  ^-  (map path (unit mime))
+    ?~  cans  mim
     =/  =cage
       ~|  mime-cast-fail+i.cans
       (cast-path:(ford:fusion ford-args) i.cans %mime)
-    =^  mim  ford-args  $(cans t.cans)
-    [(~(put by mim) i.cans `!<(mime q.cage)) ford-args]
+    =/  mim  $(cans t.cans)
+    (~(put by mim) i.cans `!<(mime q.cage))
   ::
   ::  Add or remove entries to the mime cache
   ::
@@ -2963,8 +2962,7 @@
     =/  =yaki  (~(got by hut.ran) (~(got by hit.dom) u.yon))
     =/  files  (~(run by q.yaki) |=(=lobe |+lobe))
     =/  =args:ford:fusion  [files lat.ran veb.bug]
-    =^  mim  args
-      (checkout-mime args ~ ~(key by files))
+    =/  mim  (checkout-mime args ~ ~(key by files))
     =.  mim.dom  (apply-changes-to-mim mim.dom mim)
     (ergo for-yon mim)
   ::

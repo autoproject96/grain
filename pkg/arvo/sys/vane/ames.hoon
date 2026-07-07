@@ -12351,7 +12351,7 @@
             ::  only the %for side sends %cork $pleas; %bak flows in
             ::  closing only +peek for the %gone page
             ::
-            ?:  =(%bak dire)  c
+            ?:  ?=(%bak dire)  c
             ?.  closing.state  c
             =+  fo-core=~(fo-core fo:c [bone dire] state)
             ::  sanity check on the flow state

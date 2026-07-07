@@ -2623,6 +2623,7 @@
             [%33 axle]
             [%34 axle]
             [%35 axle]
+            [%36 axle]
         ==
     ::
     ::
@@ -2697,7 +2698,7 @@
       ~>  %slog.0^leaf/"ames: metamorphosis on %take"
       [:(weld molt-moves queu-moves take-moves) adult-gate]
     ::
-    ++  stay  [%35 %larva state=ames-state cache=cached-state]
+    ++  stay  [%36 %larva state=ames-state cache=cached-state]
     ++  scry  scry:adult-core
     ++  load
       |=  $=  old
@@ -2887,6 +2888,13 @@
                       state=axle                 ::
                       cache=_cached-state        :: give cached-state in +stay
                   ==                             ::
+                  [%adult state=axle]
+              ==  ==
+              $:  %36                            :: remove stale %for flows
+              $%  $:  %larva                     :: created by the %clos %stir
+                      state=axle                 ::
+                      cache=_cached-state
+                  ==
                   [%adult state=axle]
           ==  ==  ==
       |^  ?-  old
@@ -3208,9 +3216,19 @@
         larval-gate
       ::
           [%35 %adult *]
-        (load:adult-core state.old)
+        =.  cached-state  `[%35 state.old]
+        ~>  %slog.1^leaf/"ames: larva %35 reload"
+        larval-gate
       ::
           [%35 %larva *]
+        ::  larva doesn't use or update ames-state
+        ::
+        larval-gate(cached-state cache.old)
+      ::
+          [%36 %adult *]
+        (load:adult-core state.old)
+      ::
+          [%36 %larva *]
         ::  larva doesn't use or update ames-state
         ::
         larval-gate(cached-state cache.old)
@@ -3289,7 +3307,7 @@
       |^  ^+  [moz larval-core]
       ?~  cached-state  [~ larval-core]
       =*  old  u.cached-state
-      ?:  ?=(%35 -.old)
+      ?:  ?=(%36 -.old)
         ::  no state migrations left; update state, clear cache, and exit
         ::
         [(flop moz) larval-core(ames-state.adult-gate +.old, cached-state ~)]
@@ -3397,8 +3415,10 @@
       ?:  ?=(%33 -.old)
         =^  moz-34  +.old  (state-33-to-34 +.old)
         $(u.cached-state old(- %34), moz (weld moz moz-34))
-      ?>  ?=(%34 -.old)
-      $(cached-state `35+(state-34-to-35 +.old))
+      ?:  ?=(%34 -.old)
+        $(cached-state `35+(state-34-to-35 +.old))
+      ?>  ?=(%35 -.old)
+      $(cached-state `36+(state-35-to-36 +.old))
       ::
       ++  our-beam  `beam`[[our %rift %da now] /(scot %p our)]
       ++  state-4-to-5
@@ -4174,6 +4194,8 @@
                 %bak  ``duct`[//ames]~
               ==
             ?~  hen
+              ::  this entries will be fixed in the next migration
+              ::
               ~&  >>>  missing-ossuary-state-33-to-34/[ship bone dire]
               moz
             %+  weld  moz
@@ -4348,6 +4370,95 @@
             ==
           ==
         ::
+      ++  state-35-to-36
+        |=  old=axle
+        ^-  axle
+        ~>  %slog.0^leaf/"ames: migrating from state %35 to %36"
+        %=    old
+            chums
+          ^-  (map ship chum-state)
+          %-  ~(urn by chums.old)
+          |=  [=ship c=chum-state]
+          ^-  chum-state
+          ?:  ?=(%alien -.c)  c
+          ^-  chum-state
+          ::  remove stales %for flows created by +do-clos:sy-stir, which
+          ::  used %bak flows in closing and made them as %for and queued
+          ::  a %cork $plea to be sent
+          ::
+          ::  a forward flow's bone always useds .next-bone.ossuary, so a
+          ::  %for flow where ( bone >= next-bone ) is stale
+          ::
+          =/  bones=(set bone)
+            %-  ~(rep in ~(key by flows.c))
+            |=  [=side bones=(set bone)]
+            ?.  &(?=(%for dire.side) (gte bone.side next-bone.ossuary.c))
+              bones
+            (~(put in bones) bone.side)
+          ?:  =(~ bones)  c
+          %_    c
+              flows
+            %-  ~(rep in bones)
+            |=  [=bone flows=_flows.c]
+            %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                  ships.bug.old
+                  |.("stale %for flow {<[bone %for]>}; remove")
+                ==
+            (~(del by flows) bone %for)
+          ::
+              tip
+            ::  remove peeks for stale flows (e.g. %acks for
+            ::  their %cork $pleas); by definition this would
+            ::  have used dire=%bak in the path
+            ::
+            %-  ~(rep by tip.c)
+            |=  [[=user=path *] tip=_tip.c]
+            =>  .(user-path `(pole knot)`user-path)
+            ?.  ?=([%a %x %'1' %$ %flow bone=@ lod=@ dir=@ *] user-path)
+              tip
+            ?.  ?=(%bak dir.user-path)
+              tip
+            ?~  bone=(slaw %ud bone.user-path)
+              tip
+            ::  confirm that this was a stale flow
+            ::
+            ?.  (~(has in bones) u.bone)
+              tip
+            %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                  ships.bug.old
+                  |.  %+  weld  "stale flow [{<u.bone>} %for]; remove "
+                      "{(spud `path`user-path)} from .tip"
+                ==
+            (~(del by tip) user-path)
+          ::
+              pit
+            ::  flow wires carry our side's dire; stale entries use %for
+            ::
+            %-  ~(rep by pit.c)
+            |=  [[=ames=path req=request-state] pit=_pit.c]
+            %-  ~(rep by for.req)
+            |=  [[hen=duct *] p=_pit]
+            ?.  ?=([[%ames %mesa %flow *] *] hen)
+              p
+            =>  .(i.hen `(pole knot)`i.hen)
+            ?.  ?=([@ @ @ wer=@ dir=@ h=@ r=@ bone=@ ~] i.hen)
+              p
+            ?.  ?=(%for dir.i.hen)
+              p
+            ?~  bone=(slaw %ud bone.i.hen)
+              p
+            ::  confirm that this was a stale flow
+            ::
+            ?.  (~(has in bones) u.bone)
+              p
+            %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                  ships.bug.old
+                  |.  %+  weld  "stale flow [{<u.bone>} %for]; remove "
+                      "{(spud ames-path)} from .pit"
+                ==
+            (~(del by p) ames-path)
+          ==
+        ==
       --
     ::
     --
@@ -14195,7 +14306,7 @@
   take:am-core
 ::  +stay: extract state before reload
 ::
-++  stay  [%35 adult/ames-state]
+++  stay  [%36 adult/ames-state]
 ::  +load: load in old state after reload
 ::
 ++  load

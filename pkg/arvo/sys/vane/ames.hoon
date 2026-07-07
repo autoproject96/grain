@@ -12186,9 +12186,12 @@
               (sy-emil clos-moves)
             %-  ~(rep by flows.per.ev-core)
             |=  [[side state=flow-state] c=_ev-core]
-            ?:  =(%back dire)  c
+            ::  only the %for side sends %cork $pleas; %bak flows in
+            ::  closing only +peek for the %gone page
+            ::
+            ?:  =(%bak dire)  c
             ?.  closing.state  c
-            =+  fo-core=~(fo-core fo:c [bone dire=%for] state)
+            =+  fo-core=~(fo-core fo:c [bone dire] state)
             ::  sanity check on the flow state
             ::
             ?^  first=(pry:fo-mop:fo-core loads.snd.fo-core)  c

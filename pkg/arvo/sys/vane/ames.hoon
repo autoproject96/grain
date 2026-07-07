@@ -3995,6 +3995,7 @@
         %*  fo-peek-cork  fo-core
                       her  ship
                     -.per  (azimuth-state-29-to-30 +<.per-sat)
+                     side  u.bone^%for
            bug.ames-state  bug.state
           life.ames-state  life.state
         ==

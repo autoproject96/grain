@@ -4410,6 +4410,20 @@
                 ==
             (~(del by flows) bone %for)
           ::
+              corked
+            ::  to prevent the other side to  be stuck in  closing,
+            ::  and +peeking for the %gone page of these flows, we add
+            ::  these flows to the %cork set and move next-bone
+            ::  past them so we don't allocate new flows born corked
+            ::
+            %-  ~(rep in bones)
+            |=  [=bone corked=_corked.c]
+            (~(put in corked) bone %for)
+          ::
+              next-bone.ossuary
+            %+  max  next-bone.ossuary.c
+            (add 4 (~(rep in bones) max))
+          ::
               tip
             ::  remove peeks for stale flows (e.g. %acks for
             ::  their %cork $pleas); by definition this would

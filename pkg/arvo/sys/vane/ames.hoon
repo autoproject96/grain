@@ -11023,7 +11023,8 @@
                   |.("%cork $plea is first message {<side>}; drop")
               ::  drop pending-ack so we skip this bone in fo-abet
               ::
-              fo-core(pending-ack.rcv %.n)
+              =.  pending-ack.rcv  %.n
+              fo-core
             ::  publisher receives %cork
             ::  mark flow as closing
             ::  publish %cork %ack (in +hear-poke:ev-mess) in corked.per

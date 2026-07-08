@@ -2670,7 +2670,7 @@
       ::
       =^  call-moves  adult-gate  (call:adult-core duct dud task)
       ~>  %slog.0^leaf/"ames: metamorphosis on %call"
-      [:(weld queu-moves call-moves molt-moves) adult-gate]
+      [:(weld molt-moves queu-moves call-moves) adult-gate]
     ::
     ++  take
       |=  [=wire =duct dud=(unit goof) =sign]

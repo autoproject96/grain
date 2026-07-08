@@ -2622,6 +2622,8 @@
             [%32 axle]
             [%33 axle]
             [%34 axle]
+            [%35 axle]
+            [%36 axle]
         ==
     ::
     ::
@@ -2668,7 +2670,7 @@
       ::
       =^  call-moves  adult-gate  (call:adult-core duct dud task)
       ~>  %slog.0^leaf/"ames: metamorphosis on %call"
-      [:(weld queu-moves call-moves molt-moves) adult-gate]
+      [:(weld molt-moves queu-moves call-moves) adult-gate]
     ::
     ++  take
       |=  [=wire =duct dud=(unit goof) =sign]
@@ -2696,7 +2698,7 @@
       ~>  %slog.0^leaf/"ames: metamorphosis on %take"
       [:(weld molt-moves queu-moves take-moves) adult-gate]
     ::
-    ++  stay  [%34 larva/ames-state]
+    ++  stay  [%36 %larva state=ames-state cache=cached-state]
     ++  scry  scry:adult-core
     ++  load
       |=  $=  old
@@ -2880,7 +2882,21 @@
               $:  %34                            :: fix outstanding loads
                   ?(%adult %larva)               ::
                   state=axle
-          ==  ==
+              ==
+              $:  %35                            :: clean up corked peeks
+              $%  $:  %larva                     :: for $boons.
+                      state=axle                 ::
+                      cache=_cached-state        :: give cached-state in +stay
+                  ==                             ::
+                  [%adult state=axle]
+              ==  ==
+              $:  %36                            :: remove stale %for flows
+              $%  $:  %larva                     :: created by the %clos %stir
+                      state=axle                 ::
+                      cache=_cached-state
+                  ==
+                  [%adult state=axle]
+          ==  ==  ==
       |^  ?-  old
           [%4 %adult *]
         =.  cached-state  `[%4 state.old]
@@ -3195,10 +3211,27 @@
         larval-gate
       ::
           [%34 *]
-        ?-  +<.old
-          %larva  larval-gate
-          %adult  (load:adult-core state.old)
-        ==
+        =.  cached-state  `[%34 state.old]
+        ~>  %slog.1^leaf/"ames: larva %34 reload"
+        larval-gate
+      ::
+          [%35 %adult *]
+        =.  cached-state  `[%35 state.old]
+        ~>  %slog.1^leaf/"ames: larva %35 reload"
+        larval-gate
+      ::
+          [%35 %larva *]
+        ::  larva doesn't use or update ames-state
+        ::
+        larval-gate(cached-state cache.old)
+      ::
+          [%36 %adult *]
+        (load:adult-core state.old)
+      ::
+          [%36 %larva *]
+        ::  larva doesn't use or update ames-state
+        ::
+        larval-gate(cached-state cache.old)
       ::
       ==
       ::
@@ -3274,7 +3307,7 @@
       |^  ^+  [moz larval-core]
       ?~  cached-state  [~ larval-core]
       =*  old  u.cached-state
-      ?:  ?=(%34 -.old)
+      ?:  ?=(%36 -.old)
         ::  no state migrations left; update state, clear cache, and exit
         ::
         [(flop moz) larval-core(ames-state.adult-gate +.old, cached-state ~)]
@@ -3379,9 +3412,13 @@
         $(cached-state `32+(state-31-to-32 +.old))
       ?:  ?=(%32 -.old)
         $(cached-state `33+(state-32-to-33 +.old))
-      ?>  ?=(%33 -.old)
-      =^  moz-34  +.old  (state-33-to-34 +.old)
-      $(u.cached-state old(- %34), moz (weld moz moz-34))
+      ?:  ?=(%33 -.old)
+        =^  moz-34  +.old  (state-33-to-34 +.old)
+        $(u.cached-state old(- %34), moz (weld moz moz-34))
+      ?:  ?=(%34 -.old)
+        $(cached-state `35+(state-34-to-35 +.old))
+      ?>  ?=(%35 -.old)
+      $(cached-state `36+(state-35-to-36 +.old))
       ::
       ++  our-beam  `beam`[[our %rift %da now] /(scot %p our)]
       ++  state-4-to-5
@@ -3958,6 +3995,7 @@
         %*  fo-peek-cork  fo-core
                       her  ship
                     -.per  (azimuth-state-29-to-30 +<.per-sat)
+                     side  u.bone^%for
            bug.ames-state  bug.state
           life.ames-state  life.state
         ==
@@ -4157,11 +4195,13 @@
                 %bak  ``duct`[//ames]~
               ==
             ?~  hen
+              ::  this entries will be fixed in the next migration
+              ::
               ~&  >>>  missing-ossuary-state-33-to-34/[ship bone dire]
               moz
             %+  weld  moz
-            =/  =space    chum-to-our:fo-core
-            =/  =wire     (fo-wire:fo-core %ack)
+            =/  =space  chum-to-our:fo-core
+            =/  =wire   (fo-wire:fo-core %ack)
             moves:(fo-emit:fo-core u.hen %pass wire %a moke/[space ack poke])
         ::  second pass to fix .tip entries with wrong rift in duct
         ::
@@ -4244,6 +4284,215 @@
                 [i.hen(rift (scot %ud rift.c)) t.hen]
               ints
             ==
+          ==
+        ==
+      ::
+      ++  state-34-to-35
+          |=  old=axle
+          ^-  axle
+          ~>  %slog.0^leaf/"ames: migrating from state %34 to %35"
+          ::  first pass to clean the .tip
+          ::
+          =.  chums.old
+            ^-  (map ship chum-state)
+            %-  ~(urn by chums.old)
+            |=  [=ship c=chum-state]
+            ^-  chum-state
+            ?:  ?=(%alien -.c)  c
+            ^-  chum-state
+            %_    c
+                tip
+              ::  remove entries for corked flows
+              ::
+              %-  ~(rep by tip.c)
+              |=  [[=user=path *] tip=_tip.c]
+              =>  .(user-path `(pole knot)`user-path)
+              ?.  ?=([%a %x %'1' %$ %flow bone=@ lod=@ dir=@ *] user-path)
+                tip
+              ?.  ?=(?(%for %bak) dir.user-path)
+                tip
+              ?~  bone=(slaw %ud bone.user-path)
+                tip
+              ::  flow paths carry the dire of the other side; flip it
+              ::  to find our side of the flow in .corked
+              ::
+              =/  =dire  ?:(?=(%for dir.user-path) %bak %for)
+              ?.  (~(has in corked.c) u.bone dire)
+                tip
+              %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                    ships.bug.old
+                    |.  %+  weld  "corked flow {<[u.bone dire]>}; remove "
+                        "{(spud `path`user-path)} from .tip"
+                  ==
+              (~(del by tip) user-path)
+            ==
+          ::  last pass; .pit clean-up
+          ::
+          %=    old
+              chums
+            ^-  (map ship chum-state)
+            %-  ~(urn by chums.old)
+            |=  [=ship c=chum-state]
+            ^-  chum-state
+            ?:  ?=(%alien -.c)  c
+            ^-  chum-state
+            %_    c
+                pit
+              ::  remove entries for corked flows
+              ::
+              %-  ~(rep by pit.c)
+              |=  [[=ames=path req=request-state] pit=_pit.c]
+              %-  ~(rep by for.req)
+              |=  [[hen=duct *] p=_pit]
+              ::  inspect the duct to find %mesa wires
+              ::
+              ?.  ?=([[%ames %mesa %flow *] *] hen)
+                p
+              =>  .(i.hen `(pole knot)`i.hen)
+              ?.  ?=([@ @ @ wer=@ dir=@ h=@ r=@ bone=@ ~] i.hen)
+                p
+              ?.  ?=(?(%for %bak) dir.i.hen)
+                p
+              ?~  bone=(slaw %ud bone.i.hen)
+                p
+              ::  flow wires carry our side's dire;
+              ::  use it directly to find the flow in .corked
+              ::
+              ?.  (~(has in corked.c) u.bone dir.i.hen)
+                p
+              ~?  >>>  ?=(^ pay.req)
+                flow-corked-with-pit-entry/bone=u.bone^dire=dir.i.hen
+              %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                    ships.bug.old
+                    |.  %+  weld  "corked flow {<[u.bone dir.i.hen]>}; remove "
+                        "{(spud ames-path)} from .pit"
+                  ==
+              (~(del by p) ames-path)
+            ==
+          ==
+        ::
+      ::
+      ++  state-35-to-36
+        |=  old=axle
+        ^-  axle
+        ~>  %slog.0^leaf/"ames: migrating from state %35 to %36"
+        %=    old
+            chums
+          ^-  (map ship chum-state)
+          %-  ~(urn by chums.old)
+          |=  [=ship c=chum-state]
+          ^-  chum-state
+          ?:  ?=(%alien -.c)  c
+          ^-  chum-state
+          ::  clear pending acks on flows in closing. this would prevent
+          ::  a flow that was either a product of the buggy +do-clos, or
+          ::  its counterpart to be corked properly since for both the
+          ::  %ack for the %cork $plea or the %gone $page would crash on
+          ::  the sanity of the corked flow check
+          ::
+          =.  flows.c
+            %-  ~(urn by flows.c)
+            |=  [=side state=flow-state]
+            ^-  flow-state
+            ?.  &(closing.state pending-ack.rcv.state)
+              state
+            %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                  ships.bug.old
+                  |.("clear pending ack on closing flow {<side>}")
+                ==
+            state(pending-ack.rcv %.n)
+          ::  remove stale %for flows created by +do-clos:sy-stir, which
+          ::  used %bak flows in closing and turn them into a %for flow
+          ::  with a queued %cork $plea to be sent
+          ::
+          ::  a forward flow's bone always uses .next-bone.ossuary, so a
+          ::  %for flow where ( bone >= next-bone ) is stale
+          ::
+          =/  bones=(set bone)
+            %-  ~(rep in ~(key by flows.c))
+            |=  [=side bones=(set bone)]
+            ?.  ?&  ?=(%for dire.side)
+                    ?|  (gte bone.side next-bone.ossuary.c)
+                        !(~(has by by-bone.ossuary.c) bone.side)
+                ==  ==
+              bones
+            (~(put in bones) bone.side)
+          ?:  =(~ bones)  c
+          %_    c
+              flows
+            %-  ~(rep in bones)
+            |=  [=bone flows=_flows.c]
+            %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                  ships.bug.old
+                  |.("stale %for flow {<[bone %for]>}; remove")
+                ==
+            (~(del by flows) bone %for)
+          ::
+              corked
+            ::  to prevent the other side to  be stuck in  closing,
+            ::  and +peeking for the %gone page of these flows, we add
+            ::  these flows to the %cork set and move next-bone
+            ::  past them so we don't allocate new flows born corked
+            ::
+            %-  ~(rep in bones)
+            |=  [=bone corked=_corked.c]
+            (~(put in corked) bone %for)
+          ::
+              next-bone.ossuary
+            %+  max  next-bone.ossuary.c
+            (add 4 (~(rep in bones) max))
+          ::
+              tip
+            ::  remove peeks for stale flows (e.g. %acks for
+            ::  their %cork $pleas); by definition this would
+            ::  have used dire=%bak in the path
+            ::
+            %-  ~(rep by tip.c)
+            |=  [[=user=path *] tip=_tip.c]
+            =>  .(user-path `(pole knot)`user-path)
+            ?.  ?=([%a %x %'1' %$ %flow bone=@ lod=@ dir=@ *] user-path)
+              tip
+            ?.  ?=(%bak dir.user-path)
+              tip
+            ?~  bone=(slaw %ud bone.user-path)
+              tip
+            ::  confirm that this was a stale flow
+            ::
+            ?.  (~(has in bones) u.bone)
+              tip
+            %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                  ships.bug.old
+                  |.  %+  weld  "stale flow [{<u.bone>} %for]; remove "
+                      "{(spud `path`user-path)} from .tip"
+                ==
+            (~(del by tip) user-path)
+          ::
+              pit
+            ::  flow wires carry our side's dire; stale entries use %for
+            ::
+            %-  ~(rep by pit.c)
+            |=  [[=ames=path req=request-state] pit=_pit.c]
+            %-  ~(rep by for.req)
+            |=  [[hen=duct *] p=_pit]
+            ?.  ?=([[%ames %mesa %flow *] *] hen)
+              p
+            =>  .(i.hen `(pole knot)`i.hen)
+            ?.  ?=([@ @ @ wer=@ dir=@ h=@ r=@ bone=@ ~] i.hen)
+              p
+            ?.  ?=(%for dir.i.hen)
+              p
+            ?~  bone=(slaw %ud bone.i.hen)
+              p
+            ::  confirm that this was a stale flow
+            ::
+            ?.  (~(has in bones) u.bone)
+              p
+            %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                  ships.bug.old
+                  |.  %+  weld  "stale flow [{<u.bone>} %for]; remove "
+                      "{(spud ames-path)} from .pit"
+                ==
+            (~(del by p) ames-path)
           ==
         ==
       ::
@@ -9562,10 +9811,12 @@
               ~|  inner-path/[pat.ack^pat.pok]:pact
               (decrypt-path [pat her]:pok.pact)
             ::
-            ?:  ?=(%none -.space)
+            ?.  ?=(%chum -.space)
+              ::  XX
+              ::
               %-  %+  %*(ev-tace ev-core her her-pok)  odd.veb.bug.ames-state
                   |.  %+  weld  "weird poke lifes={<life.per^life.ames-state>}"
-                      " pok={<pat.pok.pact>}; skip"
+                      " pok={<pat.pok.pact>} using {<-.space>}; skip"
               ev-core
             ::
             =/  [pok=(pole iota) ack=(pole iota)]
@@ -9592,6 +9843,15 @@
             ?.  =(her-pok rcvr.ack)      ::  do ack and pokes match?
               %-  %+  ev-tace  odd.veb.bug.ames-state
                   |.("ack {<rcvr.ack>} and poke {<her-pok>} missmatch; skip")
+              ev-core
+            ::
+            ?.  ?&  =(bone.ack bone.pok) :: do paths describes same flow?
+                    =(mess.ack mess.pok)
+                    !=(dire.ack dire.pok)
+                ==
+              %-  %+  ev-tace  odd.veb.bug.ames-state
+                  =+  [a=[bone dire mess]:ack p=[bone dire mess]:pok]
+                  |.("ack/poke flow mismatch {<[a=a p=p]>}; skip")
               ev-core
             ::
             %-  (ev-tace rcv.veb.bug.ames-state |.("hear poke packet"))
@@ -9634,30 +9894,21 @@
                   ==
               %-  %+  ev-tace  msg.veb.bug.ames-state
                   |.("hear incomplete message")
-              :: XX assert load is plea/boon?
+              ::  authenticate the first (%auth) fragment before peeking for
+              ::  the rest of the payload: dat is the serialized lss proof, so
+              ::  recover the root and verify the sender's signature/mac over it
               ::
-              ?:  (fo-message-is-acked:fo-core mess.pok)
-                ::  don't peek if the message havs been already acked
-                ::
-                ?:  (gte (sub last-acked.rcv:fo-core mess.pok) 10)
-                  %-  %+  ev-tace  odd.veb.bug.ames-state
-                      |.("poke [bon, seq]={<[bone mess]:pok>} outside of window")
-                  ev-core
-                %-  %+  ev-tace  rcv.veb.bug.ames-state
-                    |.("poke [bon, seq]={<[bone mess]:pok>} already acked")
-                ::
-                fo-abet:(fo-send-ack:fo-core mess.pok)
-              ::
-              %-  %+  ev-tace  fin.veb.bug.ames-state
-                  |.("peek for poke payload {<[flow=bone seq=mess]:pok>}")
+              ?>  %-  authenticate
+                  :+  (recover-root:verifier:lss (rip 8 dat.data))
+                    aut.data
+                  pok.pact
               ::
               ::  if the %page we need to +peek is bigger than max-jum, %nack
               ::
               ~|  "page exceeds jumbo-frame={<tob>}B; crash"
               ?>  (lte tob max-jum)
               ::
-              %^  ev-emit  hen  %pass
-              [(fo-wire:fo-core %pok) %a %meek [none/~ [her pat]:pok.pact]]
+              fo-abet:(fo-peek-poke:fo-core seq=mess.pok pat.pok.pact)
             ::  authenticate one-fragment message
             ::
             ::  if this is a one-fragment %data pact, tob would equal the size of
@@ -9720,6 +9971,14 @@
             ::
             =.  ev-core  (ev-update-qos %live last-contact=now)
             ::
+            =/  tof  (div (add tob.data 1.023) 1.024)
+            =/  [typ=?(%auth %data) fag=@ud]
+              ?~  wan.name
+                [?:((gth tof 1) %auth %data) 0]
+              [typ fag]:wan.name
+            %-  %+  ev-tace  rcv.veb.bug.ames-state
+                |.("hear page packet {<[tof=tof typ=typ fag=fag]>}")
+            ::
             ::  check for pending request (peek|poke)
             ::
             ?~  res=(~(get by pit.per) sealed-path)
@@ -9727,20 +9986,11 @@
               %+  ev-tace  odd.veb.bug.ames-state
               |.("missing page from pit {(spud inner-path)}")
             ::
-            %-  (ev-tace rcv.veb.bug.ames-state |.("hear page packet"))
-            ::
             ?.  =(rift.per rif.name)
               %-  %+  ev-tace  odd.veb.bug.ames-state
                   |.("wrong rift {<[rift.per rif.name]>}; skip")
               ev-core
             ::
-            ::
-            =/  tof  (div (add tob.data 1.023) 1.024)
-            ::
-            =/  [typ=?(%auth %data) fag=@ud]
-              ?~  wan.name
-                [?:((gth tof 1) %auth %data) 0]
-              [typ fag]:wan.name
             ::
             ?-    typ
                 %auth
@@ -9999,6 +10249,8 @@
                         &(=(%bak dire.message-path) =(%for dire.side))
                 ==  ==
             ?:  =(%fub were)
+              ::  XX not used
+              ::
               %-  %+  ev-tace  msg.veb.bug.ames-state
                   |.("%cork %flub received; delete {<side>}")
               fo-abel:(fo-take-fub:fo-core sage)
@@ -10032,6 +10284,18 @@
           ::  wires are tagged ?(%ack %nax) so we can diferentiate if we are
           ::  proessing an ack or a naxplanation payload
           ::
+          ?.  ?=(?(%ack %nax) were)
+            %-  %+  ev-tace  odd.veb.bug.ames-state
+                |.("weird {<were>}; skip")
+            ev-core
+          ::  %acks should be given to existing non-corked flows
+          ::
+          ?.  ?|  (~(has by flows.per) side)
+                  (~(has in corked.per) side)
+              ==
+            %-  %+  ev-tace  odd.veb.bug.ames-state
+                |.("{<were>} for missing flow {<side>}; skip")
+            ev-core
           =.  fo-core
             ::  XX parse $ack payload in here, and call task instead?
             (fo-take:fo-core were sage/[mess.message-path sage])
@@ -10287,7 +10551,9 @@
             ^+  ev-core
             ?:  delete-per
               ev-core(skip-abet delete-per)
-            =?  flows.per  !fo-corked
+            =?  flows.per  ?&  !fo-corked
+                               !=(*flow-state state)
+                           ==
               (~(put by flows.per) bone^dire state)
             %_    ev-core
                 ames-state
@@ -10296,6 +10562,14 @@
           ::
           ++  fo-abel
             ^+  ev-core
+            ::
+            =/  cork-path  (fo-cor-path seq=0 our)
+            ::  this assumes that the sender has only one outstanding $boon
+            ::    (snd-window = 1)
+            ::
+            =/  boon-path  (fo-pok-path seq=+(last-acked.rcv) our)
+            =/  ames-cork  (make-space-path chum-to-our cork-path)
+            =/  ames-boon  (make-space-path chum-to-our boon-path)
             ::
             =:   flows.per  (~(del by flows.per) bone^dire)
                 corked.per  (~(put in corked.per) bone^dire)
@@ -10309,19 +10583,22 @@
               (~(del by by-duct.ossuary.per) (ev-got-duct bone))
             ::
                 tip.per
-              =/  cork-path  (fo-cor-path seq=0 our)
-              =/  ames-cork  (make-space-path chum-to-our cork-path)
               =+  ?.  (~(has by tip.per) cork-path)  ~
                   %.  ~
                   %+  ev-tace  fin.veb.bug.ames-state
-                  |.  """
-                      remove {(spud cork-path)} from .tip {<side=side>}
-                      {<[%ames (fo-wire %cor) duct=hen]>}
-                      ames-path={(spud ames-cork)}
-                      """
+                  |.("remove %peek for %cork from .tip {<side>}")
               =;  [tip=_tip.per *]
                 ::  once all %acks are deleted we can delete the peek for the cork
+                ::    (and any possible %peek for $boon)
                 ::
+                =?  tip  ?=(%for dire) :: XX necessary?
+                  =+  ?.  (~(has by tip.per) boon-path)  ~
+                      %.  ~
+                      %+  ev-tace  fin.veb.bug.ames-state
+                      |.("remove %peek for %boon from .tip {<side>}")
+                  %^  ~(del ju tip)  boon-path
+                    `duct`[`wire`[%ames (fo-wire %pok)] (ev-got-duct bone)]
+                  ames-boon
                 %^  ~(del ju tip)  cork-path
                   `duct`[`wire`[%ames (fo-wire %cor)] duct=hen]
                 ames-cork
@@ -10338,15 +10615,25 @@
             ::
                 pit.per
                   =;  [pit=_pit.per *]
-                    ::  a forward flow can be deleted when we hear an %ack for a
-                    ::  %cork $plea, or a %gone $page for a corked flow +peek.
+                    ::  a forward flow can be deleted when we hear an %ack for
+                    ::  a %cork $plea, or a %gone $page for a corked flow +peek
                     ::
                     ::  for the %ack, there could be a path in the .pit to read
                     ::  if the flow has been corked, so we can just derive it
                     ::  based on the flow-state, and attempt to delete it.
                     ::
-                    %-  ~(del by pit)
-                    (make-space-path chum-to-our (fo-cor-path seq=0 our))
+                    ::  if we are the %bak side, we could be peeking for a
+                    ::  multi-fragment $boon. If we leave the subscription
+                    ::  before the $boon completes, and then %cork the flow
+                    ::
+                    ::
+                    =?  pit  ?=(%for dire) :: XX necessary?
+                      =+  ?.  (~(has by pit.per) ames-boon)  ~
+                          %.  ~
+                          %+  ev-tace  fin.veb.bug.ames-state
+                          |.("remove %peek for %boon from .pit {<side>}")
+                      (~(del by pit) ames-boon)
+                    (~(del by pit) ames-cork)
                   ::
                   %^  (dip:fo-mop _pit.per)  loads.snd
                     pit.per
@@ -10572,10 +10859,21 @@
                 %poke  ?~(v=(get:fo-mop loads.snd seq) ~ `u.v)
             ::
                 %ack
+              ::  XX only for send-window=1:
+              ::  if the flow is corked this can only be the %cork $plea
+              ::  so we always ack it (if we are the publisher in a
+              ::  subscription flow)
+              ::
+              ?:  &(fo-corked ?=(%bak dire))
+                `ack/error=%.n
               ::  always ack messages on a forward flow
-              ::  (i.e. produce %ack for a %boon)
+              ::  (i.e. %boons are always acked)
               ::
               ?:  ?=(%for dire)
+                ?.  (lte seq last-acked.rcv)
+                  ::  skip future %boons
+                  ::
+                  ~
                 `ack/error=%.n
               ?:  (~(has by nax.rcv) seq)
                 ::  if we have naxplanation state for this message—even
@@ -10720,6 +11018,13 @@
                 fo-core(delete-per %.y)
               ==
             ?>  &(?=([%cork ~] payload) ?=([%flow ~] path)):plea
+            ?:  =(0 last-acked.rcv)
+              %-  %+  ev-tace  odd.veb.bug.ames-state
+                  |.("%cork $plea is first message {<side>}; drop")
+              ::  drop pending-ack so we skip this bone in fo-abet
+              ::
+              =.  pending-ack.rcv  %.n
+              fo-core
             ::  publisher receives %cork
             ::  mark flow as closing
             ::  publish %cork %ack (in +hear-poke:ev-mess) in corked.per
@@ -10957,7 +11262,7 @@
                 ==
             fo-core
           ::
-          +|  %internals
+          +|  %peeks
           ::
           ++  fo-peek-naxplanation
             |=  seq=@ud
@@ -10968,14 +11273,6 @@
             =/  =wire    (fo-wire %nax)
             =/  =space   chum-to-our
             (fo-emit hen [%pass wire %a meek/[space her (fo-nax-path seq our)]])
-          ::
-          ++  fo-send-ack
-            |=  seq=@ud
-            ^+  fo-core
-            ::  emit (n)ack to unix; see +fo-peek where the (n)ack is produced
-            ::
-            =/  =path  (%*(fo-ack-path fo-core dire.side fo-flip-dire) seq her)
-            (fo-emit [/ames]~ %pass /make-page %a mage/[chum-to-her her^path])
           ::
           ++  fo-peek-cork
             %-  %+  ev-tace  fin.veb.bug.ames-state
@@ -10996,6 +11293,64 @@
             ::  for-cor-path will produce a path for the %cork on the other side
             ::
             [(fo-wire %fub) %a meek/[chum-to-our her (fo-cor-path seq=0 our)]]
+          ::
+          ++  fo-peek-poke
+            |=  [seq=@ud =poke=path]
+            ::  if flow is corked, no-op
+            ::
+            ?:  |(halt.state closing.state (~(has in corked.per) side))
+              %-  %+  ev-tace  odd.veb.bug.ames-state
+                  |.
+                  ?:  halt.state
+                    "flow {<[side]>} is halted; skip peek"
+                  ?:  closing.state
+                    "flow {<[side]>} in closing; skip peek"
+                  "flow {<[side]>} is corked; skip peek"
+              fo-core
+            :: XX assert load is plea/boon?
+            ::
+            ?:  (fo-message-is-acked seq)
+              ::  don't peek if the message havs been already acked
+              ::
+              ?:  (gte (sub last-acked.rcv seq) 10)
+                %-  %+  ev-tace  odd.veb.bug.ames-state
+                    |.("poke [bon, seq]={<[bone seq]>} outside of window")
+                fo-core
+              %-  %+  ev-tace  rcv.veb.bug.ames-state
+                  |.("poke [bon, seq]={<[bone seq]>} already acked")
+              ::
+              (fo-send-ack:fo-core seq)
+            ::
+
+            %-  %+  ev-tace  fin.veb.bug.ames-state
+                |.  %+  weld  "peek for {<?:(?=(%for dire) %boon %plea)>} "
+                    "payload {<[flow=bone seq=seq]>}"
+            ::
+            =/  hun=(unit duct)
+              ?.  ?=(%for dire)  `hen
+              ::  if peeking for a %boon, use the right listener
+              ::
+              (~(get by by-bone.ossuary.per) bone)
+            ?~  hun
+              ::  a %for flow with no ossuary duct can't deliver the
+              ::  $boon (+fo-sink-boon would crash); don't peek for it
+              ::
+              %-  %+  ev-tace  odd.veb.bug.ames-state
+                  |.("flow {<side>} not in ossuary; skip peek")
+              fo-core
+            %^    fo-emit  u.hun
+              %pass
+            [(fo-wire %pok) %a %meek [none/~ her poke-path]]
+          ::
+          +|  %internals
+          ::
+          ++  fo-send-ack
+            |=  seq=@ud
+            ^+  fo-core
+            ::  emit (n)ack to unix; see +fo-peek where the (n)ack is produced
+            ::
+            =/  =path  (%*(fo-ack-path fo-core dire.side fo-flip-dire) seq her)
+            (fo-emit [/ames]~ %pass /make-page %a mage/[chum-to-her her^path])
           ::
           ++  fo-handle-miss-ack
             |=  seq=message-num
@@ -12029,9 +12384,16 @@
               (sy-emil clos-moves)
             %-  ~(rep by flows.per.ev-core)
             |=  [[side state=flow-state] c=_ev-core]
-            ?:  =(%back dire)  c
+            ::  only the %for side sends %cork $pleas; %bak flows in
+            ::  closing only +peek for the %gone page
+            ::
+            ?:  ?=(%bak dire)  c
             ?.  closing.state  c
-            =+  fo-core=~(fo-core fo:c [bone dire=%for] state)
+            ?~  hun=(~(get by by-bone.ossuary.per.c) bone)
+              ::  don't crash, we could queue-block
+              ::
+              c  ::  XX log; bone not in ossuary
+            =+  fo-core=~(fo-core fo:c(hen u.hun) [bone dire] state)
             ::  sanity check on the flow state
             ::
             ?^  first=(pry:fo-mop:fo-core loads.snd.fo-core)  c
@@ -12956,12 +13318,7 @@
             ~  ::  %alien or missing
           =+  ev-core=(ev-abed:ev ~[//scry] u.rcvr +.u.u.per-sat)
           =+  fo-core=(fo-abed:fo:ev-core side=[u.bone dire.tyl])
-          ?:  &(?=(%ack load.tyl) fo-corked:fo-core)
-              :: ~&  >>>  corked-flow-dropping/load^corked.per  :: XX remove
-              ::  if the flow is corked, block
-              ::  XX when are corked bones evicted?
-              ::
-              ~  ::  XX  [~ ~]
+          ::  corked flows are handled in +fo-peek
           ::
           ?~(res=(fo-peek:fo-core load.tyl u.mess) ~ ``[%message !>(u.res)])
         ::  client/server %mesa %corks, flow-level
@@ -14035,7 +14392,7 @@
   take:am-core
 ::  +stay: extract state before reload
 ::
-++  stay  [%34 adult/ames-state]
+++  stay  [%36 adult/ames-state]
 ::  +load: load in old state after reload
 ::
 ++  load

@@ -4082,9 +4082,11 @@
             %-  ~(rep by tip.c)
             |=  [[=user=path *] tip=_tip.c]
             =>  .(user-path `(pole knot)`user-path)
-            ?.  ?=([%a %x %'1' %$ %flow bone=@ *] user-path)
+            ?.  ?=([%a %x %'1' %$ %flow bone=@ @ dir=@ *] user-path)
               tip
-            ?.  (~(has in corked.c) (slav %ud bone.user-path) %for)
+            ?.  ?=(?(%for %bak) dir.user-path)
+              tip
+            ?.  (~(has in corked.c) (slav %ud bone.user-path) dir.user-path)
               tip
             (~(del by tip) user-path)
           ==

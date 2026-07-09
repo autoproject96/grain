@@ -4167,61 +4167,82 @@
         |=  old=axle
         ^-  (quip move axle)
         ~>  %slog.0^leaf/"ames: migrating from state %33 to %34"
-        :-  ::  first pass to fix loads in .flows with no .pit entry
+        =^  mokes  chums.old
+          ::  first pass to fix loads in .flows with no .pit entry
+          ::  add fix missing .tip entries from state-31-to-32
+          ::
+          ^-  (pair (list move) _chums.old)
+          %-  ~(rep by chums.old)
+          |=  [[=ship c=chum-state] moves=(list move) chus=_chums.old]
+          ^+  [moves chus]
+          ?:  ?=(%alien -.c)  moves^chus
+          ::
+          %-  ~(rep by flows.c)
+          |=  [[side flow=flow-state] moz=_moves cuz=_chus]
+          ?.  &(=(0 send-window.snd.flow) ?=(^ loads.snd.flow))
+            moz^cuz
+          ::  loads outstanding and window is not 1;
+          ::  pop first off and check if it has an entry in the .tip
+          ::
+          =/  fo-core
+            %*  fo-core  fo:ev:mesa:adult-core
+              ames-state  old
+                      her  ship
+                      per  +.c
+                    side  bone^dire
+                    state  flow
+            ==
+          ?~  first=(pry:fo-mop:fo-core loads.snd.flow)
+            moz^cuz
+          =*  seq  key.u.first
+          =/  [ack=spar poke=path]
+            ::  fo-path builders refer to the other side, but %poke is on
+            ::  our side; flip direction
             ::
-            ^-  (list move)
-            %-  ~(rep by chums.old)
-            |=  [[=ship c=chum-state] moves=(list move)]
-            ^+  moves
-            ?:  ?=(%alien -.c)  moves
+            :-  [ship (fo-ack-path:fo-core seq our)]
+            (%*(fo-pok-path fo-core dire.side fo-flip-dire:fo-core) seq ship)
+          ::  look at the .tip, if there is no entry, pass a %moke
+          ::
+          ?:  (~(has by tip.c) path.ack)
+            moz^cuz
+          ::  state-31-to-32 remove some tip entries. emitting a moke for
+          ::  those would find an entry in the pit, and crash when trying to
+          ::  assert the corresponding entry in the .tip
+          ::
+          =/  =space  chum-to-our:fo-core
+          =/  =wire   (fo-wire:fo-core %ack)
+          =/  hen=(unit duct)
+            ?-  dire
+              %for  (~(get by by-bone.ossuary.c) bone)
+              %bak  ``duct`[//ames]~
+            ==
+          =/  ames-path=path  (make-space-path space path.ack)
+          ?~  hen
+            ::  this entries will be fixed in the next migration
             ::
-            %-  ~(rep by flows.c)
-            |=  [[side flow=flow-state] moz=_moves]
-            ?.  &(=(0 send-window.snd.flow) ?=(^ loads.snd.flow))
-              moz
-            ::  loads outstanding and window is not 1;
-            ::  pop first off and check if it has an entry in the .tip
+            ~&  >>>  missing-ossuary-state-33-to-34/[ship bone dire]
+            moz^cuz
+          ?:  (~(has by pit.c) (make-space-path space path.ack))
+            ::  skip moz, but we need to create the tip entry
             ::
-            =/  fo-core
-              %*  fo-core  fo:ev:mesa:adult-core
-                ames-state  old
-                       her  ship
-                       per  +.c
-                      side  bone^dire
-                     state  flow
+            :-  moz
+            %+  ~(put by cuz)  ship
+            ::
+            %_    c
+                tip
+              %^  ~(put ju tip.c)  path.ack
+                [[%ames wire] u.hen]
+              ames-path
+            ==
+          %-  %:  trace   %mesa   odd.veb.bug.old   ship
+                ships.bug.old
+                |.("fix missing pit entry for {<[bone=bone dire seq=seq]>}")
               ==
-            ?~  first=(pry:fo-mop:fo-core loads.snd.flow)
-              moz
-            =*  seq  key.u.first
-            =/  [ack=spar poke=path]
-              ::  fo-path builders refer to the other side, but %poke is on
-              ::  our side; flip direction
-              ::
-              :-  [ship (fo-ack-path:fo-core seq our)]
-              (%*(fo-pok-path fo-core dire.side fo-flip-dire:fo-core) seq ship)
-            ::  look at the .tip, if there is no entry, pass a %moke
-            ::
-            ?:  (~(has by tip.c) path.ack)
-              moz
-            %-  %:  trace   %mesa   odd.veb.bug.old   ship
-                  ships.bug.old
-                  |.("fix missing pit entry for {<[bone=bone dire seq=seq]>}")
-                ==
-            =/  hen=(unit duct)
-              ?-  dire
-                %for  (~(get by by-bone.ossuary.c) bone)
-                %bak  ``duct`[//ames]~
-              ==
-            ?~  hen
-              ::  this entries will be fixed in the next migration
-              ::
-              ~&  >>>  missing-ossuary-state-33-to-34/[ship bone dire]
-              moz
-            %+  weld  moz
-            =/  =space  chum-to-our:fo-core
-            =/  =wire   (fo-wire:fo-core %ack)
-            moves:(fo-emit:fo-core u.hen %pass wire %a moke/[space ack poke])
-        ::  second pass to fix .tip entries with wrong rift in duct
+          :_  cuz
+          %+  weld  moz
+          moves:(fo-emit:fo-core u.hen %pass wire %a moke/[space ack poke])
+        :-  mokes
+        ::  third pass to fix .tip entries with wrong rift in duct
         ::
         =.  chums.old
           ^-  (map ship chum-state)

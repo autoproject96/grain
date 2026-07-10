@@ -13059,7 +13059,8 @@
           =/  per=fren-state  +.u.her
           ?^  res=(~(get by pit.per) path.remote)
             ?>  =(payload pay.u.res)  ::  prevent overriding payload
-            ?>  (~(has by tip.per) pax)
+            ~?  >>>  !(~(has by tip.per) pax)
+              tip-missing-for/who^pax
             =.  pit.per
               %+  ~(put by pit.per)  path.remote
               u.res(for (~(put ju for.u.res) hen %sage))

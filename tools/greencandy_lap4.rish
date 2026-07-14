@@ -1,0 +1,18 @@
+# greencandy_lap4.rish — Greencandy lap 4 account filter witness.
+#
+# Run from the repository root:
+#   rishi/bin/rishi run tools/greencandy_lap4.rish
+
+let zig = "vendor/zig-toolchain/zig"
+let bin = "greencandy/bin/greencandy"
+
+let build = run ["sh" "-c" "mkdir -p greencandy/bin && env RYE_ZIG=${zig} rye/bin/rye build greencandy/greencandy.rye -femit-bin=${bin}"]
+assert build.ok else "Greencandy lap 4 build failed"
+
+let selftest = run ["sh" "-c" "${bin} selftest 2>&1"]
+assert selftest.ok else "Greencandy selftest exited non-zero"
+assert selftest.out contains "GREEN" else "Greencandy selftest not GREEN"
+assert selftest.out contains "account filter" else "Greencandy missing account filter welcome"
+assert selftest.out contains "account filter overflow refused" else "Greencandy missing filter overflow unwelcome"
+
+say "GREEN: Greencandy lap 4 — filter_by_account on journal entries."

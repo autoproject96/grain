@@ -1,0 +1,22 @@
+# greencandy_lap2.rish — Greencandy lap 2 reports + exception queue.
+#
+# Run from the repository root:
+#   rishi/bin/rishi run tools/greencandy_lap2.rish
+
+let zig = "vendor/zig-toolchain/zig"
+let bin = "greencandy/bin/greencandy"
+
+let build = run ["sh" "-c" "mkdir -p greencandy/bin && env RYE_ZIG=${zig} rye/bin/rye build greencandy/greencandy.rye -femit-bin=${bin}"]
+assert build.ok else "Greencandy lap 2 build failed"
+
+let selftest = run ["sh" "-c" "${bin} selftest 2>&1"]
+assert selftest.ok else "Greencandy selftest exited non-zero"
+assert selftest.out contains "GREEN" else "Greencandy selftest not GREEN"
+assert selftest.out contains "P&L revenue 1000" else "Greencandy missing P&L revenue"
+assert selftest.out contains "expense 200" else "Greencandy missing P&L expense"
+assert selftest.out contains "net 800" else "Greencandy missing net income"
+assert selftest.out contains "BS cash 800" else "Greencandy missing balance-sheet cash"
+assert selftest.out contains "retained 800" else "Greencandy missing retained earnings"
+assert selftest.out contains "exception queue held 2" else "Greencandy missing exception queue"
+
+say "GREEN: Greencandy lap 2 — P&L, balance sheet, exception queue."

@@ -1,0 +1,17 @@
+# greencandy_lap5.rish — Greencandy lap 4 memo prefix filter witness.
+#
+# Run from the repository root:
+#   rishi/bin/rishi run tools/greencandy_lap5.rish
+
+let zig = "vendor/zig-toolchain/zig"
+let bin = "greencandy/bin/greencandy"
+
+let build = run ["sh" "-c" "mkdir -p greencandy/bin && env RYE_ZIG=${zig} rye/bin/rye build greencandy/greencandy.rye -femit-bin=${bin}"]
+assert build.ok else "Greencandy lap 5 build failed"
+
+let selftest = run ["sh" "-c" "${bin} selftest 2>&1"]
+assert selftest.ok else "Greencandy selftest exited non-zero"
+assert selftest.out contains "GREEN" else "Greencandy selftest not GREEN"
+assert selftest.out contains "memo prefix" else "Greencandy missing memo prefix welcome"
+
+say "GREEN: Greencandy lap 5 — filter_by_memo_prefix on journal entries."

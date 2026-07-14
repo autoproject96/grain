@@ -1,0 +1,20 @@
+# greencandy_lap1.rish — Greencandy lap 1 books fold witness.
+#
+# Run from the repository root:
+#   rishi/bin/rishi run tools/greencandy_lap1.rish
+
+let zig = "vendor/zig-toolchain/zig"
+let bin = "greencandy/bin/greencandy"
+
+let build = run ["sh" "-c" "mkdir -p greencandy/bin && env RYE_ZIG=${zig} rye/bin/rye build greencandy/greencandy.rye -femit-bin=${bin}"]
+assert build.ok else "Greencandy lap 1 build failed"
+
+let selftest = run ["sh" "-c" "${bin} selftest 2>&1"]
+assert selftest.ok else "Greencandy selftest exited non-zero"
+assert selftest.out contains "GREEN" else "Greencandy selftest not GREEN"
+assert selftest.out contains "unknown account refused" else "Greencandy missing unknown-account unwelcome"
+assert selftest.out contains "zero amount refused" else "Greencandy missing zero-amount unwelcome"
+assert selftest.out contains "same-account entry refused" else "Greencandy missing same-account unwelcome"
+assert selftest.out contains "conservation 0" else "Greencandy missing conservation"
+
+say "GREEN: Greencandy lap 1 — chart, journal fold, unwelcome paths."

@@ -1,0 +1,19 @@
+# greencandy_pnl_view.rish — Greencandy income statement → Skate.
+#
+# Run from the repository root:
+#   rishi/bin/rishi run tools/greencandy_pnl_view.rish
+
+let bin = "pond/bin/drawn-terminal"
+
+say "build: Greencandy P&L view — drawn-terminal compile"
+let build = run ["sh" "tools/fixtures/pond_build_drawn_terminal.sh"]
+assert build.ok else "drawn_terminal build failed for P&L view"
+assert build.out contains "GREEN:" else "drawn_terminal build did not reach GREEN"
+
+let view = run ["sh" "-c" "${bin} pnlviewtest 2>&1"]
+assert view.ok else "drawn terminal pnlviewtest exited non-zero"
+assert view.out contains "pnl view" else "P&L view missing expected output"
+assert view.out contains "GREEN" else "Greencandy P&L view not GREEN"
+assert view.out contains "lines=5" else "P&L view missing five-line frame"
+
+say "GREEN: Greencandy P&L view — income statement composes a Skate frame."

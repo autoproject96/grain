@@ -56,7 +56,7 @@ rishi/bin/rishi run tools/greencandy_sum_amounts_view.rish
 rishi/bin/rishi run tools/greencandy_sight_view_lap3.rish
 ```
 
-**Design:** hammock [`../active-designing/20260710-125953_greencandy-hammock.md`](../active-designing/20260710-125953_greencandy-hammock.md) · lap 2 [`../active-designing/20260710-131212_greencandy-lap2-reports.md`](../active-designing/20260710-131212_greencandy-lap2-reports.md) · lap 3 sight [`../active-designing/20260710-132548_greencandy-lap3-sight-view.md`](../active-designing/20260710-132548_greencandy-lap3-sight-view.md) · lap 4 [`../active-designing/20260710-230433_greencandy-lap4-filters.md`](../active-designing/20260710-230433_greencandy-lap4-filters.md) · horizon [`../external-research/20260710-131956_seen-books-living-desktop-horizon.md`](../external-research/20260710-131956_seen-books-living-desktop-horizon.md)
+**Design:** hammock [`../active-designing/20260710-125953_greencandy-hammock.md`](../active-designing/20260710-125953_greencandy-hammock.md) · lap 2 [`../active-designing/20260710-131212_greencandy-lap2-reports.md`](../active-designing/20260710-131212_greencandy-lap2-reports.md) · lap 3 sight [`../active-designing/20260710-132548_greencandy-lap3-sight-view.md`](../active-designing/20260710-132548_greencandy-lap3-sight-view.md) · lap 4 [`../active-designing/20260710-230433_greencandy-lap4-filters.md`](../active-designing/yonder/20260710-230433_greencandy-lap4-filters.md) · horizon [`../external-research/20260710-131956_seen-books-living-desktop-horizon.md`](../external-research/20260710-131956_seen-books-living-desktop-horizon.md)
 
 ---
 

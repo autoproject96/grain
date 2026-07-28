@@ -102,7 +102,7 @@ assert gr.ok else "graduation rule pair missing"
 assert gr.out contains "GRAD_OK" else "graduation pair check failed"
 
 say "compass rose: Greencandy lap 1 packet…"
-let gc = run ["sh" "-c" "test -f active-designing/20260710-125953_greencandy-hammock.md && test -f external-research/20260710-125953_greencandy-kick-digits-clean-room.md && test -f expanding-prompts/20260710-125953_greencandy-lap1-books-view.md && test -f greencandy/greencandy_core.rye && test -f greencandy/fixtures/journal.bron && test -f greencandy/README.md && echo GREENCANDY_OK"]
+let gc = run ["sh" "-c" "test -f active-designing/20260710-125953_greencandy-hammock.md && test -f external-research/20260710-125953_greencandy-kick-digits-clean-room.md && test -f expanding-prompts/yonder/20260710-125953_greencandy-lap1-books-view.md && test -f greencandy/greencandy_core.rye && test -f greencandy/fixtures/journal.bron && test -f greencandy/README.md && echo GREENCANDY_OK"]
 assert gc.ok else "Greencandy lap 1 packet missing"
 assert gc.out contains "GREENCANDY_OK" else "Greencandy packet check failed"
 

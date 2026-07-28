@@ -3,7 +3,7 @@
 **Stamp:** `20260710.125953`
 **Voice:** Rio 3
 **Status:** Landed — Greencandy lap 1 + books view at parity **207**/**208**
-**Ground:** hammock [`../active-designing/20260710-125953_greencandy-hammock.md`](../active-designing/20260710-125953_greencandy-hammock.md) · clean-room [`../external-research/20260710-125953_greencandy-kick-digits-clean-room.md`](../external-research/20260710-125953_greencandy-kick-digits-clean-room.md)
+**Ground:** hammock [`../active-designing/20260710-125953_greencandy-hammock.md`](../../active-designing/20260710-125953_greencandy-hammock.md) · clean-room [`../external-research/20260710-125953_greencandy-kick-digits-clean-room.md`](../../external-research/20260710-125953_greencandy-kick-digits-clean-room.md)
 
 ## Deliverables
 

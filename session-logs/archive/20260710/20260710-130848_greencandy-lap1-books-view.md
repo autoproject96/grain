@@ -36,7 +36,7 @@ Focus on Realidream / Tablecloth / Brushstroke for a simple visual of existing S
 | `tools/compass_rose.rish` | Greencandy packet assert |
 | `active-designing/20260710-125953_greencandy-hammock.md` | Lap-1 hammock; Status checkable-room green |
 | `external-research/20260710-125953_greencandy-kick-digits-clean-room.md` | Clean-room study |
-| `expanding-prompts/20260710-125953_greencandy-lap1-books-view.md` | Expanding prompt — landed |
+| `expanding-prompts/yonder/20260710-125953_greencandy-lap1-books-view.md` | Expanding prompt — landed |
 | `context/LEXICON.md` | Greencandy row |
 | `work-in-progress/TASKS.md` · `ROADMAP.md` | Priorities + Visual Track + trio **208** |
 | Indexes | ER / AD / EP / linengrow READMEs |

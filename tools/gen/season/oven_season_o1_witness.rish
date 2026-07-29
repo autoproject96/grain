@@ -1,0 +1,24 @@
+# tools/gen/season/oven_season_o1_witness.rish — Oven Season o1 path cut.
+#
+#   rishi/bin/rishi run tools/gen/season/oven_season_o1_witness.rish
+
+say "oven-season-o1: Language EN — cut the forge path."
+say "oven-season-o1: Style Radiant — prove oven/; refuse anvil/ ghost."
+say "oven-season-o1: Lens TAME — Oven Season o1."
+
+let counsel = run ["test" "-f" "counsel/20260728-235520_oven-season-o1-path-cut.md"]
+assert counsel.ok else "oven-season-o1: o1 counsel missing"
+
+let cut = run ["sh" "-c" "test -d oven && test -f oven/oven_core.rye && test -f oven/oven.rye && test -f oven/oven.peal && test ! -d anvil && echo CUT_OK"]
+assert cut.ok else "oven-season-o1: path cut incomplete"
+assert cut.out contains "CUT_OK" else "oven-season-o1: oven/ not LIVE"
+
+let gen = run ["test" "-f" "tools/gen/oven/oven_corpus_lap1.rish"]
+assert gen.ok else "oven-season-o1: gen oven lap1 missing"
+let view = run ["test" "-f" "tools/inference_oven_corpus_view.rish"]
+assert view.ok else "oven-season-o1: inference oven view missing"
+let shim = run ["test" "-f" "tools/anvil_corpus_lap1.rish"]
+assert shim.ok else "oven-season-o1: anvil accrete shim missing"
+
+say "GREEN: oven-season-o1 — oven/ LIVE · anvil/ gone · shims kept · Oven Season"
+say "GREEN: oven-season-o1 — path cut seated."

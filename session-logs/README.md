@@ -4,6 +4,7 @@
 **Status:** Living pin — newest-first index (current day)  
 **Bound:** under `living_pin_max_bytes`
 
+- `20260728.233053` — [Surface Season p37 sur rows + recursion](20260728-233053_surface-season-p37-sur-rows-recursion.bron) — sur×5 rows=8 · seven-scope printout
 - `20260728.232511` — [Surface Season p36 Oven seated](20260728-232511_surface-season-p36-oven-seated.bron) — living Oven · anvil/ path held
 - `20260728.232415` — [Anvil forge to Oven name lean](20260728-232415_anvil-forge-to-oven-name-lean.bron) — prefer Oven · breach wait seat
 - `20260728.231955` — [Surface Season p35 check-in](20260728-231955_surface-season-p35-check-in.bron) — state report · dated batch or pedestals

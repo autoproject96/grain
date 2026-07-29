@@ -1,0 +1,26 @@
+# tools/gen/season/oven_seat_witness.rish — Surface p36 · Oven seated
+#
+#   rishi/bin/rishi run tools/gen/season/oven_seat_witness.rish
+
+say "oven-seat: Language EN — Oven living forge; Anvil tribute held."
+say "oven-seat: Style Radiant — bread not blades."
+say "oven-seat: Lens TAME — Surface Season p36."
+
+let seat = run ["test" "-f" "counsel/20260728-232511_surface-season-p36-oven-seated.md"]
+assert seat.ok else "oven-seat: p36 counsel missing"
+let living = run ["test" "-f" "foundations/20260728-232511_lantern-lattice-oven.md"]
+assert living.ok else "oven-seat: living Oven foundation missing"
+let mid = run ["test" "-f" "foundations/20260728-221253_lantern-lattice-anvil.md"]
+assert mid.ok else "oven-seat: Anvil mid-fossil missing"
+
+let oven = run ["sh" "-c" "grep -q 'Oven — Where the Model Is Baked' foundations/20260728-232511_lantern-lattice-oven.md && grep -q '\\*\\*living mutant\\*\\*' foundations/20260728-232511_lantern-lattice-oven.md && echo OVEN_OK"]
+assert oven.ok else "oven-seat: Oven body scan failed"
+assert oven.out contains "OVEN_OK" else "oven-seat: Oven section missing"
+let lex = run ["sh" "-c" "grep -q 'Living name for the local forge' context/LEXICON.md && grep -q 'Retired living forge name' context/LEXICON.md && grep -q 'Oven was Anvil' context/LEXICON.md && echo LEX_OK"]
+assert lex.ok else "oven-seat: lexicon scan failed"
+assert lex.out contains "LEX_OK" else "oven-seat: Oven · Anvil rename-forward missing"
+let held = run ["sh" "-c" "test -d anvil && echo PATH_HELD"]
+assert held.ok else "oven-seat: anvil/ directory should still exist (path breach held)"
+assert held.out contains "PATH_HELD" else "oven-seat: do not remove anvil/ this seat"
+
+say "GREEN: oven-seat — Oven living · Anvil fossils · lexicon · anvil/ path held · Surface p36"

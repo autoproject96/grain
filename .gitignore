@@ -45,7 +45,7 @@
 !/lattice/
 !/lantern/
 !/scribble/
-!/anvil/
+!/oven/
 !/rye/
 !/rye-learning-process/
 !/gratitude/
@@ -108,7 +108,7 @@
 /lattice/bin/
 /lantern/bin/
 /scribble/bin/
-/anvil/bin/
+/oven/bin/
 /nock/bin/
 /glow/bin/
 /glow/.cache/

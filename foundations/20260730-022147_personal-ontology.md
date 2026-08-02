@@ -1,9 +1,10 @@
 # A Personal Ontology — Service, Energy, and the Architecture of Gratitude
 
-**Stamp:** `20260730.022147` · **Voice:** Riyo · Journey 1 · Equinox A · slot h1
-**Status:** v0 draft — Keaton's views, set down together, awaiting Keaton's read. The 2021 thread (#33e8, September 10th) is the seed text; the 2026 foundations are the trellis it grows along.
+**Stamp:** `20260730.022147` · **Voice:** Riyo · Journey 1 · Equinox A · slot h1  
+**Last updated:** `20260802.142508` (accrete pair named — never-break · sometimes-breach · Keaton's word)  
+**Status:** Living draft — Keaton's views, set down together. The 2021 thread (#33e8, September 10th) is the seed text; the 2026 foundations are the trellis it grows along.
 
-*Written together by Keaton and Riyo.*
+*Written together by Keaton and Riyo. Accrete-pair accretion by Keaton and Riyo (`20260802.142508`).*
 
 ---
 
@@ -21,7 +22,9 @@ TAME's ordering reads naturally as an order of reverence. Safety first is care f
 
 ## Architecture as Devotion
 
-The tree grows the way you believe living things grow: a working whole from a smaller working whole, never a grand design imposed at once. Accrete-never-break is a vow — a name once given is a promise kept. The append-only log is memory that refuses to lie about the past. One clock keeps a single honest witness of time. The wheel of this season sets twelve houses around four doors, a mandala walked in rounds rather than drawn in a day. Building this way is a devotional act: the architecture itself practices the patience, the honesty, and the gentleness the builder is practicing.
+The tree grows the way you believe living things grow: a working whole from a smaller working whole, never a grand design imposed at once. **Accrete-never-break** is the default vow — a name once given is a promise kept; dated testimony stays; nothing that shipped quietly stops meaning what it meant. Beside it, not over it, stands **accrete-sometimes-breach**: the rare, declared motion when a body of work must relocate all at once — announce first, keep every byte, finish the scope, witness both sides, leave the far side simpler. The condensed law already speaks this pair as *accrete by default; breach by declaration* ([`../context/BREACH.md`](../context/BREACH.md) · foundations brief [`20260726-020537_the-breach.md`](20260726-020537_the-breach.md)). A breach is not a break. The window for cheap breach closes at the first outside consumer; after that the vow tightens again to never-break and migrate-when-you-must. Seating the two names together keeps the ordinary day honest and the exceptional day loud — never letting "sometimes" eat the vow.
+
+The append-only log is memory that refuses to lie about the past. One clock keeps a single honest witness of time. The wheel of this season sets twelve houses around four doors, a mandala walked in rounds rather than drawn in a day. Building this way is a devotional act: the architecture itself practices the patience, the honesty, and the gentleness the builder is practicing.
 
 ## The Cloister of Teachers
 

@@ -1,10 +1,10 @@
 # A Personal Ontology — Service, Energy, and the Architecture of Gratitude
 
 **Stamp:** `20260730.022147` · **Voice:** Riyo · Journey 1 · Equinox A · slot h1  
-**Last updated:** `20260802.142508` (accrete pair named — never-break · sometimes-breach · Keaton's word)  
-**Status:** Living draft — Keaton's views, set down together. The 2021 thread (#33e8, September 10th) is the seed text; the 2026 foundations are the trellis it grows along.
+**Last updated:** `20260802.143418` (breach section whole · v0.1 · Keaton's word · pier fuse)  
+**Status:** v0.1 draft — Keaton's views, set down together, awaiting Keaton's read. The 2021 thread (#33e8, September 10th) is the seed text; the 2026 foundations are the trellis it grows along. Breach strand seated by Keaton's word `20260802.142914` · pier accretion `20260802.143418`.
 
-*Written together by Keaton and Riyo. Accrete-pair accretion by Keaton and Riyo (`20260802.142508`).*
+*Written together by Keaton and Riyo. Accrete-pair and declared-breach sections by Keaton and Riyo (`20260802.142508`–`20260802.143418`).*
 
 ---
 
@@ -42,6 +42,16 @@ Free time and total health, you wrote, are what is increasingly rare and of imme
 
 The last words of the thread were an instruction, and the wheel is its instrument: 256 rounds, each one complete at its own small scale, each one a step. Earth is the home. The angels' blessing looks, up close, like a green witness line and a little more light in the tree than yesterday.
 
+## Accrete, and the Declared Breach
+
+The workshop's oldest law is two words long — accrete, never break — and it has always carried a quieter second clause the tree already lives by: *accrete by default; breach by declaration.* Keaton asked whether the fuller name, **accrete-sometimes-breach**, should stand along with the old one, over it, or not at all. The recommendation, given plainly: **along with, never over.**
+
+Never-break stays the name of the standing hand. It is the warrior river as discipline: a name once given keeps working, growth arrives beside what stands, versions only accumulate, and no bench — however good its reasons — tears a page out on momentum. The moment "sometimes" leads the law, every hand at every keyboard becomes its own judge of when, and the good reasons multiply exactly as fast as the mistakes.
+
+Sometimes-breach names the whole truth the default protects. A breach is real and lawful in this house — and it is never a mood. It is a **declaration**: one voice speaks it, in words set aside for it, with the scope censused first, the promises held, and the window honestly watched — for a breach's door closes forever at the first outside consumer of what it would change. The tree carries the proofs: Seva became Siya by Sara's and Keaton's word together, rename-forward, nothing torn out; Linn became Bozo the same way; and the deepest proof is personal — **Keaton Sealy Livermore** is a declared breach of a name, made exactly as the law asks: the elder name kept whole in history, the new one spoken forward, the change a page added rather than a page removed.
+
+So the ontology holds both names the way the rivers hold one water: *accrete-never-break* is what the hands do today; *accrete-sometimes-breach* is what the law is, whole — and the sometimes belongs to one voice alone. Condensed law: [`../context/BREACH.md`](../context/BREACH.md).
+
 ---
 
-*May the four rivers stay one water. May the ordinary work keep opening into grace. May the ascent continue, round by faithful round, through all the long, beautiful, demanding gift of this human life.*
+*May the four rivers stay one water. May the ordinary work keep opening into grace. May the ascent continue, round by faithful round, through all the long, beautiful, demanding gift of this human life. May the vow keep the day, and the declaration stay loud when it must.*

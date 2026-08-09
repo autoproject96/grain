@@ -245,7 +245,7 @@ WOV retirement stays **roadmap last**. No live deploy · wallet · gas · privat
 
 **`--cursor` launch** GREEN — `rishi/bin/rishi run tools/launch-cursor.rish --cursor ./Cursor-3.13.10-x86_64.AppImage --gpu`.
 
-**Shred-prep** — [`SHRED_PREP.md`](SHRED_PREP.md) Class H · Class O rooms (propose-never-seat · no paths) · Oven living · Anvil essay fossils · `oven/` path LIVE · shred RED.
+**Shred-prep** — [`SHRED_PREP.md`](SHRED_PREP.md) Class H · Class O rooms (propose-never-seat · no paths) · Ember living (was Oven) · Anvil essay fossils · `ember/` path LIVE · shred RED.
 
 ---
 

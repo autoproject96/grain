@@ -1,13 +1,13 @@
-# tools/gen/oven/oven_corpus_lap1.rish — Oven corpus lap 0 catalog witness.
+# tools/gen/ember/ember_corpus_lap1.rish — Ember corpus lap 0 catalog witness.
 #
 # Run from the repository root:
-#   rishi/bin/rishi run tools/gen/oven/oven_corpus_lap1.rish
+#   rishi/bin/rishi run tools/gen/ember/ember_corpus_lap1.rish
 
 let zig = "vendor/zig-toolchain/zig"
-let bin = "oven/bin/oven"
+let bin = "ember/bin/ember"
 
-let build = run ["sh" "-c" "mkdir -p oven/bin && env RYE_ZIG=${zig} rye/bin/rye build oven/oven.rye -femit-bin=${bin}"]
-assert build.ok else "Oven corpus lap 0 build failed"
+let build = run ["sh" "-c" "mkdir -p ember/bin && env RYE_ZIG=${zig} rye/bin/rye build ember/ember.rye -femit-bin=${bin}"]
+assert build.ok else "Ember corpus lap 0 build failed"
 
 let selftest = run ["sh" "-c" "${bin} selftest 2>&1"]
 assert selftest.ok else "Oven selftest exited non-zero"
@@ -15,4 +15,4 @@ assert selftest.out contains "GREEN" else "Oven selftest not GREEN"
 assert selftest.out contains "corpus catalog" else "Oven missing catalog welcome"
 assert selftest.out contains "incomplete chunk refused" else "Oven missing chunk unwelcome"
 
-say "GREEN: Oven corpus lap 0 — rye/rish chunk catalog from our tree."
+say "GREEN: Ember corpus lap 0 — rye/rish chunk catalog from our tree."

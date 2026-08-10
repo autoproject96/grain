@@ -59,3 +59,6 @@ s/bitscape/acme-co/g
 s/xy96gen-z/acme-owner/g
 s/xykld2/acme-owner/g
 s/xnkg3/acme-owner/g
+s/Sabin Hertz/a friend/g
+s/Sabin/a friend/g
+s/Hertz/a friend/g

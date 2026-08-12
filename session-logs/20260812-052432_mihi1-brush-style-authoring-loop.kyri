@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260812.052432
+editor Zed + Claude Agent
+model claude-fable-5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title MIHI1 — close the .brush authoring loop, source to pixels
+prompt Keaton (self-paced loop): next agent-doable Lindy lap — let a .brush file declare its own style/token block; stop at custody gates
+think The seam had token sheet, cascade, and Skate lowering all working in Rye, yet a designer could not yet AUTHOR a style from a .brush file — the vocabulary a design system targets was named but not read. This lap closes that: a .brush file declares its own style, and the parser reads it end to end.
+think Delegated under the strict additive/stop-and-report/witness mandate (brush_parse is core with consumers). The grammar chosen is honest to the owned tongue: an optional `style:` header pin, sibling of `lines:`/`refuse:`, then two-space-indented `:: key value` flat-Bron token lines that reassemble verbatim into exactly the `key value` sheet tokens.rye's infuse already parses. No CSS/JS/JSON — the refuse-list holds; malformed or empty style blocks refuse with named errors.
+think The full path now proves from a file on disk: styled-frame.brush declares Bark paper / Flax ink / warm edge / space 4, the parser collects it, tokens.resolve runs the infuse cascade, dress rasterizes 418 lit pixels in the declared colors, and a styled edge run seats. Source to pixels, witnessed.
+obs Additive-default proven: a .brush with no style block parses byte-identically (seed-frame.brush unchanged — at-nib/present/max-lines/line-count identical, style-tokens=0). The in_style branch is only entered by a `style:` header, so no pre-style file touches new code. No parser contract or public type changed (fields appended); east_pack_test (which imports the parser) stays GREEN.
+obs Verified GREEN on my own metal: the new brush-style witness (incl. additive-default), brush_parse regression, skate styled-run and tokens witnesses, tame_style_check all green. One compound assert in the test file was split during the pass.
+loom witness=mihi1_brush_style source=styled-frame.brush lit_pixels=418 no_style_identical=true result=GREEN
+file brushstroke/brush_parse.rye additive `style:` block parse — validators, named errors, collect/emit bridge, style CLI, selftests
+file brushstroke/styled-frame.brush new fixture declaring a style block over drawn lines
+file brushstroke/mihi1_brush_style_test.rye end-to-end proof: file → sheet → infuse → Skate pixels
+file tools/mihi1_brush_style_witness.rish the witness (GREEN)
+recommend check-in Keaton — MIHI1 is now complete end to end (token sheet · infuse cascade · Skate styled runs · .brush authoring). The ungated MIHI queue is done; MIHI0/2/3 (Pond door, DVUI-Swift shell, IaC) all want provisioning that is your hand. Surfacing rather than padding

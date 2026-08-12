@@ -1,0 +1,17 @@
+format session-log-v1
+stamp 20260812.000844
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title MIHI1 — author the .brush surface-bridge seam (design)
+prompt Keaton: kg autonomously all seasons
+think Delegated a read-only scope of the surface (Brushstroke · Skate · Realidream · .brush) so the seam grounds in real code, not invention. Findings: .brush is a real parsed format (pins at-nib/present/max-lines/lines/refuse), Frame is a pure value, Skate lowers Frame → monospace grid → ARGB8888 (8×16 cells); the styling cascade is designed-not-settled (palette tokens Flax/Bark/Oat/Walnut proposed in a yonder silo, tokens.rye awaits word).
+think The crux insight: a cascading component styleguide is exactly per-key override applied to style descriptors — and brix/infuse.rye (landed + witnessed earlier this arc) already IS that engine. So the seam reuses proven code for the cascade rather than inventing an inheritance engine.
+think Authored active-designing/20260812-000456_mihi1-brush-surface-bridge-seam.md: the seam in three named layers — (1) the token sheet (paper/ink/edge · weight/space/elevate, named with the proposed palette, the silo's six invariants as bounds); (2) the cascade = infuse(base, override) over Bron, bounded; (3) the lowering = resolved tokens dress a Frame's styled runs → Skate grid → pixels. Kept .brush's refuse-list and sharpened it: no CSS rail, no web cascade — the styleguide is welcome, a stylesheet language is not.
+think Two-rooms honest: real (parser, Frame, Skate grid, brix/infuse+witness) · designed (this seam, tokens.rye) · horizon (Realidream face, DVUI/Swift Dock = MIHI2). Custody: agents prepare, hands provision; the word that seats tokens.rye stays the maintainer's/collaborator's. Named the one next step: seat brushstroke/tokens.rye with a witness proving infuse resolves a child style honoring the palette invariants and dresses a renderable Frame.
+obs Kept collaborator references generic (a design collaborator / surface collaborator), plan-linked for specifics, so active-designing scrub keeps the seed clean. living_docs_lint GREEN; sow_witness SOW_WITNESS_GREEN, IDENT_CLEAN, NO_PERSONAL.
+obs MIHI1 is the durable core the plan names longest-lived; authored as design-prep (no build shipped), so it advances the season without crossing the provisioning/custody gates that are Keaton's.
+file active-designing/20260812-000456_mihi1-brush-surface-bridge-seam.md the seam design, grounded + infuse-reuse
+file active-designing/README.md newest-first index row
+recommend keep-going the seam is proposed; the one next step (seat brushstroke/tokens.rye + witness) waits on Keaton's/the collaborator's word. Next autonomous Lindy laps: AHOY1 gratitude tail, or scope another season's agent-doable crux

@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260811.220642
+editor Zed + Claude Agent
+model Opus 4.8
+voice Kyri
+host cloud pier sandbox — Eastern (EDT) time convention
+title Open MIHI (double-seated) — Sabin's Bit Design System over the surface, Pond onboarding, Vultr SEA IaC; expand Greencandy for Siya Fund + Linengrow PBC
+prompt kg — texted Sabin an invite to lead Skate/Realidream/Brushstroke with his Bit Design System (DVUI/Zig 0.16 in a Swift macOS Dock, Glow/Rishi/Rye/.brush impl), Pond sandbox from SOURCE.md, Vultr SEA IaC (NixOS-stable, ai-jail, Claude Code), Zed remote SSH, plus personal comp; double-seat this and also add expanding Greencandy for Siya Fund LLC and Linengrow PBC HR & accounting. ty every1. baton prin recur
+think grounded in existing org context — Sabin Hertz is already the Bozo fund executive (POLE), Siya Fund is seat 3 (executor Sara Sealy Livermore), Greencandy is Linengrow's centralized books. So this extends seated structure rather than inventing it
+obs applied the just-seated order (Lindy-first, crux-first): the durable core is the Bit-Design-System-over-surface bridge; the tractable crux to start is the Pond onboarding path for a second hand — so MIHI0 is the door, MIHI1 the .brush surface seam, MIHI2 the DVUI/Swift-Dock shell, MIHI3 the IaC; Greencandy expansion runs on the entities' own clock
+think custody-first + depersonalization boundary: kept the PERSONAL compensation (subscriptions, hardware, bill-settling, office) OUT of the tracked tree — named it a direct arrangement, /personal/ if anywhere. Kept crypto/custody counsel-gated: Greencandy is bookkeeping (records facts, holds no keys); Sabin's Bit Trading forensics stay his domain; agents author IaC but never provision cloud or move funds
+obs drew + seated waymark MIHI (bit-design-system-surface-takeover-and-greencandy-entities -> index 3010 -> MIHI, no collision) in waymark_derive exclude + the rule table, marked double-seated beside AHOY so it takes none of the front-door season's rounds
+obs wrote the MIHI plan (expanding-prompt): the collaboration shape (what Sabin holds vs what Grain provides), the design (Bit Design System <-> Skate/Realidream/Brushstroke via a .brush seam; DVUI-in-Swift-Dock clean-room bridge; Pond-first; Vultr SEA IaC SEA-only never EWR), the Greencandy arm, rulings/boundaries, rungs, blind spots; acme-voice for instruction, named Sabin as the collaboration decision record
+obs wrote the Greencandy expansion design (active-designing) — a SCOPE extension not a new value model: entity separation never braided (Siya Fund + Linengrow PBC distinct books, inter-entity moves as signed facts), HR as signed facts, periods close per entity, reports as Skate projections; custody boundary explicit (records, never disburses)
+obs references-are-promises: all eight new link targets verified; living_docs_lint GREEN, no new flags on the MIHI/Greencandy docs
+file expanding-prompts/20260811-220402_mihi-bit-design-system-and-greencandy-entities.md the MIHI plan, double-seated beside AHOY
+file active-designing/20260811-220402_greencandy-entity-books-siya-and-linengrow.md Greencandy scope extension for the two entities, custody-gated
+file .claude/rules/waymark-ladders.md + tools/waymark_derive.rish MIHI seated (table + exclude)
+file work-in-progress/REMEMBER.md MIHI opened (double-seated) + AHOY1 progress; git nib refreshed this commit
+recommend check-in (Keaton) — MIHI is open and double-seated beside AHOY: the collaboration invitation, its design shape, and the Greencandy entity-books extension are seated, with personal comp kept a direct arrangement and custody counsel-gated. It waits on Sabin's yes and on your provisioning hand for the VPS — agents prepared the IaC plan, not the cloud. Next doors are yours to order: continue the AHOY1 weave (mechanical), open MIHI0 (the Pond onboarding path, once Sabin accepts), or run the Greencandy entities lap when the books need their first close

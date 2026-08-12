@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260812.003345
+editor Zed + Claude Agent
+model claude-opus-4-8
+voice Kyri
+host Linux (Framework 16 AMD) — Eastern (EDT) time convention
+title seat brushstroke/tokens.rye — MIHI1 token sheet with infuse cascade + Skate lowering
+prompt build the MIHI1 next step: seat brushstroke/tokens.rye (a Rye token sheet with cascade) and a green witness, following TAME/Rye discipline strictly; maintainer authorized
+think read the spec (mihi1 surface-bridge seam) — three layers: token sheet, cascade = infuse(base, override), lowering to Skate grid
+think read the weave silo — palette Flax/Bark/Oat/Walnut and the six invariants (gentle lightness, warm hue, elevation-as-weave, thread spacing, paper hierarchy, low blue)
+think read brix/infuse.rye — the per-key Bron override IS the cascade engine; reuse it via a symlink (brushstroke/brix_infuse.rye -> ../brix/infuse.rye), same pattern as tally_copy.rye -> ../tally/copy.rye
+think read skate_grid.rye — Grid/put_line/rasterize/lit_pixel_count, Color{r,g,b}, 8x16 cells, ARGB8888; lowering drops alpha to a Skate Color
+obs chose ARGB8888 (0xAARRGGBB) values honoring invariants: Flax 0xFFF2ECDF (light page ~L83), Bark 0xFF2B2620 (dark page ~L17), Oat 0xFFF8F3E8 (light card lifts above Flax), Walnut 0xFF3A342B (dark card lifts above Bark), edge 0xFF8A7A66; every word has red>=green>=blue with blue strictly smallest — proven by assert_warm_low_blue, not trusted
+obs cascade reuses infuse.infuse; resolve() one override, resolve_stack() bounded by max_cascade_depth=8 ping-pong; lowering dress()/dress_grid() proves warm/low-blue before paint reaches the grid, then rasterizes real pixels
+obs first tame_style_check RED on seven compound asserts (assert(a and b)); split each into named single-invariant asserts; rebuilt GREEN; tokens.rye/mihi1 appear in no ban or ratchet
+loom witness=mihi1_tokens_witness build=green selftest=green tame_bans=clean
+file brushstroke/tokens.rye the token sheet: palette constants, resolve/resolve_stack cascade by infuse, dress/dress_grid lowering to Skate
+file brushstroke/brix_infuse.rye symlink to ../brix/infuse.rye so the cascade reuses the proven per-key override engine
+file tools/mihi1_tokens_witness.rish witness: builds tokens.rye, runs selftest, asserts GREEN + palette/cascade/lowering claims
+recommend check-in (Claude) — MIHI1 durable core seated and GREEN; maintainer's word for the next MIHI rung (styled-run growth of Frame/Skate, or the DVUI-in-Swift MIHI2 shell)

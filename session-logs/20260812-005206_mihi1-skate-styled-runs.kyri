@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260812.005206
+editor Zed + Claude Agent
+model claude-fable-5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title MIHI1 — Skate per-cell styled runs, additive and byte-identical
+prompt Keaton (self-paced loop): take the next agent-doable Lindy lap — the Skate styled-run token-index growth MIHI1 named as horizon — stop at custody gates
+think The seam design named per-cell styled runs as horizon: Skate cells were single glyph bytes with one fg/bg for the whole grid, so a run of differently-colored cells was impossible. This lap makes it real — carefully, because skate_grid is core display code with several consumers, one the untestable Wayland path.
+think Delegated to a fresh-context agent under a strict safety mandate: additive only, the no-runs render path byte-identical, every existing witness GREEN, and a stop-and-report clause to surface a blocker rather than risk the display path. Safety-first (TAME root) over speed.
+think The approach is additive and default-preserving: Grid gained fg_index (one byte per cell, zeroed in init) and a bounded palette (max_palette=8); rasterize reads each cell's fg from the index, and index 0 uses the exact fg argument as before — so a grid with no runs is unchanged by construction. put_color_run + set_palette mark runs; tokens.rye's dress_run paints a run from a resolved sheet token.
+obs Proven, not hoped: the new witness FNV-signs the pixel buffer — two no-runs grids sign identically to baseline (90643dd005e4c8c7), and skate_grid_test reports 559 lit pixels before and after. Two ranges rasterize to two colors (run A 142 red px, run B 139 green px). Verified GREEN on my own metal via the rishi witnesses (which set the toolchain); a direct rye-run needs zig on PATH, an environment quirk, not a regression.
+obs Honest horizon named: wayland_seed can't build in this sandbox (xkbcommon/wayland headers absent — pre-existing), yet it passes no color runs so its path is byte-identical by construction. tame_style_check GREEN, files in no ban/ratchet (one introduced compound assert split before final).
+loom witness=skate_styled_run no_runs_sig=90643dd005e4c8c7 baseline=90643dd005e4c8c7 lit_pixels=559 identical=true result=GREEN
+file brushstroke/skate_grid.rye additive per-cell fg layer (fg_index + bounded palette) + put_color_run/set_palette; rasterize default byte-identical
+file brushstroke/tokens.rye dress_run paints a cell range from a resolved token + prove_styled_run selftest
+file brushstroke/skate_styled_run_test.rye the Rye driver proving two-color runs + byte-identical no-runs
+file tools/skate_styled_run_witness.rish the witness (GREEN)
+recommend check-in Keaton — MIHI1's durable core AND its styled-run horizon are now on metal; the ungated agent-doable queue has thinned to work that wants your word (seat further surface in the collaborator's domain, MIHI2 DVUI shell) or the custody gates (seed force-push, provisioning). Surfacing the checkpoint rather than padding

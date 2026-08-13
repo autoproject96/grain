@@ -1,4 +1,4 @@
-//! greencandy/greencandy.rye — Greencandy selftest (lap 1–2 fold/reports + lap 4 filters).
+//! greencandy/greencandy.rye — Greencandy selftest (fold/reports + filters) · 20260713.
 //!
 //!   rye build greencandy/greencandy.rye -femit-bin=greencandy/bin/greencandy
 //!   greencandy/bin/greencandy selftest

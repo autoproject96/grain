@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260812.224721
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title FUSS-J14r4a — mandi + greencandy prose relabeled, guard widened to 36 of 79
+prompt Continue the autonomous loop: climb the market/accounting cluster, send as its own signed round.
+think The r4 exploration named the market/accounting/interop modules (mandi · greencandy · glow/nock) plus the tools/*.rish prose as the closing work. glow/nock is delicate (a phased-plan structure and a print string a witness may assert) and the tools prose is its own set, so I scoped this round to mandi + greencandy (17 sites) and left glow/nock + tools + the VOLS-close re-run for the next rounds — one keystone, one send.
+think mandi: four .rye version headers (Mandi lap 1/lap 3) named by capability (market listing · listing settle) + git stamp 20260728; the README status line and four section headings (## Lap 1, ## Floor view (lap 2), …) named by feature. greencandy: two lap-2/lap-4 feature comments named by report + stamp 20260713; the README status/design/link labels named by report — the greencandy_sight_view_lap3.rish tool handle kept (a filename, prose-only ruling), the dated design-doc filenames (…_greencandy-lap2-reports.md) left untouched (dated testimony, and no space so the guard never bit them anyway).
+think A real trap surfaced and was caught: a `.`-for-middot regex byte matched only one of the two UTF-8 bytes of · (0xC2 0xB7), orphaning a byte on greencandy/README.md line 60 (broke grep's UTF-8, and greencandy_core line 5 silently missed its stamp). Reverted that README with git checkout, redid the link-label edits with byte-exact \xc2\xb7 patterns, added the missing stamp, and verified every edited file with iconv -f utf-8 -t utf-8 — all valid UTF-8, residual 0.
+obs Comment-and-README only; proven safe on metal — mandi_listing_settle + mandi_lap1 (build mandi_core/listing_settle_core + selftests) and greencandy_lap4 + gism_ayre_j8 (build greencandy_core + greencandy.rye) all GREEN.
+obs Added the 8 surfaces to labeling_module_scan.sh; CION guard GREEN over the widened set. guarded_sites climbs 28 → 36 of 79. width-check exit 0, tame_style_check GREEN.
+file mandi/mandi_core.rye mandi/mandi.rye mandi/listing_settle_core.rye mandi/listing_settle.rye version headers named by capability + stamp 20260728
+file mandi/README.md status line + four section headings named by feature (Listing · Floor view · Listing settle · Settle view)
+file greencandy/greencandy_core.rye greencandy/greencandy.rye lap-2/lap-4 feature comments + selftest header named by report + stamp 20260713
+file greencandy/README.md status/design/link labels named by report; sight-view tool handle + dated design-doc filenames kept (redone byte-exact after a middot-byte trap)
+file tools/gen/season/cion_module_labeling_witness.rish grew the scan list by the 8 market/accounting surfaces; guard GREEN
+recommend keep-going FUSS-J14r4b — glow/nock (the Nock interop's phased-plan prose, checking the print-string witness assertion first) and the living tools/*.rish prose, then re-run the VOLS survey to prove guarded_sites covers every FUSS-touched surface, closing Journey 14

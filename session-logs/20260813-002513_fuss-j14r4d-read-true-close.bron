@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260813.002513
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title FUSS-J14r4d read-true close — REDS #74 closed, guarded_sites 79 of 79, FUSS Journey 14 (Molt) CLOSES
+prompt Close FUSS Journey 14 with the read-true round: reword the survey witness, widen the extractor per REDS #74, re-run VOLS, prove guarded_sites 79.
+think Three moves in the close, each proven on metal. (1) vols_survey_witness.rish — the survey-of-itself, the 79th prose gap — its pedagogical "lap 3"/"lap 5" doc-comment examples reworded to a "lap <N>" placeholder (teaching the drift shape without a real digit), and its boundary grep changed from 'lap 5' to 'lap [0-9]' (still counts the testimony fixture's real ordinal, which correctly keeps it) — the witness re-runs GREEN, teaching intact, and added to the guard as a clean surface.
+think (2) REDS #74 fixed: vols_guardlist_extract.sh's filter widened from rye|md|brix to rye|md|brix|rish|glow — the extensions the guard actually scans — so the extracted guardlist stopped silently dropping every .rish (and the one .glow) guarded site. The two measures now agree: the guardlist holds all 79 of 79 VOLS prose-gap paths.
+think (3) Re-running the live census surfaced a subtlety the toolchain earned: the guard witness ITSELF (cion_module_labeling_witness.rish) was the one remaining site — its before→after changelog quotes retired ordinals to document each relabel. Rather than exempt it (a guard that skips itself is weaker than one that obeys itself), reworded the biting quotes to a "lap <N>" placeholder (capability names and mappings kept, the biting digit gone) and added it to its own scan list. The labeling guard now obeys the law it enforces, scanning itself.
+obs The close is proven three ways: the CION guard runs GREEN over the full widened set including itself (planted-negative fixture still bites); the live classify reports sites=144 handles=144 prose_gaps=0 guarded_sites=0 verdict=ok (every one of the 79 prose gaps fell out as a site once relabeled, only kept witness handles remain); and coverage reads all 79 of 79 ledger prose-gap paths in the extracted guardlist (guardlist 109 entries). The VOLS read-true witness stays GREEN.
+obs Left the seated VOLS ledger work-in-progress/vols-survey-ledger.bron untouched — it is a dated snapshot (stamp 20260812.221045) recording FUSS's pre-molt worklist (223 sites, 79 prose gaps); accrete-never-break and the one-clock law keep it. The post-molt state (prose_gaps=0) is provable by re-running the classify and is recorded in the guard witness's own census and here.
+obs No tame_style_check / width-check needed — the changed files are .rish and .sh, not authored .rye. All three changed files valid UTF-8. REDS.md 22527 B under its 24576 bound; the reds-monotone witness GREEN.
+loom census=vols_classify sites=144 handles=144 prose_gaps=0 guarded_sites=0 guardlist_entries=109 coverage=79of79
+file tools/gen/season/vols_survey_witness.rish pedagogical examples + boundary grep reworded to keep the teaching without a bare ordinal; added to guard
+file tools/fixtures/vols_guardlist_extract.sh REDS #74 — filter widened to keep .rish and .glow
+file tools/gen/season/cion_module_labeling_witness.rish changelog quotes reworded to lap <N>; vols_survey_witness + self added to scan list; close note
+file work-in-progress/REDS.md REDS #74 CLOSED line
+recommend keep-going FUSS Journey 14 (Molt) stands complete end to end — r1 amphora crux · r2 comlink guests · r3 voices · r4a–b market/nock · r4c mantra · r4d-i header cluster · r4d-ii/iii coupled · r4d-iv-a–f prose/parity · read-true close (79 of 79 guarded, prose_gaps 0). The next Lindy-first crux on the 1,024-round road is Season 4 Journey 15 (Debride, OFFY) — word-gated cuts of dead count-up tissue, a cairn stacked before each cut, which needs Keaton's word (debride is a custody-adjacent gate), so a fresh self-approved design read of OFFY is the agent-doable opener

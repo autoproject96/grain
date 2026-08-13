@@ -1,0 +1,21 @@
+format session-log-v1
+stamp 20260812.222457
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title FUSS-J14r1 — amphora prose relabeled to semantic label + stamp, guard widened
+prompt Continue the autonomous loop: take the next Lindy-first crux (Season 4 Journey 14, Molt/FUSS), open it with a self-approved design round, climb r1, send as its own signed round; stop at custody gates.
+think VOLS Journey 13 closed with the survey ledger seated — 223 sites = 144 kept handles + 79 prose gaps, guarded_sites=0. FUSS is the molt: relabel the 79 prose gaps to semantic label + stamp and grow the CION guard to scan each relabeled surface, so the labeling law finally holds where it claims to.
+think Opened FUSS with a self-approved exploration. The crux the design names: the molt must be meaning-preserving, not a blind sed — VOLS proved lap N rides in three roles and only prose identity is drift; a witness handle (amphora_lap1.rish and README shorthand for it) is kept, dated testimony's facts stay.
+think r1 crux cluster = amphora, the smallest self-contained module carrying all three roles: prose identity in two .rye headers, a handle reference in the README, a stamped Arc note. Relabeled manifest_entry.rye (lap 1 → manifest entry: one cargo line… · 20260713) and vessel_fetch_delivery.rye header + its GREEN print (lap 3 → vessel cargo fetch) to semantic label + stamp; reworded the README's lap 1 · lap 2 · lap 3 shorthand to the amphora_lap1/2/3 witnesses, pointing at the kept handles unambiguously.
+think Checked blast radius before editing: witnesses assert on .ok status and the substrings GREEN / fetch-by-digest, not on the literal lap 3, so relabeling the print string is safe (grep -rn confirmed). The stamp 20260713 is the files' own git author date (git log -1), never fabricated.
+obs Guard GREEN over the widened set (amphora three surfaces added to labeling_module_scan.sh; header comment + GREEN line record the amphora sweep). Zero residual bare ordinals in the three files. width-check exit 0, tame_style_check GREEN.
+obs amphora_lap3 witness exits 1 at its hosted-UDP-demo step — proven pre-existing by a git stash A/B (baseline exits 1 identically at the same step); the vessel-fetch delivery binary compiles past my change, and the failure is the sandbox's missing device-wire network, the same qemu/virtio env limitation the guard's own header already notes. Not a red, not caused by this round.
+obs guarded_sites climbs 0 → 3 of the 79 as amphora's surfaces enter the guard; FUSS-J14r4 will re-run the VOLS survey to prove the census reads the molt true.
+file active-designing/20260812-222457_fuss-journey14-molt-relabel-exploration.md self-approved design round — opens FUSS Journey 14, names the meaning-preserving crux and four cluster rounds
+file amphora/manifest_entry.rye header relabeled lap 1 → manifest entry: … · 20260713
+file amphora/vessel_fetch_delivery.rye header + GREEN print relabeled lap 3 → vessel cargo fetch (· 20260713)
+file amphora/README.md lap 1 · lap 2 · lap 3 shorthand reworded to the kept amphora_lap1/2/3 witness handles
+file tools/gen/season/cion_module_labeling_witness.rish grew the scan list by amphora's three surfaces; guard GREEN
+recommend keep-going FUSS-J14r2 — the comlink guest cluster (fifteen guest_*_tx/rx.rye each carrying an I2 … lap 3 device prose identity, plus comlink/README.md): relabel each to its device role + stamp, grow the guard, GREEN

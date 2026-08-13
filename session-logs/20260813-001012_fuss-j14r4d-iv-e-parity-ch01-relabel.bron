@@ -1,0 +1,17 @@
+format session-log-v1
+stamp 20260813.001012
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title FUSS-J14r4d-iv-e — parity_ch01's 178 own-prose bare lap ordinals relabeled, guard widened to 77 of 79
+prompt Continue FUSS Journey 14's closing round Lindy-first crux-first, send each increment as its own signed round, stop at custody gates.
+think Of the three remaining unguarded prose-gap sites (vols_survey_witness · parity_ch01 · parity_ch02), took parity_ch01 — one site carrying 178 bare lap ordinals across its witness-suite prose. Every hit sits in a say-suite / assert-else / GREEN triple; no stray references, and no driver asserts contains on parity_ch01's output (parity.rish reads .ok / the cost log), so relabeling its own prose breaks nothing.
+think The bare ordinals are genuine drift — even off-by-one from their kept handles (say "Lattice lap 1" runs lattice_lap2.rish). Each suite line already names the capability in a parenthetical or trailing phrase, so the relabel names the capability and drops the ordinal.
+think Two forms: simple module labels fold the parenthetical into the name (Lattice lap 0 (f32 matmul) → Lattice f32 matmul); structured codes keep the code and drop only the ordinal (SLC-2a Lap 1 arbitrary value → SLC-2a arbitrary value, NS-L3 wire lap 1 → NS-L3 wire, I2 snapshot wire lap 3 → I2 snapshot wire). The three Nock sections match glow_riscv-iv-d's naming (core · macro layer · edit primitive).
+obs Applied by a reviewed two-pass awk transform (tools/.cache/fuss_parity_relabel.awk): 178 say/assert lines changed, zero code/handle lines touched (verified: every changed line begins say/assert), line count identical (1536), valid UTF-8, zero residual bare ordinals. The structured codes lap 3w-4 / lap 4b (word char after the digit) and every kept handle (nock_lap2_witness.rish, let nock_lap2, tools/lattice_lapN.rish — no space) are correctly untouched.
+obs The change is pure string-literal prose inside say / assert-else lines, structurally identical to the original, so it cannot alter parsing or behavior. Running the full parity_ch01 suite is env-gated and minutes-long (it builds many Zig binaries); the CION guard GREEN over the widened set is the check this round needs.
+obs Added tools/parity_ch01.rish to the CION guard's scan list; guard GREEN (drift 0, planted negative still bites). guarded_sites 76 → 77 of 79.
+file tools/parity_ch01.rish 178 witness-suite bare lap ordinals named by capability; codes + handles untouched
+file tools/gen/season/cion_module_labeling_witness.rish parity_ch01 added to scan list; header note appended
+recommend keep-going FUSS-J14r4d-iv-f — parity_ch02 (270 own-prose hits, same witness-suite shape, checks .ok only), then the read-true close (widen vols_guardlist_extract.sh to .rish per REDS #74, reword vols_survey_witness's pedagogical examples to keep the teaching without a bare ordinal, re-run VOLS, prove guarded_sites 79) closing Journey 14

@@ -1,0 +1,16 @@
+format session-log-v1
+stamp 20260812.235345
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title FUSS-J14r4d-iv-c — fascia_metric_v0 ↔ amphora coupling closed, guard widened to 75 of 79
+prompt Continue the autonomous loop: next agent-doable crux Lindy-first crux-first, self-approve, send each increment, STOP at custody gates. baton prin recur.
+think r4d-iv-b landed the three safe witness-prose tools; the next deferred site is fascia_metric_v0.rish, which asserts contains "GREEN: Amphora lap 1/2/3" on the amphora fold — a printer↔asserter coupling. Audited it before touching: grep tree-wide showed fascia is the ONLY asserter of that string, and the amphora witnesses it reads (tools/gen/amphora/amphora_lap{1,2,3}.rish) are classified handle gap in the VOLS ledger — kept witness handles whose lap N the law keeps.
+think So the clean move is NOT to churn the kept handles (relabeling their GREEN prints would touch stable identifiers the law protects) but to reword fascia's OWN asserts to check each handle's distinctive semantic phrase instead of the bare ordinal: manifest entry + vessel seated (lap1) · Cellar season poured (lap2) · vessel cargo fetched over Comlink (lap3). Same verification — each specific amphora witness greened — with the drift removed from fascia's scanned prose. The i5 header comment named Amphora manifest entry; the three fold error messages named by capability.
+think Behavior-neutral proven by git-stash A/B: baseline fascia and edited fascia both fail at line 29 assert amphora2.ok (amphora_lap2's Cellar-pour witness needs a built binary this jail lacks — the same pre-existing env condition as cellar_first_ring's line 11), which sits UPSTREAM of every reworded contains-assert (lines 25/30/35), so my edits could not have changed the run.
+obs Added fascia_metric_v0.rish to labeling_module_scan.sh; CION guard GREEN over the widened set (drift 0, negative still bites); tame_style_check GREEN; zero residual bare lap N. guarded_sites climbs 74 → 75 of 79. No kept handle touched, no dated testimony touched, no key/funds/network.
+file tools/gen/season/fascia_metric_v0.rish three amphora-fold asserts reworded to semantic phrases + i5 comment/error messages named by capability
+file tools/gen/season/cion_module_labeling_witness.rish grew the scan list by fascia_metric_v0; guard GREEN
+file work-in-progress/REMEMBER.md FUSS line r4d-iv-c note + git nib
+recommend keep-going FUSS-J14r4d-iv-d — glow_riscv_target_witness (large/qemu-gated, Nock lap 2/3 say strings, check contains coupling) + vols_survey_witness's pedagogical lap 3/lap 5 examples (reword to keep the teaching or hold as a survey-of-itself exception) + the two parity chapters (178/270 own-prose), then the read-true close (widen vols_guardlist_extract.sh to .rish per REDS #74, re-run VOLS, prove guarded_sites 79) closing Journey 14

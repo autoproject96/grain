@@ -1,0 +1,26 @@
+format session-log-v1
+stamp 20260812.233011
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title FUSS-J14r4d-iii — the SLC-2a Lap coupled cluster relabeled atomically, guard widened to 67 of 79, REDS #74 booked
+prompt Continue the autonomous loop: next agent-doable lap Lindy-first crux-first, self-approve design rounds, send each finished increment as its own signed round, stop at custody gates.
+think Read REMEMBER + the 1,024-round itinerary; git log showed the bench is far past the card — deep in Season 4 (Seal), Journey 14 (Molt, FUSS), sub-lap r4d-ii last landed. The itinerary's next crux is the FUSS design's named r4d-iii: the SLC-2a Lap coupled cluster.
+think The crux of this round is a true printer↔asserter coupling: pond_brushstroke_frame_witness asserts metal.out contains "GREEN: SLC-2a Lap 3", printed by slc2a_ring3_metal's say. Relabeling one without the other would break the witness, so the round's whole discipline is atomicity.
+think Scoped the cluster to 6 files — the four ring witnesses, brushstroke/wayland_seed.rye's usage doc-comments (the scheme's home; linengrow/wayland_seed.rye is a symlink to it), and the asserter. Confirmed tree-wide (docs-implementation-sync) that parity_ch01 runs the ring witnesses but checks .ok only, so its own SLC-2a-Lap prose is a separate later cluster, not this coupling.
+think Relabeled each SLC-2a Lap N to capability + git-author stamp 20260713 (arbitrary-value viewer · redraw · Wayland metal smoke · session mirror), keeping the SLC-2a scheme name and dropping only the bare ordinal. Moved the ring3-metal printer's GREEN string and the pond-frame contains-assert together to "GREEN: SLC-2a Wayland metal smoke" — the asserted substring is a prefix of the say, so consistency holds by construction.
+obs Reconciling guarded_sites two ways surfaced a real red: the hand-count in the guard comment (61) and the automated vols_guardlist_extract.sh (44) disagree because the extractor filters \.(rye|md|brix)$ and silently drops every .rish guarded site. Booked REDS #74 — measure before claiming — to the J14 read-true close, which cannot reach guarded_sites 79 until the extractor learns .rish. Guard stays GREEN regardless; the count is the metric, not the gate.
+obs The ring/pond-frame witnesses are Wayland-metal (need WAYLAND_DISPLAY, unset in ai-jail), so metal GREEN stays the GNOME desk's. Proven both fail only at the pre-existing env gate — ring1 at line 12 (wayland_seed build libs), pond-frame at line 16 (WAYLAND_DISPLAY unset) — with the relabeled messages showing, no parse error. Change is prose + coupled-string only.
+obs CION guard GREEN over the widened set (exit 0, all 6 new files lap_ordinal=0, main scan drift=0 verdict=ok, planted negative still bites drift=1, pass fixture ok). tame_style_check bans clean. REDS under bound (21741/24576), monotone GREEN through row 74.
+loom witness=cion_module_labeling scanned_files=98 new_files=6 drift=0 guarded_sites_handcount=67 guarded_sites_extractor=45 target=79
+file tools/slc2a_ring1_arbitrary.rish SLC-2a Lap 1 → arbitrary-value viewer witness · 20260713, header + build msg + GREEN say
+file tools/slc2a_ring2_redraw.rish SLC-2a Lap 2 → redraw-on-change witness · 20260713
+file tools/slc2a_ring3_metal.rish SLC-2a Lap 3 → Wayland metal smoke · 20260713, printer half of the coupling
+file tools/slc2a_ring3_session.rish SLC-2a Lap 3 → session mirror witness · 20260713
+file tools/gen/season/pond_brushstroke_frame_witness.rish asserter half — contains-string moved atomically with the printer
+file brushstroke/wayland_seed.rye usage doc-comments named by capability, ordinal dropped (comments only)
+file tools/gen/season/cion_module_labeling_witness.rish scan list + provenance widened by the 6; SLC-2a moved out of deferred, only comlink sub-lap remains
+file work-in-progress/REDS.md row 74 booked — the .rish extractor blind spot, to the J14 read-true close
+file work-in-progress/REMEMBER.md FUSS-J14 note accretes r4d-iii landing; r4d-iv named next
+recommend keep-going FUSS-J14r4d-iv — the remaining single-hit tools + READMEs + .glow + parity chapters, then the read-true close (teach the extractor .rish, re-run VOLS, prove guarded_sites 79) closing Journey 14.

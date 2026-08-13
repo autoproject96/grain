@@ -1,0 +1,22 @@
+format session-log-v1
+stamp 20260812.233812
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title FUSS-J14r4d-iv-a — the README + .glow prose cluster relabeled, guard widened to 71 of 79
+prompt Continue the autonomous loop: next agent-doable lap Lindy-first crux-first, self-approve, send each finished increment as its own signed round, stop at custody gates.
+think After r4d-iii sent, computed the exact remaining worklist — the 79 prose gaps minus the now-guarded set — to 12 files. Two are the parity chapters (parity_ch01/ch02, 178/270 own-prose hits, their own later round). The other 10 split into a safe prose cluster and coupled tools witnesses.
+think Chose the safest coherent sub-cluster first (the FUSS smallest-complete habit): the four pure-prose surfaces with zero witness-print coupling — active-designing/README.md, expanding-prompts/README.md, tools/gen/ember/README.md, src/app/shape-pool-agent-slot.glow.
+think These carry lap N in a different role than a module doc-comment: the two big READMEs are indexes of DATED design docs, each row a link whose target filename holds lap N. Per the r4d handle-reference ruling, the dated filename is the kept handle — I reworded each row's living title text to name the capability and left every dated .md link target untouched. The stamp column already dates each row, so no redundant stamp.
+think ember/README.md's "Corpus lap 0 catalog" cell named by capability (the ember_corpus_lap1.rish filename handle kept). The .glow's two invariant comments ("Lap 0 shape"/"honest Lap 0 open") named "the first shape"/"honest first open".
+obs Structured codes SLC-L4, WOV lap 2b (2b), M2b, M2, and the "M1 first lap" prose (no digit after lap) correctly untouched — the guard's PCRE lookaround permits them and my rewording left them alone. Verified 0 residual bare ordinals and valid UTF-8 in all four.
+obs No .rye touched (READMEs + one .glow), so no tame_style_check gate; the CION guard is the gate — GREEN over the widened set (exit 0, all 4 new files lap_ordinal=0, main scan drift=0 verdict=ok, planted negative still bites). guarded_sites 67 to 71 of 79.
+loom witness=cion_module_labeling new_files=4 drift=0 guarded_sites_handcount=71 target=79
+file active-designing/README.md four index-row titles named by capability, dated .md links kept
+file expanding-prompts/README.md eight index-row titles named by capability, dated .md links kept
+file tools/gen/ember/README.md corpus catalog cell named by capability, filename handle kept
+file src/app/shape-pool-agent-slot.glow two invariant comments named the first shape/first open
+file tools/gen/season/cion_module_labeling_witness.rish scan list + provenance widened by the 4, GREEN
+file work-in-progress/REMEMBER.md FUSS-J14 note accretes r4d-iv-a landing
+recommend keep-going FUSS-J14r4d-iv-b — the remaining tools witnesses (cellar_first_ring · compass_rose · fascia_metric_v0 · vols_survey_witness · glow_riscv_target · pond_ring_drawn_terminal), checking each for print-string coupling, then the two parity chapters, then the read-true close (teach the extractor .rish, re-run VOLS, prove guarded_sites 79) closing Journey 14.

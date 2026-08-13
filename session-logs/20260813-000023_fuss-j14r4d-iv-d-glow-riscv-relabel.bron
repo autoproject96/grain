@@ -1,0 +1,18 @@
+format session-log-v1
+stamp 20260813.000023
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title FUSS-J14r4d-iv-d — glow_riscv_target_witness Nock lap prose relabeled, guard widened to 76 of 79
+prompt Read REMEMBER + the 1024-round itinerary, take the next agent-doable lap Lindy-first crux-first, approve own design rounds, send often, stop at custody gates.
+think The next agent-doable crux is FUSS-J14r4d-iv-d — the remaining tools witnesses (glow_riscv_target_witness, vols_survey_witness's pedagogical examples), the two parity chapters, then the read-true close (widen the extractor to .rish per REDS #74, re-run VOLS, prove guarded_sites 79) closing Journey 14. One keystone per send.
+think Took the smallest, best-understood cluster first: glow_riscv_target_witness.rish's Nock lap 1/2/3 prose. It maps cleanly onto the nock_core phases FUSS-J14r4b already relabeled — lap 1 = primitive core (opcodes 0-5), lap 2 = macro layer (opcodes 6-9,11), lap 3 = edit primitive (opcode 10).
+think docs-implementation-sync checked tree-wide first: no driver asserts contains on this witness's "Nock ... lap" say strings (grep clean); the witness itself asserts contains "GREEN"/"RISC-V" only on its sub-binary outputs, never on the lap strings. So relabeling the say/assert-else prose breaks nothing.
+think The kept handles nock_lap2_witness.rye / nock_lap3_witness.rye are filenames (no space), untouched by the guard and left in place as stable identifiers; the Nock-core section (lap 1's build) already used clean "Nock core" prose.
+obs Relabel: "Nock lap 1" → "Nock primitive core", "Nock lap 2" → "Nock macro layer", "Nock lap 3" → "Nock edit primitive" across the nine-fold doc-comment, the two build sections' assert-else messages, and the two GREEN say strings (redundant "(lap 2)"/"(lap 3)" dropped, and a parenthetical doubling tidied). Residual bare lap 0; valid UTF-8.
+obs The witness is qemu-gated (RISC-V cross-build + QEMU user-mode) — metal GREEN stays a qemu-capable bench's; the change is behavior-neutral say/assert/comment prose only, so it cannot alter the witness's outcome.
+obs Added tools/glow_riscv_target_witness.rish to labeling_module_scan.sh via the CION guard; guard GREEN over the widened set (drift 0, planted negative still bites). guarded_sites 75 → 76 of 79.
+file tools/glow_riscv_target_witness.rish Nock lap 1/2/3 prose named by capability; kept handles + core section untouched
+file tools/gen/season/cion_module_labeling_witness.rish surface added to scan list; header note appended
+recommend keep-going FUSS-J14r4d — the two parity chapters (parity_ch01 178 / parity_ch02 270 own-prose hits, checks .ok only), then the read-true close (widen vols_guardlist_extract.sh to .rish per REDS #74, re-run VOLS, prove guarded_sites 79) with vols_survey_witness held as a documented survey-of-itself exception, closing Journey 14

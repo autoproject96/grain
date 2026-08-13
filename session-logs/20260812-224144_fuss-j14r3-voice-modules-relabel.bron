@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260812.224144
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title FUSS-J14r3 — the three Q-vane voice modules relabeled, guard widened to 28 of 79
+prompt Continue the autonomous loop: climb FUSS-J14r3 (the voice modules), send as its own signed round.
+think r1 (amphora) and r2 (comlink guests) proved the discipline on a small module and a large uniform cluster. r3 takes the three Q-vane voice modules — lattice, ember, lantern — READMEs and authored .rye/.rish prose. Unlike the comlink guests these are non-uniform: a version ordinal in a header, a /// function-doc lap prefix, a long fixtures table.
+think Scoped r3 to lattice + ember + lantern (a natural semantic group — the Q-vane's tensor, craft, and inference voices), leaving mandi · greencandy · glow/nock for r4. 38 sites: 9 hand-judged prose sites + lantern/README.md's 29-row fixtures table.
+think The 29-row lantern table maps each fixture file to what it pins, prefixed "Lap N" (provenance). The description column already carries each fixture's purpose, so the "Lap N" is pure drift — a sed dropped the prefix, each fixture kept by its own purpose (pinned completion · long completion · model-hash allow-list …). Residual 0 by an independent grep after.
+think The 9 hand sites relabeled meaning-first: (lap 39)/(lap 33) version tags → semantic name + git stamp; "Lantern lap 33 selftest" → "Lantern selftest · 20260713"; "/// Lap 1: return fixture completion" → "/// Return fixture completion"; lattice README's "lap 31 minimum · … Inference lap 1 close" → "minimum tensor set · … Inference arc close"; ember's "Lap 2 deepens filters" → "Filters deepened · 20260809", "Lap 0 catalogs" → "The catalog folds".
+obs Comment-only + README changes — zero code tokens moved. Proven safe on metal: buhr_inference_query (builds Lattice+Lantern) GREEN, buhr_reading_query (Scribble+Lantern) GREEN, gism_j5_corpus_real_ember (builds ember_core) GREEN. A raw-shell rye build fails only for lack of zig on PATH; the witness harness sets it up and passes.
+obs Added the 8 surfaces to labeling_module_scan.sh; CION guard GREEN over the widened set (mandate … amphora · comlink guests · lattice · ember · lantern). guarded_sites climbs 20 → 28 of 79. width-check exit 0, tame_style_check GREEN.
+file lattice/lattice_core.rye lattice/lattice.rye lattice/README.md version ordinals → semantic name + stamp; parity note reworded off count-up
+file ember/ember_core.rye ember/README.md "Lap 2 deepens filters"/"Lap 0 catalogs" → semantic prose + stamp
+file lantern/lantern_core.rye lantern/lantern.rye header + two /// function-docs relabeled off the lap ordinal
+file lantern/README.md 29-row fixtures table stripped of its "Lap N" provenance prefix, each fixture kept by purpose
+file tools/gen/season/cion_module_labeling_witness.rish grew the scan list by the 8 voice surfaces; guard GREEN
+recommend keep-going FUSS-J14r4 — the market/accounting/interop modules (mandi · greencandy · glow/nock) and the living tools/*.rish prose, then re-run the VOLS survey to prove guarded_sites has climbed to cover every FUSS-touched surface, closing Journey 14

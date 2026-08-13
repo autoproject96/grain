@@ -1,0 +1,16 @@
+format session-log-v1
+stamp 20260813.001227
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title FUSS-J14r4d-iv-f — parity_ch02's 270 own-prose bare lap ordinals relabeled, guard widened to 78 of 79
+prompt Continue FUSS Journey 14's closing round; send each increment as its own signed round.
+think parity_ch02 is the second big prose-gap site. Checked first: zero stray lap refs (every hit in a say-suite / assert-else / GREEN triple), and it is fully uniform — every hit is "<Label> lap N (cap)", all parenthetical, no structured codes (NS-L3/I2/SLC-2a), no capital Lap, no Nock specials. So the same reviewed awk transform (tools/.cache/fuss_parity_relabel.awk) applies with only its simple paren-fold branch firing.
+think Same docs-implementation-sync boundary as ch01: no driver asserts contains on parity_ch02's output (parity.rish reads .ok / the cost log; parity checks .ok only on every sub-witness), so relabeling its own say/assert prose breaks nothing.
+obs Every section folds its parenthetical capability into the name (Lattice lap 19 (exp) → Lattice exp; Lantern lap 15 (length_stop pin) → Lantern length_stop pin; Linengrow sight view lap 5 (BS equity on glass) → Linengrow sight view BS equity on glass). 270 say/assert lines changed, zero code/handle lines touched, line count identical (682), valid UTF-8, zero residual bare ordinals.
+obs The change is pure string-literal prose, structurally identical, cannot alter parsing or behavior; running the full parity_ch02 suite is env-gated (builds Zig binaries), the CION guard GREEN over the widened set is the check this round needs.
+obs Added tools/parity_ch02.rish to the CION guard's scan list; guard GREEN (drift 0, planted negative still bites). guarded_sites 77 → 78 of 79. Only vols_survey_witness (the survey-of-itself) remains, closing in the read-true round.
+file tools/parity_ch02.rish 270 witness-suite bare lap ordinals named by capability
+file tools/gen/season/cion_module_labeling_witness.rish parity_ch02 added to scan list; header note appended
+recommend keep-going FUSS-J14r4d read-true close — reword vols_survey_witness's pedagogical lap 3/lap 5 examples to keep the teaching without a bare ordinal (letter placeholder + grep pattern), widen vols_guardlist_extract.sh to .rish per REDS #74, re-run the VOLS survey, prove guarded_sites reaches 79, and close FUSS Journey 14

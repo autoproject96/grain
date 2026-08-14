@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260814.082600
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title AMUS10 — constel leader election, one leader made unique
+prompt recur the 1024/six-season itinerary: take the next agent-doable lap Lindy-first crux-first, self-approve design rounds, send each finished increment, STOP at custody gates
+think Read REMEMBER (stale at CAUM6), the 1024-round itinerary, and the six-season double-seat; git log showed the true living edge is AMUS9 (constel quorum), well past the card
+think Lindy-first crux-first: Season D's durable heart is the tree's own consensus (Mycelium, improving on TigerBeetle/Mysticeti); quorum answered may-a-majority-act but never spent its intersection property; the socket rung is the custody gate, so the next PURE crux is the first real decision — a leader election
+think Read quorum.rye and census.rye to reuse majority_of and the announce/respond/hear medium at the naming-law border rather than re-invent it; the vote's content is the voter's honest choice, the right to vote is proven over the wire
+think Self-approved the design round: active-designing/20260814-053151_amus10-constel-leader-election.md, then wrote constel/elect.rye and tools/amus_elect_witness.rish
+obs the load-bearing invariant is uniqueness — elect asserts no second candidate also reaches a strict majority; the selftest proves it exhaustively over EVERY arrangement of single votes in a sky of four (winners <= 1), so the quorum-intersection property is checked directly, not merely stated
+obs kept it one keystone: the decision only; the medium (switchboard/census/border, ChannelFull-free interleave) is reused unchanged; custody gate #2 (real wire/socket) and gate #4 (real Kumara) untouched — the socket stays the maintainer's hand
+loom witness=amus_elect_witness selftest=GREEN cases=9 sky_max=8
+file constel/elect.rye AMUS10 — Ballot vote/tally/elect (NoLeader, DoubleVote), run_election over the switchboard; uniqueness asserted at the seal
+file tools/amus_elect_witness.rish builds and runs the selftest, greps the GREEN amus-elect line
+file active-designing/20260814-053151_amus10-constel-leader-election.md self-approved design read for the rung
+file constel/README.md seats AMUS10 in status, rungs, prove-block, kin, and the road-on
+recommend keep-going AMUS11 stays pure — from one leader to one committed VALUE (a log entry agreed once, the leader proposing), still no socket; the socket crossing remains custody gate #2

@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260814.020252
+editor Zed
+model Fable 5
+voice Kyri
+host Vultr SEA VPS (HP AMD 2vCPU/4GB shared) — Eastern (EDT) time convention — ai-jail
+title CAUM waymark drawn — Season A's Mikrophone firmware journey opens
+prompt recur baton — take the next agent-doable lap Lindy-first crux-first past HUNK93, keep opening new journeys, send often, stop at custody gates
+think With Season A's opening journey (Open Image, HUNK0-93) whole and both software surfaces mature, the next Lindy-first crux on the whole road is Season A's named near-term joy — the Mikrophone, firmware-first (the Mantrapod's real near-term surface).
+think A new journey wants its own waymark (draw before you number). Ran tools/waymark_derive.rish with input_name season-a-mikrophone-firmware-forgetful-session-capture — SHA3-512(8) 46f6029a, decimal 1190527642, index 677 of 5526, drew CAUM. No collision with any seated name.
+think Seated CAUM the way HUNK was seated: input_name moved to the CAUM ladder and CAUM added to the exclude roster (so the committed script reads RED on a re-draw of the seated word — the intended redraw signal, matching HUNK's committed state), plus a seated-draws comment line. The sameness witness tools/waymark_derive_witness.rish stays GREEN.
+think Mirrored the seat across both rule twins (.claude/rules/waymark-ladders.md, .cursor/rules/waymark-ladders.mdc) and the Lexicon Waymark family, each naming CAUM's crux: the memory that forgets.
+obs The founding crux CAUM0 is the device's defining promise as a firmware invariant — a bounded session buffer that holds only while powered, persists nothing except on a deliberate commit, and provably dissolves (zeroes) on power-down (What forgets, protects). Proven pure in Rye before metal, exactly as ship_pilot proved the onboarding arc pure before wiring real modules.
+obs Wrote the self-approved design round active-designing/20260814-020500 naming the shape (mikrophone/session.rye: capture / commit / power_down / carry) and the five invariants the CAUM0 witness will prove. Real Mikrophone hardware stays custody gate #2; this rung asks no network, signs no key, moves no funds.
+file tools/waymark_derive.rish CAUM drawn, seated in exclude roster + seated-draws comment (input_name moved to the CAUM ladder)
+file .claude/rules/waymark-ladders.md CAUM row added to the seated-waymark table
+file .cursor/rules/waymark-ladders.mdc CAUM row mirrored into the Cursor twin
+file context/LEXICON.md CAUM seated in the Waymark family — the memory-that-forgets crux named
+file active-designing/20260814-020500_caum-mikrophone-firmware-memory-that-forgets-exploration.md self-approved CAUM0 design round — shape and invariants
+recommend keep-going land CAUM0 — mikrophone/session.rye + tools/caum_session_witness.rish GREEN on metal, the memory-that-forgets proof

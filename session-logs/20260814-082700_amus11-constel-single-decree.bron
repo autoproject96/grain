@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260814.082700
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title AMUS11 — constel decree, one value committed once
+prompt recur the six-season itinerary Lindy-first crux-first, self-approve design rounds, send each finished increment, STOP at custody gates
+think After AMUS10 elected a unique leader, the crux-first pure continuation is the other half of a single-slot consensus: commit one VALUE, once — the primitive every replicated ledger leans on
+think Deliberately parallel to elect: an election decides identity, a decree decides value; proving them side by side shows the quorum-intersection property is the one engine under both, spent on data rather than on who leads
+think Self-approved the design round, then wrote constel/decree.rye and tools/amus_decree_witness.rish; reused quorum.majority_of and the census announce/respond/hear medium at the naming-law border unchanged
+obs the safety is single-value: accept refuses WrongValue so every recorded accept is for the one proposed value; a second value has zero support by construction, so two values can never both commit — asserted at the seal, and the WrongValue path proven (an off-value accept leaves no trace)
+obs stayed one keystone and purely local; custody gate #2 (real wire/socket) and gate #4 (real Kumara) untouched — the socket crossing remains the maintainer's hand
+loom witness=amus_decree_witness selftest=GREEN cases=9 sky_max=8
+file constel/decree.rye AMUS11 — Decree accept/support/commit (NoDecree, DoubleAccept, WrongValue), run_decree over the switchboard; single-value safety asserted at the seal
+file tools/amus_decree_witness.rish builds and runs the selftest, greps the GREEN amus-decree line
+file active-designing/20260814-053908_amus11-constel-single-decree.md self-approved design read for the rung
+file constel/README.md seats AMUS11 in status, rungs, prove-block, kin, and the road-on
+recommend keep-going AMUS12 stays pure — a SEQUENCE of decrees into an append-only replicated log (each index committing one value, the log consistent by the same intersection), ties to Mantra's append-only discipline; the socket crossing remains custody gate #2

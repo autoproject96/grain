@@ -1,0 +1,38 @@
+# tools/amus_exchange_witness.rish — two fake piers reach a COMPLETE Session communicating only through frames (AMUS4).
+#
+# Season: the Six-Season double-seat, Season D/F thread · waymark AMUS · Constel test-network naming · rung AMUS4.
+# Design read: active-designing/20260814-044312_amus4-constel-exchange-over-frames.md
+# Law kin: .claude/rules/placeholder-ship-names.md — the naming law's border in wire.rye guards every crossing: a tampered
+# greeting frame with a fixed-up digest still refuses VowelPresent at the responder, so a real-@p-shaped party can never
+# enter the exchange even over the wire.
+#
+# constel/exchange.rye carries AMUS2's three handshake steps end to end across AMUS3's frames — the real pier boundary,
+# where the initiator never holds the responder's Ack value and the responder never holds the initiator's Greeting value;
+# only frames cross. The selftest proves: a clean exchange completes across three frames; both sides read back the same
+# sealed session; a mismatched sky refuses ConstellationMismatch; a non-member refuses NotAMember; a self-greet refuses
+# SameParty; and a tampered greeting frame refuses VowelPresent at the border. Purely local — no socket, no network, no keys.
+#
+# Run from the repository root:
+#   rishi/bin/rishi run tools/amus_exchange_witness.rish
+
+say "amus-exchange: Language EN — AMUS4 proves two fake piers reach a COMPLETE Session communicating ONLY through frames (bytes), never once sharing an in-memory value — the real pier boundary the later byte-queue and socket rounds will simply carry unchanged."
+say "amus-exchange: Style Radiant — two Party views, three frames, and nothing else shared; agreement reached purely over the wire representation, every fault refusing by name mid-exchange."
+say "amus-exchange: Lens TAME — a bounded exchange over in-memory frame buffers composing handshake.rye and wire.rye over their public APIs; the naming-law border guards every crossing; siloed to constel/, run from inside the jailed pier; no socket, no network, no keys, no funds, no real address ever formed (custody gate #2 and gate #4 untouched)."
+
+let zig = "vendor/zig-toolchain/zig"
+let bin = "constel/bin/exchange"
+
+let build = run ["sh" "-c" "mkdir -p constel/bin && env RYE_ZIG=${zig} rye/bin/rye build constel/exchange.rye -femit-bin=${bin}"]
+assert build.ok else "amus-exchange: build failed — ${build.err}"
+
+let outfile = "constel/bin/exchange.out"
+let selftest = run ["sh" "-c" "${bin} selftest > ${outfile} 2>&1"]
+assert selftest.ok else "amus-exchange: selftest exited non-zero — see ${outfile}"
+
+let shown = run ["sh" "-c" "cat ${outfile}"]
+say "amus-exchange: ${shown.out}"
+
+let green = run ["sh" "-c" "grep -q 'GREEN amus-exchange' ${outfile} && echo yes"]
+assert (trim green.out) == "yes" else "amus-exchange: selftest did not print the GREEN amus-exchange line"
+
+say "amus-exchange: GREEN — two piers agree over bytes alone; the AMUS5 byte-queue round need only stand a bounded queue between the two Party views."

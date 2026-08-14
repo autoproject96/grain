@@ -1,0 +1,22 @@
+format session-log-v1
+stamp 20260814.084100
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS20 — Constel read: a linearizable read that appends nothing (the read-index)
+prompt Recur through agent-doable Lindy-first crux-first laps; approve own design rounds; send each finished increment as its own signed round; STOP at custody gates. (Third lap this turn, after AMUS19.)
+think AMUS19 proved the write half of a linearizable service (exactly-once apply). The other half of Raft §8 is the read: a deposed leader answering from stale state. Lindy-first crux-first, the read-index is the highest-durability still-tractable rung — it completes a full linearizable key-value service on the bench, the thing every Mycelium ledger is underneath.
+think The read-index avoids routing reads through the log as a no-op. Two cheap checks: confirm leadership (a majority has NOT advanced past the leader's term — AMUS16's at_least lemma), and capture the commit index (AMUS18's safe_commit_len), apply through it (AMUS19's apply_through), then answer. Because apply_one is exactly-once, applying through an already-reached prefix is a no-op — the read never double-applies and never writes.
+think Built constel/read.rye composing apply + term + commit + repair + quorum public API only. leadership_confirmed(terms, current_term, threshold); linearizable_read(machine, cmds, read_index, terms, current_term, threshold) returning (ReadError||ApplyError)!u32 — refuse NotLeader unconfirmed, else apply_through and return register.
+think Two build/logic reds, both caught by the runtime asserts of the modules I composed (measurement beats memory): (1) term.observe asserts slot < size — TermTable needs .size = 5 set, like MatchView; fixed all six. (2) My first leadership_confirmed used at_least(current_term) >= threshold, but at_least counts term-or-HIGHER, so deposers at a higher term were miscounted as supporters — block 3's !confirmed assert panicked. Corrected to the faithful heartbeat model: still_with_leader = size - at_least(current_term+1); a majority of those confirms leadership. This is exactly the deposed-leader detection §8 wants.
+think Third build GREEN across six blocks. TAME bans clean, width exit 0, no usize. Additive — read.rye edits none of the modules it imports; AMUS18/AMUS19 witnesses unaffected.
+obs The nested-error-union return type E1!E2!T is invalid Zig; merged with (ReadError || apply.ApplyError)!u32. Asserting an error is returned uses the codebase's own idiom (errorunion == error.X), which this Zig supports (apply.rye block 6 established it). Composing five prior rungs' public APIs, and having their own asserts catch my two mistakes at runtime, is the arc paying off — the safety I built earlier guarded the safety I built today.
+obs AMUS19 (writes) + AMUS20 (reads) together are a complete linearizable KV service, proven pure and local. Custody gates honored: no socket/network/keys/funds/real client/real address. A served read reaches the Comlink-served gate; the socket stays custody gate #2.
+obs One-clock: live host read 20260814.064837 (and later ~065500) is BELOW the prior newest 083900, so stamped 084100 per the AMUS ladder's monotonic convention. Later is always larger; the drift is noted, not fabricated.
+loom witness=amus_read_witness blocks=6 result=GREEN tame=clean width=exit0
+file constel/read.rye AMUS20 — leadership_confirmed + linearizable_read (the read-index, composing AMUS16/18/19)
+file tools/amus_read_witness.rish builds and runs the selftest, asserts the GREEN amus-read line
+file active-designing/20260814-084100_amus20-constel-read-index-linearizable-reads.md self-approved design round
+file constel/README.md seats AMUS20 — Status, Kin, rungs, run block, road-on, stamp
+recommend keep-going — the linearizable service is whole; next agent-doable pure crux is pre-vote (a partitioned node cannot disrupt with a term bump) or leadership transfer; the socket stays custody gate #2.

@@ -1,4 +1,4 @@
-# tools/caum_witness.rish — the whole Mikrophone firmware journey, proven in one command (CAUM0–CAUM15).
+# tools/caum_witness.rish — the whole Mikrophone firmware journey, proven in one command (CAUM0–CAUM16).
 #
 # Season A (Hardware & Right-to-Repair) · waymark CAUM · Mikrophone firmware journey · aggregate witness.
 # Front door: mikrophone/README.md.
@@ -77,4 +77,8 @@ let reconcile = run ["rishi/bin/rishi" "run" "tools/caum_reconcile_witness.rish"
 assert reconcile.ok else "caum: CAUM15 reconcile witness failed"
 assert (reconcile.out contains "GREEN caum-reconcile") else "caum: CAUM15 reconcile not GREEN"
 
-say "GREEN caum: the whole Mikrophone firmware journey holds — CAUM0 session · CAUM1 wire · CAUM2 recorder · CAUM3 firmware · CAUM4 inbox · CAUM5 carry · CAUM6 archive · CAUM7 catalog · CAUM8 manifest · CAUM9 serve · CAUM10 redact · CAUM12 sync · CAUM13 forget · CAUM14 push · CAUM15 reconcile, all fifteen rungs proven pure before metal in one command; no disk, no network, no key, no funds."
+let verify = run ["rishi/bin/rishi" "run" "tools/caum_verify_witness.rish"]
+assert verify.ok else "caum: CAUM16 verify witness failed"
+assert (verify.out contains "GREEN caum-verify") else "caum: CAUM16 verify not GREEN"
+
+say "GREEN caum: the whole Mikrophone firmware journey holds — CAUM0 session · CAUM1 wire · CAUM2 recorder · CAUM3 firmware · CAUM4 inbox · CAUM5 carry · CAUM6 archive · CAUM7 catalog · CAUM8 manifest · CAUM9 serve · CAUM10 redact · CAUM12 sync · CAUM13 forget · CAUM14 push · CAUM15 reconcile · CAUM16 verify, all sixteen rungs proven pure before metal in one command; no disk, no network, no key, no funds."

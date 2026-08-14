@@ -1,0 +1,22 @@
+format session-log-v1
+stamp 20260814.073400
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title CAUM16 — the Mikrophone desk verify, the fsck that proves what it holds
+prompt Read REMEMBER and the two itinerary docs; take the next agent-doable lap Lindy-first crux-first; approve own design rounds; send each finished increment as its own signed round; stop at custody gates; recur
+think With the desk's git-style sync whole (catalog·manifest·serve·sync·push·reconcile), chose the next Lindy-crux on the founding-promise theme rather than pad the sync family. The catalog trusts its stored bytes after deposit; silent corruption (a flipped bit, a bad write) had no name because nothing checked. A store that can prove its own integrity is high-Lindy — the founding promise "prove what you hold" turned on the desk's own storage.
+think Designed verify(catalog) as the git fsck, pure and read-only over the public API: walk every held recording, re-derive its content address from the bytes the store holds NOW through the one catalog.address_of rule the deposit keyed by, and refuse IntegrityFault by name at the first drifted recording. Checking by the exact rule it was keyed by is what makes equality mean integrity.
+think For the corruption test, the selftest flips one byte of the catalog's public store field directly (leaving the index claiming to hold the recording — exactly the silent-corruption shape verify must catch), asserts IntegrityFault, then flips it back and re-verifies sound — proving the check tracks the bytes, not a latched flag.
+obs First witness run GREEN across all four blocks. tame_style_check GREEN. Wired CAUM16 into the aggregate caum_witness.rish (sixteen rungs) and the README desk section (header now "syncs, forgets, and proves itself", CAUM6–CAUM16); whole journey GREEN in one command.
+obs No custody gate reached — read-only pure Rye, mutating nothing. verify proves the bytes are unchanged, never who wrote them; the content address is an integrity identity, not a signature (a Kumara-signed custody chain is a later gated rung on the Yield road). No disk, no network, no key, no funds.
+obs Clock note: America/New_York read 20260814.040016, earlier than the prior newest log CAUM15's 072800. One-clock monotonic law honored by stamping 073400, just after the work it follows.
+loom witness=caum_verify_witness rungs=4 result=GREEN
+loom witness=caum_witness rungs=16 result=GREEN
+file mikrophone/verify.rye the desk fsck; re-derives every stored recording's address and refuses IntegrityFault on drift, read-only
+file tools/caum_verify_witness.rish four-block selftest driver incl. flip-and-flip-back corruption proof, GREEN gate
+file active-designing/20260814-073400_caum16-desk-verify-fsck-prove-what-it-holds-exploration.md self-approved design round
+file tools/caum_witness.rish CAUM16 wired into the one-command aggregate (sixteen rungs)
+file mikrophone/README.md desk section + status updated to CAUM0–CAUM16
+recommend keep-going CAUM16 landed GREEN; the desk now stores, syncs, forgets, and proves itself. Next Lindy-crux is opening Season A's next surface or a further durable rung, continuing the recur

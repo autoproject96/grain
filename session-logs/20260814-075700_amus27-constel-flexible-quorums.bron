@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260814.075700
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS27 — Constel flexible quorums: the truth beneath the majority lemma
+prompt continue the recursion — take the next agent-doable pure crux Lindy-first, self-approve, send as its own signed round; STOP at custody gates
+think the AMUS membership arc closed at AMUS26; the next AMUS crux is the socket (custody gate #2), but pure high-Lindy work remained — the strongest was flexible quorums, which generalizes and strengthens the AMUS9 intersection lemma the WHOLE ladder leans on (Lindy-first: strengthen the foundation everything cites)
+think Flexible Paxos (Howard, Malkhi & Spiegelman 2016): consensus needs only every election quorum to intersect every replication quorum, so any split with qe + qr > n is safe; the strict-majority pair is the symmetric special case and AMUS9's 2·majority>n is exactly its instance
+think grounded the arithmetic in real set intersection rather than asserting it — enumerated_min_overlap exhaustively walks every size-qe election subset against every size-qr replication subset (bounded 2^n per side, n ≤ roster.max_piers, popcount by hand) and returns the smallest true overlap, so a safe split's overlap ≥ min_overlap and an unsafe split yields a genuine disjoint pair (minimum 0)
+obs GREEN on the first build across six blocks; TAME bans clean, width-check exit 0, zero usize; composes quorum.majority_of + roster.max_piers over public APIs only, adds no new state — a pure theorem module
+obs the crux is proven both by arithmetic and by enumeration: n=5 qe=2 qr=4 always intersects (overlap 1), n=5 qe=2 qr=3 has a real disjoint pair; the asymmetric tradeoff endpoints (qe=n,qr=1 and qe=1,qr=n) safe, one short of either unsafe
+loom witness=amus_flexquorum_witness blocks=6 result=GREEN build=first-try usize=0 enum_subsets=2^n
+file constel/flexquorum.rye AMUS27 — flexible quorums, the Flexible Paxos theorem proven and enumerated
+file tools/amus_flexquorum_witness.rish the witness that builds, runs, and asserts the GREEN amus-flexquorum line
+file active-designing/20260814-075309_amus27-constel-flexible-quorums.md the self-approved design read for the rung
+file constel/README.md synced — AMUS27 bullet, status list, witness run-list, and road-on prose
+recommend keep-going the AMUS9 foundation now stands generalized; the remaining pure AMUS rungs are lower-Lindy polish (batching/pipelining) and the genuine next crux is the socket — custody gate #2, the maintainer's hand

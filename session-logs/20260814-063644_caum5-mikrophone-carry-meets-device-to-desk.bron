@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260814.063644
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host cloud pier — Eastern (EDT) time convention
+title CAUM5 — the carry meets: a committed device run lands in the desk inbox
+prompt recur the 1024-round itinerary Lindy-first crux-first; take the next agent-doable lap on the road past BUHR, self-approve design rounds, send each finished increment as its own signed round, stop at custody gates
+think CAUM3 proved the sending hand (record → commit → wire frame) and CAUM4 proved the receiving hand (deframe verify-before-trust → keep only what is proven whole). Each hand was witnessed alone; the two had never been shown meeting. Lindy-first crux-first, the most durable next move is not a sixth new surface but the join of the two proven ones — the SETU Glass↔Desk carry names exactly this shape.
+think The crux is the composition held to the forgetting promise across the seam: a recorded, committed run lands byte-for-byte, and ONLY such a run does. Every refusal is inherited, not re-implemented — NothingToCarry from the sending hand, the six deframe errors from the receiving hand. The join adds one invariant of its own: a clean carry leaves the desk holding the device's committed bytes and nothing else.
+think mikrophone/carry.rye composes firmware.carry_frame and inbox.accept over their public APIs, inventing no transport, no buffer, no new error. carry_to_inbox frames the recorder's committed carry then accepts it verify-before-trust; a forgotten run refuses NothingToCarry at the frame step so the inbox is never touched.
+obs The sharp end-to-end invariants: an uncommitted tail (commit keep, feed X, stop) carries exactly keep; a forgotten run refuses NothingToCarry and a prior keep in the inbox is left untouched (neither lands nor erases); a payload byte flipped in transit refuses DigestMismatch and the desk keeps nothing while a prior good keep still stands; and both hands forget whole — device working buffer zero after power_down, desk inbox zero after clear (buffer checked byte-for-byte).
+obs Custody untouched — the single wire is still a byte slice handed function to function; the Sha256 stays an integrity check the receiver recomputes, not a signature. Real hardware, a real cable, a real desk stay custody gate #2; no custody gate reached this round.
+loom witness=caum_carry_witness cases=5 result=GREEN tame=clean width=exit0
+file active-designing/20260814-063000_caum5-carry-meets-device-loop-to-desk-inbox-exploration.md the self-approved design round naming the crux, shape, and five invariants
+file mikrophone/carry.rye CAUM5 — the carry meets: carry_to_inbox composes the sending and receiving hands, selftest GREEN across five blocks
+file tools/caum_carry_witness.rish the witness that builds and runs the carry selftest, asserts the GREEN caum-carry line
+file work-in-progress/REMEMBER.md living edge advanced CAUM4→CAUM5, the CAUM sentence extended with the meeting of both hands, git nib refreshed in this same work commit
+recommend keep-going both hands now proven meeting end to end; next agent-doable Season-A rungs stay pure on the bench — a persistence rung (a kept payload beaded into a bounded content-addressed store, the firmware's flash) or the carry meeting a Skate/glass surface; no custody gate until a board or provisioning is reached

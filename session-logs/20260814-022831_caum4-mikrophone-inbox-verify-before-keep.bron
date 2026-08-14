@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260814.022831
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host cloud pier — Eastern (EDT) time convention
+title CAUM4 — the Mikrophone far side keeps a carried frame only once it is proven whole
+prompt recur the 1024-round itinerary Lindy-first crux-first; take the next agent-doable lap on the road past BUHR, send each finished increment as its own signed round, stop at custody gates
+think CAUM3 closed the sending gesture end to end (record → commit → wire). Lindy-first crux-first, the next durable move is the other end of the wire: the far side that receives. A carry has two hands, and only the sending hand was proven.
+think The crux is verify-before-keep across the seam — a receiver that keeps a payload before proving it whole would let a flipped byte or forged magic land in the archive. The SETU waymark already names this hearth carry (Glass↔Desk); CAUM4 gives the Desk side its firmware discipline.
+think mikrophone/inbox.rye stands on CAUM1's wire.deframe, inventing no new transport. accept deframes FIRST and copies the proven payload into a bounded inbox only on a clean deframe; any wire error propagates by name and the inbox is left exactly as it was. clear zeroes the buffer whole — the forgetting promise on the receiving hand.
+obs The sharp invariant is that a failed accept is total: an inbox already holding a good payload, handed a corrupt frame, refuses DigestMismatch and still holds exactly the earlier good bytes — a bad frame neither lands nor erases. Proven alongside all five corruption refusals each leaving the inbox empty (no residue), and a whole-buffer zero check after clear.
+obs Custody untouched — verifying the Sha256 stays an integrity check the receiver recomputes, not a signature; an authenticated sender is a later gated rung. Real hardware and a real desk stay custody gate #2; no custody gate reached.
+loom witness=caum_inbox_witness cases=4 result=GREEN tame=clean width=exit0
+file active-designing/20260814-022831_caum4-inbox-far-side-accepts-verify-before-keep-exploration.md the self-approved design round naming the crux, shape, and four invariants
+file mikrophone/inbox.rye CAUM4 — the receiving inbox (init · accept · held · clear), verify-before-keep, selftest GREEN
+file tools/caum_inbox_witness.rish the witness that builds and runs the inbox selftest, asserts the GREEN caum-inbox line
+file work-in-progress/REMEMBER.md living edge advanced CAUM3→CAUM4, the CAUM sentence extended with the receiving hand, git nib refreshed in this same work commit
+recommend keep-going both hands of the carry now stand proven; next agent-doable is a persistence rung (a kept payload beaded into a bounded content-addressed store, the firmware's flash) or the recorder/inbox meeting a Skate/glass surface — all Season-A, no custody gate until a board or provisioning is reached

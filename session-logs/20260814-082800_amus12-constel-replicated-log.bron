@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260814.082800
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title AMUS12 — constel log, an unforkable append-only ledger
+prompt recur the six-season itinerary Lindy-first crux-first, self-approve design rounds, send each finished increment, STOP at custody gates
+think AMUS11 committed one value once; a ledger is a SEQUENCE of decisions in order — the output every consensus exists to produce, the same at every pier
+think The crux is ordering: a Log is bounded, append-only, and each entry is one AMUS11 decree; because each index commits at most one value, two replicas of the same committed decrees are identical entry for entry — no fork by construction
+think Self-approved the design round, wrote constel/log.rye and tools/amus_log_witness.rish; reused decree.run_decree unchanged (a full decree round leaves the switchboard mailboxes empty, so sequential appends over one sky work)
+obs proved no-fork honestly, not as a constant true — two logs driven through the same sequence match, and a log one entry short does NOT match; a failed decree (stranger leader NoSuchPier) leaves len unchanged, so the log never carries a gap or an uncommitted value
+obs removed a duplicate name_of_copy helper (TAME: no needless second function) before the checks; append-only mirrors Mantra's own order
+loom witness=amus_log_witness selftest=GREEN cases=5 max_entries=64 sky_max=8
+file constel/log.rye AMUS12 — Log append/get/matches (LogFull, NoEntry) + run_and_append; no-fork by construction, unchanged on failure
+file tools/amus_log_witness.rish builds and runs the selftest, greps the GREEN amus-log line
+file active-designing/20260814-054414_amus12-constel-replicated-log.md self-approved design read for the rung
+file constel/README.md seats AMUS12 in status, rungs, prove-block, kin, and the road-on
+recommend keep-going the pure consensus core (elect · decree · log) is whole; the one rung that crosses the Comlink seam is the SOCKET (real file descriptor, seed/comlink/) — custody gate #2, stops for Keaton's word; agent-doable pure next: log compaction, or a fault-injection round proving the log holds under dropped/duplicated frames

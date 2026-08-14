@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260814.074400
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS1 — Constel roster: a bounded registry of fake piers, membership an invariant
+prompt Keaton set the recursion loop on the 1024-round itinerary and six-season double-seat: take the next agent-doable lap Lindy-first crux-first, self-approve design rounds, make progress before checking in, send often as its own signed round, stop at custody gates.
+think Read both road-ahead docs and the REMEMBER custody gates (gates #1 deep-debride/seed force-push · #2 real hardware · #3 funds/counsel · #4). AMUS0 (Constel naming law) landed at HEAD 5606d480cc; its own scope note reserved the fake-pier harness as a later AMUS round crossing the Comlink seam.
+think That reserved round splits honestly: the handshake+transport genuinely cross the Comlink seam (a real seam, its own round), yet the thing every handshake leans on first — the roster of who is in the constellation — is pure, bounded, and provable on the bench now, exactly as CAUM proved the Mikrophone firmware pure before metal. AMUS1 is that roster: crux-first, the hardest solvable thing that opens the harness, solved where it can be solved cleanly and gate-free.
+think Studied constel/name.rye's public API (generate, check_ship, never_a_ship, check_constellation, max_ships, max_constellation_bytes, contains_vowel) and the sibling-import pattern (const name = @import("name.rye")) used across mikrophone/. Matched the opening triad, >=2 asserts/fn, named errors, snake_case, bounded, usize-free at the seam.
+think The crux stated as an invariant, not a hope: a pier enters only through generate + never_a_ship; a duplicate name refuses DuplicatePier; a ninth pier refuses RosterFull; the hyphen-joined render always passes check_constellation. joined_bytes refuses ConstellationTooLong before a join could overflow the 64-byte constellation bound, so the roster can never present a string the naming law would reject.
+obs Build failed once — the empty-render test passed a const literal (&[_]u8{0}**64) where render wants []u8; fixed to a mutable stack buffer. A clean compiler catch, not a logic fault.
+obs Witness proves on metal across six blocks: an empty roster reads SlotOutOfRange and renders NotFound; stand_up(4) draws a deterministic constellation (a second roster byte-identical); a duplicate index refuses DuplicatePier; a full roster refuses a ninth RosterFull and stand_up(max+1) refuses too; lookup finds the present slot and refuses the absent NotFound; the full max_piers roster renders a lawful check_constellation whole with no vowel end to end and within the byte bound.
+obs Scope held to the pure roster — membership, bounds, distinctness, deterministic stand-up, render. No network, no Comlink transport, no handshake, no keys, no funds, no real address. The handshake and transport stay their own later AMUS round, now handed a roster already proven correct to greet across.
+loom witness=amus_roster_witness piers_max=8 blocks=6 wall_ms_note=selftest under a second after build
+file active-designing/20260814-041928_amus1-constel-roster-fake-pier-registry.md the AMUS1 roster design + the honest split of the reserved harness round
+file constel/roster.rye AMUS1 — the bounded fake-pier registry over name.rye, membership held as an invariant
+file tools/amus_roster_witness.rish the GREEN witness for AMUS1
+recommend keep-going — AMUS1 GREEN and ready to send; next agent-doable AMUS rung is the local handshake, which crosses the Comlink seam (a real seam, its own round). No custody gate reached this lap. Clock note: America/New_York read 20260814.041928, earlier than the prior newest 073900; the one-clock monotonic law honored by stamping 074400, just after the work it follows.

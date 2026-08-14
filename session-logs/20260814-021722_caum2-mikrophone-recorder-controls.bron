@@ -1,0 +1,18 @@
+format session-log-v1
+stamp 20260814.021722
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title CAUM2 — the Mikrophone recorder controls: samples land only while recording
+prompt Continue the autonomous loop past CAUM1 — next agent-doable lap Lindy-first crux-first on the Mikrophone firmware journey; send each finished increment.
+think CAUM0 proved the session that forgets; CAUM1 proved the wire frame that carries only what was committed. Both are substrate. The surface a keeper's thumb touches — the record control — was the next named crux in CAUM0's design read ("the field-recorder controls"). By Lindy-first crux-first, the recorder's operating discipline is the durable crux now.
+think Designed mikrophone/recorder.rye as a bounded control state machine (idle · recording · paused · stopped) wrapping CAUM0's Session, with the single load-bearing invariant that feed() reaches session.capture ONLY in the recording state. Every illegal transition refuses by name.
+obs The forgetting promise deepens: a paused or stopped recorder accepts nothing, so only what landed during a live recording can ever be committed and carried. Pause holds the buffer without forgetting it (asserted: pausing/resuming/stopping change only the control state, never a captured byte).
+obs No custody crossed — the recorder gates bytes in memory over the session; no disk, no network, no key, no funds. Real hardware and a real record button stay custody gate #2.
+obs Ran the CAUM1 wire witness path clean before building; TAME bans clean on the mikrophone roster; width exit 0; ≥2 positive asserts per fn; no bare memcpy (feed delegates to session.capture's bounded write).
+loom witness=caum_recorder_witness result=green states=4 illegal_transitions_refused=5 feed_gate=recording-only
+file active-designing/20260814-021722_caum2-recorder-control-state-machine-exploration.md the self-approved CAUM2 design round
+file mikrophone/recorder.rye the recorder control state machine — feed gated to recording only
+file tools/caum_recorder_witness.rish the CAUM2 witness — GREEN on metal
+recommend check-in (either) — three CAUM rungs land clean (session · wire · recorder); a good seam to confirm direction before CAUM3 (amber-light idle, or the far-side session that ingests a deframed payload to close the carry loop). Both agent-doable, no gate; naming which serves the road best is worth a glance.

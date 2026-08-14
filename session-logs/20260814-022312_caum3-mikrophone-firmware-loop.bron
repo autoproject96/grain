@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260814.022312
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host cloud pier — Eastern (EDT) time convention
+title CAUM3 — the whole Mikrophone firmware loop carries only the committed run to the wire
+prompt recur the 1024-round itinerary Lindy-first crux-first; take the next agent-doable lap on the road past BUHR, approve own design rounds, send each finished increment as its own signed round, stop at custody gates
+think Read REMEMBER (custody gates 1–6), the 1024-round itinerary, and the six-season double-seat expansion. Living edge = Season A's Mikrophone firmware journey (waymark CAUM); CAUM0 (session that forgets), CAUM1 (wire frame from carry), CAUM2 (recorder control state machine) all GREEN.
+think Lindy-first, crux-first: three rungs stand proven alone but the composition is unwitnessed. The whole firmware gesture — press record, keep on purpose, set down, carry only the kept capture across the wire — is the most durable next move: it is read for years through the one path that ties the three, and it opens every surface above onto a spine known whole.
+think Chose a new module mikrophone/firmware.rye over editing the landed CAUM2 file — one-file-per-rung matches the journey. It composes, inventing nothing: commit delegates to session.commit, power_down to session.power_down, carry_frame to wire.frame over the recorder's session (a public field, reached as &rec.ses), carried_bytes to wire.deframe.
+think Self-approved the design round (20260814-022312) before implementing, per the itinerary's filling law. Four invariants: whole loop round-trips byte-for-byte; only the committed crosses even with an uncommitted tail; a forgotten run powered down carries NothingToCarry with an empty working buffer; a tampered frame refuses DigestMismatch before a byte is yielded.
+obs The uncommitted-tail case is the sharp one — commit "keep", feed "X" while still recording, stop; the wire carries exactly "keep" because carry_frame reads the committed carry, not the live working buffer. It fuses CAUM2's control, CAUM0's deliberate commit, and CAUM1's framed carry in a single scenario.
+obs Custody untouched — no disk, no network, no key signs, no funds; the Sha256 stays an integrity check the far side recomputes, not a signature. Real hardware (record button, microphone, wire) stays custody gate #2; a signed carry stays a later gated rung. No custody gate reached this round.
+loom witness=caum_firmware_witness cases=4 result=GREEN tame=clean width=exit0
+file active-designing/20260814-022312_caum3-firmware-loop-carry-committed-run-to-the-wire-exploration.md the self-approved design round naming the crux, shape, and four invariants
+file mikrophone/firmware.rye CAUM3 — composes session+wire+recorder into one loop (commit · power_down · carry_frame · carried_bytes), selftest GREEN
+file tools/caum_firmware_witness.rish the witness that builds and runs the loop selftest, asserts the GREEN caum-firmware line
+file work-in-progress/REMEMBER.md living edge advanced CAUM1→CAUM3, the CAUM sentence extended with the composed loop, git nib refreshed in this same work commit
+recommend keep-going CAUM3 closes the substrate composition; next agent-doable is a persistence rung (a committed carry beaded into a bounded store) or the recorder meeting a real Skate/glass surface — all Season-A, no custody gate until a board or provisioning is reached

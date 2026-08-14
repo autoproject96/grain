@@ -1,0 +1,36 @@
+# tools/caum_firmware_witness.rish — the whole firmware loop: a committed run carries out to the wire (CAUM3).
+#
+# Season A (Hardware & Right-to-Repair) · waymark CAUM · Mikrophone firmware journey · rung CAUM3.
+# Design read: active-designing/20260814-022312_caum3-firmware-loop-carry-committed-run-to-the-wire-exploration.md
+# Stands on: mikrophone/session.rye (CAUM0), mikrophone/wire.rye (CAUM1), mikrophone/recorder.rye (CAUM2).
+#
+# mikrophone/firmware.rye composes the three proven rungs into one loop: press record, keep on purpose, set the device
+# down, and let only the kept capture cross the single wire. The selftest proves: the whole loop carries the kept
+# capture byte-for-byte, only the committed crosses (an uncommitted tail never reaches the wire), a forgotten run
+# powered down carries nothing (NothingToCarry, working buffer empty), and a tampered frame refuses DigestMismatch
+# before a byte is yielded.
+#
+# Run from the repository root:
+#   rishi/bin/rishi run tools/caum_firmware_witness.rish
+
+say "caum-firmware: Language EN — CAUM3 composes the three Mikrophone rungs into one loop: a recorded, committed run carries out to the verify-before-trust wire."
+say "caum-firmware: Style Radiant — three promises kept one at a time become one promise kept whole: nothing crosses the wire that a keeper did not press record for, mean to keep, and choose to carry."
+say "caum-firmware: Lens TAME — the loop invents nothing; it delegates to session.commit, session.power_down, and wire.frame over the recorder the keeper holds; the wire reads the committed carry, never the live working buffer; every corruption refuses by name (NothingToCarry, DigestMismatch); no disk, no network, no key, no funds (custody gate #2 untouched)."
+
+let zig = "vendor/zig-toolchain/zig"
+let bin = "mikrophone/bin/firmware"
+
+let build = run ["sh" "-c" "mkdir -p mikrophone/bin && env RYE_ZIG=${zig} rye/bin/rye build mikrophone/firmware.rye -femit-bin=${bin}"]
+assert build.ok else "caum-firmware: build failed — ${build.err}"
+
+let outfile = "mikrophone/bin/firmware.out"
+let selftest = run ["sh" "-c" "${bin} selftest > ${outfile} 2>&1"]
+assert selftest.ok else "caum-firmware: selftest exited non-zero — see ${outfile}"
+
+let shown = run ["sh" "-c" "cat ${outfile}"]
+say "caum-firmware: ${shown.out}"
+
+let green = run ["sh" "-c" "grep -q 'GREEN caum-firmware' ${outfile} && echo yes"]
+assert (trim green.out) == "yes" else "caum-firmware: selftest did not print the GREEN caum-firmware line"
+
+say "caum-firmware: GREEN — the whole Mikrophone firmware loop carries only what was pressed-record, kept, and chosen. CAUM3 ties the session, the wire, and the record control into one correct gesture."

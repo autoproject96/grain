@@ -1,0 +1,22 @@
+format session-log-v1
+stamp 20260814.020726
+editor Zed
+model Fable 5
+voice Kyri
+host Vultr SEA VPS (HP AMD 2vCPU/4GB shared) — Eastern (EDT) time convention — ai-jail
+title CAUM0 lands — the Mikrophone session that forgets on purpose
+prompt recur baton — take the next agent-doable lap Lindy-first crux-first, make progress, send often, stop at custody gates
+think CAUM was drawn and seated the prior round; this round lands the founding crux CAUM0 named in active-designing/20260814-020500 — the memory-that-forgets session buffer, proven pure in Rye before metal.
+think Shaped mikrophone/session.rye around two bounded fixed buffers with two fates: `work` is the forgetful working buffer (captures land here, power_down zeroes it whole), `keep` is the one committed payload (commit copies work into it, power_down leaves it untouched). No heap outlives the power.
+think Four verbs, each refusing by name before a byte moves: capture (NotPowered when off, BufferFull past max_samples=4096), commit (NothingToCommit on empty, AlreadyCommitted on a redundant commit over an unchanged buffer, updates the payload after fresh captures), power_down (zeroes work, clears powered), carry (returns the committed payload, empty until a commit). The copy in commit is a plain bounded loop — never a bare memcpy.
+think Kept it self-contained — only std, no cross-dir imports — so the founding rung of a fresh journey directory needs no symlink seam.
+obs The selftest proves all five invariants on metal: capture holds only while powered; the buffer is bounded; commit is the one deliberate act; power-down forgets the working buffer WHOLE (every byte zero) while a committed payload survives; a session powered down without a commit carries nothing. Case 4 is the sharp one — capture 'saveXY', commit at 'save', power down, and only 'save' survives while 'XY' and the whole working buffer are gone.
+obs Added `mikrophone` to the TAME scan roster (bans + advise scripts + the sh comment), matching REDS #76's precedent that put the image journey on the roster, so the new firmware journey is guarded from its first file. TAME bans clean, width exit 0.
+obs Real Mikrophone hardware (buying, provisioning a board) stays custody gate #2 — this rung asks no disk, no network, no key, no funds. REMEMBER's card body lags well behind the log and wants a fuller refresh; a pending door, noted honestly.
+loom witness=caum_session_witness cases=5 max_samples=4096 result=GREEN
+file mikrophone/session.rye CAUM0 — the memory-that-forgets session buffer (capture · commit · power_down · carry)
+file tools/caum_session_witness.rish CAUM0 witness — builds the module and proves the five invariants GREEN
+file tools/tame_style_scan_bans.rish mikrophone added to the ban-scan roster
+file tools/tame_style_scan_advise.rish mikrophone added to the advise-scan roster (two find sites)
+file tools/fixtures/tame_style_scan.sh scan-roster comment names mikrophone
+recommend keep-going CAUM1 — wire the committed payload across the single wire (Comlink carry), or a fuller REMEMBER card refresh; both agent-doable, no gate

@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260814.070309
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — recent CAUM stream stamps UTC for monotonicity
+title CAUM10 — the Mikrophone forgets on purpose (redact a span before the keep)
+prompt recursion loop past CAUM9 — take the next agent-doable Lindy-first crux; CAUM9 named the networked serve as the next step, yet that crosses the Comlink-served custody gate (Season 1 J2), so find the next durable local crux instead of stopping
+think CAUM9's own recommend line flags the networked serve as gated (Keaton's hand), yet the firmware journey has purely-local rungs left; per the directive, find the next agent-doable crux rather than panic to check in on the one gated step
+think Lindy-first crux-first on the whole Mikrophone road: the module's founding promise is "What forgets, protects" — CAUM0 proved the whole buffer forgets on power-down; the deepest uncovered expression of that promise is deliberate forgetting: a keeper striking one span on purpose before the keep, the struck bytes as gone as a powered-down buffer
+think the crux is closing the gap without a ghost — zero the struck span, shift the tail down over it, then zero the region the tail vacated, so no residue of the struck bytes OR the tail at its old positions survives; provable by a full scan out to max_samples, the same zeroing power_down earns
+obs redact operates on session.Session's working buffer BEFORE commit and never touches the committed payload — a keeper redacts, then commits the trimmed capture, so only the trimmed capture can carry; the redacted span never reaches the payload that could cross the wire
+obs three refusals before a byte moves: NotPowered (unpowered), NothingToRedact (a zero-length strike is a deliberate act, not a silent no-op), SpanOutOfRange (start > work_len or len past the remainder) — each checked before any write, so a refused redaction leaves the buffer untouched
+obs five selftest blocks: a struck middle span removed exactly with no residue, redaction deliberate-and-bounded (all three refusals, buffer untouched after each), an unpowered strike refused, head/tail/whole edges each leaving the exact remainder with no residue, and only the trimmed capture committing and carrying
+obs stayed fully agent-doable and local — no disk, no network, no key, no funds; serving over a real transport remains the Comlink-served gate (Season 1 J2), untouched; TAME style bans clean, redact.rye unflagged by the ratchets
+loom witness=caum_redact_witness green=1 rungs=5 max_samples=4096 residue_scanned=1
+file active-designing/20260814-070309_caum10-redact-a-span-before-the-keep-exploration.md the self-approved design round naming the crux, shape, and no-residue invariant
+file mikrophone/redact.rye CAUM10 — redact a span from the working buffer before the keep; struck bytes and vacated tail zeroed, no residue
+file tools/caum_redact_witness.rish the three-lens witness building and running the selftest, asserting GREEN caum-redact
+recommend keep-going CAUM11 stays local and agent-doable — a natural next crux is the device power-state / amber-light idle the field surfaces read, or the desk archive's bounded eviction (oldest-forgets); the networked serve alone waits at the Comlink-served gate

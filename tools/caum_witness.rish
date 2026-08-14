@@ -1,0 +1,64 @@
+# tools/caum_witness.rish — the whole Mikrophone firmware journey, proven in one command (CAUM0–CAUM10).
+#
+# Season A (Hardware & Right-to-Repair) · waymark CAUM · Mikrophone firmware journey · aggregate witness.
+# Front door: mikrophone/README.md.
+#
+# The Mikrophone firmware journey grew from one crux — a session that forgets — to eleven proven rungs: the memory that
+# forgets, the wire that carries only the committed, the record button, the whole loop, the far side's verify-before-keep
+# discipline, the carry meeting, the bounded archive, the content-addressed catalog, the manifest of holdings, the
+# want-response that closes a local content-addressed sync, and the redaction that lets a keeper forget one span on
+# purpose. Each rung has its own witness; this one runs all eleven in rung order and asserts each GREEN, so the whole
+# journey proves from cold in a single command — the reference weave the front door names.
+#
+# Run from the repository root:
+#   rishi/bin/rishi run tools/caum_witness.rish
+
+say "caum: Language EN — the whole Mikrophone firmware journey (CAUM0–CAUM10), each rung's witness run in order and asserted GREEN in one command."
+say "caum: Style Radiant — a device that forgets on purpose, proven whole: a capture held only while powered, kept only on a deliberate commit, redacted where a keeper strikes it, carried only when committed, and received only once proven — no byte crossing that a keeper did not need, none kept that cannot be proven."
+say "caum: Lens TAME — every rung is pure Rye on the bench, bounded, invariant-asserted, refusing by name; no disk, no network, no key, no funds. Serving over a real transport stays the Comlink-served gate; real hardware stays custody gate #2."
+
+let session = run ["rishi/bin/rishi" "run" "tools/caum_session_witness.rish"]
+assert session.ok else "caum: CAUM0 session witness failed"
+assert (session.out contains "GREEN caum-session") else "caum: CAUM0 session not GREEN"
+
+let wire = run ["rishi/bin/rishi" "run" "tools/caum_wire_witness.rish"]
+assert wire.ok else "caum: CAUM1 wire witness failed"
+assert (wire.out contains "GREEN caum-wire") else "caum: CAUM1 wire not GREEN"
+
+let recorder = run ["rishi/bin/rishi" "run" "tools/caum_recorder_witness.rish"]
+assert recorder.ok else "caum: CAUM2 recorder witness failed"
+assert (recorder.out contains "GREEN caum-recorder") else "caum: CAUM2 recorder not GREEN"
+
+let firmware = run ["rishi/bin/rishi" "run" "tools/caum_firmware_witness.rish"]
+assert firmware.ok else "caum: CAUM3 firmware witness failed"
+assert (firmware.out contains "GREEN caum-firmware") else "caum: CAUM3 firmware not GREEN"
+
+let inbox = run ["rishi/bin/rishi" "run" "tools/caum_inbox_witness.rish"]
+assert inbox.ok else "caum: CAUM4 inbox witness failed"
+assert (inbox.out contains "GREEN caum-inbox") else "caum: CAUM4 inbox not GREEN"
+
+let carry = run ["rishi/bin/rishi" "run" "tools/caum_carry_witness.rish"]
+assert carry.ok else "caum: CAUM5 carry witness failed"
+assert (carry.out contains "GREEN caum-carry") else "caum: CAUM5 carry not GREEN"
+
+let archive = run ["rishi/bin/rishi" "run" "tools/caum_archive_witness.rish"]
+assert archive.ok else "caum: CAUM6 archive witness failed"
+assert (archive.out contains "GREEN caum-archive") else "caum: CAUM6 archive not GREEN"
+
+let catalog = run ["rishi/bin/rishi" "run" "tools/caum_catalog_witness.rish"]
+assert catalog.ok else "caum: CAUM7 catalog witness failed"
+assert (catalog.out contains "GREEN caum-catalog") else "caum: CAUM7 catalog not GREEN"
+
+let manifest = run ["rishi/bin/rishi" "run" "tools/caum_manifest_witness.rish"]
+assert manifest.ok else "caum: CAUM8 manifest witness failed"
+assert (manifest.out contains "GREEN caum-manifest") else "caum: CAUM8 manifest not GREEN"
+
+let serve = run ["rishi/bin/rishi" "run" "tools/caum_serve_witness.rish"]
+assert serve.ok else "caum: CAUM9 serve witness failed"
+assert (serve.out contains "GREEN caum-serve") else "caum: CAUM9 serve not GREEN"
+
+let redact = run ["rishi/bin/rishi" "run" "tools/caum_redact_witness.rish"]
+assert redact.ok else "caum: CAUM10 redact witness failed"
+assert (redact.out contains "GREEN caum-redact") else "caum: CAUM10 redact not GREEN"
+
+say "GREEN caum: the whole Mikrophone firmware journey holds — CAUM0 session · CAUM1 wire · CAUM2 recorder · CAUM3 firmware · CAUM4 inbox · CAUM5 carry · CAUM6 archive · CAUM7 catalog · CAUM8 manifest · CAUM9 serve · CAUM10 redact, all eleven rungs proven pure before metal in one command; no disk, no network, no key, no funds."

@@ -1,0 +1,18 @@
+format session-log-v1
+stamp 20260814.081032
+editor Zed
+model Fable 5
+voice Kyri
+title AMUS29 — Constel lease: a lease read, safe under a bounded clock
+prompt recur the loop — keep taking the next agent-doable Lindy-first crux-first lap, self-approve the design round, send each increment as its own signed round, stop at custody gates
+think After AMUS28 (depart) shipped, the next pure crux on the Constel ladder before the gated socket rung: AMUS20 proved the read-index (always safe, one round-trip per read). Raft §6.4.1's leader lease is the fast alternative, and its safety hinges on one exact inequality — a genuine crux, not padding.
+think Modeled the clock as a bounded monotonic u64 tick (no wall clock, no real time), so the rung stays purely local. grant gates on tenure.still_commands (composing AMUS24); lease_sound holds span < election_timeout; serve_on_lease requires both sound AND unexpired, else the caller falls back to the read-index.
+think The crux the read-index never needed: a lease used past the election timeout could let a partitioned leader still believe its lease valid while the majority elected a successor — a stale read. Proved directly: an unsound lease (span == timeout) is refused even at elapsed 0.
+obs GREEN on the first build across six blocks: minority leader refused NoMajority; soundness inequality exact (9<10 sound, 10 and 11 unsound); the crux — unsound lease never served even unexpired; sound unexpired served, expired falls back, boundary exact at elapsed == span; monotonic u64 near 4e9 never underflows at now == granted; bounded over a full roster.
+obs TAME bans clean; lease.rye carries ≥2 asserts/fn. Purely local — no socket, no network, no keys, no funds, no real address; custody gate #2 and gate #4 untouched. The read-side companion to AMUS24 CheckQuorum.
+loom witness=amus_lease_witness wall_blocks=6 build=first_green
+file constel/lease.rye AMUS29 — grant + lease_sound + serve_on_lease, the leader-lease read over tenure + the read-index fallback
+file tools/amus_lease_witness.rish the on-metal witness — builds, runs selftest, asserts the GREEN amus-lease line
+file active-designing/20260814-081032_amus29-constel-lease-read.md the self-approved design capture for the round
+file constel/README.md front door synced — status list, lease rung, run block, road-on prose, stamp
+recommend keep-going the pure ladder continues; the socket rung (seed/comlink + a real wire) remains the custody gate that stops for Keaton's word

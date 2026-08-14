@@ -1,0 +1,23 @@
+format session-log-v1
+stamp 20260814.071720
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title CAUM13 — the desk forgets one recording on purpose
+prompt Read REMEMBER and the two itinerary docs; take the next agent-doable lap Lindy-first crux-first; approve own design rounds; send each finished increment as its own signed round; stop at custody gates
+think Read the 1,024-round itinerary and the six-season double-seat; the living edge is Season A's Mikrophone firmware journey (waymark CAUM), at CAUM12 with a full README, whole journey GREEN in one command.
+think Chose the next crux Lindy-first: the founding promise "What forgets, protects" was asymmetric. The device forgets whole (power_down) and one span (redact, CAUM10); the desk forgets whole (clear, CAUM7) but had no way to forget ONE recording. Closing that gap is high-Lindy — it completes the founding invariant on both hands — and tractable pure Rye.
+think Read catalog.rye (packed store, entries {address,off,len} in first-deposit order) and redact.rye (zero span, close tail over gap, zero vacated region, prove no residue). forget is redact one level up: strike one recording by content address, shift the packed tail down, zero the vacated region, repair the index (drop entry, shift later entries down, decrement their offsets by the removed length).
+think Wrote a self-approved design round, then forget.rye with NotHeld refusal before a byte moves and four postcondition invariants (count-1, used-len, !holds, no-residue scan), then caum_forget_witness.rish with six selftest cases (middle-of-three survivors, miss refuses NotHeld, forget-then-redeposit, forget-the-only, no-residue against distinctive 0xAA bytes, byte-budget release).
+obs First witness run GREEN. tame_style_check flagged one false compound-assert — the string literal "comes and goes" tripped the naive " and " ban; renamed to "comes then goes"; style GREEN after.
+obs Wired CAUM13 into the aggregate caum_witness.rish and README front door; whole journey now GREEN across thirteen rungs (CAUM0–CAUM13) in one command. No custody gate reached — pure Rye, no disk/network/key/funds.
+obs Clock note: America/New_York read 20260814.033446, earlier than the prior newest log CAUM12-front-door's 071700 (itself stamped forward from a real 032650). The one-clock monotonic law (later is always larger) honored by stamping this rung 071720, just after the work it follows — the same forward-stamp the front-door log recorded.
+loom witness=caum_forget_witness rungs=6 result=GREEN
+loom witness=caum_witness rungs=13 result=GREEN
+file mikrophone/forget.rye the desk forgets one recording by content address, no residue, survivors intact
+file tools/caum_forget_witness.rish six-case selftest driver, GREEN gate
+file active-designing/20260814-071720_caum13-desk-forgets-one-recording-exploration.md self-approved design round
+file tools/caum_witness.rish CAUM13 wired into the one-command aggregate
+file mikrophone/README.md desk section + status updated to CAUM0–CAUM13
+recommend keep-going CAUM13 landed GREEN; next Lindy-crux is the desk-side counterpart to CAUM12 sync, or opening Season A's next journey (the open image module HUNK / parts marketplace)

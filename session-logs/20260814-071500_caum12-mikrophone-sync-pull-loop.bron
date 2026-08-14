@@ -1,0 +1,22 @@
+format session-log-v1
+stamp 20260814.071500
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title CAUM12 — the Mikrophone desk pull loop
+prompt Take the next agent-doable lap Lindy-first crux-first on the Season A / six-season road; approve own design rounds; send each finished increment; stop at custody gates
+think Read REMEMBER (huge single-line card), the 1024-round itinerary, and the six-season double-seat expansion; the living edge is Season A's Mikrophone firmware (waymark CAUM), climbed to CAUM11 (front door + aggregate witness)
+think The Mikrophone journey stands whole; catalog (CAUM7) manifest (CAUM8) serve (CAUM9) prove the git-style have/want PRIMITIVES purely local, and CAUM9's own selftest already walks the whole convergence loop inline
+think Lindy-first crux-first: the durable capstone is to lift that inline loop into one named reusable bounded operation — the git pull as a primitive that earns its own invariants, rather than a test loop every caller re-assembles
+think Wrote mikrophone/sync.rye pull(local, remote): write remote manifest, verify-before-trust, serve+deposit each wanted address; invariants served==wanted, count grows by served, convergence (holds every advertised address), bounded by max_entries, propagates CatalogFull
+think Five selftest blocks: full convergence from empty, partial convergence, idempotent second pull, tampered advertisement refuses DigestMismatch, and a desk at its entry bound refuses CatalogFull
+obs Clock regression noted honestly: TZ=America/New_York date read 20260814.031632, EARLIER than the latest living stamp 20260814.071111 (CAUM11); preserved the one-clock monotonic law (later is always larger) by stamping this rung 20260814.071500, just after CAUM11, rather than fabricating from the disagreeing clock or sorting this work before work it follows
+obs Invented no new transport, buffer, or error — pull composes catalog/manifest/serve public APIs; stays purely local; pulling over a real transport reaches the Comlink-served gate (Season 1 Journey 2); custody gate #2 untouched
+loom witness=caum_sync_witness green=1 blocks=5 rungs_in_aggregate=12
+file mikrophone/sync.rye CAUM12 — the desk pull loop as one bounded primitive; GREEN
+file tools/caum_sync_witness.rish witness proving the five convergence and bound blocks
+file tools/caum_witness.rish aggregate grown to run CAUM12 in rung order; all twelve GREEN in one command
+file active-designing/20260814-071500_caum12-desk-sync-pull-loop-exploration.md self-approved design read for the rung
+file mikrophone/README.md front door names the sync rung; status CAUM0–CAUM12; stamp refreshed
+recommend keep-going CAUM12 lands GREEN and sent; next agent-doable Season A crux is another sync/desk rung or a fresh Season A journey — hardware buys stay custody gates #2/#3

@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260814.065231
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — recent CAUM stream stamps UTC for monotonicity
+title CAUM8 — the desk manifest of holdings
+prompt continue the recursion loop past CAUM7 — next agent-doable Lindy crux, send each increment, stop only at custody gates
+think CAUM7 gave the desk a content-addressed catalog (key by content, kept once, fetch by name); it cannot yet DESCRIBE its holdings to another hand without shipping every payload
+think Lindy-first crux: content-addressed sync (git have/want, IPFS provider records) begins with one hand telling another WHAT it holds, cheaply, by address alone — a manifest format read by two hands for years is the seam a whole sync protocol stands on
+think stay the HAVE side only — purely descriptive, purely local, read-only; describing crosses no gate; SERVING the wanted payloads reaches the Comlink-served custody gate (Season 1 J2) and waits for Keaton's word — so this rung is fully agent-doable
+obs manifest layout mirrors CAUM1 wire exactly but over metadata: magic MMAN · version · count(u32) · digest(32 over records) · records of {address(32) · len(u32)}; record_len 36, bounded by catalog.max_entries so max_manifest is fixed
+obs verify proves whole before any record read — ManifestTooShort, BadMagic, BadVersion, CountOverflow, ManifestTruncated, DigestMismatch — same verify-before-trust order deframe keeps; count_in/address_in/len_in read a verified region by position
+obs wanted(local, records, i) is the have/want primitive — !catalog.holds; selftest block 4 proves a far hand holding a subset wants exactly the two it lacks and not the one it holds
+obs five selftest blocks: exact round-trip, size independent of payload (a 1000-byte and a 1-byte recording give the same per-entry manifest), every corruption by name, honest have/want, empty catalog advertises a whole zero-holdings manifest
+loom witness=caum_manifest_witness green=1 rungs=5 record_len=36 header_len=41 max_entries=16
+file active-designing/20260814-065231_caum8-desk-manifest-of-holdings-exploration.md the self-approved design round naming crux, layout, and invariants
+file mikrophone/manifest.rye CAUM8 — bounded verify-before-trust manifest, the have side of content-addressed sync
+file tools/caum_manifest_witness.rish the three-lens witness building and running the selftest, asserting GREEN
+recommend keep-going CAUM9 — the serve rung (produce frames for wanted addresses) is the want side; a local pure serve is agent-doable, a networked serve reaches the Comlink-served gate and surfaces there

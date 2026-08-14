@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260814.080327
+editor Zed
+model Fable 5
+voice Kyri
+title AMUS28 — Constel depart: the whole remove-a-member lifecycle, closed
+prompt recur the loop past BUHR — take the next agent-doable lap Lindy-first crux-first, self-approve the design round, send it as its own signed increment, stop at custody gates
+think Read REMEMBER (living edge said CAUM6) yet git HEAD was AMUS27 — the constel journey had climbed well past the card. The Lindy-first crux is the next durable pure rung on the whole road, not the stale card's edge.
+think constel/README road-on names the socket as the one rung that crosses the Comlink seam (touches seed/comlink/ + a real wire) — it self-declares a stop for the maintainer's word. That is a gate, not this round's work.
+think Before the socket gate, the membership story added a member (AMUS26 admit) but never closed the symmetric remove side. Confirmed by grep — no file names the Raft §4.2.2 self-removal edge (a leader that removes itself steps down after the new config commits, never counting its own vote in the new majority). That is the next agent-doable crux, and it composes reconfig (AMUS13) + tenure (AMUS24) exactly as admit composed learner + reconfig.
+think Modeled depart.rye on admit.rye's discipline: NotAVoter (mirror of AlreadyVoter), EmptyConfig via config_of (a sky never shrinks to nothing), the joint config old → old\{slot}, and leader_relinquishes making the §4.2.2 edge checkable (leader in old, not in new). No new quorum math — the joint ballot's two-majority rule carries the AMUS9 lemma unchanged.
+obs GREEN on the first build across six blocks: non-voter refused; last voter refused; a voter removed (old 4 → new 3) with the remaining piers carrying the switch without the leaver's vote; the leader-removes-itself edge — it votes in the old side yet the new majority comes from the remaining piers alone, so a ballot of just the leaving leader and one peer fails both sides; neither an old-only nor a new-only quorum smuggles the removal (NoJointMajority); bounded eight → seven.
+obs TAME bans clean; the new files carry ≥2 asserts each (not in the zero-assert ratchet). Purely local — no socket, no network, no keys, no funds, no real address ever formed; custody gate #2 real hardware and gate #4 real Kumara both untouched.
+loom witness=amus_depart_witness wall_blocks=6 build=first_green
+file constel/depart.rye AMUS28 — depart + leader_relinquishes, the remove-a-member lifecycle over reconfig + tenure
+file tools/amus_depart_witness.rish the on-metal witness — builds, runs selftest, asserts the GREEN amus-depart line
+file active-designing/20260814-080327_amus28-constel-depart-remove-member.md the self-approved design capture for the round
+file constel/README.md front door synced — status list, depart rung, run block, road-on prose, stamp
+recommend keep-going the next agent-doable pure rung continues the Constel ladder; the socket rung is a custody gate (seed/comlink + a real wire) and stops for Keaton's word

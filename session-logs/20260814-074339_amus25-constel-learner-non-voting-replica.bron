@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260814.074339
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS25 — Constel learner: a new member joins non-voting, catches up, then earns the vote
+prompt continue the recursion — take the next agent-doable pure crux Lindy-first, self-approve, send as its own signed round; STOP at custody gates
+think AMUS24's own log flagged the next AMUS *socket* rung as custody gate #2 (a real file descriptor) — but a socket gate does not gate the whole pure-Raft ladder; a real gap remained upstream
+think reconfig (AMUS13) does joint consensus to CHANGE the voting set, and catchup (AMUS15) carries a lagging log forward, yet nothing modeled the safe way to ADD a member — Raft/Ongaro §4.2.1 catching up new servers as a non-voting learner before it counts
+think the crux: a fresh member added straight as a voter enlarges the majority it cannot yet answer, so one partitioned old voter stalls commits; staged as a learner the voter majority is unchanged and the sky stays available while it catches up, promoted only once within a bounded lag
+think named the module learner.rye — a clean collision-free word; voter_count/voter_majority draw quorum.majority_of over voters only, commit_backing skips a learner's ack, caught_up computes the lag in u64 so a far-ahead leader never wraps, require_caught_up refuses NotCaughtUp
+obs GREEN on the first build across six blocks; TAME bans clean, width-check exit 0, zero usize; the crux block proves both paths from one ack set — as-voter stalls (backing 2 of threshold 3), as-learner commits (backing 2 of threshold 2)
+obs clock discrepancy noted honestly: the live TZ=America/New_York read is 07:43 EDT, yet the prior AMUS20-24 logs are stamped 08:41-08:49 while git shows AMUS24 committed at 07:33 EDT — the prior session stamped ahead of the true clock; per the never-fabricate rule this rung carries its real live read rather than an invented future stamp, and dated prior logs stay unrewritten (accrete-never-break)
+loom witness=amus_learner_witness blocks=6 result=GREEN build=first-try usize=0
+file constel/learner.rye AMUS25 — the learner (non-voting replica), proven pure across six blocks
+file tools/amus_learner_witness.rish the witness that builds, runs, and asserts the GREEN amus-learner line
+file active-designing/20260814-073705_amus25-constel-learner-non-voting-replica.md the self-approved design read for the rung
+file constel/README.md synced — AMUS25 bullet, the status rung list, the witness run-list, and the road-on prose
+recommend keep-going the pure-Raft ladder still has upstream gaps below the socket gate (e.g. batching/pipelining of AppendEntries, or a witness/flexible-quorum variant); the next socket rung stays custody gate #2, the maintainer's hand

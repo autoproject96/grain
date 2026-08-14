@@ -1,0 +1,22 @@
+format session-log-v1
+stamp 20260814.083400
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title AMUS16 — Constel terms: leadership made safe across re-election (an old leader can't commit)
+prompt Read REMEMBER and the two road-ahead design docs; take the next agent-doable lap Lindy-first crux-first; approve own design rounds and make progress before checking in; send each finished increment to origin and xykj61; STOP at custody gates. (Second lap of the turn, after AMUS15 sent.)
+think After sending AMUS15 (catch-up), the next Lindy-first crux among pure rungs is TERMS. Every rung from AMUS10 on assumes one stable leader; a real network re-elects, and the single hardest safety question is the OLD leader — superseded yet still trying to commit, which would fork the ledger in time. A monotonic term is the pure crux that makes the whole elect·decree·log stack safe under repeated leadership. Self-approved the design round.
+think Design: a term is a u32 that only climbs. Each pier tracks its highest-seen term (TermTable, bounded [max_piers]u32, observe advances to max and never lowers). A TermedDecree is an AMUS11 Decree plus its term; accept refuses StaleTerm when the voter's current term exceeds the decree's, else adopts the term and records through the inner decree. The safety spends AMUS9's intersection lemma: once a strict majority advanced to term T, any decree in term < T gathers at most the un-advanced minority — below threshold — so it can never commit. The old leader is out-voted by construction, not forbidden by fiat.
+think run_termed_decree drives the round over the switchboard; a stale member refusing StaleTerm is simply not gathered (catch |e| switch — continue on StaleTerm, return on a real fault) so the round carries on and commit reflects only the up-to-date majority. Used a switch prong rather than a `== error.` seam to stay TAME-clean.
+obs Built constel/term.rye GREEN on the first build; witness tools/amus_term_witness.rish GREEN. Six selftest blocks: the term table is monotonic (observe up, never down; a lower observe a no-op); a ground decree in term 1 commits and its accepters adopt the term; a moved-on voter refuses StaleTerm unrecorded and unlowered; AN OLD LEADER CAN'T COMMIT proven at the value level AND over a real sky (term-1 commits, majority advances to term 2, old term-1 leader gathers only its own vote and refuses NoDecree while the new term-2 leader commits); a full constellation of eight runs bounded.
+obs TAME style check clean (bans clean). Every fn holds >=2 asserts with // invariant: lines; opening triad std/assert/print; snake_case; named error StaleTerm (|| decree.DecreeError); bounded table; monotonic guard asserted in observe. Prior AMUS rungs stay GREEN (additive).
+obs Docs kept synced in the same round: constel/README.md gains the AMUS16 term rung entry, run-block line, Status ladder, Kin design-doc link, and the road-on now naming succession as the seventh proven property (identity, value, order, membership, endurance, recovery, succession).
+obs Custody-first held: purely local, no socket, no network, no keys, no funds, no real address ever formed. Custody gate #2 and gate #4 untouched. The socket rung stays the maintainer's hand — no gate crossed this lap.
+obs Clock note: America/New_York read 20260814.062055, earlier than the prior newest 083200; the one-clock monotonic law honored by stamping 083400, just after the work it follows.
+loom witness=amus_term_witness green=1 selftest_blocks=6 max_piers=8 stale_leader_support=1
+file active-designing/20260814-083300_amus16-constel-terms-stale-leader.md self-approved design read for the rung
+file constel/term.rye AMUS16 — TermTable, TermedDecree, run_termed_decree; a monotonic term so an old leader can't commit
+file tools/amus_term_witness.rish GREEN witness building and running the selftest
+file constel/README.md seats the term rung — ladder, run block, Kin, road-on
+recommend keep-going the next pure AMUS rung or a fresh Season-D crux, each a self-approved design read first; the socket rung and every deep-debride / seed force-push stay Keaton's hand

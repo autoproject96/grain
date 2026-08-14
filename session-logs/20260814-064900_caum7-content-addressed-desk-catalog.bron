@@ -1,0 +1,21 @@
+format session-log-v1
+stamp 20260814.064900
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) convention; recent CAUM stream stamps UTC for monotonicity
+title CAUM7 — the content-addressed desk catalog
+prompt take the next agent-doable lap Lindy-first crux-first past the 1024-round itinerary and six-season double-seat; approve own design rounds; send each finished increment; stop at custody gates
+think read REMEMBER (336KB living narrative) — living edge is CAUM6, Season A Mikrophone firmware journey, waymark CAUM; rungs CAUM0 session · CAUM1 wire · CAUM2 recorder · CAUM3 firmware · CAUM4 inbox · CAUM5 carry · CAUM6 archive all GREEN
+think Lindy-first crux on the journey: CAUM6 archive keys by position (arrival order); a keeper next needs to address by CONTENT — do I already hold this exact recording, can I fetch it by name; content-addressing is the tree's Tablecloth spine, read for years, underpinning provenance and the parts-marketplace sprite store
+think wire.rye already computes the Sha256 over every payload (digest_len 32) — the content address is already carried; the decisive move is to let the desk key by it
+think a new sibling module, not a change to archive.rye — CAUM6's selftest deposits the same frame 16x to prove the entry bound, which a de-duplicating store would collapse to one; changing it in place breaks that proof and accrete-never-break; grow catalog.rye beside archive.rye (log + catalog, both wanted)
+think one-clock: TZ=America/New_York reads 02:47 but git committer clock and the whole CAUM0–CAUM6 stream stamp UTC ~06:4x; an NY stamp would sort before CAUM6 and break monotonicity, so follow the recent-stream UTC convention (064900) — later stays larger
+obs deposit deframes verify-before-trust FIRST, computes address over the PROVEN payload; an address already held returns unchanged spending no bound (idempotent); a new address appends within entry-count and byte bounds refusing CatalogFull by name before any write; byte sum checked in u64 so it cannot wrap; copy is a plain bounded loop, never a bare memcpy
+obs seven selftest blocks: same-bytes-one-address (kept once, count+1), distinct-bytes-distinct-address (both fetch byte-for-byte, manifest in order), tamper refuses DigestMismatch unchanged, entry bound refuses CatalogFull, byte budget refuses CatalogFull, a miss returns null not a guess, clear forgets whole
+obs custody gate #2 untouched — no disk, no network, no key signs, no funds; the content address is an integrity identity the desk recomputes, not a signature; a signed catalog is a later gated rung
+loom witness=caum_catalog_witness green=1 rungs=7 max_entries=16 max_bytes=32768 digest_len=32
+file active-designing/20260814-064900_caum7-content-addressed-desk-catalog-exploration.md the self-approved design round naming the crux, shape, and invariants
+file mikrophone/catalog.rye CAUM7 — content-addressed desk catalog, bounded, idempotent, verify-before-keep
+file tools/caum_catalog_witness.rish the three-lens witness building and running the selftest, asserting GREEN
+recommend keep-going CAUM8 — the desk serves a manifest / fetch-by-address rung follows from content-addressing; the serve rung reaches the Comlink-served custody gate and surfaces there

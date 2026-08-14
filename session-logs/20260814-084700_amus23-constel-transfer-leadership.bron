@@ -1,0 +1,21 @@
+format session-log-v1
+stamp 20260814.084700
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS23 — Constel leadership transfer: a handoff only to a caught-up successor
+prompt read REMEMBER + the 1,024-round itinerary + the six-season double-seat; take the next agent-doable lap Lindy-first crux-first, self-approve the design round, send each finished increment to origin and xykj61, stop at custody gates
+think REMEMBER's card names living edge CAUM6, yet git HEAD is AMUS22 and constel/ carries a full pure Raft — the card lags the bench; measurement over memory, the true living edge is the AMUS Constel ladder (Season D of the six-season double-seat)
+think the constel README names the socket as the genuine next crux, and the socket touches seed/comlink/ and a real wire — a custody gate, not agent-doable; so the crux-first pure rung is the last well-known Raft property not yet proven
+think checked the exactly-once session table (AMUS19 apply.rye) for an unbounded-growth crux — already bounded to max_clients, refusing UnknownClient; that crux is closed, so the next is leadership transfer (Raft §3.10), the graceful counterpart to the election machinery
+think designed AMUS23 to compose what already stands — vote.at_least_as_current + vote.poll (AMUS21), repair.TermedLog (AMUS17), quorum.majority_of (AMUS9), roster.max_piers (AMUS1) — so the rung adds one law (a handoff is authorized only to a caught-up successor) and proves the win over the existing poll
+think is_caught_up collapses at_least_as_current(target, leader) to an exact head match, guarded by the invariant that a follower is never strictly ahead of its source (repair truncates any phantom suffix first); timeout_now returns leader_term + 1 and refuses TargetNotCaughtUp / TargetOutOfRoster by name
+obs GREEN on the first build across six selftest blocks; TAME bans clean, width-check exit 0, zero usize in transfer.rye; matched apply.rye's shipped idiom assert(fn(...) == error.X) rather than fighting the local norm
+obs stamp — the live host clock read 20260814.072016 EDT, earlier than the prior newest .084500 (AMUS22's stamps drifted ahead of real time); following the ladder's established convention, the one-clock monotonic law is honored by stamping .084700 just after the work it follows, with the real live reading recorded here
+loom witness=amus_transfer_witness blocks=6 result=GREEN build=first-try usize=0
+file constel/transfer.rye AMUS23 — the leadership-transfer module, proven pure across six blocks
+file tools/amus_transfer_witness.rish the witness that builds, runs, and asserts the GREEN amus-transfer line
+file active-designing/20260814-084700_amus23-constel-transfer-leadership.md the self-approved design read for the rung
+file constel/README.md synced — AMUS23 bullet, the prove-the-rungs list, and the road-on prose
+recommend keep-going the AMUS pure-Raft ladder still has agent-doable rungs before the gated socket (e.g. a leadership lease for read liveness); the socket itself stays custody gate #2

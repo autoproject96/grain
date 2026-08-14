@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260814.083700
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS18 — Constel commit rule: an old-term entry commits only through a current-term one
+prompt Recur through agent-doable Lindy-first crux-first laps; send each finished increment as its own signed round; STOP at custody gates. (Second lap this turn, after AMUS17.)
+think After AMUS17 (log repair) landed and sent, continued recurring. The consensus core's most Lindy-durable remaining pure-local rung is Raft's §5.4.2 commit restriction — the Figure 8 safety rule — the single most famous bug-class in the field. It composes directly on AMUS16 (terms) and AMUS17 (Log Matching Property).
+think The rule: a leader may NOT conclude an old-term entry is committed merely because it is on a majority; it commits an old-term entry only once a current-term entry above it reaches a majority, the older ones committed transitively by Log Matching. AMUS11's single-term decree never needed it (its committed value is always current-term); the danger appears only in a multi-term log, exactly the world AMUS16/AMUS17 opened.
+think Built constel/commit.rye: MatchView (per-slot replicated prefix length, leader counts itself), safe_commit_len (largest N whose top entry is current-term AND majority-replicated), and naive_commit_len (the tempting term-blind wrong rule, kept only as the visible counter-example). The witness shows the two rules disagreeing exactly at the Figure 8 gap, then spends AMUS17 repair to overwrite the naively-committed entry — proving committing it would have forked, and the safe rule never did.
+think First build RED: the record parameter was named replicated_len, shadowing the method — renamed to prefix_len. Second build GREEN across six selftest blocks. TAME bans clean, width exit 0.
+obs The Figure 8 rule is high-Lindy — it is the capstone that makes multi-term log replication actually safe, cited more than any other single Raft subtlety. Keeping naive_commit_len in-module as a live counter-example (never called to commit) makes the safety visible rather than argued, in the same spirit as AMUS13's enumerated no-fork proof.
+obs Custody gates honored: purely local, no socket/network/keys/funds/real address. Additive — commit.rye imports repair/quorum/roster, changes nothing in them; prior AMUS witnesses stay GREEN. One-clock: live read 20260814.063005 < prior newest 083500, so stamped 083700 per the ladder's monotonic convention.
+loom witness=amus_commit_witness blocks=6 result=GREEN tame=clean width=exit0
+file constel/commit.rye AMUS18 — MatchView + safe_commit_len (the rule) + naive_commit_len (the visible counter-example)
+file tools/amus_commit_witness.rish builds and runs the selftest, asserts the GREEN amus-commit line
+file active-designing/20260814-083700_amus18-constel-commit-rule-current-term.md self-approved design round
+file constel/README.md seats AMUS18 — Status, Kin, rungs, run block, road-on, stamp
+recommend keep-going — the next agent-doable pure crux is client exactly-once semantics (request-id dedup) or pre-vote / leadership transfer; the socket stays custody gate #2.

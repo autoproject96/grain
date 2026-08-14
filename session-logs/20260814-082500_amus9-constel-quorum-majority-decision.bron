@@ -1,0 +1,24 @@
+format session-log-v1
+stamp 20260814.082500
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title AMUS9 — Constel quorum: from a census, decide if a majority may act
+prompt Read REMEMBER and the two itinerary docs; take the next agent-doable lap Lindy-first crux-first; approve your own design rounds and make progress; keep double-seating; send often as signed rounds; STOP at custody gates. baton prin recur
+think Read the road: REMEMBER (huge, dense) names the living edge, the two itinerary docs give the six-season double-seat. Recent commits show the living edge is the AMUS Constel ladder at AMUS8 (census). Confirmed baseline GREEN (census + gossip witnesses).
+think census.rye explicitly hands the consensus track a tally already proven pure — a count of who is present. Lindy-first crux-first: a quorum rule outlives any protocol built over it (every consensus reuses it), so it earns the durable slot before any value-agreement rung; the crux within the rung is the strict-majority threshold + the deciding set, not the plumbing census already carries.
+think The one new concern for AMUS9: turn the census tally into a strict-majority DECISION and name which piers decide. live = present_others + 1 (the caller is live by definition); threshold = majority_of(n) = n/2+1 with the safety assert 2·threshold > n so any two quorums intersect; reached = live >= threshold.
+think Design constraint discovered by reading the code: census.take_census asserts full presence (every other member replies), and a mailbox holds only ~2 frames (max_channel = 2·max_frame), so partial-presence rounds must be walked by hand — announce, then respond+hear only present members and record each, exactly as census's own silent-member scenario is driven. A silent pier cannot be driven to reply. Quorum owns its own tally (census.mark is private) built from the public census.announce/respond/hear.
+think Wrote self-approved design round (active-designing/20260814-052238), then constel/quorum.rye reusing census primitives: majority_of, Quorum{record,seal,in_quorum}, require (NoQuorum gate), run_quorum (all-present path). Selftest walks nine scenarios plus the threshold table.
+obs GREEN on the first run: full sky quorate; one absence still a majority (silent slot outside the deciding set); two absences lose it (NoQuorum); two of three a majority yet a lone pier never is (NoQuorum); stranger refuses NoSuchPier; the naming-law border refuses a vowel-bearing vote at hear; eight stays bounded (interleaved, no ChannelFull). TAME bans clean, width exit 0.
+obs Reused census's exact vowel-tamper offset (wire.header_len + 4) so the border proof is identical to census's — a real-@p-shaped name can never enter a quorum even as a present token.
+obs Additive — prior AMUS rungs stay their own GREEN binaries; only constel/README.md moved forward (rung, run block, Status, Kin, road-on, stamp). Docs kept synced with the code in the same round.
+obs Not gates-only: the road has clear agent-doable rungs ahead (value agreement over quorum, then the gated socket). This lap crossed no custody gate — purely local, no socket, no network, no keys, no funds, no real address; gate #2 and gate #4 untouched.
+loom witness=amus_quorum_witness scenarios=9 wall_note=green_first_run
+file active-designing/20260814-052238_amus9-constel-quorum-majority-decision.md the self-approved design round for AMUS9
+file constel/quorum.rye AMUS9 — the strict-majority decision over a census tally, proven pure
+file tools/amus_quorum_witness.rish the witness that builds and runs the selftest, asserting the GREEN amus-quorum line
+file constel/README.md the living front door gains the quorum rung, run block, Status, Kin, road-on, and stamp
+recommend keep-going AMUS10 — value agreement over the quorum (a proposer's value decided only when a majority replies the same), the next crux before the gated socket; purely local and agent-doable.
+clock America/New_York read 20260814.052657, earlier than the prior newest 082400; the one-clock monotonic law honored by stamping 082500, just after the work it follows.

@@ -1,0 +1,21 @@
+format session-log-v1
+stamp 20260814.084300
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS21 — Constel vote: a vote goes only to an up-to-date log (the election restriction)
+prompt Recur through agent-doable Lindy-first crux-first laps; approve own design rounds; send each finished increment as its own signed round; STOP at custody gates. (Fourth lap this turn, after AMUS20.)
+think With the linearizable service whole (AMUS19 writes + AMUS20 reads), I checked the consensus core for the highest remaining Lindy debt. AMUS18's transitive commit explicitly rested on "Leader Completeness guarantees no future leader can be elected without them" — yet that promise was never proven; the election restriction (Raft §5.4.1) that earns it was not in the tree (grep of elect.rye/repair.rye: no up-to-dateness check). That is a genuine open SAFETY debt, more Lindy-durable than pre-vote (a liveness optimization). So AMUS21 = the election restriction, and pre-vote defers to AMUS22.
+think The rule: a voter grants only if the candidate's log is at least as up-to-date — higher last term wins; equal term, longer log wins. Its payoff is Leader Completeness, proven by the SAME intersection lemma (AMUS9) that made the leader unique and the commit safe: an entry committed on a majority; any majority an incomplete candidate needs intersects the committed majority at a holder; the holder, strictly more up-to-date, refuses; the candidate falls below threshold.
+think Built constel/vote.rye composing repair.TermedLog (last_term, len — the (lastTerm,lastIndex) pair §5.4.1 compares), quorum.majority_of, roster.max_piers. at_least_as_current (the predicate), grant_vote (voter vs candidate), poll (count over a roster). Six selftest blocks: the predicate truth table; grant/refuse over real logs; THE CRUX — an incomplete candidate polls 2 of 5, below threshold 3, the three committed-majority holders each refusing; a complete candidate polls 5; dominance by the entry not luck; bounded over a full roster of eight.
+think GREEN on the first build. TAME bans clean, width exit 0, no usize. Additive — vote.rye edits none of the modules it imports; all prior AMUS witnesses unaffected.
+obs This closes the last open safety debt in the Constel consensus core: AMUS18 is only TRUE once AMUS21 holds. The arc now proves the full Raft safety set — Election Safety (AMUS10), Leader Append-Only (AMUS12/17), Log Matching (AMUS17), Leader Completeness (AMUS21), State Machine Safety (AMUS18 commit + AMUS19 apply). A satisfying capstone: the rung that retroactively earns a promise three rungs back leaned on.
+obs Custody gates honored: purely local, no socket/network/keys/funds/real address. A served election (real RequestVote over Comlink) reaches the Comlink-served gate; the socket stays custody gate #2.
+obs One-clock: live host read ~20260814.0655xx is BELOW the prior newest 084100, so stamped 084300 per the AMUS ladder's monotonic convention. Later is always larger; the drift is noted, not fabricated.
+loom witness=amus_vote_witness blocks=6 result=GREEN tame=clean width=exit0
+file constel/vote.rye AMUS21 — at_least_as_current + grant_vote + poll (the §5.4.1 election restriction, Leader Completeness)
+file tools/amus_vote_witness.rish builds and runs the selftest, asserts the GREEN amus-vote line
+file active-designing/20260814-084300_amus21-constel-vote-election-restriction.md self-approved design round
+file constel/README.md seats AMUS21 — Status, Kin, rungs, run block, road-on, stamp
+recommend keep-going — the consensus safety set is complete; next agent-doable pure crux is pre-vote (a partitioned node cannot disrupt a stable sky with a term bump) or leadership transfer; the socket stays custody gate #2.

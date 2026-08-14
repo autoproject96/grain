@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260814.065650
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — recent CAUM stream stamps UTC for monotonicity
+title CAUM9 — the desk serves a wanted recording
+prompt continue the recursion loop past CAUM8 — close the local content-addressed sync with the want-response, send the increment, stop short of the networked gate
+think CAUM7 catalog (key by content) + CAUM8 manifest (advertise holdings, compute wanted) give the have side; the crux that closes the loop is serve — the want-response producing exactly the frame a far hand asked for
+think stay purely LOCAL — serve yields frame bytes, moves them over no transport; producing a frame crosses no gate; serving over a real network reaches the Comlink-served custody gate (Season 1 J2) and waits for Keaton's word, so this rung is fully agent-doable
+obs wire.frame reads a session, not a raw payload, so serve rebuilds a committed session from the held payload and calls wire.frame — reusing the one proven framing path rather than inventing a second; identical payload bytes give an identical Sha256, so the served frame's content address equals the address asked for (content-preserving, sync converges)
+obs serve refuses NotHeld before building a frame for an absent address; asserts deframe(served) equals the held payload and address_of(carried) equals the address served
+obs four selftest blocks: serve answers only what is held (NotHeld for absent), content-preserving (far hand deposits under the same address), the whole local loop converges (far hand holding {bravo}, given the desk manifest of {alpha,bravo,charlie}, serves the 2 wanted and ends holding all 3), a tampered served frame refuses DigestMismatch and lands nothing (the far hand's deposit stays verify-before-trust)
+obs catalog + manifest + serve now form a complete local content-addressed sync — advertise → compute wanted → serve → deposit verify-before-keep — the git have/want shape proven pure before any wire is strung
+loom witness=caum_serve_witness green=1 rungs=4 loop_converges=1 wanted_served=2 far_holds=3
+file active-designing/20260814-065650_caum9-desk-serves-a-wanted-recording-exploration.md the self-approved design round naming the crux and convergence invariant
+file mikrophone/serve.rye CAUM9 — the want-response, content-preserving re-frame of a held recording
+file tools/caum_serve_witness.rish the three-lens witness building and running the selftest, asserting GREEN
+recommend check-in (Claude) CAUM10 is the networked serve — carrying served frames over a real Comlink transport reaches the Comlink-served custody gate (Season 1 J2), Keaton's hand; the local content-addressed sync arc (CAUM7–9) is complete and a natural place to confirm direction before crossing

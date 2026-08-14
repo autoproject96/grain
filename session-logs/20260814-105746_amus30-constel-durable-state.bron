@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260814.105746
+editor Zed
+model Fable 5
+voice Kyri
+host cloud pier (Linux) — Eastern (EDT) time convention
+title AMUS30 — Constel durable state: a pier survives a restart without forgetting its vote
+prompt recur the loop — take the next agent-doable Lindy-first crux-first lap, self-approve the design round, send each increment as its own signed round, stop at the custody gates
+think Read REMEMBER's living edge, the 1,024-round itinerary, and the six-season double-seat. The active ladder is AMUS (Constel consensus); the last landed rung was AMUS29 (lease read), whose recommend named the socket as the next thing — and the socket is the custody gate (touches seed/comlink + a real wire). So the pure-crux question: is there a higher-Lindy agent-doable rung before the gate?
+think AMUS covers essentially all of in-memory Raft. Grepped constel/*.rye for persist/restart/recover/serialize — found only prose mentions, no rung. The genuine blind spot: nothing proves Raft's Figure 2 "Persistent state on all servers" — currentTerm, votedFor, log[] on stable storage before answering an RPC. Election safety rests on a pier never voting twice in one term; a crash that forgets the vote breaks it. That is the crux: durability of the vote across a restart, purely local (a byte buffer, no real fd) so it does NOT cross the socket gate.
+think Designed AMUS30 durable.rye: DurableState (term, voted_for, TermedLog reused from AMUS17); record_vote (a new term clears the vote, StaleTerm/AlreadyVoted refusals); save/load round-trip through a self-describing Sha256-sealed image read verify-before-trust (AMUS3's discipline), magic CDUR distinct from wire's CNST. Fixed one slip — called TermedLog.append_entry method rather than a nonexistent free function.
+obs GREEN on the first build across six blocks: round-trip identity; THE CRUX — a pier that voted A in term 5, crashed, restored refuses to vote B in term 5 (AlreadyVoted); a new term clears the vote across the restart, a stale term still refused; the committed log survives whole and in order; a corrupt image (flipped digest, wild log_len, short buffer, bad magic) fails closed (CorruptImage/ImageTooBig); term never regresses; bounded to a full max_entries log within max_image_bytes.
+obs TAME bans clean; durable.rye carries >=2 asserts/fn, u32 in-memory with a single seam usize for the tampered-copy loop index. Purely local — no socket, no network, no keys, no funds, no real address; custody gate #2 and gate #4 untouched. The durability companion to the whole in-memory stack.
+loom witness=amus_durable_witness wall_blocks=6 build=first_green image_bytes_max=561
+file constel/durable.rye AMUS30 — DurableState + record_vote + save/load, the persistent (term, voted_for, log) that survives a crash
+file tools/amus_durable_witness.rish the on-metal witness — builds, runs selftest, asserts the GREEN amus-durable line
+file active-designing/20260814-105746_amus30-constel-durable-state.md the self-approved design capture for the round
+file constel/README.md front door synced — status list, durable rung, run block, road-on prose, stamp
+recommend keep-going the pure Raft ladder is now durable end to end; the socket rung (seed/comlink + a real wire) remains the custody gate that stops for Keaton's word

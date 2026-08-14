@@ -1,0 +1,26 @@
+format session-log-v1
+stamp 20260814.073900
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS0 — Constel naming law: fake piers that can never be a real ship
+prompt Keaton set the recursion loop on the 1024-round itinerary and the six-season double-seat: take the next agent-doable lap Lindy-first crux-first, self-approve design rounds, make progress, send often, stop at custody gates.
+think Read the two road-ahead docs and the REMEMBER custody gates. Season A's two seated journeys — HUNK (open image, ~90 witnesses) and CAUM (Mikrophone firmware, CAUM0-16) — both stand whole and GREEN; ran tools/caum_witness.rish GREEN to confirm.
+think CAUM is genuinely complete: verify (git fsck, CAUM16) is the right capstone, and a history/log rung would VIOLATE the device's founding promise (what forgets, protects) by keeping a past the keeper never chose to keep. So the next lap is not another CAUM rung.
+think The remaining Season A device-hardware rungs (Grainphone e-ink panel, cameras, refurb parts) are custody-gated (#2) and web-search-deferred, not agent-doable now. The seated ROADMAP/TASKS lag the living edge; the actual road is the two design docs handed in.
+think Lindy-first crux-first over the whole road: the six-season doc explicitly RESERVES one self-approved round — the Constel test-network naming law (fake-pier dev constellations, elder Urbit fake-galaxy ancestor). It is the crux that opens local multi-pier testing of the whole Comlink/Pond/Mycelium network, and it is pure, bounded, siloed, no gate.
+think Drew the waymark for the ladder: input_name constel-test-network-fake-pier-local-constellations -> AMUS (no collision, GREEN). Seated AMUS in the derive script (seated-draws comment + exclude regex) and both waymark-ladders rule twins (.claude + .cursor). waymark_derive_witness GREEN after.
+think Found and resolved the source's own tension: the doc says consonants-only Hebrew-style yet lists vowel-bearing family names (queyqwinqkri, maicmalammurr). Those are the poetic Twilight-theme names, a different silo; Constel dev-net names proper are consonants-only. That keeps the safety predicate one clean scan.
+obs The load-bearing safety invariant, chosen for provability: every one of Urbit's 512 real syllables carries exactly one vowel and y never appears; so a vowel-free name can never be assembled from real syllables and can never parse as a real @p. One bounded pass, fails closed — stronger and simpler than the placeholder-ship-names length trick.
+obs constel/name.rye seats it: check_ship / is_valid_ship (bounded, consonant-and-digit alphabet, vowel-free), never_a_ship (the safety statement positive), check_constellation (hyphen-joined bounded run of fake piers), generate (deterministic vowel-free name per u32 index, xn silo prefix + base-21 over the palette). Named errors: VowelPresent, NameTooLong, BadCharacter, BadSegment, IndexOutOfRange. Opening triad, >=2 asserts/fn, no @memcpy, usize-free.
+obs Witness proves on metal: lawful names accepted; every real @p example (zod, sarlev, sampel, palnet, sampel-palnet) refused VowelPresent by name; bound/alphabet refusing empty/long/stray/empty-segment each by name; a lawful constellation accepted; 512 generated names deterministic, collision-free, every one vowel-free by construction; over-index refused.
+obs Scope held to the naming law + name primitive only. The fake-pier harness (local piers meeting over Comlink) crosses the Comlink seam and stays its own later AMUS round — named honestly, not started.
+loom witness=amus_name_witness names_swept=512 collisions=0 wall_ms_note=selftest under a second after build
+file active-designing/20260814-fill-constel-naming-law.md the Constel naming law design + reserved-round rationale
+file constel/name.rye AMUS0 — the vowel-free fake-pier name primitive, proven never a real @p
+file tools/amus_name_witness.rish the GREEN witness for AMUS0
+file tools/waymark_derive.rish drew + seated AMUS (input_name, seated-draws comment, exclude regex)
+file .claude/rules/waymark-ladders.md seated AMUS row
+file .cursor/rules/waymark-ladders.mdc seated AMUS row (Cursor twin)
+recommend keep-going — AMUS0 GREEN and sent; next agent-doable AMUS rung is the fake-pier harness, yet it crosses the Comlink seam; a lighter next lap is another self-approved round elsewhere on the road. No custody gate reached this lap.

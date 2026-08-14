@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260814.084900
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS24 — Constel tenure: a leader holds its title only while a majority answers
+prompt continue the recursion — after AMUS23 (transfer) shipped, take the next agent-doable pure crux Lindy-first, self-approve, send as its own signed round
+think AMUS20's linearizable read refuses to serve from a deposed leader — but only reactively, when a read is attempted; the matching PROACTIVE guard was missing, so a minority-partition leader could linger believing it leads
+think Raft's CheckQuorum (§6.2/§9.6) is that guard and a clean pure rung: a leader counts heartbeat acks each window (counting itself) and steps down when its backing falls below the majority threshold — composes only quorum.majority_of and roster.max_piers
+think it is the family companion to AMUS22 (pre-vote keeps a rejoining node from disrupting a healthy leader) and AMUS23 (transfer hands off on purpose); CheckQuorum keeps an isolated leader from lingering, so the sky neither disrupts a good leader nor clings to a stranded one
+think named the module tenure.rye — a clean collision-free word (mandate collides with the seated Mandate/MAND vane; heartbeat/confirm already appear as ordinary words); a leader holds tenure only while a majority still answers
+obs GREEN on the first build across six blocks; TAME bans clean, width-check exit 0, zero usize; backing bounded to roster.max_piers, still_commands and should_step_down exact inverses about the threshold
+obs the crux block splits a five-pier sky 2|3 — the stranded old leader (backing 2 of threshold 3) steps down while the majority side's new leader (backing 3) commands, so a ghost leader never shadows the sky
+loom witness=amus_tenure_witness blocks=6 result=GREEN build=first-try usize=0
+file constel/tenure.rye AMUS24 — the CheckQuorum module, proven pure across six blocks
+file tools/amus_tenure_witness.rish the witness that builds, runs, and asserts the GREEN amus-tenure line
+file active-designing/20260814-084900_amus24-constel-tenure-checkquorum.md the self-approved design read for the rung
+file constel/README.md synced — AMUS24 bullet, the prove-the-rungs list, and the road-on prose
+recommend keep-going the AMUS pure-Raft ladder is now very complete; the genuine next crux is the socket (a real file descriptor between fake piers), which touches seed/comlink/ and a real wire — custody gate #2, the maintainer's hand

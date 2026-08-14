@@ -1,0 +1,21 @@
+format session-log-v1
+stamp 20260814.083500
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS17 — Constel log repair: the leader heals a follower's divergent suffix
+prompt Read REMEMBER + the 1024-round itinerary + the six-season double-seat; take the next agent-doable Lindy-first crux-first lap; self-approve design rounds; send each finished increment as its own signed round; STOP at the custody gates; baton prin recur.
+think Walked the compass: REMEMBER (336KB, long-line — read via fold/grep), the 1,024-round itinerary, and the six-season double-seat. The living edge is the Constel/AMUS ladder (git nib AMUS16, REMEMBER not yet caught up). Read constel/README — a mature Raft-like consensus proven pure: name·roster·handshake·wire·exchange·channel·switchboard·gossip·census·quorum·elect·decree·log·reconfig·snapshot·catchup·term.
+think The README's road-on names the socket as the one rung crossing the Comlink seam — a custody gate (#2), not agent-doable. So the next agent-doable crux is another pure-local consensus rung. Found the gap: AMUS15 catchup refuses Diverged and stops (a value-log cannot tell a conflict from a lag); AMUS16 gave terms but the log (AMUS12) still stores only values. The genuine crux is Raft's Log Matching Property + conflict repair, which needs the per-entry term the value-log lacks.
+think Named it AMUS17 repair. Self-approved the design round (itinerary filling law), then built constel/repair.rye: TermedLog of (term,value) entries, terms non-decreasing (append_entry refuses TermRegressed/LogFull); consistent_at is the AppendEntries gate; agree_upto finds the divergence point; repair truncates the follower's uncommitted stale-term suffix and appends the leader's true entries, ending follower.matches(leader). Only the uncommitted tail ever moves — the committed prefix is never rewritten (append-only holds for it), and the truncated tail is exactly the tissue AMUS16 proved could never have committed.
+think First build RED: consistent_at called with method syntax (l.consistent_at) but it is a free function — fixed to consistent_at(&l, ...). Second build GREEN across eight selftest blocks including a real-sky scenario driving termed decrees over the switchboard so AMUS16's out-voted old leader's uncommitted term-1 scribbles are the precise tissue repair removes.
+think One-clock law: live read was 20260814.063005, earlier than the ladder's newest 083400 — sorting it before AMUS9–16 would break monotonicity. Followed the established convention (every AMUS log carries a clock note and stamps just past the prior newest): re-stamped the design doc, repair_version, README, and this log to 083500.
+obs The rung composes AMUS16 (terms) with AMUS12 (append order) and dramatizes the seam between them: an old leader out-voted (AMUS16) can still have scribbled locally, and repair (AMUS17) is the heal that brings that pier back to the one true history. High-Lindy — the Log Matching Property is a load-bearing consensus invariant, not a one-off.
+obs Custody gates honored: purely local, no socket, no network, no keys, no funds, no real address. The socket rung stays the maintainer's hand. TAME bans clean, width-check exit 0, all prior AMUS witnesses still GREEN (additive — repair only imports log/term/switchboard, changes nothing in them).
+loom witness=amus_repair_witness blocks=8 result=GREEN tame=clean width=exit0
+file constel/repair.rye AMUS17 — TermedLog + consistent_at + agree_upto + repair, proven pure across eight selftest blocks
+file tools/amus_repair_witness.rish builds and runs the selftest, asserts the GREEN amus-repair line
+file active-designing/20260814-083500_amus17-constel-log-repair-matching.md self-approved design round for the rung
+file constel/README.md seats AMUS17 — Status, Kin, rungs, run block, road-on, stamp
+recommend keep-going — the next agent-doable Lindy-first crux is another pure consensus rung (client sessions / linearizable reads, or pre-vote / leadership transfer); the socket stays custody gate #2.

@@ -1,0 +1,23 @@
+format session-log-v1
+stamp 20260814.082900
+editor Zed
+model Fable 5
+voice Kyri
+host cloud pier (jailed) — Eastern (EDT) time convention
+title AMUS13 — Constel reconfig: change the sky's membership without a fork, through joint consensus
+prompt Read REMEMBER and the two itinerary docs; take the next agent-doable lap Lindy-first crux-first, harmony of all styles; approve own design rounds; double-seat new visions; a breach rename records a cairn; send often as its own signed round; STOP at custody gates; if only gates remain, touch .loop-gates-only and print GATES-ONLY. baton prin recur
+think Read REMEMBER (huge living card; extracted custody-gate facts by grep — gates #1 seed force-push, #2 hardware/wire, #3 funds, #4 real Kumara), the 1,024-round itinerary, and the six-season double-seat. Living edge is the AMUS constel consensus ladder, at AMUS12 (replicated log, no fork). The one rung the README names next — the socket — crosses the Comlink seam (seed/comlink/) and is custody gate #2, not agent-doable.
+think Lindy-first crux-first among agent-doable rungs: AMUS12's log can never fork ONLY while the roster is fixed — every rung from AMUS9 reads sb.size() once as a constant. Membership reconfiguration is the single hardest still-pure consensus problem and a real blind spot the log left open. It needs no wire, no socket — it is a quorum-safety property, so it is agent-doable now and durable (the Mycelium consensus the tree is building will need it).
+think Designed AMUS13 reconfig.rye around JOINT CONSENSUS: a transition from C_old to C_new commits only with a strict majority in BOTH configs. Spends the AMUS9 intersection lemma (2·threshold > n) directly — because any two strict majorities of a config intersect, a joint decision overlaps any pure-old and any pure-new decision, so the reconfiguration inherits the no-fork guarantee rather than reopening it.
+think Matched the module shape to quorum.rye/decree.rye exactly: opening triad, ReconfigError with named refusals (NoJointMajority, DoubleVote, NotInEitherConfig, EmptyConfig), Config as a bounded membership mask + population (EmptyConfig at construction — a majority of nobody is undefined), JointConfig old/new, JointBallot.cast/seal/in_decision with ≥2 invariant-commented asserts each, require_joint the hard gate, run_reconfig driving a real round over the switchboard (every union member respond+hear interleaved at the naming-law border before its vote).
+think The AMUS13 crux proof is enumerated directly, as AMUS10 checked leader uniqueness across every arrangement: over slots {0,1,2,3} with old {0,1,2} and new {1,2,3}, every joint-majority yes-set intersects every pure-old majority inside old and every pure-new majority inside new — no fork across the switch, shown exhaustively via masked popcounts rather than argued.
+obs Built clean and GREEN on the first run (no reds this lap). TAME bans clean, width exit 0. Prior AMUS rungs stay GREEN (purely additive — a new module, a new witness, README sync only).
+obs Custody honored: purely local, siloed to constel/, no socket, no network, no keys, no funds, no real address ever formed. Gate #2 (hardware/wire) and gate #4 (real Kumara) untouched; the Comlink socket stays the one gated rung ahead, the maintainer's own hand.
+obs No breach this lap, so no cairn needed (the breach queue — Greencandy→Dimeroll, .myc→.kres, council→constel sky, deep debride+seed force-push — each waits its own named round and Keaton's word on the gated ones).
+loom witness=amus_reconfig_witness build=green selftest=green scenarios=9 configs_enumerated=16 max_piers=8
+file constel/reconfig.rye AMUS13 — joint-consensus reconfiguration, proven pure: a transition commits only with a strict majority in both old and new configs, so the sky changes membership without a fork
+file tools/amus_reconfig_witness.rish GREEN witness — build, selftest, and GREEN-line assertion for the reconfig rung
+file active-designing/20260814-055235_amus13-constel-joint-consensus-reconfig.md self-approved design read naming the blind spot, the joint-consensus crux, and the enumerated no-fork proof
+file constel/README.md kept synced — the reconfig rung, run block, Status, Kin, and the road-on now name membership as the fourth proven property
+file session-logs/README.md prepended the newest-first AMUS13 index row
+recommend keep-going — the pure consensus core is now identity · value · order · membership, all no-fork; the next agent-doable Lindy-first crux is either log compaction/snapshotting over the reconfigurable log or a fresh journey's crux; the one Comlink-socket rung stays the maintainer's hand (custody gate #2)

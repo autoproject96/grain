@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260814.075309
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS26 — Constel admit: the whole add-a-member lifecycle, closed
+prompt continue the recursion — take the next agent-doable pure crux Lindy-first, self-approve, send as its own signed round; STOP at custody gates
+think AMUS25 shipped a learner and a may_promote predicate, but nothing consumed it; AMUS13's reconfig would admit any new slot empty-log and all — the exact stall AMUS25 warned against; the coherent next crux was to JOIN them and close the add-a-member lifecycle end to end
+think admit refuses to even propose a promotion until two gates pass — the slot is a genuine non-voter (AlreadyVoter) and the learner is caught up (learner.require_caught_up → NotCaughtUp) — then builds the joint config old → old∪{learner} that reconfig's ballot commits only with a strict majority in BOTH configs
+think composed over public APIs only (learner.require_caught_up + reconfig.config_of/JointConfig/JointBallot/require_joint), no new transport, no new quorum math; the PromoteError set unions AdmitError, learner.LearnerError, reconfig.ReconfigError
+think two real bugs caught on the bench and fixed: a literal {learner} in the GREEN print read as a Zig format placeholder (escaped to {{learner}}); and block 5's first draft asserted 2-of-3 was not an old majority — it IS (majority_of(3)=2), so the meaningful guard is the reverse (an old-config majority alone, 2 of 4 new, refused NoJointMajority)
+obs also removed a clobbering mask[i]=false line from mask_of; TAME bans clean, width-check exit 0, zero usize; GREEN across six blocks after the two fixes
+obs the crux proves the safe add both ways: not-caught-up refused before any config is built; caught-up admitted (old 3 → new 4) and committed by the whole union; the promoted member then counts toward the new majority; a stale old-only quorum cannot smuggle it
+loom witness=amus_admit_witness blocks=6 result=GREEN build=after-two-fixes usize=0
+file constel/admit.rye AMUS26 — admit, the add-a-member lifecycle joining learner (AMUS25) to reconfig (AMUS13)
+file tools/amus_admit_witness.rish the witness that builds, runs, and asserts the GREEN amus-admit line
+file active-designing/20260814-074656_amus26-constel-admit-learner-promotion.md the self-approved design read for the rung
+file constel/README.md synced — AMUS26 bullet, status list, witness run-list, and road-on prose
+recommend keep-going the pure-Raft membership arc is now whole (catchup → learner → admit → reconfig); further pure rungs remain (batching/pipelining, flexible quorums) below the socket gate, which stays custody gate #2 — the maintainer's hand

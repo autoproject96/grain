@@ -1,0 +1,20 @@
+format session-log-v1
+stamp 20260814.075400
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS2 — Constel handshake: two fake piers greet, proven pure
+prompt Keaton set the recursion loop on the 1024-round itinerary and six-season double-seat: take the next agent-doable lap Lindy-first crux-first, self-approve design rounds, make progress before checking in, send often as its own signed round, stop at custody gates.
+think AMUS1 (roster) and the Constel front door both landed and sent this turn. The README named the next rung plainly: the local handshake, whose protocol logic is provable pure on the bench while wiring it to real Comlink transport is the round that crosses the seam. AMUS2 is that pure half — crux-first, gate-free.
+think The crux: agreement before exchange. Two piers must confirm they are distinct members of the same constellation before a payload byte moves. Modeled as three pure steps, each an immutable value the next validates — open (initiator offers name + constellation), accept (responder confirms same-net membership and answers), finish (initiator confirms the ack; a Session COMPLETE only when both are distinct never-a-ship members of the one sky).
+think The one new primitive: is_member(constellation, name) — an exact hyphen-segment scan reusing check_constellation's split shape, failing closed so a substring (xn inside xnb) is never a member. Values hold names and the constellation in fixed buffers so no borrowed slice escapes; stash() is the single place the name bound is enforced on entry.
+obs The naming law's safety reaches all the way into the handshake: a vowel-bearing (real-@p-shaped) party — zod at open, sampel at accept — refuses VowelPresent before it can ever greet. So the missing-vowel guarantee that AMUS0 proved for a single name now guards a whole greeting.
+obs Witness proves on metal across six blocks: a clean handshake completes (xnb greets xnc across xnb-xnc-xnd); a different constellation refuses ConstellationMismatch; a non-member refuses NotAMember; a self-greet refuses SameParty; a vowel-bearing party refuses VowelPresent at open and at accept; and membership names a whole segment while refusing a mere substring and the empty name.
+obs Kept docs synced in the same round (docs-implementation-sync): constel/README.md gains the handshake.rye rung, the run block lists amus_handshake_witness, the Status line and Kin weave include AMUS2, and the road-on now names only the real-transport crossing as the remaining seam. TAME bans clean, width exit 0.
+loom witness=amus_handshake_witness blocks=6 wall_ms_note=selftest under a second after build
+file active-designing/20260814-042804_amus2-constel-local-handshake.md the AMUS2 handshake design — three steps, membership predicate, the pure/transport split
+file constel/handshake.rye AMUS2 — the pure local handshake, agreement before exchange, over name.rye
+file tools/amus_handshake_witness.rish the GREEN witness for AMUS2
+file constel/README.md kept synced — the handshake rung, run block, Status, Kin, and road-on
+recommend keep-going — AMUS2 GREEN and ready to send; the next agent-doable AMUS rung wires the proven handshake to the real Comlink transport, which genuinely crosses the Comlink seam — a good check-in (Claude) point before touching seed/comlink/. No custody gate reached. Clock note: America/New_York read 20260814.042804, earlier than the prior newest 074900; the one-clock monotonic law honored by stamping 075400, just after the work it follows.

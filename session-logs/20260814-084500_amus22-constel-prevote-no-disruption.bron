@@ -1,0 +1,21 @@
+format session-log-v1
+stamp 20260814.084500
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS22 — Constel prevote: a partitioned pier cannot disrupt a stable sky
+prompt Recur through agent-doable Lindy-first crux-first laps; approve own design rounds; send each finished increment as its own signed round; STOP at custody gates. (Fifth lap this turn, after AMUS21.)
+think With the full Raft SAFETY set proven (through AMUS21), the highest remaining Lindy gap is STABILITY/liveness: AMUS16's monotonic term, which guards against a stale leader, is exactly what a partitioned node weaponizes — its term balloons in isolation and on rejoining forces a healthy leader to step down (Raft §9.6, the pre-vote problem). A correct consensus that one flapping node can disrupt into endless elections is correct yet unusable. So AMUS22 = pre-vote.
+think Pre-vote: a candidate must win a PRACTICE election (no node changing its term) before bumping its real term. A peer pre-grants only when BOTH hold — it has lost the leader (timeout elapsed) AND the candidate is up-to-date (AMUS21's at_least_as_current, reused unchanged). Only a majority of pre-grants lets the real term advance. So a partitioned node's high private term never forces the sky to move.
+think Built constel/prevote.rye composing vote.at_least_as_current + quorum.majority_of + roster.max_piers. A Peer carries heard_leader_recently + its last_term/len; pre_grants (both conditions); pre_vote_tally / pre_vote_passes (count vs threshold); maybe_start_election returns current_term+1 only on a passing pre-vote, else current_term unchanged. Six selftest blocks: both-conditions; THE CRUX — a majority still hearing the leader make a term-99 current candidate's pre-vote fail (tally 2<3), real term 5 unchanged; a genuinely leaderless sky passes (tally 3) and bumps to 6; a behind candidate fails even leaderless (tally 0); term bumps exactly once and only on success; bounded over eight.
+think GREEN on the first build. TAME bans clean, width exit 0, no usize. Additive — prevote.rye edits none of the modules it imports; all prior AMUS witnesses unaffected.
+obs This rounds out the Constel consensus story: safety set (AMUS10/12/17/18/19/21) + linearizable service (AMUS19 write + AMUS20 read) + stability (AMUS22). Pre-vote reuses AMUS21's up-to-date rule unchanged — the earlier rung's predicate doing double duty is the arc composing, not re-deriving.
+obs Custody gates honored: purely local, no socket/network/keys/funds/real address. A served pre-vote (real PreVote RPCs over Comlink) reaches the Comlink-served gate; the socket stays custody gate #2.
+obs One-clock: live host read below the prior newest 084300, so stamped 084500 per the AMUS ladder's monotonic convention. Later is always larger; the drift is noted, not fabricated.
+loom witness=amus_prevote_witness blocks=6 result=GREEN tame=clean width=exit0
+file constel/prevote.rye AMUS22 — Peer + pre_grants + pre_vote_passes + maybe_start_election (the §9.6 pre-vote)
+file tools/amus_prevote_witness.rish builds and runs the selftest, asserts the GREEN amus-prevote line
+file active-designing/20260814-084500_amus22-constel-prevote-no-disruption.md self-approved design round
+file constel/README.md seats AMUS22 — Status, Kin, rungs, run block, road-on, stamp
+recommend check-in (either) — five consensus rungs landed and sent this turn (AMUS19 apply · AMUS20 read · AMUS21 vote · AMUS22 prevote, atop AMUS18); Constel now has the full Raft safety set, a linearizable service, and pre-vote stability. Next pure cruxes: leadership transfer, or a fresh double-seat journey; the socket rung and breach renames stay custody gates.

@@ -1,0 +1,24 @@
+format session-log-v1
+stamp 20260814.083000
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title AMUS14 — Constel snapshot: compact the log so it can serve forever
+prompt Read REMEMBER and the two road-ahead design docs; take the next agent-doable lap Lindy-first crux-first; approve own design rounds and make progress before checking in; send each finished increment to origin and xykj61; STOP at custody gates.
+think Read REMEMBER (huge, long-line) via targeted greps; read the 1,024-round itinerary and the six-season double-seat expansion. The living edge is the Constel AMUS ladder (Season D thread), climbed AMUS0..AMUS13 all proven pure, latest commit AMUS13 reconfig.
+think The README's own road-on names the next rung as the socket — a real local file descriptor between fake piers — which crosses the seed/comlink seam and STOPS for the maintainer's word (custody gate). So the socket is not agent-doable this lap.
+think Lindy-first crux-first among the remaining PURE rungs: log compaction / snapshot. AMUS12's log is a fixed [max_entries]u32 refusing LogFull at the cap; a ledger that can hold only sixty-four decisions is a demonstration, not a ledger. Compaction is the single hardest-but-tractable pure move left — every real replicated log needs it — and it introduces no new seam. Self-approved the design round.
+think Design: the state a log accumulates is a deterministic, ORDER-SENSITIVE fold (state_n = state_{n-1} *% fold_mul +% value_n, wrapping). A Snapshot is (count, state). Because two piers that committed the same prefix apply the same values in the same order (AMUS12: each index commits at most one value), their snapshots are identical — the no-fork guarantee carries straight into compaction rather than being re-argued.
+think CompactLog = snapshot + bounded live tail. total() = snap.count + tail_len climbs past the tail cap as compaction reclaims; append grows the tail (TailFull); compact folds the whole tail into the snapshot in order and empties it; get refuses Compacted for a folded index and NoEntry past the end; equivalent judges two logs by committed history regardless of when each reclaimed its tail. run_and_append drives one AMUS11 decree and auto-compacts when the tail is full so a committed value never blocks for room; any decree error leaves the log unchanged.
+obs Built constel/snapshot.rye GREEN on the first build; witness tools/amus_snapshot_witness.rish GREEN. Six selftest blocks: fold order-sensitivity; append/get/TailFull; compact preserves total() and effective_state() and yields Compacted; NO FORK across an eager vs a lazy compaction schedule (equivalent), a different sequence honestly not; effective log past twice max_tail bounded; a real sky commits in order past the cap, a stranger leader refusing NoSuchPier and leaving the log untouched.
+obs TAME style check clean (bans clean; snapshot.rye not on the zero-assert ratchet — it carries invariants throughout). Every fn holds >=2 asserts with // invariant: lines; opening triad std/assert/print; snake_case; named errors; bounded tail; no @memcpy. Prior AMUS rungs stay GREEN (additive).
+obs Docs kept synced in the same round: constel/README.md gains the snapshot rung entry, run block, Status ladder, Kin design-doc link, and the road-on now naming endurance as the fifth proven property (identity, value, order, membership, endurance).
+obs Custody-first held: purely local, no socket, no network, no keys, no funds, no real address ever formed. Custody gate #2 (real hardware / any real wire) and gate #4 (real Kumara) untouched. The socket rung stays the maintainer's hand — no gate crossed this lap.
+obs Clock note: America/New_York read 20260814.060326, earlier than the prior newest 082900; the one-clock monotonic law honored by stamping 083000, just after the work it follows.
+loom witness=amus_snapshot_witness green=1 selftest_blocks=6 max_tail=64 effective_past_bound=128
+file active-designing/20260814-060326_amus14-constel-snapshot-log-compaction.md self-approved design read for the rung
+file constel/snapshot.rye AMUS14 — Snapshot, CompactLog, fold_step, run_and_append; the ledger that serves forever
+file tools/amus_snapshot_witness.rish GREEN witness building and running the selftest
+file constel/README.md seats the snapshot rung — ladder, run block, Kin, road-on
+recommend keep-going the next pure AMUS rung or a fresh Season-D crux, each a self-approved design read first; the socket rung and every deep-debride / seed force-push stay Keaton's hand

@@ -1,0 +1,22 @@
+format session-log-v1
+stamp 20260814.083900
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title AMUS19 — Constel apply: the committed log drives a state machine, each request applied exactly once
+prompt Recur through agent-doable Lindy-first crux-first laps; approve own design rounds; send each finished increment as its own signed round; STOP at custody gates. (Continuing past AMUS18.)
+think Read REMEMBER, the 1,024-round itinerary, and the six-season double-seat. The living edge is the Constel (AMUS) consensus ladder, now at AMUS18 — Raft's Figure 8 commit rule. The whole Raft safety spine (roster, wire, gossip, quorum, election, decree, log, reconfig, snapshot, catchup, terms, repair, commit) is proven pure and local; the socket rung is custody gate #2 and stays Keaton's hand.
+think Lindy-first crux-first: the highest-durability still-tractable pure rung is Raft §8, client interaction — an agreed log is not a service until each request runs exactly once. AMUS18's own recommend line even named this next ("client exactly-once semantics / request-id dedup"). It composes AMUS18's committed prefix (safe_commit_len) with nothing new in consensus.
+think Built constel/apply.rye: a Command carries {client, seq, amount} (the identity AMUS12's anonymous u32 value lacked); a Machine holds a bounded register plus a per-client session table (last_seq, last_result, seen) — Raft §8's dedup made concrete; apply_one is the exactly-once heart (a seq not greater than the client's last applied seq is a retry — return the cached result, mutate nothing); apply_through folds only the committed prefix so an uncommitted tail never touches the state.
+think Witness proves six blocks: applies a committed prefix in order; the replicated-state-machine guarantee (two machines, same prefix, byte-identical register + session table via std.mem.eql); THE §8 REFUSAL — one client's request twice (leader-crash-then-resend) applies once (43, never 83); the answer is stable across a retry; only the committed prefix drives the machine and apply is incremental (advancing commit_len applies exactly the newly-committed suffix, reaching the same state as one full apply); and bounded — UnknownClient, RegisterOverflow, TooManyCommitted each refuse by name changing nothing.
+think First build GREEN across all six blocks on the first run; TAME bans clean; width exit 0; both new and prior AMUS witnesses GREEN (additive — apply imports only roster, changes nothing in commit/repair).
+obs This is the rung that makes the whole consensus ladder USEFUL rather than merely safe — every Mycelium ledger (Pledge, Voucher, Portage) silently assumed a request runs once; AMUS19 is where that is proven. High-Lindy: it is what a keeper actually experiences (my request ran once, my answer is stable). Kept apply_one's retry branch to one asserted line so the exactly-once guarantee reads at a glance, in the same spirit as AMUS18 keeping naive_commit_len as a visible counter-example.
+obs Custody gates honored: purely local, no socket/network/keys/funds/real client/real address. A served machine reaches the Comlink-served gate; the socket stays custody gate #2.
+obs One-clock: live host read 20260814.064837 is BELOW the prior newest stamp 083700, so stamped 083900 per the AMUS ladder's monotonic convention (AMUS18 did the same — live 063005 stamped 083700). Later is always larger; the drift is noted, not fabricated.
+loom witness=amus_apply_witness blocks=6 result=GREEN tame=clean width=exit0
+file constel/apply.rye AMUS19 — Command + Machine (session table) + apply_one (exactly-once) + apply_through (committed prefix)
+file tools/amus_apply_witness.rish builds and runs the selftest, asserts the GREEN amus-apply line
+file active-designing/20260814-083900_amus19-constel-apply-linearizable-sessions.md self-approved design round
+file constel/README.md seats AMUS19 — Status, Kin, rungs, run block, road-on, stamp
+recommend keep-going — the next agent-doable pure crux is a read-only/read-index query path (linearizable reads without a log append) or pre-vote / leadership transfer; the socket stays custody gate #2.

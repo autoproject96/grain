@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260814.021218
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu 26.04 LTS GNOME Wayland (Framework 16 AMD) — Eastern (EDT) time convention
+title CAUM1 — the Mikrophone wire frame carries only what was committed
+prompt Take the next agent-doable lap Lindy-first crux-first on the road past BUHR; approve own design rounds; send each finished increment; stop at custody gates.
+think Read REMEMBER, the 1,024-round itinerary, and the six-season double-seat expansion. The living edge is Season A (waymark HUNK) whole through HUNK93 (parts marketplace) and Season A's second journey already opened — the Mikrophone firmware (waymark CAUM), with CAUM0 (session.rye, the memory that forgets) landed and GREEN.
+think By Lindy-first crux-first the next durable crux on the Mikrophone journey is the one CAUM0's own design read named next: the wire protocol to Comlink. carry() hands back the one committed payload; nothing yet names how it crosses. The wire frame is the bridge, and it fits the tree's deepest established discipline — verify the digest before reading a byte (Open Image artifact beads, constellation Deed Sha256).
+think Confirmed the toolchain and ran caum_session_witness GREEN before building on it (measurement beats memory). Reused std Sha256 (constellation.rye precedent) rather than reinventing a hash; imported session.rye as a sibling (@import pattern from image_artifact/qoi).
+obs The load-bearing invariant that makes it the Mantrapod's frame and not a generic codec: frame reads carry(), so an uncommitted or forgotten session frames NOTHING (NothingToCarry) — the forgetting promise reaches all the way to the wire. Deframe orders every check before the payload is yielded: FrameTooShort, BadMagic, BadVersion, LengthOverflow (a wire length never trusted past max_samples), FrameTruncated, DigestMismatch.
+obs No custody crossed — bytes framed, verified, yielded in memory; no disk, no network, no key, no funds. The Sha256 digest is an integrity check the far side recomputes, not a signature (a signed carry is a later gated rung). Real hardware and any real wire stay custody gate #2.
+obs TAME bans clean on the mikrophone roster; width-check exit 0; the payload copy is a plain bounded loop, never a bare memcpy; ≥2 positive asserts per fn.
+loom witness=caum_wire_witness result=green frame_header_len=41 max_frame=4137 digest=sha256 corruptions_refused=6
+file active-designing/20260814-021218_caum1-wire-frame-carry-only-committed-exploration.md the self-approved CAUM1 design round
+file mikrophone/wire.rye the wire frame module — frame/deframe, verify-before-trust, carries only the committed
+file tools/caum_wire_witness.rish the CAUM1 witness — GREEN on metal
+recommend keep-going CAUM2 — the amber-light idle or the field-recorder controls stand next on a session and a wire both known correct; agent-doable, no gate.

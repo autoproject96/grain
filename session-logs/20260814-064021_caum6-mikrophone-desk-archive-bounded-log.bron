@@ -1,0 +1,19 @@
+format session-log-v1
+stamp 20260814.064021
+editor Zed + Claude Agent
+model Fable 5
+voice Kyri
+host cloud pier — Eastern (EDT) time convention
+title CAUM6 — the desk archive: a bounded log that keeps a sequence of proven recordings in order
+prompt recur the 1024-round itinerary Lindy-first crux-first; take the next agent-doable lap on the road past BUHR, self-approve design rounds, send each finished increment as its own signed round, stop at custody gates
+think CAUM5 proved the carry meets end to end, but the desk inbox keeps only the last accepted frame — accept overwrites its single slot. A field recorder is many recordings; a desk that forgets all but the newest is not the desk a keeper needs. Lindy-first crux-first, the most durable next move within the module family is a bounded archive that keeps a sequence in arrival order.
+think The crux is the bounded append held to verify-before-keep across many: deposit deframes first and appends only on a clean deframe within both bounds; a corrupt frame anywhere refuses by name and leaves the whole archive exactly as it was (no partial write, no disturbed prior entry); two bounds — max_entries and a max_bytes budget — each refuse ArchiveFull before a byte passes them.
+think mikrophone/archive.rye stands on CAUM1's wire.deframe, inventing no transport. A packed byte store plus a bounded index of (off, len) entries; deposit checks the entry count, checks the byte need in u64 so the sum cannot wrap, then copies with a plain bounded loop. entry_at reads the i-th recording bounded by the count; clear zeroes the whole store.
+obs The sharp invariants: three framed takes read back byte-for-byte in arrival order; a tampered frame handed to a non-empty archive refuses DigestMismatch and the archive stands unchanged (count and prior entry intact); a seventeenth entry refuses ArchiveFull; eight whole-session payloads exactly fill max_bytes (8×max_samples) and a ninth refuses ArchiveFull with used still at the budget; clear leaves count zero and the store entirely zero.
+obs Custody untouched — a frame is still a byte slice handed function to function; a durable content-addressed store on real flash (beading a recording into Tablecloth) is a later rung that composes this shape with the tree's artifact store. Real hardware, a real desk, a real disk stay custody gate #2; no custody gate reached.
+loom witness=caum_archive_witness cases=5 result=GREEN tame=clean width=exit0
+file active-designing/20260814-064021_caum6-desk-archive-bounded-log-of-proven-recordings-exploration.md the self-approved design round naming the crux, shape, and five invariants
+file mikrophone/archive.rye CAUM6 — the desk archive (init · deposit · count_of · entry_at · clear), verify-before-keep across many, selftest GREEN
+file tools/caum_archive_witness.rish the witness that builds and runs the archive selftest, asserts the GREEN caum-archive line
+file work-in-progress/REMEMBER.md living edge advanced CAUM5→CAUM6, the CAUM sentence extended with the bounded archive, git nib refreshed in this same work commit
+recommend keep-going the desk now keeps a bounded archive; next agent-doable Season-A rungs stay pure — beading an accepted recording into the tree's content-addressed store (Tablecloth), or the archive meeting a Skate/glass surface (a scrollable list of takes); no custody gate until a board or provisioning is reached

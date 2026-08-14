@@ -1,4 +1,4 @@
-# tools/caum_witness.rish — the whole Mikrophone firmware journey, proven in one command (CAUM0–CAUM13).
+# tools/caum_witness.rish — the whole Mikrophone firmware journey, proven in one command (CAUM0–CAUM14).
 #
 # Season A (Hardware & Right-to-Repair) · waymark CAUM · Mikrophone firmware journey · aggregate witness.
 # Front door: mikrophone/README.md.
@@ -69,4 +69,8 @@ let forget = run ["rishi/bin/rishi" "run" "tools/caum_forget_witness.rish"]
 assert forget.ok else "caum: CAUM13 forget witness failed"
 assert (forget.out contains "GREEN caum-forget") else "caum: CAUM13 forget not GREEN"
 
-say "GREEN caum: the whole Mikrophone firmware journey holds — CAUM0 session · CAUM1 wire · CAUM2 recorder · CAUM3 firmware · CAUM4 inbox · CAUM5 carry · CAUM6 archive · CAUM7 catalog · CAUM8 manifest · CAUM9 serve · CAUM10 redact · CAUM12 sync · CAUM13 forget, all thirteen rungs proven pure before metal in one command; no disk, no network, no key, no funds."
+let push = run ["rishi/bin/rishi" "run" "tools/caum_push_witness.rish"]
+assert push.ok else "caum: CAUM14 push witness failed"
+assert (push.out contains "GREEN caum-push") else "caum: CAUM14 push not GREEN"
+
+say "GREEN caum: the whole Mikrophone firmware journey holds — CAUM0 session · CAUM1 wire · CAUM2 recorder · CAUM3 firmware · CAUM4 inbox · CAUM5 carry · CAUM6 archive · CAUM7 catalog · CAUM8 manifest · CAUM9 serve · CAUM10 redact · CAUM12 sync · CAUM13 forget · CAUM14 push, all fourteen rungs proven pure before metal in one command; no disk, no network, no key, no funds."

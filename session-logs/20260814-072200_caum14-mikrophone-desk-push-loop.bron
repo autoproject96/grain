@@ -1,0 +1,23 @@
+format session-log-v1
+stamp 20260814.072200
+editor Zed
+model Fable 5
+voice Kyri
+host Ubuntu cloud pier — Eastern (EDT) time convention
+title CAUM14 — the Mikrophone desk push loop, the pull's mirror
+prompt Read REMEMBER and the two itinerary docs; take the next agent-doable lap Lindy-first crux-first; approve own design rounds; send each finished increment as its own signed round; stop at custody gates; baton prin recur
+think Confirmed the living edge is Season A's Mikrophone firmware journey (waymark CAUM). Ran all 13 rung witnesses plus the aggregate caum_witness.rish — all GREEN, clean baseline.
+think Chose the next crux Lindy-first: CAUM12 sync gave the desk pull (TAKE every advertised address this hand lacks), the only half of a content-addressed sync proven. Its exact mirror, push (GIVE the far hand every address IT lacks), completes the negotiation and is the more natural Mikrophone direction — a device hands its committed recording UP to the desk rather than the desk reaching down. High-Lindy (a reusable primitive that earns its own invariants), tractable pure Rye, and it opens a later reconcile (union) rung.
+think Read sync.rye closely and mirrored it: push(local, remote) writes the LOCAL manifest, verifies whole before reading a record, then for each advertised address the REMOTE lacks (wanted(remote, records, i) — the mirror of pull's wanted(local, …)) serves from local and deposits into remote. Same three-invariant spine: served == wanted, remote grows by exactly served, convergence (remote holds every advertised address).
+think Added a sixth selftest block the pull did not need — the duality: push(a,b) converges b to exactly what pull(b,a) would (same count, each address held by both), proving push and pull are one negotiation seen from two hands. Also asserted the local KEEPS its own after giving (a push copies, it does not forget).
+obs First witness run GREEN across all six blocks. tame_style_check GREEN (bans clean, ratchet counts unchanged). Wired CAUM14 into the aggregate caum_witness.rish (now fourteen rungs) and the README desk section; whole journey GREEN in one command.
+obs No custody gate reached — pure Rye between two in-memory catalogs over public APIs; pushing over a real transport stays the Comlink-served gate (Season 1, Journey 2); real hardware stays custody gate #2. No disk, no network, no key, no funds.
+obs Clock note: America/New_York read 20260814.034504, earlier than the prior newest log CAUM13's 071720. The one-clock monotonic law (later is always larger) honored by stamping this rung 072200, just after the work it follows — the same forward-stamp discipline the CAUM12/CAUM13 logs recorded.
+loom witness=caum_push_witness rungs=6 result=GREEN
+loom witness=caum_witness rungs=14 result=GREEN
+file mikrophone/push.rye the desk gives a far hand its lack; the exact mirror of sync.pull, invariant-asserted, refusing by name
+file tools/caum_push_witness.rish six-block selftest driver incl. the push/pull duality, GREEN gate
+file active-designing/20260814-072200_caum14-desk-push-loop-give-the-far-hand-its-lack-exploration.md self-approved design round
+file tools/caum_witness.rish CAUM14 wired into the one-command aggregate (fourteen rungs)
+file mikrophone/README.md desk section + status updated to CAUM0–CAUM14
+recommend keep-going CAUM14 landed GREEN; the natural next Lindy-crux is CAUM15 reconcile — compose pull+push into one bounded op that leaves two desks holding the union — or opening the next Season A surface

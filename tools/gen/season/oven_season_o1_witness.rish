@@ -6,7 +6,7 @@ say "oven-season-o1: Language EN — cut the forge path."
 say "oven-season-o1: Style Radiant — prove oven/; refuse anvil/ ghost."
 say "oven-season-o1: Lens TAME — Oven Season o1."
 
-let counsel = run ["test" "-f" "counsel/20260728-235520_oven-season-o1-path-cut.md"]
+let counsel = run ["test" "-f" "counsel/date/20260728/20260728-235520_oven-season-o1-path-cut.md"]
 assert counsel.ok else "oven-season-o1: o1 counsel missing"
 
 let cut = run ["sh" "-c" "test -d oven && test -f oven/oven_core.rye && test -f oven/oven.rye && test -f oven/oven.peal && test ! -d anvil && echo CUT_OK"]
